@@ -9,4 +9,5 @@
 
     <color name="selected">#a8cf45</color>
     <color name="unselected">#ff8cae3b</color>
+    <color name="gray_4">#CCCFFF</color>
 </resources>

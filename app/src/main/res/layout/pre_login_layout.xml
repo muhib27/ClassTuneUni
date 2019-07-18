@@ -6,63 +6,66 @@
 
 
     <LinearLayout
+        android:layout_marginBottom="@dimen/size_50dp"
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
-            android:layout_marginLeft="@dimen/size_50dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/size_50dp"
             android:text="Discover \nInteresting \nThings"
             android:textSize="@dimen/text_size_25_sp"
             android:textStyle="bold" />
 
         <TextView
-            android:layout_marginTop="@dimen/size_10dp"
-            android:layout_gravity="center"
-            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:gravity="center"
             android:text="Let us help you to find exciting things \n you will love, no matter where you go"
             android:textSize="@dimen/size_20sp"
             android:textStyle="normal" />
 
 
-        <RelativeLayout
-            android:padding="@dimen/size_20dp"
+        <LinearLayout
+            android:layout_marginLeft="@dimen/size_40dp"
+            android:layout_marginRight="@dimen/size_40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:padding="@dimen/size_20dp">
+
             <Button
-                android:layout_marginRight="@dimen/size_10dp"
-                android:paddingBottom="@dimen/size_5dp"
-                android:paddingTop="@dimen/size_5dp"
-                android:paddingRight="@dimen/size_40dp"
-                android:paddingLeft="@dimen/size_40dp"
+                android:layout_marginRight="@dimen/size_5dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:id="@+id/login"
-                android:textSize="@dimen/size_20sp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selected"
+                android:paddingTop="@dimen/size_5dp"
+                android:paddingBottom="@dimen/size_5dp"
+                android:text="@string/login"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:background="@drawable/selected"
-                android:text="@string/login"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:textSize="@dimen/size_20sp" />
+
             <Button
-                android:textAllCaps="false"
-                android:layout_toEndOf="@+id/login"
-                android:layout_marginLeft="@dimen/size_10dp"
-                android:paddingBottom="@dimen/size_5dp"
-                android:paddingTop="@dimen/size_5dp"
-                android:paddingRight="@dimen/size_40dp"
-                android:paddingLeft="@dimen/size_40dp"
+                android:layout_marginLeft="@dimen/size_5dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:id="@+id/register"
-                android:textSize="@dimen/size_20sp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/unselected"
-                android:text="@string/login"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </RelativeLayout>
+                android:paddingTop="@dimen/size_5dp"
+                android:paddingBottom="@dimen/size_5dp"
+                android:text="@string/register"
+                android:textAllCaps="false"
+                android:textSize="@dimen/size_20sp" />
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>
