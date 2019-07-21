@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        id="@+id/home"
+        icon="@drawable/ic_recents"
+        title="Home"
+        />
+    <tab
+        id="@+id/assistant"
+        icon="@drawable/ic_favorites"
+        title="Assignment"
+        />
+    <tab
+        id="@+id/news"
+        icon="@drawable/ic_nearby"
+        title="খবর"
+         />
+    <tab
+        id="@+id/quiz"
+        icon="@drawable/ic_friends"
+        title="কুইজ"
+        />
+    <tab
+        id="@+id/forum"
+        icon="@drawable/ic_restaurants"
+        title="ফোরাম"
+       />
+</tabs>

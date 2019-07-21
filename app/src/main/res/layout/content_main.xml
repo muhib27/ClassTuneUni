@@ -7,18 +7,45 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/app_bar_main"
-    tools:context=".MainActivity">
+    tools:context=".activity.MainActivity">
 
-    <android.support.design.widget.TabLayout
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="@dimen/size_8_dp"
-        android:layout_marginBottom="@dimen/size_8_dp"
-        android:id="@+id/tabs"
+    <!--<android.support.design.widget.TabLayout-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginTop="@dimen/size_8_dp"-->
+        <!--android:layout_marginBottom="@dimen/size_8_dp"-->
+        <!--android:id="@+id/tabs"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/size_40dp"-->
+        <!--app:tabPaddingStart="0dp"-->
+        <!--app:tabPaddingEnd="0dp"-->
+        <!--app:tabMaxWidth="@dimen/size_60dp"-->
+        <!--app:tabMode="scrollable" />-->
+    <FrameLayout
+        android:id="@+id/mainContainer"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/size_40dp"
-        app:tabPaddingStart="0dp"
-        app:tabPaddingEnd="0dp"
-        app:tabMaxWidth="@dimen/size_60dp"
-        app:tabMode="scrollable" />
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_ll"
+        android:layout_alignParentTop="true" />
+    <LinearLayout
+        android:id="@+id/bottom_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+
+        <com.roughike.bottombar.BottomBar
+            android:id="@+id/bottomBar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            app:bb_tabXmlResource="@xml/bottombar_tabs_color_changing"
+            app:itemIconTint="@drawable/bottom_navigation_selector"
+            app:bb_inActiveTabColor="@color/bottom_inactive"
+            app:bb_activeTabColor="@color/appColor"
+            app:bb_titleTextAppearance="@style/CustomTitleTextAppearance"
+            app:bb_behavior="shifting" />
+
+    </LinearLayout>
 
 </RelativeLayout>

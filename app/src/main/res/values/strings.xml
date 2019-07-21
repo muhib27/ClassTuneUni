@@ -26,4 +26,8 @@
     <string name="hint_con_password">Confirm Password</string>
     <string name="terms_con"><![CDATA[Terms & Conditions]]></string>
     <string name="agree_with_the">Agree with the</string>
+    <string name="hint_uni_name">Enter University Name</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

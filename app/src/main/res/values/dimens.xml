@@ -14,10 +14,14 @@
     <dimen name="text_size_14_sp">14sp</dimen>
     <dimen name="text_size_22_sp">22sp</dimen>
     <dimen name="text_size_25_sp">25sp</dimen>
+    <dimen name="text_size_30_sp">30sp</dimen>
     <dimen name="size_10dp">10dp</dimen>
     <dimen name="text_size_18_sp">20sp</dimen>
     <dimen name="size_50dp">50dp</dimen>
     <dimen name="size_20sp">20sp</dimen>
     <dimen name="size_100dp">100dp</dimen>
     <dimen name="text_size_35_sp">35sp</dimen>
+    <dimen name="size_70dp">70dp</dimen>
+    <dimen name="size_75dp">75dp</dimen>
+    <dimen name="size_80dp">80dp</dimen>
 </resources>

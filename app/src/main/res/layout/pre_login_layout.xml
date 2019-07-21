@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_alignParentBottom="true"
+    android:background="@drawable/sp_bg"
     android:layout_height="match_parent">
 
 
@@ -25,8 +26,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/size_10dp"
-            android:gravity="center"
-            android:text="Let us help you to find exciting things \n you will love, no matter where you go"
+            android:gravity="left"
+            android:text="Let us help you to find exciting things \nyou will love, no matter where you go"
             android:textSize="@dimen/size_20sp"
             android:textStyle="normal" />
 
