@@ -30,4 +30,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="assignDateText">Assign Date:</string>
+    <string name="dueDateText">Due Date:</string>
+    <string name="status">Status</string>
+    <string name="back">Back</string>
 </resources>

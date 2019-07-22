@@ -32,6 +32,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="vertical">
+        <View
+            android:background="@color/appColor"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
 
 
         <com.roughike.bottombar.BottomBar
