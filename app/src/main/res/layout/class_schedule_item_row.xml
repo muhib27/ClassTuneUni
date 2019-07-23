@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scheduleCell"
+    android:orientation="horizontal"
+    android:elevation="3dp"
+    android:padding="2dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/size_20dp"
+                    android:paddingRight="@dimen/size_20dp"
+                    android:text="Monday"
+                    android:textColor="@color/appColor"
+                    android:textSize="@dimen/text_size_12_sp" />
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/size_20dp"
+                    android:paddingRight="@dimen/size_20dp"
+                    android:text="10"
+                    android:textColor="@color/appColor"
+                    android:textSize="@dimen/text_size_44_sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/monthYear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/size_20dp"
+                    android:paddingRight="@dimen/size_20dp"
+                    android:text="June, 2019"
+                    android:textColor="@color/appColor"
+                    android:textSize="@dimen/text_size_12_sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/gray_4" />
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="@dimen/size_10dp"
+                android:text="10:30am - 12:00pm"
+                android:textSize="@dimen/text_size_23_sp" />
+
+    </LinearLayout>

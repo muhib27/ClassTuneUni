@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="3dp"
+    android:padding="@dimen/size_10dp"
+    card_view:cardBackgroundColor="@android:color/transparent"
+    card_view:cardCornerRadius="0dp">
+
+    <RelativeLayout
+        android:id="@+id/examCell"
+        android:background="@drawable/assignment_cell_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/basicInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/size_10dp">
+
+            <TextView
+                android:id="@+id/examName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/robotobold"
+                android:maxLines="2"
+                android:padding="@dimen/size_10dp"
+                android:text="Class Test 2"
+                android:textColor="@color/black"
+                android:textSize="@dimen/size_20sp"
+                android:textStyle="normal" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textSize="@dimen/text_size_14_sp"
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="name" />
+
+                <View
+                    android:layout_width="@dimen/size_16dp"
+                    android:layout_height="@dimen/size_16dp"
+                    android:layout_marginLeft="@dimen/size_20dp"
+                    android:layout_marginRight="@dimen/size_20dp"
+                    android:background="@drawable/filled_circle" />
+
+                <TextView
+                    android:textColor="@color/appColor"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/text_size_14_sp"
+                    android:id="@+id/subject"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Subject" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_10dp"
+                android:layout_marginTop="@dimen/size_10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textSize="@dimen/text_size_11_sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/examDateText" />
+
+                <TextView
+                    android:textColor="@color/appColor"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/text_size_11_sp"
+                    android:id="@+id/examDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/size_10dp"
+                    android:text="22 July, 2019" />
+
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="@dimen/size_40dp"
+            android:layout_marginEnd="@dimen/size_20dp"
+            android:gravity="right|bottom"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@+id/basicInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:textColor="@color/appColor"
+                android:textSize="@dimen/text_size_36_sp"
+                android:textStyle="bold"
+                android:id="@+id/marks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2.5" />
+            <TextView
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_14_sp"
+                android:id="@+id/divider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/" />
+            <TextView
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_14_sp"
+                android:id="@+id/total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10" />
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>

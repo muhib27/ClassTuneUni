@@ -11,6 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 
 import com.classtune.classtuneuni.fragment.AssignmentFragment;
+import com.classtune.classtuneuni.fragment.ClassScheduleFragment;
+import com.classtune.classtuneuni.fragment.CombinedResultFragment;
+import com.classtune.classtuneuni.fragment.ExamListFragment;
 import com.classtune.classtuneuni.fragment.HomeFragment;
 import com.classtune.classtuneuni.R;
 import com.roughike.bottombar.BottomBar;
@@ -74,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
 //                    else {
 //                        showNews();
 //                    }
+                    fragment = new CombinedResultFragment();
+                    loadFragment(fragment, "combinedResultFragment");
                 } else if (tabId == R.id.quiz) {
                     //Toast.makeText(getApplicationContext(), TabMessage.get(tabId, true), Toast.LENGTH_LONG).show();
 //                    QuizFragment quizFragment = (QuizFragment) getSupportFragmentManager().findFragmentByTag("quizFragment");
@@ -82,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
 //                    else {
 //                        showQuiz();
 //                    }
+                    fragment = new ExamListFragment();
+                    loadFragment(fragment, "examListFragment");
                 } else if (tabId == R.id.forum) {
                     //Toast.makeText(getApplicationContext(), TabMessage.get(tabId, true), Toast.LENGTH_LONG).show();
 //                    ForumFragment forumFragment = (ForumFragment) getSupportFragmentManager().findFragmentByTag("forumFragment");
@@ -90,6 +97,9 @@ public class MainActivity extends AppCompatActivity {
 //                    else {
 //                        showForum();
 //                    }
+
+                    fragment = new ClassScheduleFragment();
+                    loadFragment(fragment, "classScheduleFragment");
                 }
             }
         });
