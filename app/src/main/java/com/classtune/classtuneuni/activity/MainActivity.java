@@ -11,11 +11,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 
 import com.classtune.classtuneuni.fragment.AssignmentFragment;
+import com.classtune.classtuneuni.fragment.AttendanceSummaryFragment;
 import com.classtune.classtuneuni.fragment.ClassScheduleFragment;
 import com.classtune.classtuneuni.fragment.CombinedResultFragment;
 import com.classtune.classtuneuni.fragment.ExamListFragment;
 import com.classtune.classtuneuni.fragment.HomeFragment;
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.fragment.TakeAttendanceFragment;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -54,8 +56,14 @@ public class MainActivity extends AppCompatActivity {
 //                    }
                     //Toast.makeText(getApplicationContext(), TabMessage.get(tabId, true), Toast.LENGTH_LONG).show();
 
-                    fragment = new HomeFragment();
-                    loadFragment(fragment, "homeFragment");
+//                    fragment = new HomeFragment();
+//                    loadFragment(fragment, "homeFragment");
+
+//                    fragment = new AttendanceSummaryFragment();
+//                    loadFragment(fragment, "attendanceSummaryFragment");
+
+                    fragment = new TakeAttendanceFragment();
+                    loadFragment(fragment, "takeAttendanceFragment");
                     //return true;
                 } else if (tabId == R.id.assistant) {
                     //Toast.makeText(getApplicationContext(), TabMessage.get(tabId, true), Toast.LENGTH_LONG).show();

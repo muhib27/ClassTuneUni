@@ -13,5 +13,6 @@
     <color name="unselected">#ff8cae3b</color>
     <color name="gray_4">#CCCFFF</color>
     <color name="bottom_inactive">#D8D8D8</color>
+    <color name="ashColor">#D8D8D8</color>
 
 </resources>

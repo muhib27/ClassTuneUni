@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="3dp"
+    android:padding="@dimen/size_10dp"
+    android:layout_margin="@dimen/size_3dp"
+    card_view:cardElevation="5dp"
+    card_view:cardCornerRadius="0dp">
+
+    <RelativeLayout
+        android:id="@+id/scheduleCell"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:padding="@dimen/size_10dp"
+            android:id="@+id/ll"
+            android:layout_alignParentStart="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/size_20dp"
+                android:paddingRight="@dimen/size_20dp"
+                android:text="Monday"
+                android:textColor="@color/appColor"
+                android:textSize="@dimen/text_size_12_sp" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/size_20dp"
+                android:paddingRight="@dimen/size_20dp"
+                android:text="10"
+                android:textColor="@color/appColor"
+                android:textSize="@dimen/text_size_44_sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/monthYear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/size_20dp"
+                android:paddingRight="@dimen/size_20dp"
+                android:text="June, 2019"
+                android:textColor="@color/appColor"
+                android:textSize="@dimen/text_size_12_sp" />
+        </LinearLayout>
+        <View
+            android:layout_centerInParent="true"
+            android:layout_width="1dp"
+            android:layout_height="100dp"
+            android:layout_toEndOf="@+id/ll"
+            android:background="@color/ashColor" />
+        <LinearLayout
+            android:layout_marginTop="@dimen/size_40dp"
+            android:gravity="right|bottom"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@+id/basicInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_marginEnd="@dimen/size_20dp"
+                android:layout_centerInParent="true"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="@dimen/size_10dp"
+                android:text="10:30am - 12:00pm"
+                android:textSize="@dimen/text_size_23_sp" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>

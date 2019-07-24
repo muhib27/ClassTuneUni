@@ -24,4 +24,15 @@
         <item name="android:textSize">13sp</item>
         <item name="android:textStyle">normal</item>
     </style>
+
+    <style name="MyTheme" parent="@android:style/Theme.Light">
+        <item name="android:tabWidgetStyle">@style/LightTabWidget</item>
+    </style>
+
+    <style name="LightTabWidget" parent="@android:style/Widget.TabWidget">
+        <!-- set textColor to red, so you can verify that it applied. -->
+        <item name="android:textColor">@color/ashColor</item>
+        <item name="android:textSize">10sp</item>
+        <!-- <item name="android:textColor">#1E90FF</item> -->
+    </style>
 </resources>

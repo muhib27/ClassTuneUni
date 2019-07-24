@@ -44,7 +44,7 @@ public class ClassScheduleAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         switch (viewType) {
             case ITEM:
-                View viewItem = inflater.inflate(R.layout.class_schedule_item_row, parent, false);
+                View viewItem = inflater.inflate(R.layout.schedule_item_row, parent, false);
                 viewHolder = new MovieVH(viewItem);
                 break;
 
@@ -103,7 +103,7 @@ public class ClassScheduleAdapter extends RecyclerView.Adapter<RecyclerView.View
             private ImageView mPosterImg;
             private ProgressBar mProgress;
             private TextView time;
-            private LinearLayout scheduleCell;
+            private RelativeLayout scheduleCell;
             CardView cardView;
 
             public MovieVH(View itemView) {

@@ -38,4 +38,6 @@
     <dimen name="text_size_10_sp">10sp</dimen>
     <dimen name="text_size_44_sp">44sp</dimen>
     <dimen name="text_size_23_sp">23sp</dimen>
+    <dimen name="text_size_40_sp">40sp</dimen>
+    <dimen name="size_1dp">1dp</dimen>
 </resources>

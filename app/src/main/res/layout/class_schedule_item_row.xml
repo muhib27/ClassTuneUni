@@ -2,14 +2,25 @@
 <LinearLayout xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scheduleCell"
-    android:orientation="horizontal"
-    android:elevation="3dp"
     android:padding="2dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <!--<android.support.v7.widget.CardView-->
+        <!--android:id="@+id/cardView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--card_view:cardElevation="@dimen/size_3dp"-->
+        <!--android:padding="@dimen/size_10dp"-->
+        <!--card_view:cardCornerRadius="0dp">-->
+        <RelativeLayout
+            android:layout_margin="@dimen/size_10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <LinearLayout
+                android:id="@+id/ll"
+                android:layout_alignParentStart="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -46,12 +57,11 @@
                     android:textSize="@dimen/text_size_12_sp" />
             </LinearLayout>
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/gray_4" />
 
             <TextView
+                android:layout_marginEnd="@dimen/size_20dp"
+               android:layout_centerInParent="true"
+                android:layout_alignParentEnd="true"
                 android:id="@+id/time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -59,5 +69,14 @@
                 android:padding="@dimen/size_10dp"
                 android:text="10:30am - 12:00pm"
                 android:textSize="@dimen/text_size_23_sp" />
+
+            <View
+                android:layout_width="3dp"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/ll"
+                android:background="@color/black" />
+
+        </RelativeLayout>
+    <!--</android.support.v7.widget.CardView>-->
 
     </LinearLayout>

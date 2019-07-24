@@ -35,4 +35,7 @@
     <string name="status">Status</string>
     <string name="back">Back</string>
     <string name="examDateText">Exam Date:</string>
+    <string name="txt_save">Save</string>
+    <string name="reset">Reset</string>
+    <string name="title_roll_call_tab">Tab2</string>
 </resources>
