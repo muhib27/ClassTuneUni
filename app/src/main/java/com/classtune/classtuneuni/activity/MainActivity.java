@@ -18,6 +18,7 @@ import com.classtune.classtuneuni.fragment.ExamListFragment;
 import com.classtune.classtuneuni.fragment.HomeFragment;
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.fragment.TakeAttendanceFragment;
+import com.classtune.classtuneuni.fragment.TeacherResultEntryFragment;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -62,8 +63,11 @@ public class MainActivity extends AppCompatActivity {
 //                    fragment = new AttendanceSummaryFragment();
 //                    loadFragment(fragment, "attendanceSummaryFragment");
 
-                    fragment = new TakeAttendanceFragment();
-                    loadFragment(fragment, "takeAttendanceFragment");
+//                    fragment = new TakeAttendanceFragment();
+//                    loadFragment(fragment, "takeAttendanceFragment");
+
+                    fragment = new TeacherResultEntryFragment();
+                    loadFragment(fragment, "teacherResultEntryFragment");
                     //return true;
                 } else if (tabId == R.id.assistant) {
                     //Toast.makeText(getApplicationContext(), TabMessage.get(tabId, true), Toast.LENGTH_LONG).show();
