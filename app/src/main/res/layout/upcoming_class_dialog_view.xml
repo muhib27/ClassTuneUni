@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:paddingBottom="@dimen/size_20dp"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:background="@color/black"
+            android:gravity="center"
+            android:text="@string/upcoming_class"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_20sp"
+            android:textStyle="bold" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/size_10dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/size_20dp"
+                android:layout_marginTop="@dimen/size_10dp"
+                android:text="Full Marks"
+                android:textColor="@color/appColor" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/size_20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="@dimen/size_20dp"
+                android:background="@drawable/input_field_background"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <EditText
+                    android:id="@+id/et_email2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="@string/hint_email"
+                    android:imeOptions="actionDone"
+                    android:includeFontPadding="true"
+                    android:inputType="textEmailAddress"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/appColor"
+                    android:textColorHint="@color/gray_4"
+                    android:textSize="@dimen/text_size_18_sp" />
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginStart="@dimen/size_20dp"
+                    android:layout_marginTop="@dimen/size_10dp"
+                    android:text="Start"
+                    android:textColor="@color/ashTextColor" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/size_20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="@dimen/size_20dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/input_field_background"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="10dp">
+
+                        <EditText
+
+                            android:id="@+id/end"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:hint="hh  : mm"
+                            android:imeOptions="actionDone"
+                            android:includeFontPadding="true"
+                            android:inputType="textEmailAddress"
+                            android:padding="5dp"
+                            android:singleLine="true"
+                            android:textColor="@color/appColor"
+                            android:textColorHint="@color/ashColor"
+                            android:textSize="@dimen/text_size_18_sp" />
+
+                    </LinearLayout>
+
+                    <ToggleButton
+                        android:id="@+id/togglebuttonEnd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/size_30dp"
+                        android:layout_gravity="center"
+                        android:layout_toEndOf="@+id/tv"
+                        android:background="@color/appColor"
+                        android:onClick="onToggleClicked"
+                        android:textColor="@color/white"
+                        android:textOff="pm"
+                        android:textOn="am" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginStart="@dimen/size_20dp"
+                        android:layout_marginTop="@dimen/size_10dp"
+                        android:text="End"
+                        android:textColor="@color/ashTextColor" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/size_20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="@dimen/size_20dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/input_field_background"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:padding="10dp">
+
+                            <EditText
+
+                                android:id="@+id/end"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@null"
+                                android:hint="hh  : mm"
+                                android:imeOptions="actionDone"
+                                android:includeFontPadding="true"
+                                android:inputType="textEmailAddress"
+                                android:padding="5dp"
+                                android:singleLine="true"
+                                android:textColor="@color/appColor"
+                                android:textColorHint="@color/ashColor"
+                                android:textSize="@dimen/text_size_18_sp" />
+
+                        </LinearLayout>
+
+                        <ToggleButton
+                            android:id="@+id/togglebuttonEnd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/size_30dp"
+                            android:layout_gravity="center"
+                            android:layout_toEndOf="@+id/tv"
+                            android:background="@color/appColor"
+                            android:onClick="onToggleClicked"
+                            android:textColor="@color/white"
+                            android:textOff="pm"
+                            android:textOn="am" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/size_20dp"
+                android:background="@drawable/app_button_bg"
+                android:paddingLeft="@dimen/size_20dp"
+                android:paddingTop="@dimen/size_5dp"
+                android:paddingRight="@dimen/size_20dp"
+                android:paddingBottom="@dimen/size_5dp"
+                android:text="Create"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_30_sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+</ScrollView>

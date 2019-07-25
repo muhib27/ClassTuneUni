@@ -14,5 +14,6 @@
     <color name="gray_4">#CCCFFF</color>
     <color name="bottom_inactive">#D8D8D8</color>
     <color name="ashColor">#D8D8D8</color>
+    <color name="ashTextColor">#717171</color>
 
 </resources>

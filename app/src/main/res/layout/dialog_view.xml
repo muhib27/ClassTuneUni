@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:background="@color/black"
+            android:gravity="center"
+            android:text="@string/new_exam"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_20sp"
+            android:textStyle="bold" />
+
+
+        <LinearLayout
+            android:padding="@dimen/size_10dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="@color/appColor"
+                android:layout_marginLeft="@dimen/size_20dp"
+                android:text="Exam Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/size_20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="@dimen/size_20dp"
+                android:background="@drawable/input_field_background"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <EditText
+                    android:id="@+id/et_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="@string/hint_email"
+                    android:imeOptions="actionDone"
+                    android:includeFontPadding="true"
+                    android:inputType="textEmailAddress"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/appColor"
+                    android:textColorHint="@color/gray_4"
+                    android:textSize="@dimen/text_size_18_sp" />
+            </LinearLayout>
+            <TextView
+                android:layout_marginTop="@dimen/size_10dp"
+                android:textColor="@color/appColor"
+                android:layout_marginLeft="@dimen/size_20dp"
+                android:text="Exam Categary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/size_20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="@dimen/size_20dp"
+                android:background="@drawable/input_field_background"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <EditText
+                    android:id="@+id/et_email1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="@string/hint_email"
+                    android:imeOptions="actionDone"
+                    android:includeFontPadding="true"
+                    android:inputType="textEmailAddress"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/appColor"
+                    android:textColorHint="@color/gray_4"
+                    android:textSize="@dimen/text_size_18_sp" />
+            </LinearLayout>
+            <TextView
+                android:layout_marginTop="@dimen/size_10dp"
+                android:textColor="@color/appColor"
+                android:layout_marginLeft="@dimen/size_20dp"
+                android:text="Exam Date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/size_20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="@dimen/size_20dp"
+                android:background="@drawable/input_field_background"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <EditText
+                    android:id="@+id/et_email3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="@string/hint_email"
+                    android:imeOptions="actionDone"
+                    android:includeFontPadding="true"
+                    android:inputType="textEmailAddress"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/appColor"
+                    android:textColorHint="@color/gray_4"
+                    android:textSize="@dimen/text_size_18_sp" />
+            </LinearLayout>
+            <TextView
+                android:layout_marginTop="@dimen/size_10dp"
+                android:textColor="@color/appColor"
+                android:layout_marginLeft="@dimen/size_20dp"
+                android:text="Full Marks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/size_20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="@dimen/size_20dp"
+                android:background="@drawable/input_field_background"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <EditText
+                    android:id="@+id/et_email2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="@string/hint_email"
+                    android:imeOptions="actionDone"
+                    android:includeFontPadding="true"
+                    android:inputType="textEmailAddress"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/appColor"
+                    android:textColorHint="@color/gray_4"
+                    android:textSize="@dimen/text_size_18_sp" />
+            </LinearLayout>
+            <TextView
+                android:layout_marginTop="@dimen/size_20dp"
+                android:textColor="@color/appColor"
+                android:layout_marginLeft="@dimen/size_20dp"
+                android:text="Exam Time (24 hour formate)"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_marginTop="@dimen/size_10dp"
+                        android:textColor="@color/appColor"
+                        android:text="Start"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/size_20dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/input_field_background"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="10dp">
+
+                        <EditText
+                            android:id="@+id/start"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:hint="hh  : mm"
+                            android:imeOptions="actionDone"
+                            android:includeFontPadding="true"
+                            android:inputType="textEmailAddress"
+                            android:padding="5dp"
+                            android:singleLine="true"
+                            android:textColor="@color/appColor"
+                            android:textColorHint="@color/ashColor"
+                            android:textSize="@dimen/text_size_18_sp" />
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_marginTop="@dimen/size_10dp"
+                        android:textColor="@color/appColor"
+                        android:text="End"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/size_20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="@dimen/size_20dp"
+                        android:background="@drawable/input_field_background"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="10dp">
+
+                        <EditText
+                            android:id="@+id/end"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:hint="hh  : mm"
+                            android:imeOptions="actionDone"
+                            android:includeFontPadding="true"
+                            android:inputType="textEmailAddress"
+                            android:padding="5dp"
+                            android:singleLine="true"
+                            android:textColor="@color/appColor"
+                            android:textColorHint="@color/ashColor"
+                            android:textSize="@dimen/text_size_18_sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_marginTop="@dimen/size_20dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv"
+                    android:layout_centerVertical="true"
+                    android:text="@string/or_class_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ToggleButton
+                    android:textColor="@color/white"
+                    android:background="@color/appColor"
+                    android:layout_marginLeft="@dimen/size_10dp"
+                    android:layout_toEndOf="@+id/tv"
+                    android:id="@+id/togglebutton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/size_30dp"
+                    android:textOn="on"
+                    android:textOff="off"
+                    android:onClick="onToggleClicked"/>
+            </RelativeLayout>
+
+            <Button
+                android:layout_gravity="center"
+                android:id="@+id/login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_20dp"
+                android:background="@drawable/app_button_bg"
+                android:paddingTop="@dimen/size_5dp"
+                android:paddingBottom="@dimen/size_5dp"
+                android:paddingLeft="@dimen/size_20dp"
+                android:paddingRight="@dimen/size_20dp"
+                android:text="Create"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_30_sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

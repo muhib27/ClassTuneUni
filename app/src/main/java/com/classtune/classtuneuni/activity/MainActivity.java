@@ -17,7 +17,10 @@ import com.classtune.classtuneuni.fragment.CombinedResultFragment;
 import com.classtune.classtuneuni.fragment.ExamListFragment;
 import com.classtune.classtuneuni.fragment.HomeFragment;
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.fragment.NoticeListFragment;
+import com.classtune.classtuneuni.fragment.StudentsSummaryFragment;
 import com.classtune.classtuneuni.fragment.TakeAttendanceFragment;
+import com.classtune.classtuneuni.fragment.TeacherExamListFragment;
 import com.classtune.classtuneuni.fragment.TeacherResultEntryFragment;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
@@ -65,9 +68,15 @@ public class MainActivity extends AppCompatActivity {
 
 //                    fragment = new TakeAttendanceFragment();
 //                    loadFragment(fragment, "takeAttendanceFragment");
+//
+//                    fragment = new TeacherResultEntryFragment();
+//                    loadFragment(fragment, "teacherResultEntryFragment");
 
-                    fragment = new TeacherResultEntryFragment();
-                    loadFragment(fragment, "teacherResultEntryFragment");
+
+//                    fragment = new StudentsSummaryFragment();
+//                    loadFragment(fragment, "studentsSummaryFragment");
+                    fragment = new NoticeListFragment();
+                    loadFragment(fragment, "noticeListFragment");
                     //return true;
                 } else if (tabId == R.id.assistant) {
                     //Toast.makeText(getApplicationContext(), TabMessage.get(tabId, true), Toast.LENGTH_LONG).show();
@@ -99,8 +108,10 @@ public class MainActivity extends AppCompatActivity {
 //                    else {
 //                        showQuiz();
 //                    }
-                    fragment = new ExamListFragment();
-                    loadFragment(fragment, "examListFragment");
+//                    fragment = new ExamListFragment();
+//                    loadFragment(fragment, "examListFragment");
+                    fragment = new TeacherExamListFragment();
+                    loadFragment(fragment, "teacherExamListFragment");
                 } else if (tabId == R.id.forum) {
                     //Toast.makeText(getApplicationContext(), TabMessage.get(tabId, true), Toast.LENGTH_LONG).show();
 //                    ForumFragment forumFragment = (ForumFragment) getSupportFragmentManager().findFragmentByTag("forumFragment");

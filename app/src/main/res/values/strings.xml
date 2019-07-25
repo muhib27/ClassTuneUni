@@ -38,4 +38,11 @@
     <string name="txt_save">Save</string>
     <string name="reset">Reset</string>
     <string name="title_roll_call_tab">Tab2</string>
+    <string name="present">Present</string>
+    <string name="participant">Participant</string>
+    <string name="new_exam">New Exam</string>
+    <string name="or_class_time">or, <font color="90BE47">Class Time</font></string>
+    <string name="upcoming_class">Upcoming Class</string>
+    <string name="new_category">New Category</string>
+    <string name="new_notice">New Notice</string>
 </resources>
