@@ -5,6 +5,7 @@ import android.support.annotation.IdRes;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import com.classtune.classtuneuni.fragment.CombinedResultFragment;
 import com.classtune.classtuneuni.fragment.ExamListFragment;
 import com.classtune.classtuneuni.fragment.HomeFragment;
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.fragment.MorePageFragment;
 import com.classtune.classtuneuni.fragment.NoticeListFragment;
 import com.classtune.classtuneuni.fragment.StudentsSummaryFragment;
 import com.classtune.classtuneuni.fragment.TakeAttendanceFragment;
@@ -37,9 +39,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
+        toolbar.setLogo(R.drawable.toolbar_icon);
 
         bottomBar = (BottomBar) findViewById(R.id.bottomBar);
 
@@ -121,8 +124,10 @@ public class MainActivity extends AppCompatActivity {
 //                        showForum();
 //                    }
 
-                    fragment = new ClassScheduleFragment();
-                    loadFragment(fragment, "classScheduleFragment");
+//                    fragment = new ClassScheduleFragment();
+//                    loadFragment(fragment, "classScheduleFragment");
+                    fragment = new MorePageFragment();
+                    loadFragment(fragment, "morePageFragment");
                 }
             }
         });

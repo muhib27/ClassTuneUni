@@ -2,20 +2,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/white"
-    tools:context=".activity.SplashActivity">
+    tools:context=".activity.LoginActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:id="@+id/top_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="@dimen/size_40dp"
+            android:layout_marginTop="@dimen/size_50dp"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -23,42 +23,16 @@
                 android:id="@+id/imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_launcher_background"
+                android:src="@drawable/login_logo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="@dimen/size_10dp">
 
-                <View
-                    android:layout_width="100dp"
-                    android:layout_height="2dp"
-                    android:background="@color/black" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/size_20dp"
-                    android:layout_marginRight="@dimen/size_20dp"
-                    android:gravity="center"
-                    android:text="campus"
-                    android:textSize="@dimen/text_size_22_sp"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="100dp"
-                    android:layout_height="2dp"
-                    android:background="@color/black" />
-            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
+            android:layout_marginTop="@dimen/size_40dp"
             android:id="@+id/input_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -77,12 +51,12 @@
                 android:padding="10dp">
 
                 <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="22dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/pasword_icon" />
+                    android:src="@drawable/name_icon" />
 
                 <EditText
                     android:id="@+id/et_name"
@@ -96,8 +70,8 @@
                     android:padding="10dp"
                     android:singleLine="true"
                     android:textColor="@color/appColor"
-                    android:textColorHint="@color/gray_4"
-                    android:textSize="@dimen/text_size_18_sp" />
+                    android:textColorHint="@color/ashTextColor"
+                    android:textSize="@dimen/text_size_12_sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -112,12 +86,12 @@
                 android:padding="10dp">
 
                 <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="22dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/pasword_icon" />
+                    android:src="@drawable/email_icon" />
 
                 <EditText
                     android:id="@+id/et_email"
@@ -131,8 +105,8 @@
                     android:padding="10dp"
                     android:singleLine="true"
                     android:textColor="@color/appColor"
-                    android:textColorHint="@color/gray_4"
-                    android:textSize="@dimen/text_size_18_sp" />
+                    android:textColorHint="@color/ashTextColor"
+                    android:textSize="@dimen/text_size_12_sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -146,20 +120,21 @@
                 android:orientation="horizontal"
                 android:padding="10dp">
 
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="22dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/pasword_icon" />
+                <!--<ImageView-->
+                    <!--android:layout_width="25dp"-->
+                    <!--android:layout_height="22dp"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:adjustViewBounds="true"-->
+                    <!--android:src="@drawable/pasword_icon" />-->
 
                 <Spinner
-                    android:id="@+id/spinner1"
-                    android:layout_width="wrap_content"
+                    style="@style/SpinnerTheme"
+                    android:id="@+id/spinner"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center" />
+                    android:entries="@array/android_layout_arrays"
+                    android:padding="5dp" />
 
                 <!--<EditText-->
                 <!--android:textColor="@color/appColor"-->
@@ -190,12 +165,12 @@
                 android:padding="10dp">
 
                 <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="22dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/pasword_icon" />
+                    android:src="@drawable/lock_icon" />
 
                 <EditText
                     android:id="@+id/et_password"
@@ -209,8 +184,8 @@
                     android:padding="10dp"
                     android:singleLine="true"
                     android:textColor="@color/appColor"
-                    android:textColorHint="@color/gray_4"
-                    android:textSize="@dimen/text_size_18_sp" />
+                    android:textColorHint="@color/ashTextColor"
+                    android:textSize="@dimen/text_size_12_sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -225,12 +200,12 @@
                 android:padding="10dp">
 
                 <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="22dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/pasword_icon" />
+                    android:src="@drawable/lock_icon" />
 
                 <EditText
                     android:id="@+id/et_con_password"
@@ -244,8 +219,8 @@
                     android:padding="10dp"
                     android:singleLine="true"
                     android:textColor="@color/appColor"
-                    android:textColorHint="@color/gray_4"
-                    android:textSize="@dimen/text_size_18_sp" />
+                    android:textColorHint="@color/ashTextColor"
+                    android:textSize="@dimen/text_size_12_sp" />
             </LinearLayout>
 
             <RelativeLayout
@@ -264,6 +239,7 @@
                     android:text="@string/agree_with_the" />
 
                 <TextView
+                    android:textColor="@color/appColor"
                     android:layout_marginLeft="@dimen/size_5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -277,7 +253,7 @@
 
 
             <Button
-                android:id="@+id/login"
+                android:id="@+id/continueBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/size_20dp"
@@ -287,7 +263,7 @@
                 android:text="@string/continue_text"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_size_25_sp"
+                android:textSize="@dimen/text_size_23_sp"
                 android:textStyle="bold" />
 
             <RelativeLayout
@@ -304,15 +280,16 @@
                     android:layout_height="wrap_content"
                     android:paddingTop="2dp"
                     android:text="@string/do_not_have_account"
-                    android:textSize="@dimen/text_size_18_sp" />
+                    android:textSize="@dimen/text_size_14_sp" />
 
                 <TextView
+                    android:textColor="@color/appColor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/size_5dp"
                     android:layout_toEndOf="@+id/ask"
                     android:text="@string/register_here"
-                    android:textSize="@dimen/size_20sp"
+                    android:textSize="@dimen/size_16sp"
                     android:textStyle="bold" />
 
             </RelativeLayout>
@@ -320,12 +297,13 @@
         </LinearLayout>
 
         <TextView
+            android:textColor="@color/appColor"
             android:layout_marginTop="@dimen/size_40dp"
             android:layout_below="@+id/input_ll"
             android:gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/size_40dp"
+            android:layout_marginBottom="@dimen/size_20dp"
             android:text="@string/copyright" />
 
     </RelativeLayout>

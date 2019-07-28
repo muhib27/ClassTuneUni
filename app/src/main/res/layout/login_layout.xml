@@ -19,41 +19,42 @@
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher_background"
+            android:src="@drawable/login_logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="@dimen/size_10dp">
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="center"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:padding="@dimen/size_10dp">-->
 
-            <View
-                android:layout_width="100dp"
-                android:layout_height="2dp"
-                android:background="@color/black" />
+            <!--<View-->
+                <!--android:layout_width="100dp"-->
+                <!--android:layout_height="2dp"-->
+                <!--android:background="@color/black" />-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/size_20dp"
-                android:layout_marginRight="@dimen/size_20dp"
-                android:gravity="center"
-                android:text="campus"
-                android:textSize="@dimen/text_size_22_sp"
-                android:textStyle="bold" />
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_marginLeft="@dimen/size_20dp"-->
+                <!--android:layout_marginRight="@dimen/size_20dp"-->
+                <!--android:gravity="center"-->
+                <!--android:text="campus"-->
+                <!--android:textSize="@dimen/text_size_22_sp"-->
+                <!--android:textStyle="bold" />-->
 
-            <View
-                android:layout_width="100dp"
-                android:layout_height="2dp"
-                android:background="@color/black" />
-        </LinearLayout>
+            <!--<View-->
+                <!--android:layout_width="100dp"-->
+                <!--android:layout_height="2dp"-->
+                <!--android:background="@color/black" />-->
+        <!--</LinearLayout>-->
     </LinearLayout>
     <LinearLayout
+        android:layout_marginTop="@dimen/size_40dp"
         android:orientation="vertical"
         android:layout_below="@+id/top_ll"
         android:id="@+id/input_ll"
@@ -71,12 +72,12 @@
             android:padding="10dp">
 
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="22dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
                 android:adjustViewBounds="true"
-                android:src="@drawable/pasword_icon" />
+                android:src="@drawable/email_icon" />
 
             <EditText
                 android:textColor="@color/appColor"
@@ -90,8 +91,8 @@
                 android:inputType="textEmailAddress"
                 android:padding="10dp"
                 android:singleLine="true"
-                android:textColorHint="@color/gray_4"
-                android:textSize="@dimen/text_size_18_sp" />
+                android:textColorHint="@color/ashTextColor"
+                android:textSize="@dimen/text_size_12_sp" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -105,12 +106,12 @@
             android:padding="10dp">
 
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="22dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
                 android:adjustViewBounds="true"
-                android:src="@drawable/pasword_icon" />
+                android:src="@drawable/lock_icon" />
 
             <EditText
                 android:textColor="@color/appColor"
@@ -124,8 +125,8 @@
                 android:inputType="textPassword"
                 android:padding="10dp"
                 android:singleLine="true"
-                android:textColorHint="@color/gray_4"
-                android:textSize="@dimen/text_size_18_sp" />
+                android:textColorHint="@color/ashTextColor"
+                android:textSize="@dimen/text_size_12_sp" />
         </LinearLayout>
         <RelativeLayout
             android:layout_marginTop="15dp"
@@ -141,6 +142,7 @@
                 android:text="@string/remember_me"/>
 
             <TextView
+                android:textColor="@color/appColor"
                 android:layout_centerInParent="true"
                 android:layout_alignParentRight="true"
                 android:text="@string/forget_password"
@@ -152,7 +154,7 @@
 
         <Button
             android:textStyle="bold"
-            android:layout_marginTop="@dimen/size_20dp"
+            android:layout_marginTop="@dimen/size_40dp"
             android:layout_marginLeft="@dimen/size_20dp"
             android:layout_marginRight="@dimen/size_20dp"
             android:layout_width="match_parent"
@@ -173,27 +175,31 @@
             android:layout_marginRight="@dimen/size_20dp">
             <TextView
                 android:paddingTop="2dp"
-                android:textSize="@dimen/text_size_18_sp"
+                android:textSize="@dimen/text_size_14_sp"
                 android:id="@+id/ask"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/do_not_have_account"/>
 
             <TextView
-                android:textStyle="bold"
-                android:textSize="@dimen/size_20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
                 android:layout_marginLeft="@dimen/size_5dp"
+                android:layout_marginTop="0dp"
                 android:layout_toEndOf="@+id/ask"
                 android:text="@string/register_here"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:textColor="@color/appColor"
+                android:textSize="@dimen/size_16sp"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 
     </LinearLayout>
 
     <TextView
-        android:layout_marginBottom="@dimen/size_40dp"
+        android:textColor="@color/appColor"
+        android:layout_marginBottom="@dimen/size_20dp"
         android:layout_centerInParent="true"
         android:gravity="center"
         android:layout_alignParentBottom="true"

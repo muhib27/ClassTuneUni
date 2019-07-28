@@ -1,111 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/upload"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/size_40dp"
-        android:text="Upload"
-        android:textSize="@dimen/text_size_35_sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/your_pf"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/upload"
-        android:layout_centerHorizontal="true"
-        android:text="Your Profile  Picture"
-        android:textSize="@dimen/text_size_25_sp" />
+    android:layout_height="wrap_content">
 
     <RelativeLayout
-        android:id="@+id/pic_up"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/your_pf"
-        android:layout_centerInParent="true">
+        android:layout_height="wrap_content">
 
-        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/profile_image"
-            android:layout_width="270dp"
-            android:layout_height="270dp"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:layout_marginTop="-30dp"
-            android:src="@drawable/ic_launcher_background"
-            app:civ_border_color="#FF000000"
-            app:civ_border_width="2dp" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
+        <TextView
+            android:textColor="@color/appColor"
+            android:id="@+id/upload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/profile_image"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="@dimen/fab_margin"
-            android:layout_marginEnd="@dimen/size_80dp"
-            android:layout_marginBottom="@dimen/size_80dp"
-            android:src="@drawable/ic_add_black_24dp"
-            android:tint="@android:color/white"
-            app:backgroundTint="@color/appColor" />
-    </RelativeLayout>
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/size_40dp"
+            android:text="Upload"
+            android:textSize="@dimen/text_size_30_sp"
+            android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/your_pf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/upload"
+            android:layout_centerHorizontal="true"
+            android:text="Your Profile  Picture"
+            android:textSize="@dimen/size_20sp" />
 
-    <LinearLayout
-        android:id="@+id/uniName"
-        android:layout_below="@+id/pic_up"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/size_20dp"
-        android:layout_marginRight="@dimen/size_20dp"
-        android:background="@drawable/input_field_background"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="10dp">
-
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="22dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:adjustViewBounds="true"
-            android:src="@drawable/pasword_icon" />
-
-        <EditText
-            android:id="@+id/et_uni_name"
+        <RelativeLayout
+            android:id="@+id/pic_up"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@null"
-            android:hint="@string/hint_uni_name"
-            android:imeOptions="actionDone"
-            android:includeFontPadding="true"
-            android:inputType="text"
-            android:padding="10dp"
-            android:singleLine="true"
-            android:textColor="@color/appColor"
-            android:textColorHint="@color/gray_4"
-            android:textSize="@dimen/text_size_18_sp" />
-    </LinearLayout>
-    <Button
-        android:layout_below="@+id/uniName"
-        android:textStyle="bold"
-        android:padding="@dimen/size_10dp"
-        android:layout_marginTop="@dimen/size_40dp"
-        android:layout_marginLeft="@dimen/size_20dp"
-        android:layout_marginRight="@dimen/size_20dp"
-        android:layout_width="match_parent"
-        android:id="@+id/login"
-        android:layout_height="wrap_content"
-        android:background="@drawable/selected"
-        android:text="@string/register"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_25_sp" />
+            android:layout_below="@+id/your_pf"
+            android:layout_centerInParent="true">
 
-</RelativeLayout>
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profile_image"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:src="@drawable/avatar"
+                app:civ_border_color="@color/ashColor"
+                app:civ_border_width="2dp" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/profile_image"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="@dimen/fab_margin"
+                android:layout_marginEnd="@dimen/size_80dp"
+                android:layout_marginBottom="@dimen/size_80dp"
+                android:src="@drawable/ic_add_black_24dp"
+                android:tint="@android:color/white"
+                app:backgroundTint="@color/appColor" />
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/uniName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/pic_up"
+            android:layout_marginLeft="@dimen/size_20dp"
+            android:layout_marginRight="@dimen/size_20dp"
+            android:background="@drawable/input_field_background"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/pasword_icon" />
+
+            <EditText
+                android:id="@+id/et_uni_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="@string/hint_uni_name"
+                android:imeOptions="actionDone"
+                android:includeFontPadding="true"
+                android:inputType="text"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColor="@color/appColor"
+                android:textColorHint="@color/ashTextColor"
+                android:textSize="@dimen/text_size_12_sp" />
+        </LinearLayout>
+
+        <Button
+            android:layout_marginBottom="@dimen/size_20dp"
+            android:id="@+id/register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/uniName"
+            android:layout_marginLeft="@dimen/size_20dp"
+            android:layout_marginTop="@dimen/size_40dp"
+            android:layout_marginRight="@dimen/size_20dp"
+            android:background="@drawable/selected"
+            android:padding="@dimen/size_10dp"
+            android:text="@string/register"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_23_sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+</ScrollView>

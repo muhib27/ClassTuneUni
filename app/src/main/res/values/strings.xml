@@ -46,4 +46,20 @@
     <string name="new_category">New Category</string>
     <string name="new_notice">New Notice</string>
     <string name="attach">Attach</string>
+    <string name="faq_support"><![CDATA[Faq & Support]]></string>
+    <string name="erms_and_Conditions"><![CDATA[Terms & Conditions]]></string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="change_password">Change Password</string>
+    <string name="attendance">Attendance</string>
+    <string name="result">Result</string>
+    <string name="exam">Exam</string>
+    <string name="class_schedule">Class Schedule</string>
+    <string name="enroll">Enroll</string>
+
+    <string-array name="android_layout_arrays">
+        <item>Select User Type</item>
+        <item>Teacher</item>
+        <item>Student</item>
+
+    </string-array>
 </resources>

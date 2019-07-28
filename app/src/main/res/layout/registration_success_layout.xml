@@ -10,9 +10,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/size_40dp"
+        android:layout_marginTop="@dimen/size_80dp"
         android:text="Your Registration is"
-        android:textSize="@dimen/text_size_25_sp"
+        android:textSize="@dimen/size_20sp"
         android:textStyle="normal" />
 
     <TextView
@@ -23,7 +23,7 @@
         android:layout_centerHorizontal="true"
         android:text="Successful"
         android:textColor="@color/appColor"
-        android:textSize="@dimen/text_size_35_sp"
+        android:textSize="@dimen/text_size_30_sp"
         android:textStyle="bold" />
 
     <RelativeLayout
@@ -34,8 +34,8 @@
 
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
+            android:layout_width="240dp"
+            android:layout_height="240dp"
             android:layout_centerInParent="true"
             android:gravity="center"
             android:src="@drawable/ic_check_circle_black_250dp"
@@ -44,8 +44,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/profile_image"
-            android:layout_width="270dp"
-            android:layout_height="270dp"
+            android:layout_width="260dp"
+            android:layout_height="260dp"
             android:layout_centerInParent="true"
             android:gravity="center"
             android:src="@drawable/ic_check_circle_black_250dp"
@@ -53,8 +53,8 @@
             app:civ_border_width="10dp" />
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="230dp"
-            android:layout_height="230dp"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
             android:layout_centerInParent="true"
             android:gravity="center"
             android:src="@drawable/ic_check_circle_black_250dp"
@@ -65,7 +65,7 @@
 
 
     <Button
-        android:id="@+id/login"
+        android:id="@+id/proceedBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/pic_up"
@@ -77,7 +77,7 @@
         android:text="Proceed"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_size_30_sp"
+        android:textSize="@dimen/text_size_23_sp"
         android:textStyle="bold" />
 
 </RelativeLayout>

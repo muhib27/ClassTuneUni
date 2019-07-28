@@ -2,27 +2,27 @@
 <tabs>
     <tab
         id="@+id/home"
-        icon="@drawable/ic_recents"
+        icon="@drawable/latest"
         title="Home"
         />
     <tab
         id="@+id/assistant"
-        icon="@drawable/ic_favorites"
+        icon="@drawable/open_book"
         title="Assignment"
         />
     <tab
         id="@+id/news"
-        icon="@drawable/ic_nearby"
+        icon="@drawable/resource"
         title="খবর"
          />
     <tab
         id="@+id/quiz"
-        icon="@drawable/ic_friends"
+        icon="@drawable/notice"
         title="কুইজ"
         />
     <tab
         id="@+id/forum"
-        icon="@drawable/ic_restaurants"
+        icon="@drawable/more"
         title="ফোরাম"
        />
 </tabs>

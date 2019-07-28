@@ -183,12 +183,12 @@ public class SplashActivity extends AppCompatActivity {
                 boolean isFirstTime = AppSharedPreference.getUsingFirstTime();
                 Intent intent;
                 if(liveApp) {
-                    flag = true;
+//                    flag = true;
 //                    if (isFirstTime) {
-//                        //intent = new Intent(SplashActivity.this, LoginActivity.class);
+                        intent = new Intent(SplashActivity.this, LoginActivity.class);
 //                    } else {
-                        intent = new Intent(SplashActivity.this, MainActivity.class);
- //                   }
+//                        intent = new Intent(SplashActivity.this, MainActivity.class);
+//                    }
                     startActivity(intent);
 //                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                     finish();

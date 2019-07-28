@@ -14,17 +14,19 @@
         android:orientation="vertical">
 
         <TextView
+            android:textColor="@color/appColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/size_50dp"
+            android:layout_marginLeft="@dimen/size_20dp"
             android:text="Discover \nInteresting \nThings"
-            android:textSize="@dimen/text_size_25_sp"
+            android:textSize="@dimen/text_size_30_sp"
             android:textStyle="bold" />
 
         <TextView
+            android:layout_marginLeft="@dimen/size_20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="left"
             android:layout_marginTop="@dimen/size_10dp"
             android:gravity="left"
             android:text="Let us help you to find exciting things \nyou will love, no matter where you go"
@@ -33,12 +35,12 @@
 
 
         <LinearLayout
-            android:layout_marginLeft="@dimen/size_40dp"
-            android:layout_marginRight="@dimen/size_40dp"
+            android:layout_marginTop="@dimen/size_20dp"
+            android:layout_marginLeft="@dimen/size_20dp"
+            android:layout_marginRight="@dimen/size_20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:padding="@dimen/size_20dp">
+            android:layout_gravity="center_horizontal">
 
             <Button
                 android:layout_marginRight="@dimen/size_5dp"
