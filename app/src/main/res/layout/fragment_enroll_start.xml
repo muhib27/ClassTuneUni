@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/upload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/size_20dp"
+        android:text="You are not"
+        android:textSize="@dimen/text_size_18_sp"
+        android:textStyle="normal" />
+
+    <TextView
+        android:id="@+id/your_pf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/upload"
+        android:layout_centerHorizontal="true"
+        android:text="Enrolled to any subject yet"
+        android:textColor="@color/appColor"
+        android:textSize="@dimen/text_size_18_sp"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:layout_marginTop="@dimen/size_10dp"
+        android:layout_below="@+id/your_pf"
+        android:id="@+id/pic_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <pl.droidsonroids.gif.GifImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/campus_enroll" />
+    </RelativeLayout>
+
+
+    <Button
+        android:id="@+id/enrollNow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+       android:layout_marginBottom="@dimen/size_40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/size_20dp"
+        android:layout_marginRight="@dimen/size_20dp"
+        android:background="@drawable/app_button_bg"
+        android:padding="@dimen/size_10dp"
+        android:text="Enroll Now"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_23_sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

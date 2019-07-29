@@ -13,16 +13,16 @@
     <tab
         id="@+id/news"
         icon="@drawable/resource"
-        title="খবর"
+        title="Result"
          />
     <tab
         id="@+id/quiz"
         icon="@drawable/notice"
-        title="কুইজ"
+        title="Notice"
         />
     <tab
         id="@+id/forum"
         icon="@drawable/more"
-        title="ফোরাম"
+        title="More"
        />
 </tabs>

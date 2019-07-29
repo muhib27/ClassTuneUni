@@ -63,8 +63,8 @@ public class MainActivity extends AppCompatActivity {
 //                    }
                     //Toast.makeText(getApplicationContext(), TabMessage.get(tabId, true), Toast.LENGTH_LONG).show();
 
-//                    fragment = new HomeFragment();
-//                    loadFragment(fragment, "homeFragment");
+                    fragment = new HomeFragment();
+                    loadFragment(fragment, "homeFragment");
 
 //                    fragment = new AttendanceSummaryFragment();
 //                    loadFragment(fragment, "attendanceSummaryFragment");
@@ -78,8 +78,8 @@ public class MainActivity extends AppCompatActivity {
 
 //                    fragment = new StudentsSummaryFragment();
 //                    loadFragment(fragment, "studentsSummaryFragment");
-                    fragment = new NoticeListFragment();
-                    loadFragment(fragment, "noticeListFragment");
+//                    fragment = new NoticeListFragment();
+//                    loadFragment(fragment, "noticeListFragment");
                     //return true;
                 } else if (tabId == R.id.assistant) {
                     //Toast.makeText(getApplicationContext(), TabMessage.get(tabId, true), Toast.LENGTH_LONG).show();
@@ -113,8 +113,10 @@ public class MainActivity extends AppCompatActivity {
 //                    }
 //                    fragment = new ExamListFragment();
 //                    loadFragment(fragment, "examListFragment");
-                    fragment = new TeacherExamListFragment();
-                    loadFragment(fragment, "teacherExamListFragment");
+//                    fragment = new TeacherExamListFragment();
+//                    loadFragment(fragment, "teacherExamListFragment");
+                    fragment = new NoticeListFragment();
+                    loadFragment(fragment, "noticeListFragment");
                 } else if (tabId == R.id.forum) {
                     //Toast.makeText(getApplicationContext(), TabMessage.get(tabId, true), Toast.LENGTH_LONG).show();
 //                    ForumFragment forumFragment = (ForumFragment) getSupportFragmentManager().findFragmentByTag("forumFragment");

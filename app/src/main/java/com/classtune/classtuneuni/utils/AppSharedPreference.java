@@ -2,6 +2,8 @@ package com.classtune.classtuneuni.utils;
 
 import android.content.SharedPreferences;
 
+import com.classtune.classtuneuni.model.User;
+
 
 /**
  * Created by RR on 13-Nov-18.
@@ -45,6 +47,29 @@ public class AppSharedPreference {
     public static boolean getPrefBoolean(String key) {
         final SharedPreferences pref = getSharedPreferences();
         return pref.getBoolean(key, false);
+    }
+
+    public static void setUserBasicInfo(User user) {
+        final SharedPreferences pref = getSharedPreferences();
+        final SharedPreferences.Editor editor = pref.edit();
+//
+//        if (user.getId() != null)
+//            editor.putString(AppConstant.USER_NAME, user.getName());
+        editor.putString(AppConstant.USER_EMAIL, user.getEmail());
+//        editor.putString(AppConstant.USER_ID, user.getId());
+//        editor.putString(AppConstant.USER_IMAGE, user.getImage());
+        editor.apply();
+    }
+
+    public static User getUserBasicInfo() {
+        final SharedPreferences pref = getSharedPreferences();
+        User user = new User();
+
+//        user.setName(pref.getString(AppConstant.USER_NAME, ""));
+        user.setEmail(pref.getString(AppConstant.USER_EMAIL, ""));
+//        user.setId(pref.getString(AppConstant.USER_ID, ""));
+//        user.setImage(pref.getString(AppConstant.USER_IMAGE, ""));
+        return user;
     }
 
     public static void setUserNameAndPassword(String userId, String password, String api_key, boolean rememberMe) {

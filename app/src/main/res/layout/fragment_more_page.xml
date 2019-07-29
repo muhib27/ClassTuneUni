@@ -12,9 +12,10 @@
 
         <RelativeLayout
             android:id="@+id/rl_1"
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
             <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/profile_image"
                 android:layout_width="80dp"
@@ -24,310 +25,439 @@
                 android:src="@drawable/avatar"
                 app:civ_border_color="@color/ashColor"
                 app:civ_border_width="2dp" />
+
             <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:padding="@dimen/size_10dp"
                 android:layout_toEndOf="@+id/profile_image"
                 android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:padding="@dimen/size_10dp">
+
                 <TextView
-                    android:textColor="@color/appColor"
-                    android:textSize="@dimen/size_20sp"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/size_20dp"
                     android:text="Joe Andrewos"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
                     android:textColor="@color/appColor"
-                    android:textSize="@dimen/text_size_13_sp"
-                    android:layout_marginStart="@dimen/size_20dp"
-                    android:text="Joe Andrewos"
+                    android:textSize="@dimen/size_20sp" />
+
+                <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_20dp"
+                    android:text="ID: 14205003"
+                    android:textColor="@color/ashTextColor"
+                    android:textSize="@dimen/text_size_13_sp" />
             </LinearLayout>
+
             <ImageView
-                android:paddingEnd="@dimen/size_20dp"
-                android:layout_centerInParent="true"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/ic_edit_24dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:paddingEnd="@dimen/size_20dp"
+                android:src="@drawable/ic_edit_24dp" />
 
         </RelativeLayout>
+
         <RelativeLayout
-            android:layout_marginTop="@dimen/size_10dp"
             android:id="@+id/rl_2"
-           android:padding="@dimen/size_15dp"
-            android:layout_below="@+id/rl_1"
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_1"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:gravity="center_vertical"
+            android:padding="@dimen/size_15dp">
+
             <ImageView
                 android:id="@+id/iv2"
-                android:paddingEnd="@dimen/size_20dp"
-                android:layout_centerInParent="true"
-                android:layout_alignParentStart="true"
-                android:src="@drawable/enroll_icon"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
-                android:padding="@dimen/size_10dp"
+                android:paddingEnd="@dimen/size_20dp"
+                android:src="@drawable/enroll_icon" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:layout_toEndOf="@+id/iv2"
                 android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:padding="@dimen/size_10dp">
+
                 <TextView
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/size_15sp"
-                    android:layout_marginStart="@dimen/size_20dp"
-                    android:text="@string/enroll"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_5dp"
+                    android:text="@string/enroll"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/size_16sp"
+                    android:textStyle="normal" />
             </LinearLayout>
+
             <ImageView
-                android:paddingEnd="@dimen/size_20dp"
-                android:layout_centerInParent="true"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/next_icon"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:paddingEnd="@dimen/size_20dp"
+                android:src="@drawable/next_icon" />
 
         </RelativeLayout>
+        <View
+            android:layout_marginStart="@dimen/size_20dp"
+            android:layout_below="@+id/rl_2"
+            android:background="@color/menu_divider"
+            android:id="@+id/v1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
         <RelativeLayout
             android:id="@+id/rl_3"
-            android:padding="@dimen/size_15dp"
-            android:layout_below="@+id/rl_2"
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/v1"
+            android:gravity="center_vertical"
+            android:padding="@dimen/size_15dp">
+
             <ImageView
                 android:id="@+id/iv3"
-                android:paddingEnd="@dimen/size_20dp"
-                android:layout_centerInParent="true"
-                android:layout_alignParentStart="true"
-                android:src="@drawable/class_schedule_icon"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
-                android:padding="@dimen/size_10dp"
+                android:paddingEnd="@dimen/size_20dp"
+                android:src="@drawable/class_schedule_icon" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:layout_toEndOf="@+id/iv3"
                 android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:padding="@dimen/size_10dp">
+
                 <TextView
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/size_15sp"
-                    android:layout_marginStart="@dimen/size_20dp"
-                    android:text="@string/class_schedule"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_5dp"
+                    android:text="@string/class_schedule"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/size_16sp"
+                    android:textStyle="normal" />
             </LinearLayout>
+
             <ImageView
-                android:paddingEnd="@dimen/size_20dp"
-                android:layout_centerInParent="true"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/next_icon"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:paddingEnd="@dimen/size_20dp"
+                android:src="@drawable/next_icon" />
 
         </RelativeLayout>
+        <View
+            android:layout_marginStart="@dimen/size_20dp"
+            android:layout_below="@+id/rl_3"
+            android:background="@color/menu_divider"
+            android:id="@+id/v2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
         <RelativeLayout
             android:id="@+id/rl_4"
-            android:padding="@dimen/size_15dp"
-            android:layout_below="@+id/rl_3"
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/v2"
+            android:gravity="center_vertical"
+            android:padding="@dimen/size_15dp">
+
             <ImageView
                 android:id="@+id/iv4"
-                android:paddingEnd="@dimen/size_20dp"
-                android:layout_centerInParent="true"
-                android:layout_alignParentStart="true"
-                android:src="@drawable/exam_icon"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
-                android:padding="@dimen/size_10dp"
+                android:paddingEnd="@dimen/size_20dp"
+                android:src="@drawable/exam_icon" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:layout_toEndOf="@+id/iv4"
                 android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:padding="@dimen/size_10dp">
+
                 <TextView
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/size_15sp"
-                    android:layout_marginStart="@dimen/size_20dp"
-                    android:text="@string/exam"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_5dp"
+                    android:text="@string/exam"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/size_16sp"
+                    android:textStyle="normal" />
             </LinearLayout>
+
             <ImageView
-                android:paddingEnd="@dimen/size_20dp"
-                android:layout_centerInParent="true"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/next_icon"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:paddingEnd="@dimen/size_20dp"
+                android:src="@drawable/next_icon" />
 
         </RelativeLayout>
+        <View
+            android:layout_marginStart="@dimen/size_20dp"
+            android:layout_below="@+id/rl_4"
+            android:background="@color/menu_divider"
+            android:id="@+id/v3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
         <RelativeLayout
             android:id="@+id/rl_5"
-            android:padding="@dimen/size_15dp"
-            android:layout_below="@+id/rl_4"
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/v3"
+            android:gravity="center_vertical"
+            android:padding="@dimen/size_15dp">
+
             <ImageView
                 android:id="@+id/iv5"
-                android:paddingEnd="@dimen/size_20dp"
-                android:layout_centerInParent="true"
-                android:layout_alignParentStart="true"
-                android:src="@drawable/result"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
-                android:padding="@dimen/size_10dp"
+                android:paddingEnd="@dimen/size_20dp"
+                android:src="@drawable/result_icon" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:layout_toEndOf="@+id/iv5"
                 android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:padding="@dimen/size_10dp">
+
                 <TextView
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/size_15sp"
-                    android:layout_marginStart="@dimen/size_20dp"
-                    android:text="@string/result"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_5dp"
+                    android:text="@string/result"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/size_16sp"
+                    android:textStyle="normal" />
             </LinearLayout>
+
             <ImageView
-                android:paddingEnd="@dimen/size_20dp"
-                android:layout_centerInParent="true"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/next_icon"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:paddingEnd="@dimen/size_20dp"
+                android:src="@drawable/next_icon" />
 
         </RelativeLayout>
+        <View
+            android:layout_marginStart="@dimen/size_20dp"
+            android:layout_below="@+id/rl_5"
+            android:background="@color/menu_divider"
+            android:id="@+id/v4"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
         <RelativeLayout
             android:id="@+id/rl_6"
-            android:padding="@dimen/size_15dp"
-            android:layout_below="@+id/rl_5"
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/v4"
+            android:gravity="center_vertical"
+            android:padding="@dimen/size_15dp">
+
             <ImageView
                 android:id="@+id/iv6"
-                android:paddingEnd="@dimen/size_20dp"
-                android:layout_centerInParent="true"
-                android:layout_alignParentStart="true"
-                android:src="@drawable/attendance_icon"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
-                android:padding="@dimen/size_10dp"
+                android:paddingEnd="@dimen/size_20dp"
+                android:src="@drawable/attendance_icon" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:layout_toEndOf="@+id/iv6"
                 android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:padding="@dimen/size_10dp">
+
                 <TextView
-                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_5dp"
+                    android:text="@string/attendance"
                     android:textColor="@color/black"
                     android:textSize="@dimen/size_15sp"
-                    android:layout_marginStart="@dimen/size_20dp"
-                    android:text="@string/attendance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:textStyle="normal" />
             </LinearLayout>
+
             <ImageView
-                android:paddingEnd="@dimen/size_20dp"
-                android:layout_centerInParent="true"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/next_icon"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:paddingEnd="@dimen/size_20dp"
+                android:src="@drawable/next_icon" />
 
         </RelativeLayout>
+        <View
+            android:layout_marginStart="@dimen/size_20dp"
+            android:layout_below="@+id/rl_6"
+            android:background="@color/menu_divider"
+            android:id="@+id/v5"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
         <RelativeLayout
             android:id="@+id/rl_7"
-            android:padding="@dimen/size_15dp"
-            android:layout_below="@+id/rl_6"
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/v5"
+            android:gravity="center_vertical"
+            android:padding="@dimen/size_15dp">
+
             <ImageView
                 android:id="@+id/iv7"
-                android:paddingEnd="@dimen/size_20dp"
-                android:layout_centerInParent="true"
-                android:layout_alignParentStart="true"
-                android:src="@drawable/enroll_icon"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
-                android:padding="@dimen/size_10dp"
+                android:paddingEnd="@dimen/size_20dp"
+                android:src="@drawable/big_lock_icon" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:layout_toEndOf="@+id/iv7"
                 android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:padding="@dimen/size_10dp">
+
                 <TextView
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/size_15sp"
-                    android:layout_marginStart="@dimen/size_20dp"
-                    android:text="@string/change_password"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_5dp"
+                    android:text="@string/change_password"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/size_16sp"
+                    android:textStyle="normal" />
             </LinearLayout>
+
             <ImageView
-                android:paddingEnd="@dimen/size_20dp"
-                android:layout_centerInParent="true"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/next_icon"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:paddingEnd="@dimen/size_20dp"
+                android:src="@drawable/next_icon" />
 
         </RelativeLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
+        <View
+            android:layout_marginStart="@dimen/size_20dp"
             android:layout_below="@+id/rl_7"
-            android:gravity="center_vertical"
+            android:background="@color/menu_divider"
+            android:id="@+id/v6"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="1dp"/>
+        <RelativeLayout
+            android:id="@+id/rl_8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/v6"
+            android:gravity="center_vertical"
+            android:padding="@dimen/size_15dp">
+
+            <ImageView
+                android:id="@+id/iv8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
+                android:paddingEnd="@dimen/size_20dp"
+                android:src="@drawable/enroll_icon" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_toEndOf="@+id/iv8"
+                android:orientation="vertical"
+                android:padding="@dimen/size_10dp">
 
                 <TextView
-                    android:padding="@dimen/size_20dp"
-                    android:textStyle="normal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_5dp"
+                    android:text="@string/logout"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/size_15sp"
-                    android:text="@string/privacy_policy"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:textSize="@dimen/size_16sp"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:paddingEnd="@dimen/size_20dp"
+                android:src="@drawable/next_icon" />
+
+        </RelativeLayout>
+        <View
+            android:layout_marginStart="@dimen/size_20dp"
+            android:layout_below="@+id/rl_8"
+            android:background="@color/menu_divider"
+            android:id="@+id/v7"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/v7"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:padding="@dimen/size_20dp"
-                android:textStyle="normal"
+                android:text="@string/privacy_policy"
                 android:textColor="@color/black"
-                android:textSize="@dimen/size_15sp"
+                android:textSize="@dimen/text_size_13_sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/size_20dp"
                 android:text="@string/erms_and_Conditions"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:padding="@dimen/size_20dp"
-                android:textStyle="normal"
                 android:textColor="@color/black"
-                android:textSize="@dimen/size_15sp"
-                android:text="@string/faq_support"
+                android:textSize="@dimen/text_size_13_sp"
+                android:textStyle="normal" />
+
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:padding="@dimen/size_20dp"
+                android:text="@string/faq_support"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_13_sp"
+                android:textStyle="normal" />
 
         </LinearLayout>
     </RelativeLayout>

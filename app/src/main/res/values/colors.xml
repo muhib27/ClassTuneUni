@@ -15,5 +15,9 @@
     <color name="bottom_inactive">#D8D8D8</color>
     <color name="ashColor">#D8D8D8</color>
     <color name="ashTextColor">#717171</color>
+    <color name="menu_divider">#E6E6E6</color>
+    <color name="black_off">#C0C0C0</color>
+
+    <color name="iron">#CCCCCC</color>
 
 </resources>
