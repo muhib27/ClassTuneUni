@@ -85,4 +85,6 @@
             \nStorage &amp; Camera: %s
     </string>
     <string name="six_digit_text">Enter the 6 digit Course Enroll Code\n provided by your teacher</string>
+    <string name="new_section">Section</string>
+    <string name="hint_section">Enter Section Name</string>
 </resources>
