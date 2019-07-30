@@ -4,24 +4,25 @@ package com.classtune.classtuneuni.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.TextView;
 
 import com.classtune.classtuneuni.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EnrollStartFragment extends Fragment implements View.OnClickListener {
+public class CourseOfferFragment extends Fragment implements View.OnClickListener {
 
-    Button enrollNow;
-    Fragment fragment;
+    FloatingActionButton fab;
+    View v;
+    ViewGroup main;
 
-    public EnrollStartFragment() {
+    public CourseOfferFragment() {
         // Required empty public constructor
     }
 
@@ -30,32 +31,41 @@ public class EnrollStartFragment extends Fragment implements View.OnClickListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_enroll_start, container, false);
+        v = inflater.inflate(R.layout.fragment_course_offer, container, false);
+
+        main = (ViewGroup) v.findViewById(R.id.insert_point);
+        return v;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        enrollNow = view.findViewById(R.id.enrollNow);
-        enrollNow.setOnClickListener(this);
+        fab = view.findViewById(R.id.addBtn);
+        fab.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.enrollNow:
-                fragment = new CodeEntryFragment();
-                gotoFragment(fragment, "codeEntryFragment");
+            case R.id.addBtn:
+                addSection();
                 break;
         }
     }
 
+    static int count = 0;
 
-    private void gotoFragment(Fragment fragment, String tag) {
-        // load fragment
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.mainContainer, fragment, tag);
-        //transaction.addToBackStack(null);
-        transaction.commit();
+
+    private void addSection(){
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.section_view, null);
+
+        TextView textView = view.findViewById(R.id.i_am_id);
+        textView.setText("A");
+
+
+        main.addView(textView);
+        count++;
     }
+
 }

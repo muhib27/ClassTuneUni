@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.CodeEntryFragment">
+
+    <LinearLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_40dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/enroll_icon_enroll" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/size_10dp"
+            android:text="Enroll Code"
+            android:textColor="@color/appColor"
+            android:textSize="@dimen/text_size_30_sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/size_10dp"
+            android:text="@string/six_digit_text"
+            android:textColor="#707070"
+            android:textSize="@dimen/text_size_14_sp"
+            android:textStyle="normal" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLength="1"
+            android:paddingStart="@dimen/size_20dp"
+            android:paddingEnd="@dimen/size_20dp"
+            android:textSize="@dimen/text_size_25_sp" />
+
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLength="1"
+            android:paddingStart="@dimen/size_20dp"
+            android:paddingEnd="@dimen/size_20dp"
+            android:textSize="@dimen/text_size_25_sp" />
+
+        <EditText
+            android:id="@+id/editText3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLength="1"
+            android:paddingStart="@dimen/size_20dp"
+            android:paddingEnd="@dimen/size_20dp"
+            android:textSize="@dimen/text_size_25_sp" />
+
+        <EditText
+            android:id="@+id/editText4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLength="1"
+            android:paddingStart="@dimen/size_20dp"
+            android:paddingEnd="@dimen/size_20dp"
+            android:textSize="@dimen/text_size_25_sp" />
+
+        <EditText
+            android:id="@+id/editText5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLength="1"
+            android:paddingStart="@dimen/size_20dp"
+            android:paddingEnd="@dimen/size_20dp"
+            android:textSize="@dimen/text_size_25_sp" />
+
+        <EditText
+            android:id="@+id/editText6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLength="1"
+            android:paddingStart="@dimen/size_20dp"
+            android:paddingEnd="@dimen/size_20dp"
+            android:textSize="@dimen/text_size_25_sp" />
+
+    </LinearLayout>
+
+    <ImageButton
+
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/size_100dp"
+        android:layout_below="@+id/input"
+        android:paddingBottom="@dimen/size_10dp"
+        android:paddingTop="@dimen/size_10dp"
+        android:src="@drawable/ic_arrow_forward_white_24dp"
+        android:id="@+id/nextBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/size_20dp"
+        android:layout_marginRight="@dimen/size_20dp"
+        android:background="@drawable/app_button_bg"
+        android:paddingStart="@dimen/size_30dp"
+        android:paddingEnd="@dimen/size_30dp" />
+
+</RelativeLayout>

@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_marginTop="@dimen/size_20dp"
+            android:padding="@dimen/size_10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Course Offer"
+            android:textColor="@color/black"
+            android:textSize="@dimen/size_20sp"
+            android:textStyle="normal" />
+
+
+        <LinearLayout
+            android:padding="@dimen/size_10dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="@color/appColor"
+                android:layout_marginLeft="@dimen/size_20dp"
+                android:text="Course Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/size_20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="@dimen/size_20dp"
+                android:background="@drawable/input_field_background"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <EditText
+                    android:inputType="none"
+                    android:id="@+id/et_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="Computer Fundamental"
+                    android:imeOptions="actionDone"
+                    android:includeFontPadding="true"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/appColor"
+                    android:textColorHint="@color/ashTextColor"
+                    android:textSize="@dimen/text_size_18_sp" />
+            </LinearLayout>
+            <TextView
+                android:layout_marginTop="@dimen/size_10dp"
+                android:textColor="@color/appColor"
+                android:layout_marginLeft="@dimen/size_20dp"
+                android:text="Course Code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/size_20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="@dimen/size_20dp"
+                android:background="@drawable/input_field_background"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <EditText
+                    android:id="@+id/et_email1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="CSE 101"
+                    android:imeOptions="actionDone"
+                    android:includeFontPadding="true"
+                    android:inputType="none"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/appColor"
+                    android:textColorHint="@color/ashTextColor"
+                    android:textSize="@dimen/text_size_18_sp" />
+            </LinearLayout>
+            <TextView
+                android:layout_marginTop="@dimen/size_10dp"
+                android:textColor="@color/appColor"
+                android:layout_marginLeft="@dimen/size_20dp"
+                android:text="Start Date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/size_20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="@dimen/size_20dp"
+                android:background="@drawable/input_field_background"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <EditText
+                    android:id="@+id/et_email3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="Set start date"
+                    android:imeOptions="actionDone"
+                    android:includeFontPadding="true"
+                    android:inputType="textEmailAddress"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/appColor"
+                    android:textColorHint="@color/ashTextColor"
+                    android:textSize="@dimen/text_size_18_sp" />
+            </LinearLayout>
+            <TextView
+                android:layout_marginTop="@dimen/size_10dp"
+                android:textColor="@color/appColor"
+                android:layout_marginLeft="@dimen/size_20dp"
+                android:text="End Date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/size_20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="@dimen/size_20dp"
+                android:background="@drawable/input_field_background"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <EditText
+                    android:id="@+id/et_email2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="Set end date"
+                    android:imeOptions="actionDone"
+                    android:includeFontPadding="true"
+                    android:inputType="textEmailAddress"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/appColor"
+                    android:textColorHint="@color/ashTextColor"
+                    android:textSize="@dimen/text_size_18_sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_marginTop="@dimen/size_10dp"
+                android:textColor="@color/appColor"
+                android:layout_marginLeft="@dimen/size_20dp"
+                android:text="Add Section"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/insert_point"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </LinearLayout>
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/addBtn"
+                android:layout_marginTop="@dimen/size_10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/fab_margin"
+                android:src="@drawable/ic_add_black_24dp"
+                android:tint="@android:color/white"
+                app:backgroundTint="@color/appColor" />
+
+
+
+            <Button
+                android:layout_gravity="center"
+                android:id="@+id/login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/size_30dp"
+                android:background="@drawable/app_button_bg"
+                android:paddingTop="@dimen/size_5dp"
+                android:paddingBottom="@dimen/size_5dp"
+                android:paddingLeft="@dimen/size_20dp"
+                android:paddingRight="@dimen/size_20dp"
+                android:text="Add"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_23_sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

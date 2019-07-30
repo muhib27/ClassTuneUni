@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.CodeEntryFragment">
+
+    <ImageView
+        android:id="@+id/img"
+        android:layout_marginTop="@dimen/size_20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:padding="@dimen/size_20dp"
+        android:src="@drawable/enroll_success_img" />
+
+
+    <LinearLayout
+        android:padding="@dimen/size_20dp"
+        android:layout_below="@+id/img"
+        android:id="@+id/input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Subject"
+            android:textColor="#B5B5B5"
+            android:textSize="@dimen/text_size_12_sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="CSE 101"
+            android:textColor="@color/appColor"
+            android:textSize="@dimen/text_size_30_sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:gravity="center"
+            android:text="Section"
+            android:textColor="#B5B5B5"
+            android:textSize="@dimen/text_size_12_sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="A"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_14_sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:gravity="center"
+            android:text="Timeline:"
+            android:textColor="#B5B5B5"
+            android:textSize="@dimen/text_size_12_sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="15 July, 2019 - 15 Oct, 2019"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_14_sp" />
+
+
+    </LinearLayout>
+
+    <ImageButton
+        android:layout_marginBottom="@dimen/size_20dp"
+        android:id="@+id/enrollNow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:background="@null"
+        android:paddingTop="@dimen/size_10dp"
+        android:paddingBottom="@dimen/size_10dp"
+        android:src="@drawable/enroll_ok" />
+
+</RelativeLayout>
