@@ -45,4 +45,5 @@
     <dimen name="text_size_13_sp">13sp</dimen>
     <dimen name="size_15dp">15dp</dimen>
     <dimen name="text_size_8_sp">8sp</dimen>
+    <dimen name="text_size_9_sp">9sp</dimen>
 </resources>

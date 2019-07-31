@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cell"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/size_5dp">
+    <!--<TextView-->
+    <!--android:id="@+id/subject"-->
+    <!--android:gravity="center"-->
+    <!--android:textColor="@color/appColor"-->
+    <!--android:fontFamily="@font/my_custom_medium_font"-->
+    <!--android:textSize="@dimen/size_15sp"-->
+    <!--android:padding="@dimen/size_5dp"-->
+    <!--android:text="CSE 101"-->
+    <!--android:layout_weight="1"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content" />-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/group_img_circle"
+        android:orientation="vertical"
+        android:padding="@dimen/size_15dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="@dimen/size_40dp"
+                android:layout_height="@dimen/size_40dp"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:src="@drawable/avatar"
+                app:civ_border_color="@color/ashColor"
+                app:civ_border_width="1dp" />
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="@dimen/size_40dp"
+                android:layout_height="@dimen/size_40dp"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:src="@drawable/avatar"
+                app:civ_border_color="@color/ashColor"
+                app:civ_border_width="1dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="@dimen/size_40dp"
+                android:layout_height="@dimen/size_40dp"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:src="@drawable/avatar"
+                app:civ_border_color="@color/ashColor"
+                app:civ_border_width="1dp" />
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="@dimen/size_40dp"
+                android:layout_height="@dimen/size_40dp"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:src="@drawable/avatar"
+                app:civ_border_color="@color/ashColor"
+                app:civ_border_width="1dp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/size_5dp">
+
+        <TextView
+            android:id="@+id/gradePoint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/my_custom_medium_font"
+            android:gravity="left"
+            android:maxLines="2"
+            android:padding="@dimen/size_5dp"
+            android:text="Advanced Software Engineering"
+            android:textColor="@color/appColor"
+            android:textSize="@dimen/size_16sp"
+            android:textStyle="normal" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginStart="@dimen/size_5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Code: CSE 101"
+                android:textSize="@dimen/text_size_9_sp" />
+
+            <View
+                android:layout_width="@dimen/size_10dp"
+                android:layout_height="@dimen/size_10dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/size_10dp"
+                android:layout_marginRight="@dimen/size_10dp"
+                android:background="@drawable/filled_circle_ash" />
+
+            <TextView
+                android:id="@+id/subject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Credit:3"
+                android:textColor="@color/appColor"
+                android:textSize="@dimen/text_size_9_sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginEnd="@dimen/size_10dp"
+        app:cardElevation="@dimen/size_5dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/size_20dp"
+            android:src="@drawable/megaphone" />
+        <!--<TextView-->
+        <!--android:id="@+id/grade"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:fontFamily="@font/my_custom_medium_font"-->
+        <!--android:gravity="center"-->
+        <!--android:padding="@dimen/size_5dp"-->
+        <!--android:text="A"-->
+        <!--android:textColor="@color/black"-->
+        <!--android:textSize="@dimen/size_15sp" />-->
+    </android.support.v7.widget.CardView>
+
+
+</LinearLayout>

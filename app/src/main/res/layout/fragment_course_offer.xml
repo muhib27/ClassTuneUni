@@ -169,14 +169,15 @@
                 android:layout_marginTop="@dimen/size_10dp"
                 android:textColor="@color/appColor"
                 android:layout_marginLeft="@dimen/size_20dp"
-                android:text="Add Section"
+                android:text="Section"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <LinearLayout
+                android:layout_marginLeft="@dimen/size_20dp"
                 android:orientation="vertical"
                 android:id="@+id/insert_point"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
             </LinearLayout>
@@ -195,7 +196,7 @@
 
             <Button
                 android:layout_gravity="center"
-                android:id="@+id/login"
+                android:id="@+id/addCourse"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/size_30dp"
