@@ -4,12 +4,14 @@
 package com.classtune.classtuneuni.utils;
 
 public class URLHelper {
-	public URLHelper() {
+
+
+    public URLHelper() {
 	}
 	//public static final String BASE_URL= "http://192.168.3.43/";
 	//public static final String BASE_URL= "http://192.168.2.38/";
-	//public static final String BASE_URL = "http://192.168.3.51/";
-	public static final String BASE_URL = "http://192.168.2.38/";
+	public static final String BASE_URL = "http://192.168.3.48/";
+	//public static final String BASE_URL = "http://192.168.2.38/";
 	public static final String SUB_URL = "masterapi/";
 //	public final static String URL_BASE = "http://apimaster.classtune.com/api/";
 	public final static String ADD_FCM = "users/add_fcm";
@@ -18,6 +20,8 @@ public class URLHelper {
 	public final static String GET_MENU = "users/get_menu";
 	public final static String GET_LOGOUT = "users/logout";
 
+	public final static String GET_UNIVERSITY = "users/seacrh_univeristy";
+	public static final String URL_REGISTER = "users/register";;
 
 
 

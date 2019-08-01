@@ -87,4 +87,12 @@
     <string name="six_digit_text">Enter the 6 digit Course Enroll Code\n provided by your teacher</string>
     <string name="new_section">Section</string>
     <string name="hint_section">Enter Section Name</string>
+    <string name="java_enter_name">Please enter your name</string>
+    <string name="java_enter_email">Enter your email</string>
+    <string name="java_confirm_password">Enter your passwor again</string>
+    <string name="invalid_email">Please enter valid email</string>
+    <string name="required">This field is required</string>
+    <string name="password_mismatch_reg">Password mismatch</string>
+    <string name="password_length">Password length should be more than five</string>
+    <string name="chckbox_needed">Please check this</string>
 </resources>
