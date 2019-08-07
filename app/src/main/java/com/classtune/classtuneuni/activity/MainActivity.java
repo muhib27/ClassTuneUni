@@ -24,6 +24,7 @@ import com.classtune.classtuneuni.fragment.StudentsSummaryFragment;
 import com.classtune.classtuneuni.fragment.TakeAttendanceFragment;
 import com.classtune.classtuneuni.fragment.TeacherExamListFragment;
 import com.classtune.classtuneuni.fragment.TeacherResultEntryFragment;
+import com.classtune.classtuneuni.utils.AppSharedPreference;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        AppSharedPreference.setUsingFirstTime(false);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -64,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                     //Toast.makeText(getApplicationContext(), TabMessage.get(tabId, true), Toast.LENGTH_LONG).show();
 
                     fragment = new HomeFragment();
-                    loadFragment(fragment, "homeFragment");
+                    loadFragment(fragment, "homeFragment", false);
 
 //                    fragment = new AttendanceSummaryFragment();
 //                    loadFragment(fragment, "attendanceSummaryFragment");
@@ -91,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 //                    }
 
                     fragment = new AssignmentFragment();
-                    loadFragment(fragment, "assignmentFragment");
+                    loadFragment(fragment, "assignmentFragment", false);
 
                 } else if (tabId == R.id.news) {
                     //Toast.makeText(getApplicationContext(), TabMessage.get(tabId, true), Toast.LENGTH_LONG).show();
@@ -102,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
 //                        showNews();
 //                    }
                     fragment = new CombinedResultFragment();
-                    loadFragment(fragment, "combinedResultFragment");
+                    loadFragment(fragment, "combinedResultFragment" , false);
                 } else if (tabId == R.id.quiz) {
                     //Toast.makeText(getApplicationContext(), TabMessage.get(tabId, true), Toast.LENGTH_LONG).show();
 //                    QuizFragment quizFragment = (QuizFragment) getSupportFragmentManager().findFragmentByTag("quizFragment");
@@ -116,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
 //                    fragment = new TeacherExamListFragment();
 //                    loadFragment(fragment, "teacherExamListFragment");
                     fragment = new NoticeListFragment();
-                    loadFragment(fragment, "noticeListFragment");
+                    loadFragment(fragment, "noticeListFragment", false);
                 } else if (tabId == R.id.forum) {
                     //Toast.makeText(getApplicationContext(), TabMessage.get(tabId, true), Toast.LENGTH_LONG).show();
 //                    ForumFragment forumFragment = (ForumFragment) getSupportFragmentManager().findFragmentByTag("forumFragment");
@@ -129,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
 //                    fragment = new ClassScheduleFragment();
 //                    loadFragment(fragment, "classScheduleFragment");
                     fragment = new MorePageFragment();
-                    loadFragment(fragment, "morePageFragment");
+                    loadFragment(fragment, "morePageFragment", true);
                 }
             }
         });
@@ -171,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        bottomBar.selectTabAtPosition(0);
     }
 
     @Override
@@ -197,11 +200,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void loadFragment(Fragment fragment, String tag) {
+    private void loadFragment(Fragment fragment, String tag, boolean backstack) {
         // load fragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.mainContainer, fragment, tag);
-        //transaction.addToBackStack(null);
+        if(backstack)
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 

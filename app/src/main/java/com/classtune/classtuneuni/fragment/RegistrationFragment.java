@@ -63,7 +63,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     UIHelper uiHelper;
     LinearLayout uniNameLl;
 
-    private String username = "", password = "", email = "", repassword = "", userType = "2", uniCode = "", uniname = "";
+    private String username = "", password = "", email = "", repassword = "", userType = "", uniCode = "", uniname = "";
 
 
     public RegistrationFragment() {
@@ -80,7 +80,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        userType = getArguments().getString("userType");
         uiHelper = new UIHelper(getActivity());
 //        spinner = view.findViewById(R.id.spinner);
 //        spinner.setOnItemSelectedListener(new CustomOnItemSelectedListener());
@@ -134,6 +134,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
         switch (view.getId()) {
             case R.id.continueBtn:
                 validateFieldAndCallLogIn();
+
 //                fragment = new UploadProfilePicFragment();
 //                gotoFragment(fragment, "uploadProfilePicFragment");
                 break;
@@ -296,12 +297,10 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 
                         if (regisTrationResponse.getCode() != null && regisTrationResponse.getCode() == 200) {
                             //    passwordChangeDialog();
-;
-                            //callMenuApi();
 
-                            Intent intent = new Intent(getActivity(), MainActivity.class);
-                            startActivity(intent);
-                            getActivity().finish();
+                            AppSharedPreference.setUserNameAndPassword(email, password, regisTrationResponse.getData().getApiKey(), false, regisTrationResponse.getData().getUserData().getUserType());
+                            fragment = new UploadProfilePicFragment();
+                            gotoFragment(fragment, "uploadProfilePicFragment");
                         } else
                             uiHelper.dismissLoadingDialog();
 //                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -370,12 +369,10 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 
                         if (regisTrationResponse.getCode() != null && regisTrationResponse.getCode() == 200) {
                             //    passwordChangeDialog();
+                            AppSharedPreference.setUserNameAndPassword(email, password, regisTrationResponse.getData().getApiKey(), false, regisTrationResponse.getData().getUserData().getUserType());
 
-
-
-                            Intent intent = new Intent(getActivity(), MainActivity.class);
-                            startActivity(intent);
-                            getActivity().finish();
+                            fragment = new UploadProfilePicFragment();
+                            gotoFragment(fragment, "uploadProfilePicFragment");
                         } else
                             uiHelper.dismissLoadingDialog();
 //                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);

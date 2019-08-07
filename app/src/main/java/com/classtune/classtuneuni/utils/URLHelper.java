@@ -21,7 +21,20 @@ public class URLHelper {
 	public final static String GET_LOGOUT = "users/logout";
 
 	public final static String GET_UNIVERSITY = "users/seacrh_univeristy";
-	public static final String URL_REGISTER = "users/register";;
+	public static final String URL_REGISTER = "users/register";
+	public static final String ADD_PHOTO = "users/add_photo";
+
+	public static final String TEACHER_NOTICE_LIST = "noticeapi/list";
+	public static final String TEACHER_NOTICE_TYPE = "noticeapi/offered_sections";
+	public static final String NOTICE_ADD = "noticeapi/add";
+	public static final String TEACHER_NOTICE_DETAILS = "noticeapi/view";
+	public static final String TEACHER_NOTICE_DELETE = "noticeapi/delete";
+
+
+	public static final String URL_ADD_COURSE = "courseapi/add";
+	public static final String TEACHER_COURSE_LIST = "courseapi/list";
+	public static final String OFFERED_COURSE_DETAILS ="courseapi/view_offered_course" ;
+
 
 
 

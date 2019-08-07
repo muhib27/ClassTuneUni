@@ -93,10 +93,10 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
                 fragment = new CourseListFragment();
                 gotoFragment(fragment, "courseListFragment");
                 break;
-            case R.id.rl_4:
-                fragment = new ChatDetailsFragment();
-                gotoFragment(fragment, "chatDetailsFragment");
-                break;
+//            case R.id.rl_4:
+//                fragment = new ChatDetailsFragment();
+//                gotoFragment(fragment, "chatDetailsFragment");
+//                break;
             case R.id.rl_5:
                 fragment = new StudentProfileFragment();
                 gotoFragment(fragment, "studentProfileFragment");
@@ -154,13 +154,13 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
 
     private void userLogout() {
         User user = new User("", "", "", "");
-        AppSharedPreference.setUserBasicInfo(user);
-        if (AppSharedPreference.getRememberMe()) {
-            AppSharedPreference.setUserNameAndPassword(AppSharedPreference.getUserName(), AppSharedPreference.getUserPassword(), "", true);
-
-        } else {
-            AppSharedPreference.setUserNameAndPassword("", "", "", false);
-        }
+//        AppSharedPreference.setUserBasicInfo(user);
+//        if (AppSharedPreference.getRememberMe()) {
+//            AppSharedPreference.setUserNameAndPassword(AppSharedPreference.getUserName(), AppSharedPreference.getUserPassword(), "", true);
+//
+//        } else {
+//            AppSharedPreference.setUserNameAndPassword("", "", "", false);
+//        }
         AppSharedPreference.setUsingFirstTime(true);
         Intent i = new Intent(getActivity(), LoginActivity.class);
         startActivity(i);

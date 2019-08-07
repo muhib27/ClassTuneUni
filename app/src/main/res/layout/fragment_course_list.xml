@@ -17,6 +17,19 @@
         android:textSize="@dimen/text_size_30_sp"
         android:textStyle="bold" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/fab_margin"
+        android:layout_marginEnd="@dimen/size_20dp"
+        android:layout_marginBottom="@dimen/size_30dp"
+        android:src="@drawable/white_add_24dp"
+        android:tint="@android:color/white"
+        app:backgroundTint="@color/black" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"

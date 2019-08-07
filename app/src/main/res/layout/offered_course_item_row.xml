@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cell"
+    android:padding="@dimen/size_10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:textStyle="bold"
+        android:id="@+id/section"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFamily="@font/my_custom_medium_font"
+        android:gravity="center"
+        android:padding="@dimen/size_5dp"
+        android:text="A"
+        android:textColor="@color/appColor"
+        android:textSize="@dimen/text_size_24_sp" />
+
+
+    <TextView
+        android:textStyle="bold"
+        android:id="@+id/code"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFamily="@font/my_custom_medium_font"
+        android:gravity="center"
+        android:padding="@dimen/size_5dp"
+        android:text="A"
+        android:textColor="#B5B5B5"
+        android:textSize="@dimen/text_size_18_sp" />
+
+
+</LinearLayout>

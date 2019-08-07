@@ -51,14 +51,14 @@ public class RetrofitApiClient {
     }
 
 
-    public static synchronized Retrofit getClientWithId(String url) {
+    public static synchronized Retrofit getClientWithId() {
         // if (retrofit==null) {
         final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .readTimeout(300, TimeUnit.SECONDS)
                 .connectTimeout(300, TimeUnit.SECONDS)
                 .build();
         retrofit = new Retrofit.Builder()
-                .baseUrl(URLHelper.BASE_URL + URLHelper.SUB_URL + url)
+                .baseUrl(URLHelper.BASE_URL + URLHelper.SUB_URL )
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(okHttpClient)
@@ -83,8 +83,8 @@ public class RetrofitApiClient {
         return RetrofitApiClient.getClient().create(ApiInterface.class);
     }
 
-    public static ApiInterface getApiInterfaceWithId(String id) {
-        return RetrofitApiClient.getClientWithId(id).create(ApiInterface.class);
+    public static ApiInterface getApiInterfaceWithId() {
+        return RetrofitApiClient.getClientWithId().create(ApiInterface.class);
     }
 
     public static ApiInterface getApiInterfaceWithoutTime() {

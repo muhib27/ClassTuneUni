@@ -1,17 +1,27 @@
 package com.classtune.classtuneuni.retrofit;
 
 
+import com.classtune.classtuneuni.course_resonse.CourseListResponse;
+import com.classtune.classtuneuni.course_resonse.OfferedCourseResponse;
 import com.classtune.classtuneuni.model.LoginApiModel;
 import com.classtune.classtuneuni.model.UniversityModel;
+import com.classtune.classtuneuni.notice.NoticeDetailsResponse;
+import com.classtune.classtuneuni.response.NoticeOfferResponse;
+import com.classtune.classtuneuni.response.NoticeResonse;
 import com.classtune.classtuneuni.response.RegisTrationResponse;
 import com.classtune.classtuneuni.utils.URLHelper;
 import com.google.gson.JsonElement;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Response;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 
 //import io.reactivex.Observable;
@@ -52,6 +62,43 @@ public interface ApiInterface {
     @POST(URLHelper.URL_REGISTER)
 //    Observable<Response<List<LoginResponseModel>>> userLogin(@Field("username") String userId, @Field("password") String password);
     Observable<Response<RegisTrationResponse>> userRegWithName(@Field("email") String userId, @Field("password") String password, @Field("confirm_password") String confirm_password, @Field("name") String name,  @Field("user_type") String user_type, @Field("university_name") String university_id, @Field("fcm_id") String fcm_id);
+    @Multipart
+    @POST(URLHelper.ADD_PHOTO)
+        //Observable<Response<JsonElement>> getTaskAssign(@Body RequestBody file);
+    Observable<Response<JsonElement>> userImageUpload(@Part MultipartBody.Part attachment_file_name, @Part("api_key") RequestBody api_key );
+
+    @FormUrlEncoded
+    @POST(URLHelper.TEACHER_NOTICE_LIST)
+    Observable<Response<NoticeResonse>> getTeacherNitceList(@Field("api_key") String api_key);
+
+    @FormUrlEncoded
+    @POST(URLHelper.TEACHER_NOTICE_TYPE)
+    Observable<Response<NoticeOfferResponse>> getTeacherNitceType(@Field("api_key") String api_key);
+
+    @FormUrlEncoded
+    @POST(URLHelper.NOTICE_ADD)
+    Observable<Response<JsonElement>> addNotice(@Field("title") String title, @Field("descriptions") String descriptions, @Field("sections") String sections, @Field("api_key") String api_key);
+
+    @FormUrlEncoded
+    @POST(URLHelper.TEACHER_NOTICE_DETAILS)
+    Observable<Response<NoticeDetailsResponse>> getNoticeDetails(@Field("api_key") String api_key, @Field("notice_id") String notice_id);
+
+    @FormUrlEncoded
+    @POST(URLHelper.TEACHER_NOTICE_DELETE)
+    Observable<Response<JsonElement>> deleteNotice(@Field("api_key") String api_key, @Field("notice_id") String notice_id);
+
+    @FormUrlEncoded
+    @POST(URLHelper.URL_ADD_COURSE)
+    Observable<Response<JsonElement>> addCourse(@Field("name") String name, @Field("course_code") String course_code, @Field("credit_point") String credit_point,  @Field("api_key") String api_key);
+
+    @FormUrlEncoded
+    @POST(URLHelper.TEACHER_COURSE_LIST)
+    Observable<Response<CourseListResponse>> getTeacherCourseList(@Field("api_key") String api_key);
+
+    @FormUrlEncoded
+    @POST(URLHelper.OFFERED_COURSE_DETAILS)
+    Observable<Response<OfferedCourseResponse>> OfferedCourseDetails(@Field("api_key") String api_key, @Field("course_id") String course_id);
+
 }
 
 

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.model.Item;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
@@ -20,8 +21,9 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     private List<Item> itemList;
     Context context;
 
-    public ItemAdapter(Context context, List<Item> itemList) {
-        this.itemList = itemList;
+    public ItemAdapter(Context context) {
+//        this.itemList = itemList;
+        itemList = new ArrayList<>();
         this.context = context;
     }
 
@@ -46,7 +48,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         layoutManager.setInitialPrefetchItemCount(item.getSubItemList().size());
 
         // Create sub item view adapter
-        SubItemAdapter subItemAdapter = new SubItemAdapter(item.getSubItemList());
+        SubItemAdapter subItemAdapter = new SubItemAdapter(item.getSubItemList(), this.context);
 
         itemViewHolder.rvSubItem.setLayoutManager(layoutManager);
         itemViewHolder.rvSubItem.setAdapter(subItemAdapter);
@@ -55,7 +57,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
     @Override
     public int getItemCount() {
-        return itemList.size();
+        return itemList == null ? 0 : itemList.size();
     }
 
     class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -66,6 +68,18 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             super(itemView);
             tvItemTitle = itemView.findViewById(R.id.tv_item_title);
             rvSubItem = itemView.findViewById(R.id.rv_sub_item);
+        }
+    }
+
+
+    public void add(Item r) {
+        itemList.add(r);
+        notifyItemInserted(itemList.size() - 1);
+    }
+
+    public void addAllData(List<Item> moveResults) {
+        for (Item result : moveResults) {
+            add(result);
         }
     }
 }

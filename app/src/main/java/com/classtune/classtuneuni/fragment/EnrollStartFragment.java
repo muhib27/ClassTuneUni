@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.utils.AppSharedPreference;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,8 +45,14 @@ public class EnrollStartFragment extends Fragment implements View.OnClickListene
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.enrollNow:
-                fragment = new CodeEntryFragment();
-                gotoFragment(fragment, "codeEntryFragment");
+                if(AppSharedPreference.getUserType()== "3") {
+                    fragment = new CodeEntryFragment();
+                    gotoFragment(fragment, "codeEntryFragment");
+                }
+                else {
+                    fragment = new TeacherAddCourseFragment();
+                    gotoFragment(fragment, "teacherAddCourseFragment");
+                }
                 break;
         }
     }
@@ -55,7 +62,7 @@ public class EnrollStartFragment extends Fragment implements View.OnClickListene
         // load fragment
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.mainContainer, fragment, tag);
-        //transaction.addToBackStack(null);
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 }

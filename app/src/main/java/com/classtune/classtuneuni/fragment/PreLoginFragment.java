@@ -36,7 +36,7 @@ public class PreLoginFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        AppSharedPreference.setUsingFirstTime(false);
+       // AppSharedPreference.setUsingFirstTime(false);
 
         login = view.findViewById(R.id.login);
         register = view.findViewById(R.id.register);
@@ -54,8 +54,8 @@ public class PreLoginFragment extends Fragment implements View.OnClickListener {
                 gotoFragment(fragment, "loginFragment");
                 break;
             case R.id.register:
-                fragment = new RegistrationFragment();
-                gotoFragment(fragment, "registrationFragment");
+                fragment = new UserSelectionFragment();
+                gotoFragment(fragment, "userSelectionFragment");
                 break;
         }
     }

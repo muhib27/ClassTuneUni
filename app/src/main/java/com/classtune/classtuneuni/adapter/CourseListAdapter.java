@@ -1,7 +1,10 @@
 package com.classtune.classtuneuni.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,24 +16,29 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.classtune.classtuneuni.R;
-import com.classtune.classtuneuni.model.ComResult;
+import com.classtune.classtuneuni.activity.MainActivity;
+import com.classtune.classtuneuni.course_resonse.Course;
+import com.classtune.classtuneuni.fragment.CourseOfferFragment;
+import com.classtune.classtuneuni.fragment.OfferedCourseDetailsFragment;
 import com.classtune.classtuneuni.model.CourseModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class CourseListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private ArrayList<CourseModel> mValues;
+    private List<Course> mValues;
     private Context mContext;
     protected ItemListener mListener;
     private static final int HERO = 2;
     private static final int ITEM = 0;
 
-    public CourseListAdapter(Context context, ArrayList<CourseModel> values, ItemListener itemListener) {
-        mValues = values;
+    public CourseListAdapter(Context context, ItemListener itemListener) {
+//        mValues = values;
         mContext = context;
         mListener = itemListener;
+        mValues = new ArrayList<>();
     }
 
 
@@ -57,21 +65,31 @@ public class CourseListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
-        final CourseModel result = mValues.get(position);
+        final Course result = mValues.get(position);
         switch (getItemViewType(position)) {
             case ITEM:
                 final MovieVH itemHolder = (MovieVH) viewHolder;
-//                itemHolder.subject.setText(result.getSubject());
-//                itemHolder.gradePoint.setText(result.getGradePoint());
-//                itemHolder.grade.setText(result.getGrade());
-//                itemHolder.cell.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        if (mListener != null) {
-//                            mListener.onItemClick(result, position);
-//                        }
-//                        }
-//                    });
+                itemHolder.subject.setText(result.getName());
+                itemHolder.gradePoint.setText(result.getCourseCode());
+                itemHolder.grade.setText(result.getCreditPoint());
+                if (!result.getCourseOffered())
+                    itemHolder.cardView.setVisibility(View.VISIBLE);
+                else
+                    itemHolder.cardView.setVisibility(View.INVISIBLE);
+                itemHolder.cell.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (result.getCourseOffered()) {
+                            Fragment fragment = new OfferedCourseDetailsFragment();
+                            gotoFragment(fragment, "offeredCourseDetailsFragment", result.getId());
+                        }
+                        else {
+                            Fragment fragment = new CourseOfferFragment();
+                            gotoFragment(fragment, "courseOfferFragment", result.getId());
+                        }
+                    }
+
+                });
 
 
                 break;
@@ -82,7 +100,7 @@ public class CourseListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         @Override
         public int getItemCount () {
-            return mValues.size();
+            return mValues == null ? 0 : mValues.size();
         }
 
         @Override
@@ -111,10 +129,11 @@ public class CourseListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             public MovieVH(View itemView) {
                 super(itemView);
 
-                subject = itemView.findViewById(R.id.subject);
-                gradePoint = itemView.findViewById(R.id.gradePoint);
-                grade = itemView.findViewById(R.id.grade);
+                subject = itemView.findViewById(R.id.courseName);
+                gradePoint = itemView.findViewById(R.id.courseCode);
+                grade = itemView.findViewById(R.id.credit);
                 cell = itemView.findViewById(R.id.cell);
+                cardView = itemView.findViewById(R.id.cardView);
 
             }
         }
@@ -131,4 +150,26 @@ public class CourseListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 title = itemView.findViewById(R.id.textView);
             }
         }
+
+    public void add(Course r) {
+        mValues.add(r);
+        notifyItemInserted(mValues.size() - 1);
+    }
+
+    public void addAllData(List<Course> moveResults) {
+        for (Course result : moveResults) {
+            add(result);
+        }
+    }
+
+    private void gotoFragment(Fragment fragment, String tag, String courseId) {
+        // load fragment
+        Bundle bundle = new Bundle();
+        bundle.putString("courseId", courseId);
+        fragment.setArguments(bundle);
+        FragmentTransaction transaction = ((MainActivity) mContext).getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.mainContainer, fragment, tag);
+        //transaction.addToBackStack(null);
+        transaction.commit();
+    }
 }

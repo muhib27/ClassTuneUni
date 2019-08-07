@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/size_20dp"
+        android:layout_marginTop="@dimen/size_100dp"
         android:text="You are not"
         android:textSize="@dimen/text_size_18_sp"
         android:textStyle="normal" />
@@ -27,25 +27,25 @@
         android:textSize="@dimen/text_size_18_sp"
         android:textStyle="bold" />
 
-    <RelativeLayout
-        android:layout_marginTop="@dimen/size_10dp"
-        android:layout_below="@+id/your_pf"
-        android:id="@+id/pic_up"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <!--<RelativeLayout-->
+        <!--android:layout_marginTop="@dimen/size_10dp"-->
+        <!--android:layout_below="@+id/your_pf"-->
+        <!--android:id="@+id/pic_up"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
 
-        <pl.droidsonroids.gif.GifImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/campus_enroll" />
-    </RelativeLayout>
+        <!--<pl.droidsonroids.gif.GifImageView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/campus_enroll" />-->
+    <!--</RelativeLayout>-->
 
 
     <Button
         android:id="@+id/enrollNow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-       android:layout_marginBottom="@dimen/size_40dp"
+       android:layout_marginBottom="@dimen/size_100dp"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="@dimen/size_20dp"
         android:layout_marginRight="@dimen/size_20dp"

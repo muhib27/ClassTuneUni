@@ -1,0 +1,108 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".activity.SplashActivity">
+
+    <RelativeLayout
+        android:layout_marginTop="@dimen/size_50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="Select"
+            android:textColor="@color/appColor"
+            android:textSize="@dimen/text_size_30_sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/your_pf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/select"
+            android:layout_centerHorizontal="true"
+            android:text="User Type"
+            android:textSize="@dimen/size_20sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/pic_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:id="@+id/student"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:background="@drawable/img_circle_app"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/size_20dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/student_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/student"
+                android:textColor="#B5B5B5"
+                android:textSize="@dimen/size_16sp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/teacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/your_pf"
+            android:layout_marginTop="@dimen/size_50dp"
+            android:background="@drawable/img_circle_app"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/size_20dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/student_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/teacher"
+                android:textColor="#B5B5B5"
+                android:textSize="@dimen/size_16sp" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="@dimen/size_20dp"
+        android:gravity="center"
+        android:text="@string/copyright"
+        android:textColor="@color/appColor" />
+
+</RelativeLayout>

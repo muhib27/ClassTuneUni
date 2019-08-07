@@ -1,12 +1,15 @@
 package com.classtune.classtuneuni.model;
 
+import com.classtune.classtuneuni.response.Notice;
+import com.classtune.classtuneuni.response.NoticeInfo;
+
 import java.util.List;
 
 public class Item {
     private String itemTitle;
-    private List<SubItem> subItemList;
+    private List<Notice> subItemList;
 
-    public Item(String itemTitle, List<SubItem> subItemList) {
+    public Item(String itemTitle, List<Notice> subItemList) {
         this.itemTitle = itemTitle;
         this.subItemList = subItemList;
     }
@@ -19,11 +22,11 @@ public class Item {
         this.itemTitle = itemTitle;
     }
 
-    public List<SubItem> getSubItemList() {
+    public List<Notice> getSubItemList() {
         return subItemList;
     }
 
-    public void setSubItemList(List<SubItem> subItemList) {
+    public void setSubItemList(List<Notice> subItemList) {
         this.subItemList = subItemList;
     }
 }

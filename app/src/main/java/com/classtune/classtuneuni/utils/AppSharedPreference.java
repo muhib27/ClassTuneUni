@@ -19,6 +19,7 @@ public class AppSharedPreference {
     private static final String keyRememberMe = "rememberMe";
     private static final String keyUDID = "udid";
     private static final String keyFCMId = "fcm_id";
+    private static final String keyUserType = "userType";
 
     private static SharedPreferences getSharedPreferences() {
         return MyApplication.getContext().getSharedPreferences(keyModelTestPrefs, 0);
@@ -72,13 +73,14 @@ public class AppSharedPreference {
         return user;
     }
 
-    public static void setUserNameAndPassword(String userId, String password, String api_key, boolean rememberMe) {
+    public static void setUserNameAndPassword(String userId, String password, String api_key, boolean rememberMe, String userType) {
         final SharedPreferences pref = getSharedPreferences();
         final SharedPreferences.Editor editor = pref.edit();
 
         editor.putString(keyUserName, userId);
         editor.putString(keyUserPassword, password);
         editor.putString(keyApiKey, api_key);
+        editor.putString(keyUserType, userType);
         editor.putBoolean(keyRememberMe, rememberMe);
         editor.apply();
     }
@@ -128,6 +130,11 @@ public class AppSharedPreference {
     public static String getApiKey() {
         final SharedPreferences pref = getSharedPreferences();
         return pref.getString(keyApiKey, "");
+    }
+
+    public static String getUserType() {
+        final SharedPreferences pref = getSharedPreferences();
+        return pref.getString(keyUserType, "");
     }
 
 }
