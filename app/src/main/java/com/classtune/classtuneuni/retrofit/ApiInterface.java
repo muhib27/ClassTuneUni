@@ -99,6 +99,10 @@ public interface ApiInterface {
     @POST(URLHelper.OFFERED_COURSE_DETAILS)
     Observable<Response<OfferedCourseResponse>> OfferedCourseDetails(@Field("api_key") String api_key, @Field("course_id") String course_id);
 
+    @FormUrlEncoded
+    @POST(URLHelper.OFFERED_COURSE_SECTION_ADD)
+    Observable<Response<JsonElement>> OfferedCourseSectionAdd(@Field("api_key") String api_key, @Field("course_offers_id") String course_offers_id, @Field("name") String name);
+
 }
 
 

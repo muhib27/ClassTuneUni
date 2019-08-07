@@ -1,203 +1,213 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".fragment.OfferedCourseDetailsFragment">
 
-    <LinearLayout
-        android:id="@+id/ll"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/size_10dp"
-            android:layout_marginTop="@dimen/size_10dp"
-            android:background="@drawable/selected"
-            android:elevation="3dp"
-            android:paddingTop="@dimen/size_3dp"
-            android:paddingBottom="@dimen/size_3dp"
-            android:text="@string/back"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="@dimen/size_20sp" />
-
-        <TextView
-            android:id="@+id/courseName"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingTop="@dimen/size_10dp"
-            android:text="Computer Fundamentals"
-            android:textColor="@color/appColor"
-            android:textSize="@dimen/size_20dp" />
+            android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/size_10dp"
-            android:layout_marginBottom="@dimen/size_5dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/ll"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Code: "
-                android:textColor="@color/ash_b5"
-                android:textSize="@dimen/text_size_10_sp" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/code"
-                android:layout_width="wrap_content"
+                <Button
+                    android:id="@+id/back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_10dp"
+                    android:layout_marginTop="@dimen/size_10dp"
+                    android:background="@drawable/selected"
+                    android:elevation="3dp"
+                    android:paddingTop="@dimen/size_3dp"
+                    android:paddingBottom="@dimen/size_3dp"
+                    android:text="@string/back"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size_20sp" />
+
+                <TextView
+                    android:id="@+id/courseName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/size_10dp"
+                    android:text="Computer Fundamentals"
+                    android:textColor="@color/appColor"
+                    android:textSize="@dimen/size_20dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/size_10dp"
+                    android:layout_marginBottom="@dimen/size_5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Code: "
+                        android:textColor="@color/ash_b5"
+                        android:textSize="@dimen/text_size_10_sp" />
+
+                    <TextView
+                        android:id="@+id/code"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Md. Rohim"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_10_sp" />
+
+                    <View
+                        android:layout_width="@dimen/size_10dp"
+                        android:layout_height="@dimen/size_10dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/size_10dp"
+                        android:layout_marginRight="@dimen/size_10dp"
+                        android:background="@drawable/filled_circle_ash" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Credit: "
+                        android:textColor="@color/ash_b5"
+                        android:textSize="@dimen/text_size_10_sp" />
+
+                    <TextView
+                        android:id="@+id/credit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="CSE 101"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_10_sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/size_10dp"
+                    android:layout_marginBottom="@dimen/size_5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Timeline: "
+                        android:textColor="@color/ash_b5"
+                        android:textSize="@dimen/text_size_10_sp" />
+
+                    <TextView
+                        android:id="@+id/duration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/size_10dp"
+                        android:layout_marginBottom="@dimen/size_10dp"
+                        android:gravity="center"
+                        android:text="15 July, 2019 - 15 Oct, 2019"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_14_sp" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="@dimen/size_100dp"
+                    android:layout_marginEnd="@dimen/size_100dp"
+                    android:layout_marginBottom="@dimen/size_10dp"
+                    android:background="@color/ash_b5" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/size_10dp"
+                    android:layout_marginTop="@dimen/size_10dp"
+                    android:layout_marginRight="@dimen/size_10dp"
+                    android:background="@color/appColor"
+                    android:elevation="@dimen/size_3dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/subject"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/my_custom_bold_font"
+                        android:gravity="center"
+                        android:padding="@dimen/size_10dp"
+                        android:text="Section"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_16_sp"
+                        android:textStyle="bold" />
+
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/size_10dp"
+                        android:layout_marginBottom="@dimen/size_10dp"
+                        android:background="@color/white" />
+
+                    <TextView
+                        android:id="@+id/grade"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/my_custom_bold_font"
+                        android:gravity="center"
+                        android:padding="@dimen/size_10dp"
+                        android:text="Enroll Code"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_16_sp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Md. Rohim"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_size_10_sp" />
-
-            <View
-                android:layout_width="@dimen/size_10dp"
-                android:layout_height="@dimen/size_10dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/size_10dp"
-                android:layout_marginRight="@dimen/size_10dp"
-                android:background="@drawable/filled_circle_ash" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Credit: "
-                android:textColor="@color/ash_b5"
-                android:textSize="@dimen/text_size_10_sp" />
-
-            <TextView
-                android:id="@+id/credit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="CSE 101"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_size_10_sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/size_10dp"
-            android:layout_marginBottom="@dimen/size_5dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Timeline: "
-                android:textColor="@color/ash_b5"
-                android:textSize="@dimen/text_size_10_sp" />
-
-            <TextView
-                android:id="@+id/duration"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_below="@+id/ll"
                 android:layout_marginStart="@dimen/size_10dp"
-                android:layout_marginBottom="@dimen/size_10dp"
-                android:gravity="center"
-                android:text="15 July, 2019 - 15 Oct, 2019"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_size_14_sp" />
-        </LinearLayout>
+                android:layout_marginEnd="@dimen/size_10dp"
+                app:cardElevation="@dimen/size_3dp">
 
-        <View
-            android:id="@+id/view"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="@dimen/size_100dp"
-            android:layout_marginEnd="@dimen/size_100dp"
-            android:layout_marginBottom="@dimen/size_10dp"
-            android:background="@color/ash_b5" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:scrollbars="vertical"
+                    app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior" />
+            </android.support.v7.widget.CardView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/size_10dp"
-            android:layout_marginTop="@dimen/size_10dp"
-            android:layout_marginRight="@dimen/size_10dp"
-            android:background="@color/appColor"
-            android:elevation="@dimen/size_3dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/subject"
-                android:layout_width="0dp"
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_add"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/my_custom_bold_font"
-                android:gravity="center"
-                android:padding="@dimen/size_10dp"
-                android:text="Section"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_16_sp"
-                android:textStyle="bold" />
-
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/size_10dp"
-                android:layout_marginBottom="@dimen/size_10dp"
-                android:background="@color/white" />
-
-            <TextView
-                android:id="@+id/grade"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/my_custom_bold_font"
-                android:gravity="center"
-                android:padding="@dimen/size_10dp"
-                android:text="Enroll Code"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_16_sp"
-                android:textStyle="bold" />
-
-
-        </LinearLayout>
-    </LinearLayout>
-
-    <android.support.v7.widget.CardView
-        android:layout_marginStart="@dimen/size_10dp"
-        android:layout_marginEnd="@dimen/size_10dp"
-        app:cardElevation="@dimen/size_3dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ll">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:scrollbars="vertical"
-            app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior" />
-    </android.support.v7.widget.CardView>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="@dimen/fab_margin"
-        android:layout_marginEnd="@dimen/size_20dp"
-        android:layout_marginBottom="@dimen/size_30dp"
-        android:src="@drawable/white_add_24dp"
-        android:tint="@android:color/white"
-        app:backgroundTint="@color/black" />
-</RelativeLayout>
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="@dimen/fab_margin"
+                android:layout_marginEnd="@dimen/size_20dp"
+                android:layout_marginBottom="@dimen/size_30dp"
+                android:src="@drawable/white_add_24dp"
+                android:tint="@android:color/white"
+                app:backgroundTint="@color/black" />
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>
