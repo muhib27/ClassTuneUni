@@ -1,6 +1,8 @@
 package com.classtune.classtuneuni.retrofit;
 
 
+import com.classtune.classtuneuni.assignment.TeacherAssignmentResponse;
+import com.classtune.classtuneuni.course_resonse.CorsSecStudentResponse;
 import com.classtune.classtuneuni.course_resonse.CourseListResponse;
 import com.classtune.classtuneuni.course_resonse.OfferedCourseResponse;
 import com.classtune.classtuneuni.model.LoginApiModel;
@@ -103,6 +105,13 @@ public interface ApiInterface {
     @POST(URLHelper.OFFERED_COURSE_SECTION_ADD)
     Observable<Response<JsonElement>> OfferedCourseSectionAdd(@Field("api_key") String api_key, @Field("course_offers_id") String course_offers_id, @Field("name") String name);
 
+    @FormUrlEncoded
+    @POST(URLHelper.OFFERED_COURSE_SECTION_STUDENT)
+    Observable<Response<CorsSecStudentResponse>> getCourseStudentSection(@Field("api_key") String api_key, @Field("course_offer_sections_id") String course_offer_sections_id);
+
+    @FormUrlEncoded
+    @POST(URLHelper.ASSIGNMENT_LIST)
+    Observable<Response<TeacherAssignmentResponse>> getAssignmentList(@Field("api_key") String api_key);
 }
 
 

@@ -21,10 +21,24 @@ import android.widget.Toast;
 
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.adapter.AssignmentAdapter;
+import com.classtune.classtuneuni.assignment.Assignment;
+import com.classtune.classtuneuni.assignment.TeacherAssignmentResponse;
+import com.classtune.classtuneuni.course_resonse.CourseListResponse;
 import com.classtune.classtuneuni.model.AssignmentModel;
+import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
+import com.classtune.classtuneuni.utils.AppSharedPreference;
+import com.classtune.classtuneuni.utils.NetworkConnection;
+import com.classtune.classtuneuni.utils.UIHelper;
 import com.classtune.classtuneuni.utils.VerticalSpaceItemDecoration;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,9 +47,10 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.It
     TabLayout tabLayout;
     TabHost mTabHost;
     RecyclerView recyclerView;
-    private ArrayList<AssignmentModel> assignmentList;
+    private List<Assignment> assignmentList;
     LinearLayoutManager linearLayoutManager;
-
+    UIHelper uiHelper;
+    AssignmentAdapter assignmentAdapter;
 
     public AssignmentFragment() {
         // Required empty public constructor
@@ -52,6 +67,7 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.It
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        uiHelper = new UIHelper(getActivity());
         mTabHost = (TabHost) view.findViewById(android.R.id.tabhost);
 
         mTabHost.setup();
@@ -66,11 +82,11 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.It
 
         assignmentList = new ArrayList<>();
 
-        assignmentList.add(new AssignmentModel("Title", "Md. Rohim", "CSE 101", "2.5", "22 July, 2019", "25 July, 2019"));
-        assignmentList.add(new AssignmentModel("Title", "Md. Rohim", "CSE 101", "2.5", "22 July, 2019", "25 July, 2019"));
-        assignmentList.add(new AssignmentModel("Title", "Md. Rohim", "CSE 101", "2.5", "22 July, 2019", "25 July, 2019"));
+//        assignmentList.add(new AssignmentModel("Title", "Md. Rohim", "CSE 101", "2.5", "22 July, 2019", "25 July, 2019"));
+//        assignmentList.add(new AssignmentModel("Title", "Md. Rohim", "CSE 101", "2.5", "22 July, 2019", "25 July, 2019"));
+//        assignmentList.add(new AssignmentModel("Title", "Md. Rohim", "CSE 101", "2.5", "22 July, 2019", "25 July, 2019"));
 
-        AssignmentAdapter assignmentAdapter = new AssignmentAdapter(getActivity(), assignmentList, this);
+        assignmentAdapter = new AssignmentAdapter(getActivity(), this);
         linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(getResources()));
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -138,4 +154,67 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.It
         //transaction.addToBackStack(null);
         transaction.commit();
     }
+
+    private void callAssignmentListApi() {
+
+
+        if (!NetworkConnection.getInstance().isNetworkAvailable()) {
+            Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        uiHelper.showLoadingDialog("Please wait...");
+
+        // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
+        RetrofitApiClient.getApiInterfaceWithId().getAssignmentList(AppSharedPreference.getApiKey())
+
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<TeacherAssignmentResponse>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Response<TeacherAssignmentResponse> value) {
+                        uiHelper.dismissLoadingDialog();
+
+                        TeacherAssignmentResponse assignmentResponse = value.body();
+                        if (assignmentResponse.getCode() == 200) {
+//
+                            assignmentList = assignmentResponse.getData().getAssignments();
+//
+//
+//                            List<String> dateList = new ArrayList<>();
+//                            for (int r = 0; r < noticeList.size(); r++) {
+//                                String sub = noticeList.get(r).getNotice().getCreatedAt().substring(0, 10);
+//                                if (!dateList.contains(sub))
+//                                    dateList.add(sub);
+//                            }
+
+//                            itemList = buildItemList(noticeList, dateList);
+                            assignmentAdapter.addAllData(assignmentList);
+//                            Log.v("tt", noticeList.toString());
+                            Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        uiHelper.dismissLoadingDialog();
+                    }
+
+                    @Override
+                    public void onComplete() {
+//                        progressDialog.dismiss();
+                        uiHelper.dismissLoadingDialog();
+                    }
+                });
+
+
+    }
+
 }

@@ -7,10 +7,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.LoginActivity;
@@ -36,6 +39,9 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
     UIHelper uiHelper;
     RelativeLayout rl_8, rl_1, rl_2, rl_3, rl_4, rl_5, rl_6, rl_7;
 
+    ImageView iv1, iv2, iv3, iv4, iv5, iv6, iv7, iv8;
+    TextView tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8;
+
     public MorePageFragment() {
         // Required empty public constructor
     }
@@ -53,6 +59,22 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
 
         uiHelper = new UIHelper(getActivity());
+
+        iv2 = view.findViewById(R.id.iv2);
+        iv3 = view.findViewById(R.id.iv3);
+        iv4 = view.findViewById(R.id.iv4);
+        iv5 = view.findViewById(R.id.iv5);
+        iv6 = view.findViewById(R.id.iv6);
+        iv7 = view.findViewById(R.id.iv7);
+
+        tv2 = view.findViewById(R.id.tv2);
+        tv3 = view.findViewById(R.id.tv3);
+        tv4 = view.findViewById(R.id.tv4);
+        tv5 = view.findViewById(R.id.tv5);
+        tv6 = view.findViewById(R.id.tv6);
+        tv7 = view.findViewById(R.id.tv7);
+
+
 
         rl_1 = view.findViewById(R.id.rl_1);
         rl_1.setOnClickListener(this);
@@ -77,6 +99,13 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
 
         rl_8 = view.findViewById(R.id.rl_8);
         rl_8.setOnClickListener(this);
+
+
+        if (AppSharedPreference.getUserType().equals("2")) {
+
+            iv2.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.course_offer));
+            tv2.setText("Course");
+        }
     }
 
     @Override
@@ -86,12 +115,16 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
                 callLogOutApi();
                 break;
             case R.id.rl_2:
-                fragment = new EnrollStartFragment();
-                gotoFragment(fragment, "enrollStartFragment");
+                if (AppSharedPreference.getUserType().equals("2")) {
+                    fragment = new CourseListFragment();
+                    gotoFragment(fragment, "courseListFragment");
+                } else {
+                    fragment = new EnrollStartFragment();
+                    gotoFragment(fragment, "enrollStartFragment");
+                }
                 break;
             case R.id.rl_3:
-                fragment = new CourseListFragment();
-                gotoFragment(fragment, "courseListFragment");
+
                 break;
 //            case R.id.rl_4:
 //                fragment = new ChatDetailsFragment();

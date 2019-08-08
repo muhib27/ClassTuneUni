@@ -7,12 +7,11 @@ public class URLHelper {
 
 
 
-
     public URLHelper() {
 	}
 	//public static final String BASE_URL= "http://192.168.3.43/";
-	//public static final String BASE_URL= "http://192.168.2.38/";
-	public static final String BASE_URL = "http://192.168.3.48/";
+	public static final String BASE_URL= "http://uni.edoozz.com/";
+	//public static final String BASE_URL = "http://192.168.3.48/";
 	//public static final String BASE_URL = "http://192.168.2.38/";
 	public static final String SUB_URL = "masterapi/";
 //	public final static String URL_BASE = "http://apimaster.classtune.com/api/";
@@ -26,17 +25,21 @@ public class URLHelper {
 	public static final String URL_REGISTER = "users/register";
 	public static final String ADD_PHOTO = "users/add_photo";
 
-	public static final String TEACHER_NOTICE_LIST = "noticeapi/list";
-	public static final String TEACHER_NOTICE_TYPE = "noticeapi/offered_sections";
-	public static final String NOTICE_ADD = "noticeapi/add";
-	public static final String TEACHER_NOTICE_DETAILS = "noticeapi/view";
-	public static final String TEACHER_NOTICE_DELETE = "noticeapi/delete";
+	public static final String TEACHER_NOTICE_LIST = "notice_api/notice_list";
+	public static final String TEACHER_NOTICE_TYPE = "notice_api/offered_sections";
+	public static final String NOTICE_ADD = "notice_api/add";
+	public static final String TEACHER_NOTICE_DETAILS = "notice_api/view";
+	public static final String TEACHER_NOTICE_DELETE = "notice_api/delete";
 
 
-	public static final String URL_ADD_COURSE = "courseapi/add";
-	public static final String TEACHER_COURSE_LIST = "courseapi/list";
-	public static final String OFFERED_COURSE_DETAILS ="courseapi/view_offered_course" ;
-	public static final String OFFERED_COURSE_SECTION_ADD = "courseapi/add_section";
+	public static final String URL_ADD_COURSE = "course_api/add";
+	public static final String TEACHER_COURSE_LIST = "course_api/course_list";
+	public static final String OFFERED_COURSE_DETAILS ="course_api/view_offered_course" ;
+	public static final String OFFERED_COURSE_SECTION_ADD = "course_api/add_section";
+	public static final String OFFERED_COURSE_SECTION_STUDENT ="course_api/enrolled_students" ;
+
+
+	public static final String ASSIGNMENT_LIST = "assignment_api/assignment_list";
 
 
 

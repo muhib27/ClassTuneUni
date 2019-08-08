@@ -5,26 +5,20 @@ import android.support.annotation.IdRes;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
-
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
-import com.classtune.classtuneuni.fragment.AssignmentFragment;
-import com.classtune.classtuneuni.fragment.AttendanceSummaryFragment;
-import com.classtune.classtuneuni.fragment.ClassScheduleFragment;
-import com.classtune.classtuneuni.fragment.CombinedResultFragment;
-import com.classtune.classtuneuni.fragment.ExamListFragment;
-import com.classtune.classtuneuni.fragment.HomeFragment;
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.fragment.AssignmentFragment;
+import com.classtune.classtuneuni.fragment.CombinedResultFragment;
+import com.classtune.classtuneuni.fragment.HomeFragment;
 import com.classtune.classtuneuni.fragment.MorePageFragment;
 import com.classtune.classtuneuni.fragment.NoticeListFragment;
-import com.classtune.classtuneuni.fragment.StudentsSummaryFragment;
-import com.classtune.classtuneuni.fragment.TakeAttendanceFragment;
-import com.classtune.classtuneuni.fragment.TeacherExamListFragment;
-import com.classtune.classtuneuni.fragment.TeacherResultEntryFragment;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
+import com.classtune.classtuneuni.utils.TabMessage;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -130,8 +124,13 @@ public class MainActivity extends AppCompatActivity {
 
 //                    fragment = new ClassScheduleFragment();
 //                    loadFragment(fragment, "classScheduleFragment");
+
+
+//                    if(morePageFragment !=null) {
+//                        boolean b = morePageFragment.isVisible();
                     fragment = new MorePageFragment();
-                    loadFragment(fragment, "morePageFragment", true);
+                    loadFragment(fragment, "morePageFragment", false);
+                    //  }
                 }
             }
         });
@@ -139,7 +138,12 @@ public class MainActivity extends AppCompatActivity {
         bottomBar.setOnTabReselectListener(new OnTabReselectListener() {
             @Override
             public void onTabReSelected(@IdRes int tabId) {
-                //Toast.makeText(getApplicationContext(), TabMessage.get(tabId, true), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), TabMessage.get(tabId, true), Toast.LENGTH_LONG).show();
+                MorePageFragment morePageFragment = (MorePageFragment) getSupportFragmentManager().findFragmentByTag("morePageFragment");
+                if (morePageFragment != null && !morePageFragment.isVisible()) {
+                    fragment = new MorePageFragment();
+                    loadFragment(fragment, "morePageFragment", true);
+                }
             }
         });
 
@@ -172,8 +176,16 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        bottomBar.selectTabAtPosition(0);
+      //  super.onBackPressed();
+        MorePageFragment morePageFragment = (MorePageFragment) getSupportFragmentManager().findFragmentByTag("morePageFragment");
+        if (morePageFragment != null && morePageFragment.isVisible()) {
+            fragment = new HomeFragment();
+            loadFragment(fragment, "homeFragment", false);
+            bottomBar.selectTabAtPosition(0);
+        }
+        else
+            super.onBackPressed();
+
     }
 
     @Override

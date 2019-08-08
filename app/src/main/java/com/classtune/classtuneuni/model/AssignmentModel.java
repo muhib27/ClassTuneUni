@@ -1,23 +1,43 @@
 package com.classtune.classtuneuni.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class AssignmentModel {
-    public String title;
-    public String name;
-    public String subject;
-    public String status;
-    public String assignDate;
-    public String dueDate;
+    @SerializedName("id")
+    @Expose
+    private String id;
+    @SerializedName("title")
+    @Expose
+    private String title;
+    @SerializedName("section_name")
+    @Expose
+    private String sectionName;
+    @SerializedName("course_offer_section_id")
+    @Expose
+    private String courseOfferSectionId;
+    @SerializedName("course_name")
+    @Expose
+    private String courseName;
+    @SerializedName("course_code")
+    @Expose
+    private String courseCode;
+    @SerializedName("assign_date")
+    @Expose
+    private String assignDate;
+    @SerializedName("due_date")
+    @Expose
+    private String dueDate;
 
     public AssignmentModel() {
     }
 
-    public AssignmentModel(String title, String name, String subject, String status, String assignDate, String dueDate) {
-        this.title = title;
-        this.name = name;
-        this.subject = subject;
-        this.status = status;
-        this.assignDate = assignDate;
-        this.dueDate = dueDate;
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -28,28 +48,36 @@ public class AssignmentModel {
         this.title = title;
     }
 
-    public String getName() {
-        return name;
+    public String getSectionName() {
+        return sectionName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSectionName(String sectionName) {
+        this.sectionName = sectionName;
     }
 
-    public String getSubject() {
-        return subject;
+    public String getCourseOfferSectionId() {
+        return courseOfferSectionId;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
+    public void setCourseOfferSectionId(String courseOfferSectionId) {
+        this.courseOfferSectionId = courseOfferSectionId;
     }
 
-    public String getStatus() {
-        return status;
+    public String getCourseName() {
+        return courseName;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    public String getCourseCode() {
+        return courseCode;
+    }
+
+    public void setCourseCode(String courseCode) {
+        this.courseCode = courseCode;
     }
 
     public String getAssignDate() {

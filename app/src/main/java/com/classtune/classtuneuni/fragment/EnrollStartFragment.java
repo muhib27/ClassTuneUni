@@ -45,7 +45,7 @@ public class EnrollStartFragment extends Fragment implements View.OnClickListene
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.enrollNow:
-                if(AppSharedPreference.getUserType()== "3") {
+                if(AppSharedPreference.getUserType().equals("3")) {
                     fragment = new CodeEntryFragment();
                     gotoFragment(fragment, "codeEntryFragment");
                 }

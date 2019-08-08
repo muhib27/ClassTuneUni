@@ -10,6 +10,9 @@ public class OfferedCourseSection {
     @SerializedName("en_code")
     @Expose
     private String enCode;
+    @SerializedName("course_offer_sections_id")
+    @Expose
+    private String courseOfferSectionsId;
 
     public String getName() {
         return name;
@@ -25,5 +28,13 @@ public class OfferedCourseSection {
 
     public void setEnCode(String enCode) {
         this.enCode = enCode;
+    }
+
+    public String getCourseOfferSectionsId() {
+        return courseOfferSectionsId;
+    }
+
+    public void setCourseOfferSectionsId(String courseOfferSectionsId) {
+        this.courseOfferSectionsId = courseOfferSectionsId;
     }
 }

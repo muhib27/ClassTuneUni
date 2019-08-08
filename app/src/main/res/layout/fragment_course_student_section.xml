@@ -98,11 +98,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/size_10dp"
+                    android:layout_marginTop="@dimen/size_5dp"
                     android:layout_marginBottom="@dimen/size_5dp"
                     android:orientation="horizontal">
 
                     <TextView
+                        android:layout_gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Timeline: "
@@ -115,21 +116,49 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="@dimen/size_10dp"
-                        android:layout_marginBottom="@dimen/size_10dp"
+
                         android:gravity="center"
                         android:text="15 July, 2019 - 15 Oct, 2019"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_size_14_sp" />
                 </LinearLayout>
 
-                <View
-                    android:id="@+id/view"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="@dimen/size_100dp"
-                    android:layout_marginEnd="@dimen/size_100dp"
-                    android:layout_marginBottom="@dimen/size_10dp"
-                    android:background="@color/ash_b5" />
+                <!--<View-->
+                    <!--android:id="@+id/view"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:layout_marginStart="@dimen/size_100dp"-->
+                    <!--android:layout_marginEnd="@dimen/size_100dp"-->
+                    <!--android:layout_marginBottom="@dimen/size_10dp"-->
+                    <!--android:background="@color/ash_b5" />-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/size_5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Section: "
+                        android:textColor="@color/ash_b5"
+                        android:textSize="@dimen/size_16sp" />
+
+                    <TextView
+                        android:layout_marginStart="@dimen/size_10dp"
+                        android:id="@+id/section"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="A"
+                        android:textColor="@color/appColor"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/size_20sp" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -145,11 +174,11 @@
                         android:id="@+id/subject"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="1.6"
                         android:fontFamily="@font/my_custom_bold_font"
                         android:gravity="center"
                         android:padding="@dimen/size_10dp"
-                        android:text="Section"
+                        android:text="Student"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_16_sp"
                         android:textStyle="bold" />
@@ -170,7 +199,7 @@
                         android:fontFamily="@font/my_custom_bold_font"
                         android:gravity="center"
                         android:padding="@dimen/size_10dp"
-                        android:text="Enroll Code"
+                        android:text="Action"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_16_sp"
                         android:textStyle="bold" />
@@ -199,16 +228,16 @@
         </RelativeLayout>
     </ScrollView>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="@dimen/fab_margin"
-        android:layout_marginEnd="@dimen/size_20dp"
-        android:layout_marginBottom="@dimen/size_30dp"
-        android:src="@drawable/white_add_24dp"
-        android:tint="@android:color/white"
-        app:backgroundTint="@color/black" />
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/fab_add"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginStart="@dimen/fab_margin"-->
+        <!--android:layout_marginEnd="@dimen/size_20dp"-->
+        <!--android:layout_marginBottom="@dimen/size_30dp"-->
+        <!--android:src="@drawable/white_add_24dp"-->
+        <!--android:tint="@android:color/white"-->
+        <!--app:backgroundTint="@color/black" />-->
 </RelativeLayout>
