@@ -12,24 +12,22 @@ public class Notice {
     private NoticeInfo notice;
     @SerializedName("course")
     @Expose
-    private List<List<CourseSection>> course = null;
+    private List<String> courses = null;
 
     public NoticeInfo getNotice() {
         return notice;
     }
 
-    public List<List<CourseSection>> getCourse() {
-        return course;
-    }
-
-    public void setCourse(List<List<CourseSection>> course) {
-        this.course = course;
-    }
 
     public void setNotice(NoticeInfo notice) {
         this.notice = notice;
     }
 
+    public List<String> getCourses() {
+        return courses;
+    }
 
-
+    public void setCourses(List<String> courses) {
+        this.courses = courses;
+    }
 }

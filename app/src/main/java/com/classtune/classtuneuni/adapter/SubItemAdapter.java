@@ -50,11 +50,11 @@ public class SubItemAdapter extends RecyclerView.Adapter<SubItemAdapter.SubItemV
     public void onBindViewHolder(@NonNull SubItemViewHolder subItemViewHolder, final int i) {
         final Notice subItem = subItemList.get(i);
 
-        int si = subItem.getCourse().get(0).size();
-        for(int l=0; l<subItem.getCourse().get(0).size();l++)
-        {
-            courseName = courseName + subItem.getCourse().get(0).get(l).getName()  + " ";
-        }
+//        int si = subItem.getCourse().get(0).size();
+//        for(int l=0; l<subItem.getCourse().get(0).size();l++)
+//        {
+//            courseName = courseName + subItem.getCourse().get(0).get(l).getName()  + " ";
+//        }
         subItemViewHolder.title.setText(courseName);
         subItemViewHolder.description.setText(subItem.getNotice().getTitle());
         subItemViewHolder.rl.setOnClickListener(new View.OnClickListener() {

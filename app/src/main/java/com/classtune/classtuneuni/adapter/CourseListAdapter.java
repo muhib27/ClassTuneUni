@@ -79,11 +79,12 @@ public class CourseListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 itemHolder.cell.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (result.getCourseOffered()) {
-                            Fragment fragment = new OfferedCourseDetailsFragment();
-                            gotoFragment(fragment, "offeredCourseDetailsFragment", result.getId());
-                        }
-                        else {
+//                        if (result.getCourseOffered()) {
+//                            Fragment fragment = new OfferedCourseDetailsFragment();
+//                            gotoFragment(fragment, "offeredCourseDetailsFragment", result.getId());
+//                        }
+//                        else
+                            {
                             Fragment fragment = new CourseOfferFragment();
                             gotoFragment(fragment, "courseOfferFragment", result.getId());
                         }

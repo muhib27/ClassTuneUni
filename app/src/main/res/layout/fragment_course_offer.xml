@@ -115,8 +115,8 @@
                 android:orientation="horizontal"
                 android:padding="10dp">
 
-                <EditText
-                    android:id="@+id/et_email3"
+                <TextView
+                    android:id="@+id/startDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
@@ -149,8 +149,8 @@
                 android:orientation="horizontal"
                 android:padding="10dp">
 
-                <EditText
-                    android:id="@+id/et_email2"
+                <TextView
+                    android:id="@+id/endDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
