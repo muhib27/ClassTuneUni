@@ -24,34 +24,42 @@
             android:padding="@dimen/size_10dp"
             android:text="Disjkstra's Shotest-Path Algorithm: Correctness Proof"
             android:textColor="@color/black"
-            android:textSize="@dimen/text_size_22_sp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/size_16sp"
+            android:textStyle="normal" />
 
-        <RelativeLayout
+        <LinearLayout
+            android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_10dp"
             android:padding="@dimen/size_10dp">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
+                    android:textSize="@dimen/text_size_14_sp"
+                    android:textColor="@color/appColor"
+                    android:textStyle="bold"
                     android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="name" />
 
                 <View
-                    android:layout_width="@dimen/size_20dp"
-                    android:layout_height="@dimen/size_20dp"
-                    android:layout_marginLeft="@dimen/size_20dp"
-                    android:layout_marginRight="@dimen/size_20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="@dimen/size_10dp"
+                    android:layout_height="@dimen/size_10dp"
+                    android:layout_marginLeft="@dimen/size_10dp"
+                    android:layout_marginRight="@dimen/size_10dp"
                     android:background="@drawable/filled_circle" />
 
                 <TextView
+                    android:textColor="@color/black"
+                    android:textStyle="normal"
+                    android:textSize="@dimen/text_size_14_sp"
                     android:id="@+id/text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -59,14 +67,44 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/marks"
+            <!--<TextView-->
+                <!--android:id="@+id/marks"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:text="2.5" />-->
+            <LinearLayout
+                android:layout_marginEnd="@dimen/size_10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:text="2.5" />
+                android:orientation="horizontal">
 
-        </RelativeLayout>
+
+                <TextView
+                    android:textColor="@color/appColor"
+                    android:textSize="@dimen/text_size_36_sp"
+                    android:textStyle="bold"
+                    android:id="@+id/marks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5" />
+                <TextView
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_14_sp"
+                    android:id="@+id/divider"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="/" />
+                <TextView
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_14_sp"
+                    android:id="@+id/total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10" />
+            </LinearLayout>
+
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"

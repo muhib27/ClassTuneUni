@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.model.CommonStatus;
 import com.classtune.classtuneuni.response.RegisTrationResponse;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
@@ -110,6 +112,7 @@ public class TeacherAddCourseFragment extends Fragment {
 
     }
 
+
     private void callAddCourseApi(final String coursename, final String coursecode, final String creditpoint) {
 
         if (!NetworkConnection.getInstance().isNetworkAvailable()) {
@@ -123,31 +126,31 @@ public class TeacherAddCourseFragment extends Fragment {
 
 
 
-        RetrofitApiClient.getApiInterface().addCourse(coursename, coursecode, creditpoint, AppSharedPreference.getFcm())
+        RetrofitApiClient.getApiInterface().addCourse(coursename, coursecode, creditpoint, AppSharedPreference.getApiKey())
 
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Response<JsonElement>>() {
+                .subscribe(new Observer<Response<CommonStatus>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Response<JsonElement> value) {
+                    public void onNext(Response<CommonStatus> value) {
                         uiHelper.dismissLoadingDialog();
-                       // RegisTrationResponse regisTrationResponse = value.body();
+                        CommonStatus commonStatus = value.body();
 
 
 //                        Log.e("login", "onResponse: "+value.body());
 //                        Wrapper wrapper = GsonParser.getInstance().parseServerResponse2(
 //                                value.body());
 
-                        if (value.code()  == 200) {
+                        if (commonStatus.getCode()  == 200) {
                             //    passwordChangeDialog();
 
-//                            fragment = new UploadProfilePicFragment();
-//                            gotoFragment(fragment, "uploadProfilePicFragment");
+                            Fragment fragment = new CourseListFragment();
+                            gotoFragment(fragment, "courseListFragment");
                         } else
                             uiHelper.dismissLoadingDialog();
 
@@ -167,6 +170,13 @@ public class TeacherAddCourseFragment extends Fragment {
                 });
 
 
+    }
+
+    private void gotoFragment(Fragment fragment, String tag) {
+        // load fragment
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.mainContainer, fragment, tag);
+        transaction.commit();
     }
 
 }

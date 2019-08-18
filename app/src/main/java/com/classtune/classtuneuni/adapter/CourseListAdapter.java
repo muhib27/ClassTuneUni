@@ -79,13 +79,21 @@ public class CourseListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 itemHolder.cell.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-//                        if (result.getCourseOffered()) {
-//                            Fragment fragment = new OfferedCourseDetailsFragment();
-//                            gotoFragment(fragment, "offeredCourseDetailsFragment", result.getId());
-//                        }
-//                        else
+                        if (result.getCourseOffered()) {
+                            Fragment fragment = new OfferedCourseDetailsFragment();
+                            Bundle bundle = new Bundle();
+                            bundle.putString("courseId", result.getId());
+                            fragment.setArguments(bundle);
+                            gotoFragment(fragment, "offeredCourseDetailsFragment", result.getId());
+                        }
+                        else
                             {
                             Fragment fragment = new CourseOfferFragment();
+                                Bundle bundle = new Bundle();
+                                bundle.putString("courseId", result.getId());
+                                bundle.putString("courseName", result.getName());
+                                bundle.putString("courseCode", result.getCourseCode());
+                                fragment.setArguments(bundle);
                             gotoFragment(fragment, "courseOfferFragment", result.getId());
                         }
                     }
@@ -165,12 +173,10 @@ public class CourseListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private void gotoFragment(Fragment fragment, String tag, String courseId) {
         // load fragment
-        Bundle bundle = new Bundle();
-        bundle.putString("courseId", courseId);
-        fragment.setArguments(bundle);
+
         FragmentTransaction transaction = ((MainActivity) mContext).getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.mainContainer, fragment, tag);
-        //transaction.addToBackStack(null);
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 }

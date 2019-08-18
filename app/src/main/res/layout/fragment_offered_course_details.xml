@@ -185,6 +185,7 @@
                 android:layout_below="@+id/ll"
                 android:layout_marginStart="@dimen/size_10dp"
                 android:layout_marginEnd="@dimen/size_10dp"
+                android:layout_marginBottom="@dimen/size_10dp"
                 app:cardElevation="@dimen/size_3dp">
 
                 <android.support.v7.widget.RecyclerView

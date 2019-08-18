@@ -93,6 +93,8 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.It
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(assignmentAdapter);
 
+        callAssignmentListApi();
+
         //mTabHost.getTabWidget().setDividerDrawable(R.drawable.tab_divider);
 
 //

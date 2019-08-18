@@ -105,4 +105,10 @@
     <string name="course_code">Course Code</string>
     <string name="hint_course_code">Enter Course Code</string>
     <string name="hint_credit_point">Enter Credit Point</string>
+
+    <!--CustomDateTimePicker-->
+    <string name="java_customdatetimepicker_set_date">Set Date</string>
+    <string name="java_customdatetimepicker_set_time">Set Time</string>
+    <string name="java_customdatetimepicker_set">Set</string>
+    <string name="java_customdatetimepicker_cancel">Cancel</string>
 </resources>

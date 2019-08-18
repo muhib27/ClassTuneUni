@@ -26,6 +26,7 @@ import com.classtune.classtuneuni.course_resonse.OfferedCourseDetails;
 import com.classtune.classtuneuni.course_resonse.OfferedCourseResponse;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
+import com.classtune.classtuneuni.utils.AppUtility;
 import com.classtune.classtuneuni.utils.NetworkConnection;
 import com.classtune.classtuneuni.utils.UIHelper;
 import com.classtune.classtuneuni.utils.VerticalSpaceItemDecoration;
@@ -195,7 +196,8 @@ public class OfferedCourseDetailsFragment extends Fragment implements View.OnCli
         courseName.setText(courseOffer.getCourseName());
         code.setText(courseOffer.getCourseCode());
         credit.setText(courseOffer.getCreditPoint());
-        duration.setText(courseOffer.getStartDate() + " - " + courseOffer.getEndDate());
+        duration.setText(
+                AppUtility.getDateString(courseOffer.getStartDate(), AppUtility.DATE_FORMAT_APP, AppUtility.DATE_FORMAT_SERVER) + " - " + AppUtility.getDateString(courseOffer.getEndDate(), AppUtility.DATE_FORMAT_APP, AppUtility.DATE_FORMAT_SERVER));
 
     }
 

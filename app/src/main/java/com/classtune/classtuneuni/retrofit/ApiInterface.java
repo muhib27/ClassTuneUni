@@ -4,7 +4,9 @@ package com.classtune.classtuneuni.retrofit;
 import com.classtune.classtuneuni.assignment.TeacherAssignmentResponse;
 import com.classtune.classtuneuni.course_resonse.CorsSecStudentResponse;
 import com.classtune.classtuneuni.course_resonse.CourseListResponse;
+import com.classtune.classtuneuni.course_resonse.CourseOfferSectionResponse;
 import com.classtune.classtuneuni.course_resonse.OfferedCourseResponse;
+import com.classtune.classtuneuni.model.CommonStatus;
 import com.classtune.classtuneuni.model.LoginApiModel;
 import com.classtune.classtuneuni.model.UniversityModel;
 import com.classtune.classtuneuni.notice.NoticeDetailsResponse;
@@ -93,7 +95,7 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST(URLHelper.URL_ADD_COURSE)
-    Observable<Response<JsonElement>> addCourse(@Field("name") String name, @Field("course_code") String course_code, @Field("credit_point") String credit_point,  @Field("api_key") String api_key);
+    Observable<Response<CommonStatus>> addCourse(@Field("name") String name, @Field("course_code") String course_code, @Field("credit_point") String credit_point, @Field("api_key") String api_key);
 
     @FormUrlEncoded
     @POST(URLHelper.TEACHER_COURSE_LIST)
@@ -114,6 +116,18 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST(URLHelper.ASSIGNMENT_LIST)
     Observable<Response<TeacherAssignmentResponse>> getAssignmentList(@Field("api_key") String api_key);
+
+    @FormUrlEncoded
+    @POST(URLHelper.URL_OFFER_COURSE)
+    Observable<Response<CommonStatus>> offerCourse(@Field("course_id") String course_id, @Field("start_date") String start_date, @Field("end_date") String end_date, @Field("sections") String sections, @Field("api_key") String api_key);
+
+    @FormUrlEncoded
+    @POST(URLHelper.ADD_SECTION)
+    Observable<Response<CommonStatus>> addSection(@Field("api_key") String api_key, @Field("name") String name);
+
+    @FormUrlEncoded
+    @POST(URLHelper.SECTION_LIST)
+    Observable<Response<CourseOfferSectionResponse>> getSectionList(@Field("api_key") String api_key);
 }
 
 
