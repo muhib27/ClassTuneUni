@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -43,7 +44,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AssignmentFragment extends Fragment implements AssignmentAdapter.ItemListener{
+public class AssignmentFragment extends Fragment implements AssignmentAdapter.ItemListener, View.OnClickListener {
     TabLayout tabLayout;
     TabHost mTabHost;
     RecyclerView recyclerView;
@@ -51,6 +52,8 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.It
     LinearLayoutManager linearLayoutManager;
     UIHelper uiHelper;
     AssignmentAdapter assignmentAdapter;
+    FloatingActionButton fabAdd;
+
 
     public AssignmentFragment() {
         // Required empty public constructor
@@ -68,6 +71,9 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.It
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         uiHelper = new UIHelper(getActivity());
+
+        fabAdd = view.findViewById(R.id.fab_add);
+        fabAdd.setOnClickListener(this);
         mTabHost = (TabHost) view.findViewById(android.R.id.tabhost);
 
         mTabHost.setup();
@@ -281,4 +287,21 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.It
 
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.fab_add:
+                Fragment fragment = new CreateAssignmentFragment();
+                gotoFragment(fragment, "createAssignmentFragment");
+                break;
+        }
+    }
+
+    private void gotoFragment(Fragment fragment, String tag) {
+        // load fragment
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.mainContainer, fragment, tag);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 }

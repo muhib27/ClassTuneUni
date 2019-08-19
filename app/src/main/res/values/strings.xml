@@ -111,4 +111,5 @@
     <string name="java_customdatetimepicker_set_time">Set Time</string>
     <string name="java_customdatetimepicker_set">Set</string>
     <string name="java_customdatetimepicker_cancel">Cancel</string>
+    <string name="marks">Marks</string>
 </resources>

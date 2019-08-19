@@ -22,21 +22,21 @@
     <!--app:tabSelectedTextColor="@color/black"-->
     <!--app:tabTextColor="@color/white" />-->
     <RelativeLayout
-        android:layout_marginTop="@dimen/size_10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_10dp"
         android:orientation="horizontal">
 
-        <ImageView
-            android:paddingStart="@dimen/size_10dp"
-            android:paddingEnd="@dimen/size_10dp"
-            android:id="@+id/tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:src="@drawable/archive_icon" />
+        <!--<ImageView-->
+        <!--android:paddingStart="@dimen/size_10dp"-->
+        <!--android:paddingEnd="@dimen/size_10dp"-->
+        <!--android:id="@+id/tv"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:gravity="center"-->
+        <!--android:src="@drawable/archive_icon" />-->
 
         <TabHost
             android:id="@android:id/tabhost"
@@ -72,12 +72,30 @@
 
         </TabHost>
     </RelativeLayout>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:scrollbars="vertical"
-        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior" />
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:scrollbars="vertical"
+            app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior" />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="@dimen/fab_margin"
+            android:layout_marginEnd="@dimen/size_20dp"
+            android:layout_marginBottom="@dimen/size_30dp"
+            android:src="@drawable/white_add_24dp"
+            android:tint="@android:color/white"
+            app:backgroundTint="@color/black" />
+    </RelativeLayout>
 
 </LinearLayout>

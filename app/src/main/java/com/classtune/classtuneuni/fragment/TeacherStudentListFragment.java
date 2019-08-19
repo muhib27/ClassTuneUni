@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -45,7 +46,6 @@ import retrofit2.Response;
  */
 public class TeacherStudentListFragment extends Fragment implements View.OnClickListener {
 
-    FloatingActionButton fabAdd;
     String assignmentId = "";
     AssignmentStudentListAdapter assignmentStudentListAdapter;
     RecyclerView recyclerView;
@@ -72,8 +72,7 @@ public class TeacherStudentListFragment extends Fragment implements View.OnClick
         assignmentId = getArguments().getString("assignmentId");
         uiHelper = new UIHelper(getActivity());
 
-        fabAdd = view.findViewById(R.id.fab_add);
-        fabAdd.setOnClickListener(this);
+
         recyclerView = view.findViewById(R.id.recyclerView);
 
         course = view.findViewById(R.id.course);
@@ -179,11 +178,19 @@ public class TeacherStudentListFragment extends Fragment implements View.OnClick
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.fab_add:
-//                Fragment fragment = new TeacherAddCourseFragment();
-//                gotoFragment(fragment, "teacherAddCourseFragment");
-                break;
-        }
+//        switch (view.getId()) {
+//            case R.id.fab_add:
+//                Fragment fragment = new CreateAssignmentFragment();
+//                gotoFragment(fragment, "createAssignmentFragment");
+//                break;
+//        }
+    }
+
+    private void gotoFragment(Fragment fragment, String tag) {
+        // load fragment
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.mainContainer, fragment, tag);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }
