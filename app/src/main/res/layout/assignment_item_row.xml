@@ -31,7 +31,7 @@
             android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/size_10dp">
+            android:paddingLeft="@dimen/size_10dp">
 
             <LinearLayout
                 android:layout_weight="1"
@@ -43,10 +43,10 @@
                     android:textSize="@dimen/text_size_14_sp"
                     android:textColor="@color/appColor"
                     android:textStyle="bold"
-                    android:id="@+id/name"
+                    android:id="@+id/subject"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="name" />
+                    android:text="subject" />
 
                 <View
                     android:layout_gravity="center_vertical"
@@ -60,10 +60,10 @@
                     android:textColor="@color/black"
                     android:textStyle="normal"
                     android:textSize="@dimen/text_size_14_sp"
-                    android:id="@+id/text"
+                    android:id="@+id/section"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Subject" />
+                    android:text="A" />
 
             </LinearLayout>
 
@@ -84,7 +84,7 @@
                     android:textColor="@color/appColor"
                     android:textSize="@dimen/text_size_36_sp"
                     android:textStyle="bold"
-                    android:id="@+id/marks"
+                    android:id="@+id/present"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="5" />
@@ -110,7 +110,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_10dp"
-            android:padding="@dimen/size_10dp">
+            android:paddingBottom="@dimen/size_10dp"
+            android:paddingLeft="@dimen/size_10dp"
+            android:paddingRight="@dimen/size_10dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -119,15 +121,20 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:textSize="@dimen/text_size_11_sp"
+                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/assignDateText" />
 
                 <TextView
+                    android:textStyle="bold"
+                    android:textColor="@color/appColor"
+                    android:textSize="@dimen/text_size_11_sp"
                     android:id="@+id/assignedDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/size_10dp"
+                    android:layout_marginLeft="@dimen/size_5dp"
                     android:text="22 Julu, 2019" />
 
             </LinearLayout>
@@ -139,15 +146,20 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:textSize="@dimen/text_size_11_sp"
+                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/dueDateText" />
 
                 <TextView
+                    android:textStyle="bold"
+                    android:textColor="@color/appColor"
+                    android:textSize="@dimen/text_size_11_sp"
                     android:id="@+id/dueDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/size_10dp"
+                    android:layout_marginLeft="@dimen/size_5dp"
                     android:text="22 Julu, 2019" />
 
             </LinearLayout>
