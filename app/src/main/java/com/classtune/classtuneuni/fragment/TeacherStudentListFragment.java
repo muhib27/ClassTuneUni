@@ -121,7 +121,7 @@ public class TeacherStudentListFragment extends Fragment implements View.OnClick
                         uiHelper.dismissLoadingDialog();
 
                         AssignmentSubmitedListResponse assignmentSubmitedListResponse = value.body();
-                        if (assignmentSubmitedListResponse.getCode() == 200) {
+                        if (assignmentSubmitedListResponse.getStatus().getCode() == 200) {
                             populateData(assignmentSubmitedListResponse.getData());
                             assignmentStudentListAdapter.addAllData(assignmentSubmitedListResponse.getData().getParticipants());
 

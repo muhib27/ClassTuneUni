@@ -127,11 +127,11 @@ public class SectionStudentListFragment extends Fragment implements View.OnClick
                         uiHelper.dismissLoadingDialog();
 
                         CorsSecStudentResponse corsSecStudentResponse = value.body();
-                        if (corsSecStudentResponse.getCode() == 200) {
+                        if (corsSecStudentResponse.getStatus().getCode() == 200) {
                             populateData(corsSecStudentResponse.getData().getSectionCourse());
                             courseStudentSectionAdapter.addAllData(corsSecStudentResponse.getData().getStudents());
 
-                            Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
                         } else
                             Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
                     }

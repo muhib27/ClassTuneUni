@@ -8,12 +8,9 @@ public class OfferedCorsesResponse {
     @SerializedName("data")
     @Expose
     private OfferedCorseData data;
-    @SerializedName("code")
+    @SerializedName("status")
     @Expose
-    private Integer code;
-    @SerializedName("msg")
-    @Expose
-    private String msg;
+    private CommonStatus status;
 
     public OfferedCorseData getData() {
         return data;
@@ -23,19 +20,11 @@ public class OfferedCorsesResponse {
         this.data = data;
     }
 
-    public Integer getCode() {
-        return code;
+    public CommonStatus getStatus() {
+        return status;
     }
 
-    public void setCode(Integer code) {
-        this.code = code;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setStatus(CommonStatus status) {
+        this.status = status;
     }
 }

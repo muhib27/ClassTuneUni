@@ -349,7 +349,7 @@ public class CourseOfferFragment extends Fragment implements View.OnClickListene
                         if (commonStatus.getCode() == 200) {
                             callSectionListApi();
 
-                            Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                         //   Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
                         } else
                             Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
                     }
@@ -394,7 +394,7 @@ public class CourseOfferFragment extends Fragment implements View.OnClickListene
                         uiHelper.dismissLoadingDialog();
 
                         CourseOfferSectionResponse courseOfferSectionResponse = value.body();
-                        if (courseOfferSectionResponse.getCode() == 200) {
+                        if (courseOfferSectionResponse.getStatus().getCode() == 200) {
                             addSection(courseOfferSectionResponse.getData().getSections());
 
                             Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();

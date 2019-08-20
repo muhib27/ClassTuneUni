@@ -137,6 +137,10 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST(URLHelper.ASSIGNMENT_LIST)
     Observable<Response<TeacherAssignmentResponse>> getAssignmentCourses(@Field("api_key") String api_key);
+
+    @FormUrlEncoded
+    @POST(URLHelper.OFFERED_SECTION_LIST)
+    Observable<Response<CourseOfferSectionResponse>> getOfferedSectionList(@Field("api_key") String api_key);
 }
 
 

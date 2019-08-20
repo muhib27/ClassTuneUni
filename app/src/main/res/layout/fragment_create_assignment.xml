@@ -266,11 +266,36 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/size_20dp"
-                    android:text="Subject"
+                    android:text="Section"
                     android:textColor="@color/appColor" />
 
                 <LinearLayout
                     android:id="@+id/sectionLl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/size_20dp"
+                    android:text="Attachment"
+                    android:textColor="@color/appColor" />
+                <TextView
+                    android:id="@+id/browse"
+                    android:textColor="@color/white"
+                    android:background="@color/ash_b5"
+                    android:padding="@dimen/size_10dp"
+                    android:layout_gravity="center"
+                    android:text="Browse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:id="@+id/attachmentLl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">

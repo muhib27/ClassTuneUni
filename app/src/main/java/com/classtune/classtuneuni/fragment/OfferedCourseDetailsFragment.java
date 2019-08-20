@@ -123,11 +123,11 @@ public class OfferedCourseDetailsFragment extends Fragment implements View.OnCli
                         uiHelper.dismissLoadingDialog();
 
                         OfferedCourseResponse offeredCourseResponse = value.body();
-                        if (offeredCourseResponse.getCode() == 200) {
+                        if (offeredCourseResponse.getStatus().getCode() == 200) {
                             populateData(offeredCourseResponse.getData().getCourseOffer());
                             enrollCodeAdapter.addAllData(offeredCourseResponse.getData().getSections());
 
-                            Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                          //  Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
                         } else
                             Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
                     }

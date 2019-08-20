@@ -123,7 +123,7 @@ public class CourseListFragment extends Fragment implements CourseListAdapter.It
                         uiHelper.dismissLoadingDialog();
 
                         CourseListResponse courseListResponse = value.body();
-                        if (courseListResponse.getCode() == 200) {
+                        if (courseListResponse.getStatus().getCode() == 200) {
 //
                             courseList = courseListResponse.getData().getCourses();
 //

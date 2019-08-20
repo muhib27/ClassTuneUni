@@ -188,7 +188,7 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.It
                         uiHelper.dismissLoadingDialog();
 
                         TeacherAssignmentResponse assignmentResponse = value.body();
-                        if (assignmentResponse.getCode() == 200) {
+                        if (assignmentResponse.getStatus().getCode() == 200) {
 //
                             assignmentList = assignmentResponse.getData().getAssignments();
 //
@@ -250,7 +250,7 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.It
                         uiHelper.dismissLoadingDialog();
 
                         TeacherAssignmentResponse assignmentResponse = value.body();
-                        if (assignmentResponse.getCode() == 200) {
+                        if (assignmentResponse.getStatus().getCode() == 200) {
 //
                             assignmentList = assignmentResponse.getData().getAssignments();
 //
