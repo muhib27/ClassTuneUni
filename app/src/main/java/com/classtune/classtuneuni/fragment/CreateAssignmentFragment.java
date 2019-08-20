@@ -198,6 +198,8 @@ public class CreateAssignmentFragment extends Fragment {
             LayoutInflater inflater = getLayoutInflater();
             view1 = inflater.inflate(R.layout.attachment_view, attachmentView, false);
             //checkBox = view1.findViewById(R.id.cb);
+            TextView name = view1.findViewById(R.id.name);
+            name.setText(attachmentModel.getFileName());
 
            // checkBox.setText(sectionName.get(i).getFileName());
             //checkBox.setId(Integer.parseInt(sectionName.get(i).getFilePath()));
