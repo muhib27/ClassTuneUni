@@ -8,6 +8,8 @@
     tools:context=".fragment.TeacherAttendanceFragment">
 
     <android.support.design.widget.TabLayout
+        android:layout_marginStart="@dimen/size_10dp"
+        android:layout_marginEnd="@dimen/size_10dp"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_40dp"
         android:id="@+id/tablayout"
