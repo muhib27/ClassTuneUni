@@ -10,10 +10,13 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -31,6 +34,7 @@ import com.classtune.classtuneuni.utils.NetworkConnection;
 import com.classtune.classtuneuni.utils.UIHelper;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Observer;
@@ -44,13 +48,19 @@ import static android.app.Activity.RESULT_OK;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CreateAssignmentFragment extends Fragment {
+public class CreateAssignmentFragment extends Fragment implements View.OnClickListener {
 
     RadioGroup rg;
     RadioButton yes, no;
     ViewGroup main, attachmentView;
     TextView browse;
+    private List<String> sectionList;
 
+    private String endDateFormatServerString = "";
+
+    private Button create;
+    private EditText title, description, marks;
+    private TextView dueDate;
     UIHelper uiHelper;
     LinearLayout marksLl;
     private static final int PICKFILE_RESULT_CODE = 1;
@@ -71,10 +81,24 @@ public class CreateAssignmentFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        sectionList = new ArrayList<>();
+
         uiHelper = new UIHelper(getActivity());
         rg = view.findViewById(R.id.rg);
         yes = rg.findViewById(R.id.yes);
         no = rg.findViewById(R.id.no);
+
+        title = view.findViewById(R.id.title);
+        description = view.findViewById(R.id.description);
+
+        marks = view.findViewById(R.id.marks);
+        dueDate = view.findViewById(R.id.marks);
+        dueDate.setOnClickListener(this);
+
+        create = view.findViewById(R.id.create);
+        create.setOnClickListener(this);
+
+
 
         main = view.findViewById(R.id.sectionLl);
         attachmentView = view.findViewById(R.id.attachmentLl);
@@ -270,4 +294,60 @@ public class CreateAssignmentFragment extends Fragment {
 
 
     }
+
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+            case R.id.endDate:
+                showEndDatepicker();
+                break;
+            case R.id.create:
+                createAssignment();
+                break;
+        }
+    }
+
+    String titleSt = "", descriptionSt = "", marksSt = "", sectionSt = "";
+
+    private void createAssignment() {
+
+        titleSt = title.getText().toString().trim();
+
+
+        if (TextUtils.isEmpty(titleSt)) {
+            title.setFocusable(true);
+            title.setError(getString(R.string.required));
+            title.requestFocus();
+        }
+
+        sectionList = getTotalSection();
+        sectionSt = "";
+        for (int i = 0; i < sectionList.size(); i++) {
+            if ((sectionList.size() - 1) == i)
+                sectionSt = sectionSt + sectionList.get(i);
+            else
+                sectionSt = sectionSt + sectionList.get(i) + "|";
+        }
+    }
+
+
+    private void showEndDatepicker() {
+        DatePickerFragment picker = new DatePickerFragment();
+        picker.setCallbacks(endDatePickerCallback);
+        picker.show(getFragmentManager(), "enddatePicker");
+    }
+
+    DatePickerFragment.DatePickerOnSetDateListener endDatePickerCallback = new DatePickerFragment.DatePickerOnSetDateListener() {
+
+        @Override
+        public void onDateSelected(int month, String monthName, int day,
+                                   int year, String dateFormatServer, String dateFormatApp,
+                                   Date date) {
+            // TODO Auto-generated method stub
+            dueDate.setText(dateFormatApp);
+            // chooseEndDateTextView.setText(dateFormatApp);
+            endDateFormatServerString = dateFormatServer;
+        }
+    };
 }
