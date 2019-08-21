@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -53,6 +54,7 @@ public class CreateAssignmentFragment extends Fragment {
     UIHelper uiHelper;
     LinearLayout marksLl;
     private static final int PICKFILE_RESULT_CODE = 1;
+
     public CreateAssignmentFragment() {
         // Required empty public constructor
     }
@@ -83,11 +85,9 @@ public class CreateAssignmentFragment extends Fragment {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
 
-                if(i == R.id.yes)
-                {
+                if (i == R.id.yes) {
                     marksLl.setVisibility(View.VISIBLE);
-                }
-                else
+                } else
                     marksLl.setVisibility(View.GONE);
             }
         });
@@ -117,12 +117,12 @@ public class CreateAssignmentFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub
-        switch(requestCode){
+        switch (requestCode) {
             case PICKFILE_RESULT_CODE:
                 //   if(resultCode==RESULT_OK){
 //                    String FilePath = data.getData().getPath();
 //                    textFile.setText(FilePath + data.getData());
-                if(resultCode==RESULT_OK){
+                if (resultCode == RESULT_OK) {
                     String filePath = null;
                     long fileSize = 0;
                     String displayName = null;
@@ -143,7 +143,7 @@ public class CreateAssignmentFragment extends Fragment {
                     if (filePath != null) {
                         //mEditText.setText(filePath);
                         //String strFileSize = getString(R.string.get_content_info,
-                          //      displayName, Long.toString(fileSize));
+                        //      displayName, Long.toString(fileSize));
                         //textFile.setText(strFileSize);
                         AttachmentModel attachmentModel = new AttachmentModel(displayName, filePath);
                         addAttachment(attachmentModel);
@@ -195,16 +195,31 @@ public class CreateAssignmentFragment extends Fragment {
     private void addAttachment(AttachmentModel attachmentModel) {
         //attachmentView.removeAllViews();
         //for (int i = 0; i < sectionName.size(); i++) {
-            LayoutInflater inflater = getLayoutInflater();
-            view1 = inflater.inflate(R.layout.attachment_view, attachmentView, false);
-            //checkBox = view1.findViewById(R.id.cb);
-            TextView name = view1.findViewById(R.id.name);
-            name.setText(attachmentModel.getFileName());
+        LayoutInflater inflater = getLayoutInflater();
+        view1 = inflater.inflate(R.layout.attachment_view, attachmentView, false);
+        //checkBox = view1.findViewById(R.id.cb);
+        TextView name = view1.findViewById(R.id.name);
+        name.setText(attachmentModel.getFileName());
 
-           // checkBox.setText(sectionName.get(i).getFileName());
-            //checkBox.setId(Integer.parseInt(sectionName.get(i).getFilePath()));
-        attachmentView.addView(view1);
-       // }
+        int i = attachmentView.getChildCount();
+
+        final ImageView imageView = view1.findViewById(R.id.delete);
+        imageView.setTag(attachmentView.getChildCount());
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int r = Integer.parseInt(imageView.getTag().toString());
+                View viewDelete = attachmentView.findViewWithTag(imageView.getTag());
+                attachmentView.removeView((View) viewDelete.getParent());
+
+            }
+        });
+
+        // checkBox.setText(sectionName.get(i).getFileName());
+        //checkBox.setId(Integer.parseInt(sectionName.get(i).getFilePath()));
+        attachmentView.addView(view1, attachmentView.getChildCount());
+        // }
     }
 
     private void callOfferedSectionListApi() {
