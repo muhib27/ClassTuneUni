@@ -6,57 +6,57 @@
     android:layout_height="wrap_content"
     tools:context=".fragment.TakeAttendanceFragment">
 
-    <RelativeLayout
-        android:id="@+id/tab"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="@dimen/size_10dp"
-        android:orientation="horizontal">
+    <!--<RelativeLayout-->
+    <!--android:id="@+id/tab"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentTop="true"-->
+    <!--android:layout_marginTop="@dimen/size_10dp"-->
+    <!--android:orientation="horizontal">-->
 
-        <!--<TextView-->
-            <!--android:id="@+id/tv"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentEnd="true"-->
-            <!--android:layout_centerInParent="true"-->
-            <!--android:gravity="center"-->
-            <!--android:text="Download" />-->
+    <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/tv"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_alignParentEnd="true"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_centerInParent="true"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:gravity="center"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:text="Download" />&ndash;&gt;-->
 
-        <TabHost
-            android:id="@android:id/tabhost"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toStartOf="@+id/tv">
+    <!--<TabHost-->
+    <!--android:id="@android:id/tabhost"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_toStartOf="@+id/tv">-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="vertical">-->
 
-                <HorizontalScrollView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:fillViewport="true"
-                    android:scrollbars="none">
+    <!--<HorizontalScrollView-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:fillViewport="true"-->
+    <!--android:scrollbars="none">-->
 
-                    <TabWidget
-                        android:id="@android:id/tabs"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </HorizontalScrollView>
+    <!--<TabWidget-->
+    <!--android:id="@android:id/tabs"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content" />-->
+    <!--</HorizontalScrollView>-->
 
-                <FrameLayout
-                    android:id="@android:id/tabcontent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+    <!--<FrameLayout-->
+    <!--android:id="@android:id/tabcontent"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content">-->
 
-                </FrameLayout>
+    <!--</FrameLayout>-->
 
-            </LinearLayout>
+    <!--</LinearLayout>-->
 
-        </TabHost>
-    </RelativeLayout>
+    <!--</TabHost>-->
+    <!--</RelativeLayout>-->
 
     <!--<RelativeLayout-->
         <!--android:id="@+id/tab1"-->
@@ -99,12 +99,29 @@
             <!--&lt;!&ndash;</LinearLayout>&ndash;&gt;-->
         <!--&lt;!&ndash;</com.classtune.classtuneuni.utils.MyFragmentTabHost>&ndash;&gt;-->
     <!--</RelativeLayout>-->
+    <LinearLayout
+        android:layout_marginEnd="@dimen/size_10dp"
+        android:layout_marginStart="@dimen/size_10dp"
+        android:id="@+id/ll"
+        android:gravity="center"
+        android:background="@color/black"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:padding="@dimen/size_10dp"
+            android:text="Class 4"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tab"
+        android:layout_below="@+id/ll"
         android:background="@null"
         android:scrollbars="vertical"
         app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior" />
@@ -114,7 +131,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="2dp"
-        android:layout_marginBottom="10dp"
         android:background="@color/white"
         android:gravity="center"
         android:orientation="horizontal"
@@ -122,8 +138,8 @@
 
         <Button
             android:id="@+id/reset_btn"
-            android:layout_width="100dip"
-            android:layout_height="30dp"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
             android:background="@drawable/square_border_app_color"
             android:text="@string/reset"
             android:textColor="@color/appColor" />
@@ -131,7 +147,7 @@
         <Button
             android:id="@+id/save_btn"
             android:layout_width="80dp"
-            android:layout_height="30dip"
+            android:layout_height="40dip"
             android:layout_marginLeft="10dp"
             android:background="@drawable/btn_red_back"
             android:text="@string/txt_save"

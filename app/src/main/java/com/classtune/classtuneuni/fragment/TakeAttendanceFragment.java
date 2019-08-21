@@ -15,27 +15,46 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.adapter.TakeAttendanceAdapter;
+import com.classtune.classtuneuni.course_resonse.CorsSecStudentResponse;
 import com.classtune.classtuneuni.model.STAttendanceModel;
+import com.classtune.classtuneuni.model.Student;
+import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
+import com.classtune.classtuneuni.utils.AppSharedPreference;
 import com.classtune.classtuneuni.utils.MyFragmentTabHost;
+import com.classtune.classtuneuni.utils.NetworkConnection;
+import com.classtune.classtuneuni.utils.UIHelper;
 import com.classtune.classtuneuni.utils.VerticalSpaceItemDecoration;
 
 import java.util.ArrayList;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class TakeAttendanceFragment extends Fragment implements TakeAttendanceAdapter.ItemListener{
     TabHost mTabHost, mTabHost1;
+    RelativeLayout tabRl;
     RecyclerView recyclerView;
-    private ArrayList<STAttendanceModel> studentList;
+    private ArrayList<Student> studentList;
     LinearLayoutManager linearLayoutManager;
+    TakeAttendanceAdapter takeAttendanceAdapter;
+    UIHelper uiHelper;
+
 //    private MyFragmentTabHost mTabHostAttendanceTeacher;
 
     public TakeAttendanceFragment() {
@@ -59,19 +78,20 @@ public class TakeAttendanceFragment extends Fragment implements TakeAttendanceAd
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        uiHelper = new UIHelper(getActivity());
 //        mTabHostAttendanceTeacher = view
 //                .findViewById(R.id.tabhost_attendance_teacher);
 //
 //        initialiseTabHost(savedInstanceState);
-        mTabHost = (TabHost) view.findViewById(android.R.id.tabhost);
-
-        mTabHost.setup();
-        setupTab(new TextView(getContext()), "All", "Summer 2019");
-        setupTab(new TextView(getContext()), "Tab 2", "Summer 2018");
-        setupTab(new TextView(getContext()), "Tab 3","Summer 2019");
-        setupTab(new TextView(getContext()), "Tab 1","Summer 2019");
-        setupTab(new TextView(getContext()), "Tab 2","Summer 2019");
-        setupTab(new TextView(getContext()), "Tab 3","Summer 2019");
+//        mTabHost = (TabHost) view.findViewById(android.R.id.tabhost);
+//
+//        mTabHost.setup();
+//        setupTab(new TextView(getContext()), "All", "Summer 2019");
+//        setupTab(new TextView(getContext()), "Tab 2", "Summer 2018");
+//        setupTab(new TextView(getContext()), "Tab 3","Summer 2019");
+//        setupTab(new TextView(getContext()), "Tab 1","Summer 2019");
+//        setupTab(new TextView(getContext()), "Tab 2","Summer 2019");
+//        setupTab(new TextView(getContext()), "Tab 3","Summer 2019");
 
 //        mTabHost1 = (TabHost) view.findViewById(R.id.tabHost);
 
@@ -80,34 +100,40 @@ public class TakeAttendanceFragment extends Fragment implements TakeAttendanceAd
 //        setupTab1(new TextView(getContext()), "Tab 2", "Summer 2018");
 //        setupTab1(new TextView(getContext()), "Tab 3","Summer 2019");
 
+//        tabRl = view.findViewById(R.id.tab);
+//        tabRl.setVisibility(View.GONE);
+        ((MainActivity)getActivity()).tabRl.setVisibility(View.VISIBLE);
+
         recyclerView = view.findViewById(R.id.recyclerView);
 
         studentList = new ArrayList<>();
 
-        studentList.add(new STAttendanceModel( "1", "Md. Rahim", "1"));
-        studentList.add(new STAttendanceModel( "2", "Md. Rahim", "1"));
-        studentList.add(new STAttendanceModel( "3", "Md. Rahim", "1"));
-        studentList.add(new STAttendanceModel( "4", "Md. Rahim", "1"));
-        studentList.add(new STAttendanceModel( "1", "Md. Rahim", "1"));
-        studentList.add(new STAttendanceModel( "2", "Md. Rahim", "1"));
-        studentList.add(new STAttendanceModel( "3", "Md. Rahim", "1"));
-        studentList.add(new STAttendanceModel( "4", "Md. Rahim", "1"));
-        studentList.add(new STAttendanceModel( "1", "Md. Rahim", "1"));
-        studentList.add(new STAttendanceModel( "2", "Md. Rahim", "1"));
-        studentList.add(new STAttendanceModel( "3", "Md. Rahim", "1"));
-        studentList.add(new STAttendanceModel( "4", "Md. Rahim", "1"));
-        studentList.add(new STAttendanceModel( "1", "Md. Rahim", "1"));
-        studentList.add(new STAttendanceModel( "2", "Md. Rahim", "1"));
-        studentList.add(new STAttendanceModel( "3", "Md. Rahim", "1"));
-        studentList.add(new STAttendanceModel( "4", "Md. Rahim", "1"));
+//        studentList.add(new STAttendanceModel( "1", "Md. Rahim", "1"));
+//        studentList.add(new STAttendanceModel( "2", "Md. Rahim", "1"));
+//        studentList.add(new STAttendanceModel( "3", "Md. Rahim", "1"));
+//        studentList.add(new STAttendanceModel( "4", "Md. Rahim", "1"));
+//        studentList.add(new STAttendanceModel( "1", "Md. Rahim", "1"));
+//        studentList.add(new STAttendanceModel( "2", "Md. Rahim", "1"));
+//        studentList.add(new STAttendanceModel( "3", "Md. Rahim", "1"));
+//        studentList.add(new STAttendanceModel( "4", "Md. Rahim", "1"));
+//        studentList.add(new STAttendanceModel( "1", "Md. Rahim", "1"));
+//        studentList.add(new STAttendanceModel( "2", "Md. Rahim", "1"));
+//        studentList.add(new STAttendanceModel( "3", "Md. Rahim", "1"));
+//        studentList.add(new STAttendanceModel( "4", "Md. Rahim", "1"));
+//        studentList.add(new STAttendanceModel( "1", "Md. Rahim", "1"));
+//        studentList.add(new STAttendanceModel( "2", "Md. Rahim", "1"));
+//        studentList.add(new STAttendanceModel( "3", "Md. Rahim", "1"));
+//        studentList.add(new STAttendanceModel( "4", "Md. Rahim", "1"));
 
 
-        TakeAttendanceAdapter takeAttendanceAdapter = new TakeAttendanceAdapter(getActivity(), studentList, this);
+        takeAttendanceAdapter = new TakeAttendanceAdapter(getActivity());
         linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
 //        recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(getResources()));
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(takeAttendanceAdapter);
+
+        callSectionStudentList("19");
     }
 
     private void setupTab(final View view, final String tag, String tag1) {
@@ -149,6 +175,56 @@ public class TakeAttendanceFragment extends Fragment implements TakeAttendanceAd
     @Override
     public void onItemClick(STAttendanceModel item, int pos) {
 
+    }
+
+
+    private void callSectionStudentList(String courseId) {
+
+        if (!NetworkConnection.getInstance().isNetworkAvailable()) {
+            Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!uiHelper.isDialogActive())
+            uiHelper.showLoadingDialog("Please wait...");
+
+        // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
+        RetrofitApiClient.getApiInterfaceWithId().getSectionStudentList(AppSharedPreference.getApiKey(), courseId)
+
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<CorsSecStudentResponse>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Response<CorsSecStudentResponse> value) {
+                        uiHelper.dismissLoadingDialog();
+
+                        CorsSecStudentResponse corsSecStudentResponse = value.body();
+                        if (corsSecStudentResponse.getStatus().getCode() == 200) {
+//                            populateData(corsSecStudentResponse.getData().getSectionCourse());
+                            takeAttendanceAdapter.addAllData(corsSecStudentResponse.getData().getStudents());
+
+                            //Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        uiHelper.dismissLoadingDialog();
+                    }
+
+                    @Override
+                    public void onComplete() {
+//                        progressDialog.dismiss();
+                        uiHelper.dismissLoadingDialog();
+                    }
+                });
     }
 
 

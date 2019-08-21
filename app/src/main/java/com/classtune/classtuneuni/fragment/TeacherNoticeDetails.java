@@ -112,7 +112,7 @@ public class TeacherNoticeDetails extends Fragment implements View.OnClickListen
                         uiHelper.dismissLoadingDialog();
 
                         NoticeDetailsResponse noticeDetailsResponse = value.body();
-                        if (noticeDetailsResponse.getCode() == 200) {
+                        if (noticeDetailsResponse.getStatus().getCode() == 200) {
                             populateData(noticeDetailsResponse.getData());
 
                             Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();

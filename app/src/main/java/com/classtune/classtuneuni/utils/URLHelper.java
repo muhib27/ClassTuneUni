@@ -7,12 +7,11 @@ public class URLHelper {
 
 
 
-
     public URLHelper() {
 	}
 	//public static final String BASE_URL= "http://192.168.3.43/";
-	public static final String BASE_URL= "http://uni.edoozz.com/";
-	//public static final String BASE_URL = "http://192.168.3.48/";
+	//public static final String BASE_URL= "http://uni.edoozz.com/";
+	public static final String BASE_URL = "http://192.168.3.48/";
 	//public static final String BASE_URL = "http://192.168.2.38/";
 	public static final String SUB_URL = "masterapi/";
 //	public final static String URL_BASE = "http://apimaster.classtune.com/api/";
@@ -46,8 +45,10 @@ public class URLHelper {
 	public static final String ASSIGNMENT_LIST = "assignment_api/assignment_list";
 	public static final String ASSIGNMENT_SUBMITED_LIST = "assignment_api/view";
 	public static final String OFFERED_SECTION_LIST = "assignment_api/offered_sections";
+	public static final String OFFERED_COURSE_LIST = "assignment_api/offered_courses";
 
 
+	public static final String SECTION_STUDENT_LIST = "attendance_api/enrolled_students";
 
     //Notice
     public final static String GET_NOTICE_LIST = "news/notice_list";

@@ -2,6 +2,7 @@ package com.classtune.classtuneuni.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,28 +10,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.model.STAttendanceModel;
-import com.classtune.classtuneuni.model.SubjectResultModel;
+import com.classtune.classtuneuni.model.Student;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class TakeAttendanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private ArrayList<STAttendanceModel> mValues;
+    private List<Student> mValues;
     private Context mContext;
     protected ItemListener mListener;
     private static final int HERO = 2;
     private static final int ITEM = 0;
 
-    public TakeAttendanceAdapter(Context context, ArrayList<STAttendanceModel> values, ItemListener itemListener) {
-        mValues = values;
+    public TakeAttendanceAdapter(Context context) {
+        mValues = new ArrayList<>();
         mContext = context;
-        mListener = itemListener;
     }
 
 
@@ -57,77 +59,131 @@ public class TakeAttendanceAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
-        final STAttendanceModel stAttendanceModel = mValues.get(position);
+        final Student student = mValues.get(position);
         switch (getItemViewType(position)) {
             case ITEM:
                 final MovieVH itemHolder = (MovieVH) viewHolder;
-                itemHolder.rollNumberText.setText(stAttendanceModel.getRoll());
-                itemHolder.nameText.setText(stAttendanceModel.getName());
+                itemHolder.rollNumberText.setText(student.getStudentId());
+                itemHolder.nameText.setText(student.getStudentName());
+                final int sdk = android.os.Build.VERSION.SDK_INT;
+
+//                int i = student.getAbsent();
+                if(student.getAbsent() != null && student.getAbsent().equals("1"))
+                {
+                    if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                        itemHolder.statusLl.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.absent_bg) );
+                    } else {
+                        itemHolder.statusLl.setBackground(ContextCompat.getDrawable(mContext, R.drawable.absent_bg));
+                    }
+                    itemHolder.status.setText("A");
+
+                }
+                else
+                {
+                    if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                        itemHolder.statusLl.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.present_bg) );
+                    } else {
+                        itemHolder.statusLl.setBackground(ContextCompat.getDrawable(mContext, R.drawable.present_bg));
+                    }
+                    itemHolder.status.setText("P");
+                }
 //                itemHolder.rightImg.setText(stAttendanceModel.getObtained());
-//                itemHolder.cardView.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
+                itemHolder.statusLl.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 //                        if (mListener != null) {
 //                            mListener.onItemClick(result, position);
 //                        }
-//                        }
-//                    });
+                        if(itemHolder.status.getText().toString().equals("P"))
+                        {
+                            if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                itemHolder.statusLl.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.absent_bg) );
+                            } else {
+                                itemHolder.statusLl.setBackground(ContextCompat.getDrawable(mContext, R.drawable.absent_bg));
+                            }
+                            itemHolder.status.setText("A");
+
+
+                        }
+                        else {
+                            if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                itemHolder.statusLl.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.present_bg) );
+                            } else {
+                                itemHolder.statusLl.setBackground(ContextCompat.getDrawable(mContext, R.drawable.present_bg));
+                            }
+                            itemHolder.status.setText("P");
+                        }
+                        }
+                    });
 
 
                 break;
-                }
         }
+    }
 
 
+    @Override
+    public int getItemCount() {
+        return mValues.size();
+    }
 
-        @Override
-        public int getItemCount () {
-            return mValues.size();
-        }
-
-        @Override
-        public int getItemViewType ( int position){
+    @Override
+    public int getItemViewType(int position) {
 //        if (position == 0) {
 //            return HERO;
 //        } else
-            return ITEM;
-        }
+        return ITEM;
+    }
 
-        public interface ItemListener {
-            void onItemClick(STAttendanceModel item, int pos);
-        }
+    public interface ItemListener {
+        void onItemClick(STAttendanceModel item, int pos);
+    }
 
 
-        protected class MovieVH extends RecyclerView.ViewHolder {
-            private TextView rollNumberText;
-            private TextView nameText;
-            private TextView grade; // displays "year | language"
-            private ImageView rightImg;
-            private ProgressBar mProgress;
-            private TextView menuOption;
-            private FrameLayout itemLayout;
-            CardView cardView;
+    protected class MovieVH extends RecyclerView.ViewHolder {
+        private TextView rollNumberText;
+        private TextView nameText;
+        private TextView status; // displays "year | language"
+        private ImageView rightImg;
+        private ProgressBar mProgress;
+        private TextView menuOption;
+        private FrameLayout itemLayout;
+        private LinearLayout statusLl;
+        CardView cardView;
 
-            public MovieVH(View itemView) {
-                super(itemView);
+        public MovieVH(View itemView) {
+            super(itemView);
 
-                rollNumberText = itemView.findViewById(R.id.roll_number_text);
-                nameText = itemView.findViewById(R.id.name_text);
-                rightImg = itemView.findViewById(R.id.right_img);
+            rollNumberText = itemView.findViewById(R.id.studentId);
+            nameText = itemView.findViewById(R.id.name_text);
+            status = itemView.findViewById(R.id.status);
+            statusLl = itemView.findViewById(R.id.statusLl);
+           // rightImg = itemView.findViewById(R.id.right_img);
 
-            }
-        }
-
-        protected class HeroVH extends RecyclerView.ViewHolder {
-            private TextView title;
-            private TextView mMovieDesc;
-            private TextView mYear; // displays "year | language"
-            private ImageView mPosterImg;
-            private CardView cardView;
-
-            public HeroVH(View itemView) {
-                super(itemView);
-                title = itemView.findViewById(R.id.textView);
-            }
         }
     }
+
+    protected class HeroVH extends RecyclerView.ViewHolder {
+        private TextView title;
+        private TextView mMovieDesc;
+        private TextView mYear; // displays "year | language"
+        private ImageView mPosterImg;
+        private CardView cardView;
+
+        public HeroVH(View itemView) {
+            super(itemView);
+            title = itemView.findViewById(R.id.textView);
+        }
+    }
+
+    public void add(Student r) {
+        mValues.add(r);
+        notifyItemInserted(mValues.size() - 1);
+    }
+
+    public void addAllData(List<Student> moveResults) {
+        for (Student result : moveResults) {
+            add(result);
+        }
+    }
+}

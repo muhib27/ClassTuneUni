@@ -140,7 +140,7 @@ public class NoticeListFragment extends Fragment implements View.OnClickListener
                         uiHelper.dismissLoadingDialog();
 
                         NoticeResonse noticeResonse = value.body();
-                        if (noticeResonse.getCode() == 200) {
+                        if (noticeResonse.getStatus().getCode() == 200) {
 
                             noticeList = noticeResonse.getData().getNotices();
 
@@ -151,20 +151,7 @@ public class NoticeListFragment extends Fragment implements View.OnClickListener
                                 if (!dateList.contains(sub))
                                     dateList.add(sub);
                             }
-//                            JsonElement jsonElement = noticeResonse.getData().getJsonElement();
 
-//                            List<String> ll = new ArrayList<>();
-//                           JsonObject jsonObject = noticeResonse.getData().getJsonObject();
-//
-//                           for(int t=0; t< jsonObject.size(); t++){
-//
-//                           }
-//                            JsonArray jsonArray = new JsonArray();
-                            //JsonArray jsonArray = noticeResonse.getData().getJsonArray();
-
-
-//                            int s = jsonObject.size();
-//                            String sss = jsonArray.get(0).getAsString();
                             itemList = buildItemList(noticeList, dateList);
 //                            String ss = jsonObject
 //                            Log.v("noticeResponseModel", value.message());
@@ -172,7 +159,7 @@ public class NoticeListFragment extends Fragment implements View.OnClickListener
 //                            Collections.reverse(noticeList);
                             itemAdapter.addAllData(itemList);
 //                            Log.v("tt", noticeList.toString());
-                            Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
                         } else
                             Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
                     }

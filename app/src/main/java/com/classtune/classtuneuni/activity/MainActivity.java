@@ -1,5 +1,6 @@
 package com.classtune.classtuneuni.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.design.widget.TabLayout;
@@ -7,8 +8,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TabHost;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.classtune.classtuneuni.R;
@@ -23,11 +29,15 @@ import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
 
+import static com.classtune.classtuneuni.utils.MyApplication.getContext;
+
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getName();
     BottomBar bottomBar;
     TabLayout tabLayout;
     Fragment fragment;
+    TabHost mTabHost;
+    public RelativeLayout tabRl;
 
 
     @Override
@@ -39,6 +49,26 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         toolbar.setLogo(R.drawable.toolbar_icon);
+
+        mTabHost = (TabHost)findViewById(android.R.id.tabhost);
+
+        mTabHost.setup();
+        setupTab(new TextView(this), "All", "Summer 2019");
+        setupTab(new TextView(this), "Tab 2", "Summer 2018");
+        setupTab(new TextView(this), "Tab 3","Summer 2019");
+        setupTab(new TextView(this), "Tab 1","Summer 2019");
+        setupTab(new TextView(this), "Tab 2","Summer 2019");
+        setupTab(new TextView(this), "Tab 3","Summer 2019");
+
+//        mTabHost1 = (TabHost) view.findViewById(R.id.tabHost);
+
+//        mTabHost1.setup();
+//        setupTab1(new TextView(getContext()), "All", "Summer 2019");
+//        setupTab1(new TextView(getContext()), "Tab 2", "Summer 2018");
+//        setupTab1(new TextView(getContext()), "Tab 3","Summer 2019");
+
+        tabRl = findViewById(R.id.tab);
+        tabRl.setVisibility(View.GONE);
 
         bottomBar = (BottomBar) findViewById(R.id.bottomBar);
 
@@ -221,5 +251,24 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
+
+    private void setupTab(final View view, final String tag, String tag1) {
+        View tabview = createTabView(mTabHost.getContext(), tag, tag1);
+        TabHost.TabSpec setContent = mTabHost.newTabSpec(tag).setIndicator(tabview).setContent(new TabHost.TabContentFactory() {
+            public View createTabContent(String tag) {
+                return view;
+            }
+        });
+        mTabHost.addTab(setContent);
+    }
+
+    private static View createTabView(final Context context, final String text, final String text1) {
+        View view = LayoutInflater.from(context).inflate(R.layout.tabs_bg, null);
+        TextView tv = (TextView) view.findViewById(R.id.tabsText);
+        tv.setText(text);
+        TextView tvsmall = (TextView) view.findViewById(R.id.tabsTextSmall);
+        tvsmall.setText(text1);
+        return view;
+    }
 
 }

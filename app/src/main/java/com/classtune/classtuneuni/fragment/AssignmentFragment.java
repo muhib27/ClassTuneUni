@@ -99,7 +99,7 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.It
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(assignmentAdapter);
 
-        callAssignmentListApi();
+        callOfferedCoursesApi();
 
         //mTabHost.getTabWidget().setDividerDrawable(R.drawable.tab_divider);
 
@@ -251,21 +251,7 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.It
 
                         TeacherAssignmentResponse assignmentResponse = value.body();
                         if (assignmentResponse.getStatus().getCode() == 200) {
-//
-                            assignmentList = assignmentResponse.getData().getAssignments();
-//
-//
-//                            List<String> dateList = new ArrayList<>();
-//                            for (int r = 0; r < noticeList.size(); r++) {
-//                                String sub = noticeList.get(r).getNotice().getCreatedAt().substring(0, 10);
-//                                if (!dateList.contains(sub))
-//                                    dateList.add(sub);
-//                            }
-
-//                            itemList = buildItemList(noticeList, dateList);
-                            assignmentAdapter.addAllData(assignmentList);
-//                            Log.v("tt", noticeList.toString());
-                            //  Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                            callAssignmentListApi();
                         } else
                             Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
                     }

@@ -15,6 +15,10 @@ public class Student {
     @Expose
     private String studentName;
 
+    @SerializedName("absent")
+    @Expose
+    private String absent;
+
     public String getUserId() {
         return userId;
     }
@@ -37,5 +41,13 @@ public class Student {
 
     public void setStudentName(String studentName) {
         this.studentName = studentName;
+    }
+
+    public String getAbsent() {
+        return absent;
+    }
+
+    public void setAbsent(String absent) {
+        this.absent = absent;
     }
 }
