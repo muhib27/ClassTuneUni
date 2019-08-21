@@ -55,6 +55,7 @@ public class CreateAssignmentFragment extends Fragment implements View.OnClickLi
     ViewGroup main, attachmentView;
     TextView browse;
     private List<String> sectionList;
+    private List<AttachmentModel> attachmentModelList;
 
     private String endDateFormatServerString = "";
 
@@ -82,6 +83,7 @@ public class CreateAssignmentFragment extends Fragment implements View.OnClickLi
         super.onViewCreated(view, savedInstanceState);
 
         sectionList = new ArrayList<>();
+        attachmentModelList = new ArrayList<>();
 
         uiHelper = new UIHelper(getActivity());
         rg = view.findViewById(R.id.rg);
@@ -216,7 +218,20 @@ public class CreateAssignmentFragment extends Fragment implements View.OnClickLi
         }
     }
 
+    int pos;
+
     private void addAttachment(AttachmentModel attachmentModel) {
+        boolean flag = true;
+        for(int i = 0; i<attachmentModelList.size();i++) {
+            if(attachmentModelList.get(i).getFileName().equals(attachmentModel.getFileName())) {
+                flag = false;
+                return;
+            }
+        }
+        if(flag)
+            attachmentModelList.add(attachmentModel);
+
+
         //attachmentView.removeAllViews();
         //for (int i = 0; i < sectionName.size(); i++) {
         LayoutInflater inflater = getLayoutInflater();
@@ -228,14 +243,22 @@ public class CreateAssignmentFragment extends Fragment implements View.OnClickLi
         int i = attachmentView.getChildCount();
 
         final ImageView imageView = view1.findViewById(R.id.delete);
-        imageView.setTag(attachmentView.getChildCount());
+        imageView.setTag(attachmentModel.getFileName());
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int r = Integer.parseInt(imageView.getTag().toString());
+              //  int r = Integer.parseInt(imageView.getTag().toString());
                 View viewDelete = attachmentView.findViewWithTag(imageView.getTag());
                 attachmentView.removeView((View) viewDelete.getParent());
+                for(int i = 0; i<attachmentModelList.size();i++) {
+                    if(attachmentModelList.get(i).getFileName().equals(imageView.getTag())) {
+                        pos = i;
+                        break;
+                    }
+                }
+
+                attachmentModelList.remove(pos);
 
             }
         });
@@ -245,6 +268,23 @@ public class CreateAssignmentFragment extends Fragment implements View.OnClickLi
         attachmentView.addView(view1, attachmentView.getChildCount());
         // }
     }
+
+//    private List<AttachmentModel> getTotalAttachment() {
+//        int text = 0;
+//        List<AttachmentModel> list = new ArrayList<>();
+//        for (int i = 0; i < attachmentView.getChildCount(); i++) {
+//            View nextChild = main.getChildAt(i);
+//            //if(nextChild.getId() == i){
+//            if (((CheckBox) nextChild).isChecked()) {
+//                text = ((CheckBox) nextChild).getId();
+//                //  }
+//                list.add(String.valueOf(text));
+//            }
+//
+//        }
+//
+//        return list;
+//    }
 
     private void callOfferedSectionListApi() {
 
@@ -322,6 +362,7 @@ public class CreateAssignmentFragment extends Fragment implements View.OnClickLi
         }
 
         sectionList = getTotalSection();
+
         sectionSt = "";
         for (int i = 0; i < sectionList.size(); i++) {
             if ((sectionList.size() - 1) == i)
