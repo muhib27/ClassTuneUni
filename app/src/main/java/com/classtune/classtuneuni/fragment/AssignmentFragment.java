@@ -21,8 +21,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.adapter.AssignmentAdapter;
 import com.classtune.classtuneuni.assignment.Assignment;
+import com.classtune.classtuneuni.assignment.AssignmentSection;
 import com.classtune.classtuneuni.assignment.TeacherAssignmentResponse;
 import com.classtune.classtuneuni.course_resonse.CourseListResponse;
 import com.classtune.classtuneuni.model.AssignmentModel;
@@ -40,6 +42,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
+
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -71,18 +75,15 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.It
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         uiHelper = new UIHelper(getActivity());
+        String tabText = ((MainActivity)getActivity()).mTabHost.getCurrentTabTag();
+      //  AssignmentSection assignmentSectionTab = AppSharedPreference.getUserTab(tabText, 0);
+
+        //Toast.makeText(getActivity(), assignmentSection.getCourseCode() + " " + assignmentSection.getOfferedSectionId() , Toast.LENGTH_LONG).show();
 
         fabAdd = view.findViewById(R.id.fab_add);
         fabAdd.setOnClickListener(this);
-        mTabHost = (TabHost) view.findViewById(android.R.id.tabhost);
 
-        mTabHost.setup();
-        setupTab(new TextView(getContext()), "All", "Summer 2019");
-        setupTab(new TextView(getContext()), "Tab 2", "Summer 2018");
-        setupTab(new TextView(getContext()), "Tab 3","Summer 2019");
-        setupTab(new TextView(getContext()), "Tab 1","Summer 2019");
-        setupTab(new TextView(getContext()), "Tab 2","Summer 2019");
-        setupTab(new TextView(getContext()), "Tab 3","Summer 2019");
+        ((MainActivity)getActivity()).tabRl.setVisibility(View.VISIBLE);
 
         recyclerView = view.findViewById(R.id.recyclerView);
 

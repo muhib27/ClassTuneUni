@@ -2,6 +2,7 @@ package com.classtune.classtuneuni.utils;
 
 import android.content.SharedPreferences;
 
+import com.classtune.classtuneuni.assignment.AssignmentSection;
 import com.classtune.classtuneuni.model.User;
 
 
@@ -86,7 +87,6 @@ public class AppSharedPreference {
     }
 
 
-
     public static void setUDID(String udid) {
         final SharedPreferences pref = getSharedPreferences();
         final SharedPreferences.Editor editor = pref.edit();
@@ -117,6 +117,7 @@ public class AppSharedPreference {
         final SharedPreferences pref = getSharedPreferences();
         return pref.getString(keyUserName, "");
     }
+
     public static boolean getRememberMe() {
         final SharedPreferences pref = getSharedPreferences();
         return pref.getBoolean(keyRememberMe, false);
@@ -137,4 +138,37 @@ public class AppSharedPreference {
         return pref.getString(keyUserType, "");
     }
 
+
+    private static final String COURSE_ID = "course_id";
+    private static final String COURSE_OFFER_SECTION_ID = "offered_section_id";
+
+    public static void setUserTab(AssignmentSection assignmentSection, int i) {
+        final SharedPreferences pref = getSharedPreferences();
+        final SharedPreferences.Editor editor = pref.edit();
+        String key = COURSE_ID + assignmentSection.getCourseCode() + i;
+        String key1 = COURSE_OFFER_SECTION_ID + assignmentSection.getCourseCode() + i;
+
+        editor.putString(key, assignmentSection.getCourseId());
+        editor.putString(key1, assignmentSection.getOfferedSectionId());
+
+        editor.apply();
+
+
+    }
+
+    public static AssignmentSection getUserTab(String tabTag, int pos) {
+        final SharedPreferences pref = getSharedPreferences();
+        AssignmentSection assignmentSection = new AssignmentSection();
+        String key = COURSE_ID + tabTag + pos;
+        String key1 = COURSE_OFFER_SECTION_ID + tabTag + pos;
+
+        assignmentSection.setCourseId(pref.getString(COURSE_ID + tabTag + pos, ""));
+        assignmentSection.setOfferedSectionId(pref.getString(COURSE_OFFER_SECTION_ID + tabTag + pos, ""));
+     //   assignmentSection.setOfferedSectionId(COURSE_OFFER_SECTION_ID + tabTag, "");
+//        user.setName(pref.getString(AppConstant.USER_NAME, ""));
+//        user.setEmail(pref.getString(AppConstant.USER_EMAIL, ""));
+//        user.setId(pref.getString(AppConstant.USER_ID, ""));
+//        user.setImage(pref.getString(AppConstant.USER_IMAGE, ""));
+        return assignmentSection;
+    }
 }

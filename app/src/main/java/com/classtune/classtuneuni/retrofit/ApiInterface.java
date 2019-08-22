@@ -1,9 +1,9 @@
 package com.classtune.classtuneuni.retrofit;
 
 
+import com.classtune.classtuneuni.assignment.AssignmentSectionResponse;
 import com.classtune.classtuneuni.assignment.AssignmentSubmitedListResponse;
 import com.classtune.classtuneuni.assignment.TeacherAssignmentResponse;
-import com.classtune.classtuneuni.attendance.StudentListAttenResponse;
 import com.classtune.classtuneuni.course_resonse.CorsSecStudentResponse;
 import com.classtune.classtuneuni.course_resonse.CourseListResponse;
 import com.classtune.classtuneuni.course_resonse.CourseOfferSectionResponse;
@@ -22,7 +22,6 @@ import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Response;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Multipart;
@@ -141,7 +140,7 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST(URLHelper.OFFERED_SECTION_LIST)
-    Observable<Response<CourseOfferSectionResponse>> getOfferedSectionList(@Field("api_key") String api_key);
+    Observable<Response<AssignmentSectionResponse>> getOfferedSectionList(@Field("api_key") String api_key);
 
     @FormUrlEncoded
     @POST(URLHelper.OFFERED_COURSE_LIST)
@@ -150,6 +149,14 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST(URLHelper.SECTION_STUDENT_LIST)
     Observable<Response<CorsSecStudentResponse>> getSectionStudentList(@Field("api_key") String api_key, @Field("course_offer_sections_id") String course_offer_sections_id);
+
+    //    @POST(URLHelper.ASSIGNMENT_ADD)
+//        //Observable<Response<JsonElement>> getTaskAssign(@Body RequestBody file);
+//    Observable<Response<Status>> getTaskAssign(@Body MultipartBody file );
+    @Multipart
+    @POST(URLHelper.ASSIGNMENT_ADD)
+//Observable<Response<JsonElement>> getTaskAssign(@Body RequestBody file);
+    Observable<Response<JsonElement>> getTaskAssign(@Part MultipartBody.Part[] attachment_file_name, @Part("api_key") RequestBody api_key, @Part("course_id") RequestBody course_id, @Part("course_offer_section_id") RequestBody course_offer_section_id,@Part("assessment") RequestBody assessment,@Part("max_marks") RequestBody max_marks,@Part("title") RequestBody title,@Part("description") RequestBody description,@Part("due_date") RequestBody due_date);
 }
 
 

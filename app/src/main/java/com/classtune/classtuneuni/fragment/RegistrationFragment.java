@@ -295,7 +295,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 //                        Wrapper wrapper = GsonParser.getInstance().parseServerResponse2(
 //                                value.body());
 
-                        if (regisTrationResponse.getCode() != null && regisTrationResponse.getCode() == 200) {
+                        if (regisTrationResponse.getStatus().getCode() != null && regisTrationResponse.getStatus().getCode() == 200) {
                             //    passwordChangeDialog();
 
                             AppSharedPreference.setUserNameAndPassword(email, password, regisTrationResponse.getData().getApiKey(), false, regisTrationResponse.getData().getUserData().getUserType());
@@ -367,7 +367,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 //                        Wrapper wrapper = GsonParser.getInstance().parseServerResponse2(
 //                                value.body());
 
-                        if (regisTrationResponse.getCode() != null && regisTrationResponse.getCode() == 200) {
+                        if (regisTrationResponse.getStatus().getCode() != null && regisTrationResponse.getStatus().getCode() == 200) {
                             //    passwordChangeDialog();
                             AppSharedPreference.setUserNameAndPassword(email, password, regisTrationResponse.getData().getApiKey(), false, regisTrationResponse.getData().getUserData().getUserType());
 

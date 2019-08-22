@@ -1,19 +1,17 @@
-package com.classtune.classtuneuni.response;
+package com.classtune.classtuneuni.assignment;
 
-
+import com.classtune.classtuneuni.course_resonse.SectionData;
 import com.classtune.classtuneuni.model.CommonStatus;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class RegisTrationResponse {
-
+public class AssignmentSectionResponse {
     @SerializedName("status")
     @Expose
     private CommonStatus status;
-
     @SerializedName("data")
     @Expose
-    private RegData data;
+    private AssignSectionData data;
 
     public CommonStatus getStatus() {
         return status;
@@ -23,11 +21,11 @@ public class RegisTrationResponse {
         this.status = status;
     }
 
-    public RegData getData() {
+    public AssignSectionData getData() {
         return data;
     }
 
-    public void setData(RegData data) {
+    public void setData(AssignSectionData data) {
         this.data = data;
     }
 }

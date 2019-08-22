@@ -18,27 +18,41 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.assignment.AssignmentSection;
+import com.classtune.classtuneuni.assignment.AssignmentSectionResponse;
 import com.classtune.classtuneuni.fragment.AssignmentFragment;
 import com.classtune.classtuneuni.fragment.CombinedResultFragment;
 import com.classtune.classtuneuni.fragment.HomeFragment;
 import com.classtune.classtuneuni.fragment.MorePageFragment;
 import com.classtune.classtuneuni.fragment.NoticeListFragment;
+import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
+import com.classtune.classtuneuni.utils.NetworkConnection;
 import com.classtune.classtuneuni.utils.TabMessage;
+import com.classtune.classtuneuni.utils.UIHelper;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
 
-import static com.classtune.classtuneuni.utils.MyApplication.getContext;
+import java.util.List;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getName();
     BottomBar bottomBar;
     TabLayout tabLayout;
     Fragment fragment;
-    TabHost mTabHost;
+    public TabHost mTabHost;
     public RelativeLayout tabRl;
+    UIHelper uiHelper;
 
+    public static String GlobalCourseId = "";
+    public static String GlobalOfferedCourseSectionId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,25 +64,34 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar.setLogo(R.drawable.toolbar_icon);
 
+        uiHelper = new UIHelper(this);
+
+        callOfferedSectionListApi();
+
         mTabHost = (TabHost)findViewById(android.R.id.tabhost);
 
         mTabHost.setup();
-        setupTab(new TextView(this), "All", "Summer 2019");
-        setupTab(new TextView(this), "Tab 2", "Summer 2018");
-        setupTab(new TextView(this), "Tab 3","Summer 2019");
-        setupTab(new TextView(this), "Tab 1","Summer 2019");
-        setupTab(new TextView(this), "Tab 2","Summer 2019");
-        setupTab(new TextView(this), "Tab 3","Summer 2019");
 
-//        mTabHost1 = (TabHost) view.findViewById(R.id.tabHost);
 
-//        mTabHost1.setup();
-//        setupTab1(new TextView(getContext()), "All", "Summer 2019");
-//        setupTab1(new TextView(getContext()), "Tab 2", "Summer 2018");
-//        setupTab1(new TextView(getContext()), "Tab 3","Summer 2019");
+        mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String tabId) {
+              int pos = mTabHost.getCurrentTab();
+                AssignmentSection ss = AppSharedPreference.getUserTab(tabId , pos);
+                GlobalCourseId = ss.getCourseId();
+                GlobalOfferedCourseSectionId = ss.getOfferedSectionId();
+ //               Toast.makeText(getApplicationContext(), "" + tabId, Toast.LENGTH_LONG).show();
+//                if(TAB_1_TAG.equals(tabId)) {
+//                    //destroy earth
+//                }
+//                if(TAB_2_TAG.equals(tabId)) {
+//                    //destroy mars
+//                }
+            }
+        });
 
         tabRl = findViewById(R.id.tab);
-        tabRl.setVisibility(View.GONE);
+        // tabRl.setVisibility(View.GONE);
 
         bottomBar = (BottomBar) findViewById(R.id.bottomBar);
 
@@ -115,6 +138,9 @@ public class MainActivity extends AppCompatActivity {
 //                    else {
 //                        showAssistant();
 //                    }
+                    AssignmentSection assignmentSectionTab = AppSharedPreference.getUserTab(mTabHost.getCurrentTabTag(), 0);
+                    GlobalCourseId = assignmentSectionTab.getCourseId();
+                    GlobalOfferedCourseSectionId = assignmentSectionTab.getOfferedSectionId();
 
                     fragment = new AssignmentFragment();
                     loadFragment(fragment, "assignmentFragment", false);
@@ -252,9 +278,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void setupTab(final View view, final String tag, String tag1) {
-        View tabview = createTabView(mTabHost.getContext(), tag, tag1);
-        TabHost.TabSpec setContent = mTabHost.newTabSpec(tag).setIndicator(tabview).setContent(new TabHost.TabContentFactory() {
+    private void setupTab(final View view, AssignmentSection assignmentSection) {
+        View tabview = createTabView(mTabHost.getContext(), assignmentSection.getCourseCode(), assignmentSection.getSectionName(), assignmentSection);
+        TabHost.TabSpec setContent = mTabHost.newTabSpec(assignmentSection.getCourseCode()).setIndicator(tabview).setContent(new TabHost.TabContentFactory() {
             public View createTabContent(String tag) {
                 return view;
             }
@@ -262,13 +288,78 @@ public class MainActivity extends AppCompatActivity {
         mTabHost.addTab(setContent);
     }
 
-    private static View createTabView(final Context context, final String text, final String text1) {
+    private static View createTabView(final Context context, final String text, final String text1, AssignmentSection assignmentSection) {
         View view = LayoutInflater.from(context).inflate(R.layout.tabs_bg, null);
         TextView tv = (TextView) view.findViewById(R.id.tabsText);
         tv.setText(text);
+        tv.setTag(assignmentSection.getCourseId());
         TextView tvsmall = (TextView) view.findViewById(R.id.tabsTextSmall);
         tvsmall.setText(text1);
+        tvsmall.setTag(assignmentSection.getOfferedSectionId());
+        view.setTag(assignmentSection.getCourseCode());
         return view;
+    }
+
+
+    private void callOfferedSectionListApi() {
+
+
+        if (!NetworkConnection.getInstance().isNetworkAvailable()) {
+            Toast.makeText(getApplicationContext(), "No Connectivity", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        uiHelper.showLoadingDialog("Please wait...");
+
+        // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
+        RetrofitApiClient.getApiInterfaceWithId().getOfferedSectionList(AppSharedPreference.getApiKey())
+
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<AssignmentSectionResponse>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Response<AssignmentSectionResponse> value) {
+                        uiHelper.dismissLoadingDialog();
+
+                        AssignmentSectionResponse assignmentSectionResponse = value.body();
+                        if (assignmentSectionResponse.getStatus().getCode() == 200) {
+                            addSection(assignmentSectionResponse.getData().getSections());
+
+                        } else
+                            Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
+                        uiHelper.dismissLoadingDialog();
+                    }
+
+                    @Override
+                    public void onComplete() {
+//                        progressDialog.dismiss();
+                        uiHelper.dismissLoadingDialog();
+                    }
+                });
+
+
+    }
+
+    private void addSection(List<AssignmentSection> sections) {
+        for (int i = 0; i < sections.size(); i++) {
+            setupTab(new TextView(this), sections.get(i));
+            AppSharedPreference.setUserTab(sections.get(i), i);
+        }
+
+        AppSharedPreference.setUserTab(sections.get(0), 0);
+        tabRl.setVisibility(View.GONE);
+
+
     }
 
 }

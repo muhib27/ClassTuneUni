@@ -251,7 +251,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
-                        android:hint="Set due date"
+                        android:hint="due date"
                         android:imeOptions="actionDone"
                         android:includeFontPadding="true"
                         android:inputType="textEmailAddress"

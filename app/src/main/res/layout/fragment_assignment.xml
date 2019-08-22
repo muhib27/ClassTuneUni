@@ -21,11 +21,11 @@
     <!--app:tabMode="fixed"-->
     <!--app:tabSelectedTextColor="@color/black"-->
     <!--app:tabTextColor="@color/white" />-->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/size_10dp"
-        android:orientation="horizontal">
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="@dimen/size_10dp"-->
+        <!--android:orientation="horizontal">-->
 
         <!--<ImageView-->
         <!--android:paddingStart="@dimen/size_10dp"-->
@@ -38,40 +38,40 @@
         <!--android:gravity="center"-->
         <!--android:src="@drawable/archive_icon" />-->
 
-        <TabHost
-            android:id="@android:id/tabhost"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toStartOf="@+id/tv">
+        <!--<TabHost-->
+            <!--android:id="@android:id/tabhost"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_toStartOf="@+id/tv">-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="vertical">-->
 
-                <HorizontalScrollView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:fillViewport="true"
-                    android:scrollbars="none">
+                <!--<HorizontalScrollView-->
+                    <!--android:layout_width="fill_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:fillViewport="true"-->
+                    <!--android:scrollbars="none">-->
 
-                    <TabWidget
-                        android:id="@android:id/tabs"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </HorizontalScrollView>
+                    <!--<TabWidget-->
+                        <!--android:id="@android:id/tabs"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content" />-->
+                <!--</HorizontalScrollView>-->
 
-                <FrameLayout
-                    android:id="@android:id/tabcontent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <!--<FrameLayout-->
+                    <!--android:id="@android:id/tabcontent"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content">-->
 
-                </FrameLayout>
+                <!--</FrameLayout>-->
 
-            </LinearLayout>
+            <!--</LinearLayout>-->
 
-        </TabHost>
-    </RelativeLayout>
+        <!--</TabHost>-->
+    <!--</RelativeLayout>-->
 
     <RelativeLayout
         android:layout_width="match_parent"
