@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.adapter.AssignmentStudentListAdapter;
 import com.classtune.classtuneuni.adapter.CourseStudentSectionAdapter;
 import com.classtune.classtuneuni.assignment.AssignmentSubmitData;
@@ -69,6 +70,8 @@ public class TeacherStudentListFragment extends Fragment implements View.OnClick
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        ((MainActivity)getActivity()).tabRl.setVisibility(View.GONE);
         assignmentId = getArguments().getString("assignmentId");
         uiHelper = new UIHelper(getActivity());
 
