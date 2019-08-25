@@ -57,13 +57,13 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     Spinner spinner;
     Button continueBtn;
     Fragment fragment;
-    private EditText userName, userEmail, userPassword, userRePassword;
+    private EditText userName, userEmail, userPassword, userRePassword, studentId;
     private CheckBox agreeCb;
     TextView termCondition, uniName;
     UIHelper uiHelper;
-    LinearLayout uniNameLl;
+    LinearLayout uniNameLl , stIdLl;
 
-    private String username = "", password = "", email = "", repassword = "", userType = "", uniCode = "", uniname = "";
+    private String username = "", password = "", email = "", repassword = "", userType = "", uniCode = "", uniname = "", studentid = "";
 
 
     public RegistrationFragment() {
@@ -90,8 +90,13 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
         userPassword = view.findViewById(R.id.et_password);
         userRePassword = view.findViewById(R.id.et_con_password);
 
-        uniName = view.findViewById(R.id.et_uni_name);
 
+
+        studentId = view.findViewById(R.id.studentId);
+
+        stIdLl = view.findViewById(R.id.stIdLl);
+
+        uniNameLl = view.findViewById(R.id.uniName);
         uniNameLl = view.findViewById(R.id.uniName);
         uniNameLl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,6 +132,16 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 
         continueBtn = view.findViewById(R.id.continueBtn);
         continueBtn.setOnClickListener(this);
+
+        if(userType.equals("3"))
+        {
+            stIdLl.setVisibility(View.VISIBLE);
+            uniNameLl.setVisibility(View.GONE);
+        }
+        else {
+            uniNameLl.setVisibility(View.VISIBLE);
+            stIdLl.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -192,6 +207,8 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
         }
 
 
+
+
         if (TextUtils.isEmpty(email)) {
             userEmail.setError(getString(R.string.required));
             valid = false;
@@ -224,18 +241,28 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
             Toast.makeText(getActivity(), getString(R.string.password_length), Toast.LENGTH_SHORT).show();
             return;
         }
-        if (TextUtils.isEmpty(uniname) || TextUtils.isEmpty(uniCode)) {
-            if(uniCode.isEmpty())
-            {
-                if(uniname.isEmpty())
-                {
-                    uniName.setError(getString(R.string.required));
-                    valid = false;
-                }
-            }
 
-        } else {
-            uniName.setError(null);
+        if(userType.equals("3")){
+            studentid = studentId.getText().toString().trim();
+            if (TextUtils.isEmpty(studentid)) {
+                this.studentId.setError(getString(R.string.required));
+                valid = false;
+            } else {
+                this.studentId.setError(null);
+            }
+        }
+        else {
+            if (TextUtils.isEmpty(uniname) || TextUtils.isEmpty(uniCode)) {
+                if (uniCode.isEmpty()) {
+                    if (uniname.isEmpty()) {
+                        uniName.setError(getString(R.string.required));
+                        valid = false;
+                    }
+                }
+
+            } else {
+                uniName.setError(null);
+            }
         }
 //
 //        if (TextUtils.isEmpty(userType)) {
@@ -255,10 +282,16 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
         }
         //Toast.makeText(getActivity(), "goto server", Toast.LENGTH_SHORT).show();
 
-        if (uniCode.isEmpty())
-            callRegistrationWithNameApi(username, email, password, repassword, uniname);
-        else
-            callRegistrationApi(username, email, password, repassword, uniCode);
+        if(userType.equals("3"))
+        {
+            callStRegistrationApi(username, email, password, repassword, studentid);
+        }
+        else {
+            if (uniCode.isEmpty())
+                callRegistrationWithNameApi(username, email, password, repassword, uniname);
+            else
+                callRegistrationApi(username, email, password, repassword, uniCode);
+        }
     }
 
 
@@ -276,6 +309,80 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 
         String st = userType;
         RetrofitApiClient.getApiInterface().userRegWithCode(email, password, repassword, name, userType, unicode, AppSharedPreference.getFcm())
+
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<RegisTrationResponse>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Response<RegisTrationResponse> value) {
+                        uiHelper.dismissLoadingDialog();
+                        RegisTrationResponse regisTrationResponse = value.body();
+
+
+//                        Log.e("login", "onResponse: "+value.body());
+//                        Wrapper wrapper = GsonParser.getInstance().parseServerResponse2(
+//                                value.body());
+
+                        if (regisTrationResponse.getStatus().getCode() != null && regisTrationResponse.getStatus().getCode() == 200) {
+                            //    passwordChangeDialog();
+
+                            AppSharedPreference.setUserNameAndPassword(email, password, regisTrationResponse.getData().getApiKey(), false, regisTrationResponse.getData().getUserData().getUserType());
+                            fragment = new UploadProfilePicFragment();
+                            gotoFragment(fragment, "uploadProfilePicFragment");
+                        } else
+                            uiHelper.dismissLoadingDialog();
+//                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                            startActivity(intent);
+//                            finish();
+
+//                        } else {
+//
+//                            Toast.makeText(getApplicationContext(), wrapper.getStatus().getMsg(), Toast.LENGTH_SHORT).show();
+//                        }
+                    }
+
+
+                    @Override
+                    public void onError(Throwable e) {
+//                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                        startActivity(intent);
+//                        finish();
+//                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                        startActivity(intent);
+//                        finish();
+//                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+//                        uiHelper.dismissLoadingDialog();
+                    }
+
+                    @Override
+                    public void onComplete() {
+//                        progressDialog.dismiss();
+//                        uiHelper.dismissLoadingDialog();
+                    }
+                });
+
+
+    }
+
+    private void callStRegistrationApi(final String name, final String email, final String password, final String repassword, final String studentId) {
+
+        if (!NetworkConnection.getInstance().isNetworkAvailable()) {
+            //Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        uiHelper.showLoadingDialog("Authenticating...");
+//        HashMap params = new HashMap();
+//        params.put("username", username);
+//        params.put("password", password);
+
+
+        String st = userType;
+        RetrofitApiClient.getApiInterface().studentRegistration(email, password, repassword, name, userType, studentId, AppSharedPreference.getFcm())
 
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

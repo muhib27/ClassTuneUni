@@ -30,6 +30,9 @@ public class URLHelper {
 	public static final String TEACHER_NOTICE_DETAILS = "notice_api/view";
 	public static final String TEACHER_NOTICE_DELETE = "notice_api/delete";
 
+	public static final String STUDENT_NOTICE_LIST = "notice_api/student_notice";
+	public static final String STUDENT_NOTICE_DETAILS = "notice_api/view";
+
 
 	public static final String URL_ADD_COURSE = "course_api/add";
 	public static final String TEACHER_COURSE_LIST = "course_api/course_list";
@@ -49,6 +52,9 @@ public class URLHelper {
 
 
 	public static final String SECTION_STUDENT_LIST = "attendance_api/enrolled_students";
+	public static final String STUDENT_ATTENDANCE = "attendance_api/student";
+
+	public static final String STUDENT_CLASS_SCHEDULE = "routine_api/course_routine";
 
     //Notice
     public final static String GET_NOTICE_LIST = "news/notice_list";

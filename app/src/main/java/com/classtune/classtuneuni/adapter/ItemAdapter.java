@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.model.Item;
+import com.classtune.classtuneuni.utils.AppUtility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder itemViewHolder, int i) {
         Item item = itemList.get(i);
-        itemViewHolder.tvItemTitle.setText(item.getItemTitle());
+        itemViewHolder.tvItemTitle.setText(AppUtility.getDateString(item.getItemTitle(), AppUtility.DATE_FORMAT_APP, AppUtility.DATE_FORMAT_SERVER));
 
         // Create layout manager with initial prefetch item count
         LinearLayoutManager layoutManager = new LinearLayoutManager(

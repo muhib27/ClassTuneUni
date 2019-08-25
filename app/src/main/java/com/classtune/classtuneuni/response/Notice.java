@@ -10,7 +10,7 @@ public class Notice {
     @SerializedName("notice")
     @Expose
     private NoticeInfo notice;
-    @SerializedName("course")
+    @SerializedName("courses")
     @Expose
     private List<String> courses = null;
 

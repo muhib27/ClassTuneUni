@@ -8,30 +8,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.assignment.Assignment;
+import com.classtune.classtuneuni.class_schedule.Routine;
 import com.classtune.classtuneuni.model.ClassScheduleModel;
-import com.classtune.classtuneuni.model.ExamInfoModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ClassScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private ArrayList<ClassScheduleModel> mValues;
+    private ArrayList<Routine> mValues;
     private Context mContext;
     protected ItemListener mListener;
     private static final int HERO = 2;
     private static final int ITEM = 0;
 
-    public ClassScheduleAdapter(Context context, ArrayList<ClassScheduleModel> values, ItemListener itemListener) {
-        mValues = values;
+    public ClassScheduleAdapter(Context context) {
+        mValues = new ArrayList<>();
         mContext = context;
-        mListener = itemListener;
     }
 
 
@@ -54,67 +54,76 @@ public class ClassScheduleAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
-        final ClassScheduleModel classScheduleModel = mValues.get(position);
+        final Routine routine = mValues.get(position);
         switch (getItemViewType(position)) {
             case ITEM:
-                final MovieVH itemHolder = (MovieVH) viewHolder;
-                itemHolder.day.setText(classScheduleModel.getDay());
-                itemHolder.date.setText(classScheduleModel.getDate());
-                itemHolder.monthYear.setText(classScheduleModel.getMonthYear());
-                itemHolder.time.setText(classScheduleModel.getTime());
-                itemHolder.scheduleCell.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (mListener != null) {
-                            mListener.onItemClick(classScheduleModel, position);
-                        }
-                        }
-                    });
+//                final MovieVH itemHolder = (MovieVH) viewHolder;
+//                itemHolder.day.setText(classScheduleModel.getDay());
+//                itemHolder.date.setText(classScheduleModel.getDate());
+//                itemHolder.monthYear.setText(classScheduleModel.getMonthYear());
+//                itemHolder.time.setText(classScheduleModel.getTime());
+//                itemHolder.scheduleCell.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        if (mListener != null) {
+//                            mListener.onItemClick(classScheduleModel, position);
+//                        }
+//                        }
+//                    });
 
 
                 break;
-                }
         }
+    }
 
 
+    @Override
+    public int getItemCount() {
+        return mValues.size();
+    }
 
-        @Override
-        public int getItemCount () {
-            return mValues.size();
-        }
-
-        @Override
-        public int getItemViewType ( int position){
+    @Override
+    public int getItemViewType(int position) {
 //        if (position == 0) {
 //            return HERO;
 //        } else
-            return ITEM;
-        }
-
-        public interface ItemListener {
-            void onItemClick(ClassScheduleModel item, int pos);
-        }
-
-
-        protected class MovieVH extends RecyclerView.ViewHolder {
-            private TextView day;
-            private TextView date;
-            private TextView monthYear; // displays "year | language"
-            private ImageView mPosterImg;
-            private ProgressBar mProgress;
-            private TextView time;
-            private RelativeLayout scheduleCell;
-            CardView cardView;
-
-            public MovieVH(View itemView) {
-                super(itemView);
-                day = itemView.findViewById(R.id.day);
-                date = itemView.findViewById(R.id.date);
-                monthYear = itemView.findViewById(R.id.monthYear);
-                time = itemView.findViewById(R.id.time);
-                scheduleCell = itemView.findViewById(R.id.scheduleCell);
-
-            }
-        }
-
+        return ITEM;
     }
+
+    public interface ItemListener {
+        void onItemClick(ClassScheduleModel item, int pos);
+    }
+
+
+    protected class MovieVH extends RecyclerView.ViewHolder {
+        private TextView day;
+        private TextView date;
+        private TextView monthYear; // displays "year | language"
+        private ImageView mPosterImg;
+        private ProgressBar mProgress;
+        private TextView time;
+        private RelativeLayout scheduleCell;
+        CardView cardView;
+
+        public MovieVH(View itemView) {
+            super(itemView);
+            day = itemView.findViewById(R.id.day);
+            date = itemView.findViewById(R.id.date);
+            monthYear = itemView.findViewById(R.id.monthYear);
+            time = itemView.findViewById(R.id.time);
+            scheduleCell = itemView.findViewById(R.id.scheduleCell);
+
+        }
+    }
+    public void add(Routine r) {
+        mValues.add(r);
+        notifyItemInserted(mValues.size() - 1);
+    }
+
+    public void addAllData(List<Routine> moveResults) {
+        for (Routine result : moveResults) {
+            add(result);
+        }
+    }
+
+}

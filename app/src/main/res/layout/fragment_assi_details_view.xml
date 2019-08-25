@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/size_10dp"
+    tools:context=".fragment.AssiDetailsViewFragment">
+
+    <LinearLayout
+        android:id="@+id/stInfo"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/size_5dp">
+
+        <LinearLayout
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.2">
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/my_custom_medium_font"
+                android:gravity="left"
+
+                android:text="Francine Bradley"
+                android:textColor="@color/ashTextColor"
+                android:textSize="@dimen/size_15sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/studentId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/my_custom_medium_font"
+                android:gravity="left"
+                android:text="ID: 142362020"
+                android:textColor="@color/appColor"
+                android:textSize="@dimen/text_size_10_sp"
+                android:textStyle="normal" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/marks"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/marks" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/black"
+            android:padding="@dimen/size_10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/save" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/tab"
+        android:layout_below="@+id/stInfo"
+        android:layout_marginTop="@dimen/size_5dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/content"
+            android:textColor="@color/white"
+            android:background="@color/appColor"
+            android:textSize="17sp"
+            android:gravity="center"
+            android:text="Content"
+            android:padding="@dimen/size_10dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/attachment"
+            android:background="@color/menu_divider"
+            android:textSize="17sp"
+            android:text="Attachment"
+            android:gravity="center"
+            android:padding="@dimen/size_10dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+    <FrameLayout
+        android:layout_weight="1"
+        android:id="@+id/assignmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@+id/tab" />
+
+</RelativeLayout>
+
+
+

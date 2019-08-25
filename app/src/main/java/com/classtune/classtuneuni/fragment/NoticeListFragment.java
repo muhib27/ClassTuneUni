@@ -90,7 +90,11 @@ public class NoticeListFragment extends Fragment implements View.OnClickListener
         rvItem.setAdapter(itemAdapter);
         rvItem.setLayoutManager(layoutManager);
 
-        callNoticeListApi();
+        if (AppSharedPreference.getUserType().equals("3")) {
+
+            callStudentNoticeListApi();
+        } else
+            callNoticeListApi();
     }
 
 //    private List<Item> buildItemList() {
@@ -122,7 +126,7 @@ public class NoticeListFragment extends Fragment implements View.OnClickListener
             Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
             return;
         }
-        uiHelper.showLoadingDialog("Submitting your task...");
+        uiHelper.showLoadingDialog("Please wait...");
 
         // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
         RetrofitApiClient.getApiInterfaceWithId().getTeacherNitceList(AppSharedPreference.getApiKey())
@@ -160,6 +164,72 @@ public class NoticeListFragment extends Fragment implements View.OnClickListener
                             itemAdapter.addAllData(itemList);
 //                            Log.v("tt", noticeList.toString());
                            // Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        uiHelper.dismissLoadingDialog();
+                    }
+
+                    @Override
+                    public void onComplete() {
+//                        progressDialog.dismiss();
+                        uiHelper.dismissLoadingDialog();
+                    }
+                });
+
+
+    }
+
+    private void callStudentNoticeListApi() {
+
+
+        if (!NetworkConnection.getInstance().isNetworkAvailable()) {
+            Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        uiHelper.showLoadingDialog("Please wait...");
+
+        // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
+        RetrofitApiClient.getApiInterfaceWithId().getStudentNitceList(AppSharedPreference.getApiKey())
+
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<NoticeResonse>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Response<NoticeResonse> value) {
+                        uiHelper.dismissLoadingDialog();
+
+                        NoticeResonse noticeResonse = value.body();
+                        if (noticeResonse.getStatus().getCode() == 200) {
+
+                            noticeList = noticeResonse.getData().getNotices();
+
+
+                            List<String> dateList = new ArrayList<>();
+                            for (int r = 0; r < noticeList.size(); r++) {
+                                String sub = noticeList.get(r).getNotice().getCreatedAt().substring(0, 10);
+                                if (!dateList.contains(sub))
+                                    dateList.add(sub);
+                            }
+
+                            itemList = buildItemList(noticeList, dateList);
+//                            String ss = jsonObject
+//                            Log.v("noticeResponseModel", value.message());
+//                            List<Notice> noticeList = noticeResonse.getData().getNotice();
+//                            Collections.reverse(noticeList);
+                            itemAdapter.addAllData(itemList);
+//                            Log.v("tt", noticeList.toString());
+                            // Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
                         } else
                             Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
                     }

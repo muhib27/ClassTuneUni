@@ -135,8 +135,15 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
                 gotoFragment(fragment, "studentProfileFragment");
                 break;
             case R.id.rl_6:
-                fragment = new TeacherAttendanceFragment();
-                gotoFragment(fragment, "teacherAttendanceFragment");
+                if(AppSharedPreference.getUserType().equals("3"))
+                {
+                    fragment = new StudentAttendanceFragment();
+                    gotoFragment(fragment, "studentAttendanceFragment");
+                }
+                else {
+                    fragment = new TeacherAttendanceFragment();
+                    gotoFragment(fragment, "teacherAttendanceFragment");
+                }
                 break;
         }
     }

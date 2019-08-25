@@ -105,7 +105,7 @@ public class CourseListFragment extends Fragment implements CourseListAdapter.It
             Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
             return;
         }
-        uiHelper.showLoadingDialog("Submitting your task...");
+        uiHelper.showLoadingDialog("Please wait...");
 
         // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
         RetrofitApiClient.getApiInterfaceWithId().getTeacherCourseList(AppSharedPreference.getApiKey())

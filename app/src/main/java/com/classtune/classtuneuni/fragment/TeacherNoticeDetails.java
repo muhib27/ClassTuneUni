@@ -43,6 +43,7 @@ import retrofit2.Response;
  */
 public class TeacherNoticeDetails extends Fragment implements View.OnClickListener {
 
+
     TextView title, course, section, date, description;
     UIHelper uiHelper;
     Button back, edit, delete;
@@ -83,7 +84,16 @@ public class TeacherNoticeDetails extends Fragment implements View.OnClickListen
         delete.setOnClickListener(this);
 
 
-        callNoticeDetails(noticeId);
+        if (AppSharedPreference.getUserType().equals("3")) {
+            callStNoticeDetails(noticeId);
+            edit.setVisibility(View.GONE);
+            delete.setVisibility(View.GONE);
+        }
+        else {
+            callNoticeDetails(noticeId);
+            edit.setVisibility(View.VISIBLE);
+            delete.setVisibility(View.VISIBLE);
+        }
 
     }
 
@@ -135,11 +145,60 @@ public class TeacherNoticeDetails extends Fragment implements View.OnClickListen
                 });
     }
 
+    private void callStNoticeDetails(String noticeId) {
+
+        if (!NetworkConnection.getInstance().isNetworkAvailable()) {
+            Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!uiHelper.isDialogActive())
+            uiHelper.showLoadingDialog("Please wait...");
+
+        // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
+        RetrofitApiClient.getApiInterfaceWithId().getStNoticeDetails(AppSharedPreference.getApiKey(), noticeId)
+
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<NoticeDetailsResponse>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Response<NoticeDetailsResponse> value) {
+                        uiHelper.dismissLoadingDialog();
+
+                        NoticeDetailsResponse noticeDetailsResponse = value.body();
+                        if (noticeDetailsResponse.getStatus().getCode() == 200) {
+                            populateData(noticeDetailsResponse.getData());
+
+                            Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        uiHelper.dismissLoadingDialog();
+                    }
+
+                    @Override
+                    public void onComplete() {
+//                        progressDialog.dismiss();
+                        uiHelper.dismissLoadingDialog();
+                    }
+                });
+    }
+
     private void populateData(NoticeDetails data) {
         getCourseSection(data.getCourseSection());
         title.setText(data.getNotices().getTitle());
         date.setText(data.getNotices().getCreatedAt());
         description.setText(data.getNotices().getDescriptions());
+      //  description.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
 
     }
 

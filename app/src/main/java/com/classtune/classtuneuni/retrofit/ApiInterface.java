@@ -4,6 +4,8 @@ package com.classtune.classtuneuni.retrofit;
 import com.classtune.classtuneuni.assignment.AssignmentSectionResponse;
 import com.classtune.classtuneuni.assignment.AssignmentSubmitedListResponse;
 import com.classtune.classtuneuni.assignment.TeacherAssignmentResponse;
+import com.classtune.classtuneuni.attendance.StudentAttendanceResponse;
+import com.classtune.classtuneuni.class_schedule.StClsScheduleResponse;
 import com.classtune.classtuneuni.course_resonse.CorsSecStudentResponse;
 import com.classtune.classtuneuni.course_resonse.CourseListResponse;
 import com.classtune.classtuneuni.course_resonse.CourseOfferSectionResponse;
@@ -12,6 +14,7 @@ import com.classtune.classtuneuni.model.CommonStatus;
 import com.classtune.classtuneuni.model.LoginApiModel;
 import com.classtune.classtuneuni.model.UniversityModel;
 import com.classtune.classtuneuni.notice.NoticeDetailsResponse;
+import com.classtune.classtuneuni.notice.StNoticeResonse;
 import com.classtune.classtuneuni.response.NoticeOfferResponse;
 import com.classtune.classtuneuni.response.NoticeResonse;
 import com.classtune.classtuneuni.response.RegisTrationResponse;
@@ -62,6 +65,12 @@ public interface ApiInterface {
     @POST(URLHelper.URL_REGISTER)
 //    Observable<Response<List<LoginResponseModel>>> userLogin(@Field("username") String userId, @Field("password") String password);
     Observable<Response<RegisTrationResponse>> userRegWithCode(@Field("email") String userId, @Field("password") String password, @Field("confirm_password") String confirm_password, @Field("name") String name, @Field("user_type") String user_type, @Field("university_id") String university_id, @Field("fcm_id") String fcm_id);
+
+    @FormUrlEncoded
+    @POST(URLHelper.URL_REGISTER)
+//    Observable<Response<List<LoginResponseModel>>> userLogin(@Field("username") String userId, @Field("password") String password);
+    Observable<Response<RegisTrationResponse>> studentRegistration(@Field("email") String userId, @Field("password") String password, @Field("confirm_password") String confirm_password, @Field("name") String name, @Field("user_type") String user_type, @Field("student_id") String student_id, @Field("fcm_id") String fcm_id);
+
 
     @FormUrlEncoded
     @POST(URLHelper.URL_REGISTER)
@@ -157,6 +166,22 @@ public interface ApiInterface {
     @POST(URLHelper.ASSIGNMENT_ADD)
 //Observable<Response<JsonElement>> getTaskAssign(@Body RequestBody file);
     Observable<Response<JsonElement>> getTaskAssign(@Part MultipartBody.Part[] attachment_file_name, @Part("api_key") RequestBody api_key, @Part("course_id") RequestBody course_id, @Part("course_offer_section_id") RequestBody course_offer_section_id,@Part("assessment") RequestBody assessment,@Part("max_marks") RequestBody max_marks,@Part("title") RequestBody title,@Part("description") RequestBody description,@Part("due_date") RequestBody due_date);
+
+    @FormUrlEncoded
+    @POST(URLHelper.STUDENT_NOTICE_LIST)
+    Observable<Response<NoticeResonse>> getStudentNitceList(@Field("api_key") String api_key);
+
+    @FormUrlEncoded
+    @POST(URLHelper.STUDENT_NOTICE_DETAILS)
+    Observable<Response<NoticeDetailsResponse>> getStNoticeDetails(@Field("api_key") String api_key, @Field("notice_id") String notice_id);
+
+    @FormUrlEncoded
+    @POST(URLHelper.STUDENT_ATTENDANCE)
+    Observable<Response<StudentAttendanceResponse>> getStudentAttendance(@Field("api_key") String api_key, @Field("course_offer_section_id") String course_offer_section_id);
+
+    @FormUrlEncoded
+    @POST(URLHelper.STUDENT_CLASS_SCHEDULE)
+    Observable<Response<StClsScheduleResponse>> getStClassSchedule(@Field("api_key") String api_key, @Field("course_offer_section_id") String course_offer_section_id);
 }
 
 

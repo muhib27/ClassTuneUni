@@ -50,13 +50,15 @@ public class SubItemAdapter extends RecyclerView.Adapter<SubItemAdapter.SubItemV
     public void onBindViewHolder(@NonNull SubItemViewHolder subItemViewHolder, final int i) {
         final Notice subItem = subItemList.get(i);
 
-//        int si = subItem.getCourse().get(0).size();
-//        for(int l=0; l<subItem.getCourse().get(0).size();l++)
-//        {
-//            courseName = courseName + subItem.getCourse().get(0).get(l).getName()  + " ";
-//        }
+        int si = subItem.getCourses().size();
+        courseName = "";
+        for(int l=0; l<subItem.getCourses().size();l++)
+        {
+            courseName = courseName + subItem.getCourses().get(l)  + " ";
+        }
         subItemViewHolder.title.setText(courseName);
         subItemViewHolder.description.setText(subItem.getNotice().getTitle());
+        subItemViewHolder.time.setText(getTime(subItem.getNotice().getCreatedAt().substring(11, 16)));
         subItemViewHolder.rl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,15 +75,17 @@ public class SubItemAdapter extends RecyclerView.Adapter<SubItemAdapter.SubItemV
     }
 
     class SubItemViewHolder extends RecyclerView.ViewHolder {
-        TextView title;
+        TextView title, time;
         TextView description;
         LinearLayout rl;
 
         SubItemViewHolder(View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.title);
+            time = itemView.findViewById(R.id.time);
             description = itemView.findViewById(R.id.description);
             rl = itemView.findViewById(R.id.rl);
+
         }
     }
 
@@ -92,7 +96,21 @@ public class SubItemAdapter extends RecyclerView.Adapter<SubItemAdapter.SubItemV
         fragment.setArguments(bundle);
         FragmentTransaction transaction = ((MainActivity)context).getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.mainContainer, fragment, tag);
-        //transaction.addToBackStack(null);
+        transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    private String getTime(String st){
+        String time = "";
+        if(st.length()>2) {
+
+            if (Integer.parseInt(st.substring(0, 2)) >= 12) {
+                time = st + " PM";
+            } else {
+                time = st + " AM";
+            }
+
+        }
+        return time;
     }
 }
