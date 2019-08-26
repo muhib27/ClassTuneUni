@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 
 import com.classtune.classtuneuni.assignment.AssignmentSection;
 import com.classtune.classtuneuni.model.User;
+import com.classtune.classtuneuni.response.StCourseSection;
 
 
 /**
@@ -154,6 +155,30 @@ public class AppSharedPreference {
         editor.apply();
 
 
+    }
+    public static void setStUserTab(StCourseSection stCourseSection, int i) {
+        final SharedPreferences pref = getSharedPreferences();
+        final SharedPreferences.Editor editor = pref.edit();
+        String key = COURSE_ID + stCourseSection.getCourseCode() + i;
+        String key1 = COURSE_OFFER_SECTION_ID + stCourseSection.getCourseCode() + i;
+
+        editor.putString(key, stCourseSection.getCourseCode());
+        editor.putString(key1, stCourseSection.getCourseOfferSectionId());
+
+        editor.apply();
+
+
+    }
+    public static StCourseSection getStUserTab(String tabTag, int pos) {
+        final SharedPreferences pref = getSharedPreferences();
+        StCourseSection stCourseSection = new StCourseSection();
+        String key = COURSE_ID + tabTag + pos;
+        String key1 = COURSE_OFFER_SECTION_ID + tabTag + pos;
+
+        stCourseSection.setCourseCode(pref.getString(COURSE_ID + tabTag + pos, ""));
+        stCourseSection.setCourseOfferSectionId(pref.getString(COURSE_OFFER_SECTION_ID + tabTag + pos, ""));
+
+        return stCourseSection;
     }
 
     public static AssignmentSection getUserTab(String tabTag, int pos) {

@@ -6,11 +6,13 @@ package com.classtune.classtuneuni.utils;
 public class URLHelper {
 
 
+
+
     public URLHelper() {
 	}
 	//public static final String BASE_URL= "http://192.168.3.43/";
-	public static final String BASE_URL= "http://uni.edoozz.com/";
-	//public static final String BASE_URL = "http://192.168.3.48/";
+	//public static final String BASE_URL= "http://uni.edoozz.com/";
+	public static final String BASE_URL = "http://192.168.3.48/";
 	//public static final String BASE_URL = "http://192.168.2.38/";
 	public static final String SUB_URL = "masterapi/";
 //	public final static String URL_BASE = "http://apimaster.classtune.com/api/";
@@ -50,11 +52,46 @@ public class URLHelper {
 	public static final String OFFERED_COURSE_LIST = "assignment_api/offered_courses";
     public static final String ASSIGNMENT_ADD ="assignment_api/add" ;
 
+	public static final String STUDENT_ASSIGNMENT_LIST = "assignment_api/student_course_assignments";
+
 
 	public static final String SECTION_STUDENT_LIST = "attendance_api/enrolled_students";
 	public static final String STUDENT_ATTENDANCE = "attendance_api/student";
 
 	public static final String STUDENT_CLASS_SCHEDULE = "routine_api/course_routine";
+
+
+
+	public static final String STUDENT_SECTION_LIST = "course_api/student_courses";
+	public static final String STUDENT_ENROLL = "course_api/student_enroll";
+
+
+	public static final String STUDENT_EXAM_LIST = "exam_api/student_course_exams";
+
+	public static final String STUDENT_ASSIGNMENT_DETAILS = "assignment_api/student_view_assignment";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     //Notice
     public final static String GET_NOTICE_LIST = "news/notice_list";

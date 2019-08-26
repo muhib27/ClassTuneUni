@@ -10,6 +10,8 @@ import com.classtune.classtuneuni.course_resonse.CorsSecStudentResponse;
 import com.classtune.classtuneuni.course_resonse.CourseListResponse;
 import com.classtune.classtuneuni.course_resonse.CourseOfferSectionResponse;
 import com.classtune.classtuneuni.course_resonse.OfferedCourseResponse;
+import com.classtune.classtuneuni.enroll.StEnrollResponse;
+import com.classtune.classtuneuni.exam.ExamResponse;
 import com.classtune.classtuneuni.model.CommonStatus;
 import com.classtune.classtuneuni.model.LoginApiModel;
 import com.classtune.classtuneuni.model.UniversityModel;
@@ -18,6 +20,7 @@ import com.classtune.classtuneuni.notice.StNoticeResonse;
 import com.classtune.classtuneuni.response.NoticeOfferResponse;
 import com.classtune.classtuneuni.response.NoticeResonse;
 import com.classtune.classtuneuni.response.RegisTrationResponse;
+import com.classtune.classtuneuni.response.StSectionListResponse;
 import com.classtune.classtuneuni.utils.URLHelper;
 import com.google.gson.JsonElement;
 
@@ -182,6 +185,26 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST(URLHelper.STUDENT_CLASS_SCHEDULE)
     Observable<Response<StClsScheduleResponse>> getStClassSchedule(@Field("api_key") String api_key, @Field("course_offer_section_id") String course_offer_section_id);
+
+    @FormUrlEncoded
+    @POST(URLHelper.STUDENT_SECTION_LIST)
+    Observable<Response<StSectionListResponse>> getStSectionList(@Field("api_key") String api_key);
+
+    @FormUrlEncoded
+    @POST(URLHelper.STUDENT_ENROLL)
+    Observable<Response<StEnrollResponse>> getStEnroll(@Field("api_key") String api_key, @Field("enroll_code") String enroll_code);
+
+    @FormUrlEncoded
+    @POST(URLHelper.STUDENT_ASSIGNMENT_LIST)
+    Observable<Response<TeacherAssignmentResponse>> getStAssignmentList(@Field("api_key") String api_key, @Field("course_offer_section_id") String course_offer_section_id);
+
+    @FormUrlEncoded
+    @POST(URLHelper.STUDENT_EXAM_LIST)
+    Observable<Response<ExamResponse>> getStExamList(@Field("api_key") String api_key, @Field("course_offer_section_id") String course_offer_section_id);
+
+    @FormUrlEncoded
+    @POST(URLHelper.STUDENT_ASSIGNMENT_DETAILS)
+    Observable<Response<TeacherAssignmentResponse>> getStAssignmentDetails(@Field("api_key") String api_key, @Field("assignment_id") String assignment_id);
 }
 
 

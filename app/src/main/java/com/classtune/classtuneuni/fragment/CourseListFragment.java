@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.adapter.CourseListAdapter;
-import com.classtune.classtuneuni.adapter.TeacherExamListAdapter;
 import com.classtune.classtuneuni.course_resonse.Course;
 import com.classtune.classtuneuni.course_resonse.CourseListResponse;
 import com.classtune.classtuneuni.model.CourseModel;

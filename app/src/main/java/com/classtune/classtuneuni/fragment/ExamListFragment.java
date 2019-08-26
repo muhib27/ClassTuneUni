@@ -15,15 +15,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.adapter.ExamListAdapter;
 import com.classtune.classtuneuni.adapter.SubjectResultAdapter;
+import com.classtune.classtuneuni.assignment.TeacherAssignmentResponse;
+import com.classtune.classtuneuni.exam.ExamResponse;
 import com.classtune.classtuneuni.model.ExamInfoModel;
 import com.classtune.classtuneuni.model.SubjectResultModel;
+import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
+import com.classtune.classtuneuni.utils.AppSharedPreference;
+import com.classtune.classtuneuni.utils.NetworkConnection;
+import com.classtune.classtuneuni.utils.UIHelper;
 import com.classtune.classtuneuni.utils.VerticalSpaceItemDecoration;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Response;
+
+import static com.classtune.classtuneuni.activity.MainActivity.GlobalOfferedCourseSectionId;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,8 +49,10 @@ public class ExamListFragment extends Fragment implements ExamListAdapter.ItemLi
 
     TabHost mTabHost;
     RecyclerView recyclerView;
-    private ArrayList<ExamInfoModel> examList;
+    private List<ExamInfoModel> examList;
     LinearLayoutManager linearLayoutManager;
+    ExamListAdapter examListAdapter;
+    UIHelper uiHelper;
     public ExamListFragment() {
         // Required empty public constructor
     }
@@ -49,54 +68,29 @@ public class ExamListFragment extends Fragment implements ExamListAdapter.ItemLi
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mTabHost = (TabHost) view.findViewById(android.R.id.tabhost);
-
-        mTabHost.setup();
-        setupTab(new TextView(getContext()), "All", "Summer 2019");
-        setupTab(new TextView(getContext()), "Tab 2", "Summer 2018");
-        setupTab(new TextView(getContext()), "Tab 3","Summer 2019");
-        setupTab(new TextView(getContext()), "Tab 1","Summer 2019");
-        setupTab(new TextView(getContext()), "Tab 2","Summer 2019");
-        setupTab(new TextView(getContext()), "Tab 3","Summer 2019");
+        ((MainActivity)getActivity()).tabRl.setVisibility(View.VISIBLE);
+        uiHelper = new UIHelper(getActivity());
 
         recyclerView = view.findViewById(R.id.recyclerView);
 
         examList = new ArrayList<>();
 
-        examList = new ArrayList<>();
 
-        examList.add(new ExamInfoModel( "Class Test 2","Md. Rahim", "CSE 101", "10 July, 2019", "8", "10"));
-        examList.add(new ExamInfoModel( "Class Test 3","Md. Rahim", "CSE 101", "10 July, 2019", "8", "10"));
-        examList.add(new ExamInfoModel( "Class Test 4","Md. Rahim", "CSE 101", "10 July, 2019", "8", "10"));
-        examList.add(new ExamInfoModel( "Class Test 5","Md. Rahim", "CSE 101", "10 July, 2019", "8", "10"));
-
-
-        ExamListAdapter examListAdapter = new ExamListAdapter(getActivity(), examList, this);
+        examListAdapter = new ExamListAdapter(getActivity());
         linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(getResources()));
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(examListAdapter);
+
+        if(AppSharedPreference.getUserType().equals("3")) {
+            callStExamListApi(GlobalOfferedCourseSectionId);
+        }
+        else {
+
+        }
     }
 
-    private void setupTab(final View view, final String tag, String tag1) {
-        View tabview = createTabView(mTabHost.getContext(), tag, tag1);
-        TabHost.TabSpec setContent = mTabHost.newTabSpec(tag).setIndicator(tabview).setContent(new TabHost.TabContentFactory() {
-            public View createTabContent(String tag) {
-                return view;
-            }
-        });
-        mTabHost.addTab(setContent);
-    }
-
-    private static View createTabView(final Context context, final String text, final String text1) {
-        View view = LayoutInflater.from(context).inflate(R.layout.tabs_bg, null);
-        TextView tv = (TextView) view.findViewById(R.id.tabsText);
-        tv.setText(text);
-        TextView tvsmall = (TextView) view.findViewById(R.id.tabsTextSmall);
-        tvsmall.setText(text1);
-        return view;
-    }
 
     @Override
     public void onItemClick(ExamInfoModel item, int pos) {
@@ -111,5 +105,67 @@ public class ExamListFragment extends Fragment implements ExamListAdapter.ItemLi
         transaction.replace(R.id.mainContainer, examDetailsFragment, "examDetailsFragment");
         //transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    private void callStExamListApi(String globalOfferedCourseSectionId) {
+
+
+        if (!NetworkConnection.getInstance().isNetworkAvailable()) {
+            Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        uiHelper.showLoadingDialog("Please wait...");
+
+        // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
+        RetrofitApiClient.getApiInterfaceWithId().getStExamList(AppSharedPreference.getApiKey(), globalOfferedCourseSectionId)
+
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<ExamResponse>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Response<ExamResponse> value) {
+                        uiHelper.dismissLoadingDialog();
+
+                        ExamResponse examResponse = value.body();
+                        if (examResponse.getStatus().getCode() == 200) {
+//
+                            examList = examResponse.getData().getExams();
+//
+//
+//                            List<String> dateList = new ArrayList<>();
+//                            for (int r = 0; r < noticeList.size(); r++) {
+//                                String sub = noticeList.get(r).getNotice().getCreatedAt().substring(0, 10);
+//                                if (!dateList.contains(sub))
+//                                    dateList.add(sub);
+//                            }
+
+//                            itemList = buildItemList(noticeList, dateList);
+                            examListAdapter.addAllData(examList);
+//                            Log.v("tt", noticeList.toString());
+                            //  Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        uiHelper.dismissLoadingDialog();
+                    }
+
+                    @Override
+                    public void onComplete() {
+//                        progressDialog.dismiss();
+                        uiHelper.dismissLoadingDialog();
+                    }
+                });
+
+
     }
 }

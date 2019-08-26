@@ -25,9 +25,33 @@ public class AssignmentModel {
     @SerializedName("assign_date")
     @Expose
     private String assignDate;
+
+    @SerializedName("created_at")
+    @Expose
+    private String createdAt;
+
     @SerializedName("due_date")
     @Expose
     private String dueDate;
+
+    @SerializedName("description")
+    @Expose
+    private String description;
+    @SerializedName("assessment")
+    @Expose
+    private String assessment;
+    @SerializedName("max_marks")
+    @Expose
+    private String maxMarks;
+
+
+    @SerializedName("attachment_url")
+    @Expose
+    private String attachmentUrl;
+
+    @SerializedName("instructor")
+    @Expose
+    private String instructor;
 
     public AssignmentModel() {
     }
@@ -94,5 +118,53 @@ public class AssignmentModel {
 
     public void setDueDate(String dueDate) {
         this.dueDate = dueDate;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getAssessment() {
+        return assessment;
+    }
+
+    public void setAssessment(String assessment) {
+        this.assessment = assessment;
+    }
+
+    public String getMaxMarks() {
+        return maxMarks;
+    }
+
+    public void setMaxMarks(String maxMarks) {
+        this.maxMarks = maxMarks;
+    }
+
+    public String getAttachmentUrl() {
+        return attachmentUrl;
+    }
+
+    public void setAttachmentUrl(String attachmentUrl) {
+        this.attachmentUrl = attachmentUrl;
+    }
+
+    public String getInstructor() {
+        return instructor;
+    }
+
+    public void setInstructor(String instructor) {
+        this.instructor = instructor;
     }
 }

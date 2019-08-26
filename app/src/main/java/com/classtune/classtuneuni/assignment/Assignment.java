@@ -15,6 +15,13 @@ public class Assignment {
     @Expose
     private Integer submissions;
 
+    @SerializedName("submission")
+    @Expose
+    private Integer submission;
+    @SerializedName("mark")
+    @Expose
+    private Integer mark;
+
 
     public Integer getStudents() {
         return students;
@@ -38,5 +45,21 @@ public class Assignment {
 
     public void setAssignment(AssignmentModel assignment) {
         this.assignment = assignment;
+    }
+
+    public Integer getSubmission() {
+        return submission;
+    }
+
+    public void setSubmission(Integer submission) {
+        this.submission = submission;
+    }
+
+    public Integer getMark() {
+        return mark;
+    }
+
+    public void setMark(Integer mark) {
+        this.mark = mark;
     }
 }

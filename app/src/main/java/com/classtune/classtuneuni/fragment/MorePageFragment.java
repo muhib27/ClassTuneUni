@@ -119,17 +119,23 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
                     fragment = new CourseListFragment();
                     gotoFragment(fragment, "courseListFragment");
                 } else {
-                    fragment = new EnrollStartFragment();
-                    gotoFragment(fragment, "enrollStartFragment");
+                    fragment = new CodeEntryFragment();
+                    gotoFragment(fragment, "codeEntryFragment");
                 }
                 break;
             case R.id.rl_3:
-
+                if (AppSharedPreference.getUserType().equals("3")) {
+                    fragment = new ClassScheduleFragment();
+                    gotoFragment(fragment, "classScheduleFragment");
+                } else {
+//                    fragment = new EnrollStartFragment();
+//                    gotoFragment(fragment, "enrollStartFragment");
+                }
                 break;
-//            case R.id.rl_4:
-//                fragment = new ChatDetailsFragment();
-//                gotoFragment(fragment, "chatDetailsFragment");
-//                break;
+            case R.id.rl_4:
+                fragment = new ExamListFragment();
+                gotoFragment(fragment, "examListFragment");
+                break;
             case R.id.rl_5:
                 fragment = new StudentProfileFragment();
                 gotoFragment(fragment, "studentProfileFragment");

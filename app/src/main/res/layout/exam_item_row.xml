@@ -41,23 +41,23 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:textSize="@dimen/text_size_14_sp"
+                    android:textSize="@dimen/text_size_10_sp"
                     android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="name" />
 
                 <View
-                    android:layout_width="@dimen/size_16dp"
-                    android:layout_height="@dimen/size_16dp"
-                    android:layout_marginLeft="@dimen/size_20dp"
-                    android:layout_marginRight="@dimen/size_20dp"
+                    android:layout_width="@dimen/size_10dp"
+                    android:layout_height="@dimen/size_10dp"
+                    android:layout_marginLeft="@dimen/size_10dp"
+                    android:layout_marginRight="@dimen/size_10dp"
                     android:background="@drawable/filled_circle" />
 
                 <TextView
                     android:textColor="@color/appColor"
                     android:textStyle="bold"
-                    android:textSize="@dimen/text_size_14_sp"
+                    android:textSize="@dimen/text_size_10_sp"
                     android:id="@+id/subject"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -104,12 +104,12 @@
 
             <TextView
                 android:textColor="@color/appColor"
-                android:textSize="@dimen/text_size_36_sp"
+                android:textSize="@dimen/text_size_30_sp"
                 android:textStyle="bold"
                 android:id="@+id/marks"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2.5" />
+                android:text="--" />
             <TextView
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_14_sp"

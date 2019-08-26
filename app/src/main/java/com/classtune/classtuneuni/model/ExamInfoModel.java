@@ -1,23 +1,40 @@
 package com.classtune.classtuneuni.model;
 
-public class ExamInfoModel {
-    private String examName;
-    private String studentName;
-    private String subject;
-    private String examDate;
-    private String obtainedMark;
-    private String totalMarks;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-    public ExamInfoModel() {
+public class ExamInfoModel {
+    @SerializedName("exam_id")
+    @Expose
+    private String examId;
+    @SerializedName("exam_name")
+    @Expose
+    private String examName;
+    @SerializedName("exam_date")
+    @Expose
+    private String examDate;
+    @SerializedName("exam_mark")
+    @Expose
+    private String examMark;
+    @SerializedName("instructor")
+    @Expose
+    private String instructor;
+    @SerializedName("course_name")
+    @Expose
+    private String courseName;
+    @SerializedName("course_code")
+    @Expose
+    private String courseCode;
+    @SerializedName("obtained_mark")
+    @Expose
+    private String obtainedMark;
+
+    public String getExamId() {
+        return examId;
     }
 
-    public ExamInfoModel(String examName, String studentName, String subject, String examDate, String obtainedMark, String totalMarks) {
-        this.examName = examName;
-        this.studentName = studentName;
-        this.subject = subject;
-        this.examDate = examDate;
-        this.obtainedMark = obtainedMark;
-        this.totalMarks = totalMarks;
+    public void setExamId(String examId) {
+        this.examId = examId;
     }
 
     public String getExamName() {
@@ -28,22 +45,6 @@ public class ExamInfoModel {
         this.examName = examName;
     }
 
-    public String getStudentName() {
-        return studentName;
-    }
-
-    public void setStudentName(String studentName) {
-        this.studentName = studentName;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-
     public String getExamDate() {
         return examDate;
     }
@@ -52,19 +53,43 @@ public class ExamInfoModel {
         this.examDate = examDate;
     }
 
+    public String getExamMark() {
+        return examMark;
+    }
+
+    public void setExamMark(String examMark) {
+        this.examMark = examMark;
+    }
+
+    public String getInstructor() {
+        return instructor;
+    }
+
+    public void setInstructor(String instructor) {
+        this.instructor = instructor;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    public String getCourseCode() {
+        return courseCode;
+    }
+
+    public void setCourseCode(String courseCode) {
+        this.courseCode = courseCode;
+    }
+
     public String getObtainedMark() {
         return obtainedMark;
     }
 
     public void setObtainedMark(String obtainedMark) {
         this.obtainedMark = obtainedMark;
-    }
-
-    public String getTotalMarks() {
-        return totalMarks;
-    }
-
-    public void setTotalMarks(String totalMarks) {
-        this.totalMarks = totalMarks;
     }
 }

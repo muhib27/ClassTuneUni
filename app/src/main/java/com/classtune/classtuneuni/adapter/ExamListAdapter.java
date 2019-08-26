@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -15,9 +14,10 @@ import android.widget.TextView;
 
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.model.ExamInfoModel;
-import com.classtune.classtuneuni.model.SubjectResultModel;
+import com.classtune.classtuneuni.utils.AppUtility;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ExamListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -28,10 +28,10 @@ public class ExamListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private static final int HERO = 2;
     private static final int ITEM = 0;
 
-    public ExamListAdapter(Context context, ArrayList<ExamInfoModel> values, ItemListener itemListener) {
-        mValues = values;
+    public ExamListAdapter(Context context) {
+        mValues = new ArrayList<>();
         mContext = context;
-        mListener = itemListener;
+
     }
 
 
@@ -59,19 +59,22 @@ public class ExamListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             case ITEM:
                 final MovieVH itemHolder = (MovieVH) viewHolder;
                 itemHolder.examName.setText(examInfoModel.getExamName());
-                itemHolder.subject.setText(examInfoModel.getSubject());
-                itemHolder.name.setText(examInfoModel.getStudentName());
+                itemHolder.subject.setText(examInfoModel.getCourseCode());
+                itemHolder.name.setText(examInfoModel.getInstructor());
+                if(examInfoModel.getObtainedMark()!=null)
                 itemHolder.marks.setText(examInfoModel.getObtainedMark());
+                if(examInfoModel.getExamMark()!=null)
+                itemHolder.total.setText(examInfoModel.getExamMark());
+                if(examInfoModel.getExamDate()!=null)
+                    itemHolder.date.setText(AppUtility.getDateString(examInfoModel.getExamDate(), AppUtility.DATE_FORMAT_APP, AppUtility.DATE_FORMAT_SERVER));
                 itemHolder.examCell.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (mListener != null) {
-                            mListener.onItemClick(examInfoModel, position);
-                        }
+//                        if (mListener != null) {
+//                            mListener.onItemClick(examInfoModel, position);
+//                        }
                         }
                     });
-
-
                 break;
                 }
         }
@@ -99,7 +102,7 @@ public class ExamListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         protected class MovieVH extends RecyclerView.ViewHolder {
             private TextView subject;
             private TextView name;
-            private TextView marks; // displays "year | language"
+            private TextView marks, total, date; // displays "year | language"
             private ImageView mPosterImg;
             private ProgressBar mProgress;
             private TextView examName;
@@ -111,10 +114,22 @@ public class ExamListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 examName = itemView.findViewById(R.id.examName);
                 subject = itemView.findViewById(R.id.subject);
                 name = itemView.findViewById(R.id.name);
+                total = itemView.findViewById(R.id.total);
                 marks = itemView.findViewById(R.id.marks);
                 examCell = itemView.findViewById(R.id.examCell);
+                date = itemView.findViewById(R.id.examDate);
 
             }
         }
 
+    public void add(ExamInfoModel r) {
+        mValues.add(r);
+        notifyItemInserted(mValues.size() - 1);
+    }
+
+    public void addAllData(List<ExamInfoModel> moveResults) {
+        for (ExamInfoModel result : moveResults) {
+            add(result);
+        }
+    }
     }

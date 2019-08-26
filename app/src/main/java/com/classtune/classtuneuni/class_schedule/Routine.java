@@ -19,6 +19,12 @@ public class Routine {
     @SerializedName("room")
     @Expose
     private String room;
+    @SerializedName("month")
+    @Expose
+    private String month;
+    @SerializedName("year")
+    @Expose
+    private String year;
 
     public String getDay() {
         return day;
@@ -58,5 +64,21 @@ public class Routine {
 
     public void setRoom(String room) {
         this.room = room;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
     }
 }

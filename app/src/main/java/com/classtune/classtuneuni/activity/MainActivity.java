@@ -25,6 +25,8 @@ import com.classtune.classtuneuni.fragment.CombinedResultFragment;
 import com.classtune.classtuneuni.fragment.HomeFragment;
 import com.classtune.classtuneuni.fragment.MorePageFragment;
 import com.classtune.classtuneuni.fragment.NoticeListFragment;
+import com.classtune.classtuneuni.response.StCourseSection;
+import com.classtune.classtuneuni.response.StSectionListResponse;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
 import com.classtune.classtuneuni.utils.NetworkConnection;
@@ -65,8 +67,12 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setLogo(R.drawable.toolbar_icon);
 
         uiHelper = new UIHelper(this);
+        if (AppSharedPreference.getUserType().equals("3")) {
+            callStudentSectionListApi();
+        } else {
 
-        callOfferedSectionListApi();
+            callOfferedSectionListApi();
+        }
 
         mTabHost = (TabHost)findViewById(android.R.id.tabhost);
 
@@ -77,9 +83,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabChanged(String tabId) {
               int pos = mTabHost.getCurrentTab();
-                AssignmentSection ss = AppSharedPreference.getUserTab(tabId , pos);
-                GlobalCourseId = ss.getCourseId();
-                GlobalOfferedCourseSectionId = ss.getOfferedSectionId();
+              if(AppSharedPreference.getUserType().equals("3"))
+              {
+                  StCourseSection ss = AppSharedPreference.getStUserTab(tabId, pos);
+                  GlobalCourseId = ss.getCourseCode();
+                  GlobalOfferedCourseSectionId = ss.getCourseOfferSectionId();
+              }
+              else {
+                  AssignmentSection ss = AppSharedPreference.getUserTab(tabId, pos);
+                  GlobalCourseId = ss.getCourseId();
+                  GlobalOfferedCourseSectionId = ss.getOfferedSectionId();
+              }
  //               Toast.makeText(getApplicationContext(), "" + tabId, Toast.LENGTH_LONG).show();
 //                if(TAB_1_TAG.equals(tabId)) {
 //                    //destroy earth
@@ -350,6 +364,54 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void callStudentSectionListApi() {
+
+
+        if (!NetworkConnection.getInstance().isNetworkAvailable()) {
+            Toast.makeText(getApplicationContext(), "No Connectivity", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        uiHelper.showLoadingDialog("Please wait...");
+
+        RetrofitApiClient.getApiInterfaceWithId().getStSectionList(AppSharedPreference.getApiKey())
+
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<StSectionListResponse>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Response<StSectionListResponse> value) {
+                        uiHelper.dismissLoadingDialog();
+
+                        StSectionListResponse stSectionListResponse = value.body();
+                        if (stSectionListResponse.getStatus().getCode() == 200) {
+                            stAddSection(stSectionListResponse.getData().getCourseSection());
+
+                        } else
+                            Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
+                        uiHelper.dismissLoadingDialog();
+                    }
+
+                    @Override
+                    public void onComplete() {
+//                        progressDialog.dismiss();
+                        uiHelper.dismissLoadingDialog();
+                    }
+                });
+
+
+    }
+
     private void addSection(List<AssignmentSection> sections) {
         for (int i = 0; i < sections.size(); i++) {
             setupTab(new TextView(this), sections.get(i));
@@ -360,6 +422,40 @@ public class MainActivity extends AppCompatActivity {
         tabRl.setVisibility(View.GONE);
 
 
+    }
+
+    private void stAddSection(List<StCourseSection> sections) {
+        for (int i = 0; i < sections.size(); i++) {
+            setupStTab(new TextView(this), sections.get(i));
+            AppSharedPreference.setStUserTab(sections.get(i), i);
+        }
+
+        AppSharedPreference.setStUserTab(sections.get(0), 0);
+        tabRl.setVisibility(View.GONE);
+
+
+    }
+
+    private void setupStTab(final View view, StCourseSection stCourseSection) {
+        View tabview = createStTabView(mTabHost.getContext(), stCourseSection.getCourseCode(), stCourseSection.getInstructor(), stCourseSection);
+        TabHost.TabSpec setContent = mTabHost.newTabSpec(stCourseSection.getCourseCode()).setIndicator(tabview).setContent(new TabHost.TabContentFactory() {
+            public View createTabContent(String tag) {
+                return view;
+            }
+        });
+        mTabHost.addTab(setContent);
+    }
+
+    private static View createStTabView(final Context context, final String text, final String text1, StCourseSection stCourseSection) {
+        View view = LayoutInflater.from(context).inflate(R.layout.tabs_bg, null);
+        TextView tv = (TextView) view.findViewById(R.id.tabsText);
+        tv.setText(text);
+        tv.setTag(stCourseSection.getCourseOfferSectionId());
+        TextView tvsmall = (TextView) view.findViewById(R.id.tabsTextSmall);
+        tvsmall.setText(text1);
+        tvsmall.setTag(stCourseSection.getCourseOfferSectionId());
+        view.setTag(stCourseSection.getCourseCode());
+        return view;
     }
 
 }

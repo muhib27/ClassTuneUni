@@ -12,15 +12,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.assignment.Assignment;
-import com.classtune.classtuneuni.course_resonse.Course;
+import com.classtune.classtuneuni.fragment.AssignmentDetailsFragment;
 import com.classtune.classtuneuni.fragment.TeacherStudentListFragment;
 import com.classtune.classtuneuni.model.AssignmentModel;
+import com.classtune.classtuneuni.utils.AppSharedPreference;
 import com.classtune.classtuneuni.utils.AppUtility;
 
 import java.util.ArrayList;
@@ -100,31 +102,72 @@ public class AssignmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 final MovieVH itemHolder = (MovieVH) viewHolder;
                 itemHolder.title.setText(result.getAssignment().getTitle());
 
-                String str = result.getAssignment().getAssignDate();
-                String parts[] = str.split(" ");
+                String str = "";
+                if (AppSharedPreference.getUserType().equals("3")) {
+                    str = result.getAssignment().getCreatedAt();
 
-                itemHolder.assignedDate.setText( AppUtility.getDateString(parts[0], AppUtility.DATE_FORMAT_APP, AppUtility.DATE_FORMAT_SERVER));
-                if(result.getAssignment().getDueDate()!=null)
-                itemHolder.dueDate.setText( AppUtility.getDateString(result.getAssignment().getDueDate(), AppUtility.DATE_FORMAT_APP, AppUtility.DATE_FORMAT_SERVER));
-                if(result.getAssignment().getCourseCode()!=null)
-                itemHolder.subject.setText(result.getAssignment().getCourseCode());
-                if(result.getAssignment().getSectionName()!=null)
-                itemHolder.section.setText(result.getAssignment().getSectionName());
-                if(result.getSubmissions()!=null)
-                itemHolder.present.setText("" + result.getSubmissions());
-                if(result.getStudents()!=null)
-                itemHolder.total.setText("" + result.getStudents());
-                itemHolder.cardView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Fragment fragment = new TeacherStudentListFragment();
-                        gotoFragment(fragment, "teacherStudentListFragment", result.getAssignment().getId());
+                    String parts[] = str.split(" ");
+
+                    itemHolder.assignedDate.setText(AppUtility.getDateString(parts[0], AppUtility.DATE_FORMAT_APP, AppUtility.DATE_FORMAT_SERVER));
+                    if (result.getAssignment().getDueDate() != null)
+                        itemHolder.dueDate.setText(AppUtility.getDateString(result.getAssignment().getDueDate(), AppUtility.DATE_FORMAT_APP, AppUtility.DATE_FORMAT_SERVER));
+                    if (result.getAssignment().getCourseCode() != null)
+                        itemHolder.subject.setText(result.getAssignment().getCourseCode());
+                    if (result.getAssignment().getSectionName() != null)
+                        itemHolder.section.setText(result.getAssignment().getSectionName());
+                    if (result.getSubmission() != null && result.getSubmission()== 0) {
+                        itemHolder.imgLl.setVisibility(View.VISIBLE);
+                        itemHolder.numLl.setVisibility(View.GONE);
+                        if (result.getMark() != null)
+                            itemHolder.img.setImageDrawable(mContext.getResources().getDrawable(R.drawable.uni_icon));
+                        else
+                            itemHolder.img.setImageDrawable(mContext.getResources().getDrawable(R.drawable.delete_icon));
+                    } else {
+                        itemHolder.present.setText("" + result.getSubmission());
+                        if (result.getMark() != null)
+                            itemHolder.total.setText("" + result.getMark());
+                    }
+
+                    itemHolder.cardView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Fragment fragment = new AssignmentDetailsFragment();
+                            gotoFragment(fragment, "assignmentDetailsFragment", result.getAssignment().getId());
 
 //                        if (mListener != null) {
 //                            mListener.onItemClick(result, position);
 //                        }
-                    }
-                });
+                        }
+                    });
+                } else {
+                    str = result.getAssignment().getAssignDate();
+
+                    String parts[] = str.split(" ");
+
+                    itemHolder.assignedDate.setText(AppUtility.getDateString(parts[0], AppUtility.DATE_FORMAT_APP, AppUtility.DATE_FORMAT_SERVER));
+                    if (result.getAssignment().getDueDate() != null)
+                        itemHolder.dueDate.setText(AppUtility.getDateString(result.getAssignment().getDueDate(), AppUtility.DATE_FORMAT_APP, AppUtility.DATE_FORMAT_SERVER));
+                    if (result.getAssignment().getCourseCode() != null)
+                        itemHolder.subject.setText(result.getAssignment().getCourseCode());
+                    if (result.getAssignment().getSectionName() != null)
+                        itemHolder.section.setText(result.getAssignment().getSectionName());
+                    if (result.getSubmissions() != null)
+                        itemHolder.present.setText("" + result.getSubmissions());
+                    if (result.getStudents() != null)
+                        itemHolder.total.setText("" + result.getStudents());
+                    itemHolder.cardView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Fragment fragment = new TeacherStudentListFragment();
+                            gotoFragment(fragment, "teacherStudentListFragment", result.getAssignment().getId());
+
+//                        if (mListener != null) {
+//                            mListener.onItemClick(result, position);
+//                        }
+                        }
+                    });
+                }
+
 
 
                 break;
@@ -158,11 +201,12 @@ public class AssignmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         private TextView title;
         private TextView assignedDate;
         private TextView dueDate; // displays "year | language"
-        private ImageView mPosterImg;
+        private ImageView img;
         private ProgressBar mProgress;
         private TextView subject, section, present, total;
         private FrameLayout itemLayout;
         CardView cardView;
+        LinearLayout numLl, imgLl;
 
         public MovieVH(View itemView) {
             super(itemView);
@@ -174,8 +218,11 @@ public class AssignmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             section = itemView.findViewById(R.id.section);
             present = itemView.findViewById(R.id.present);
             total = itemView.findViewById(R.id.total);
+            img = itemView.findViewById(R.id.img);
 //            assignedDate = itemView.findViewById(R.id.assignedDate);
             cardView = itemView.findViewById(R.id.cardView);
+            imgLl = itemView.findViewById(R.id.imgLl);
+            numLl = itemView.findViewById(R.id.numLl);
 
         }
     }

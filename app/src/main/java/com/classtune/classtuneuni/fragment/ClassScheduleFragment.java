@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.adapter.ClassScheduleAdapter;
 import com.classtune.classtuneuni.class_schedule.Routine;
 import com.classtune.classtuneuni.class_schedule.StClsScheduleResponse;
@@ -32,6 +33,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
+
+import static com.classtune.classtuneuni.activity.MainActivity.GlobalOfferedCourseSectionId;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,8 +65,9 @@ public class ClassScheduleFragment extends Fragment implements ClassScheduleAdap
 
         uiHelper = new UIHelper(getActivity());
 
-        recyclerView = view.findViewById(R.id.recyclerView);
+        ((MainActivity)getActivity()).tabRl.setVisibility(View.VISIBLE);
 
+        recyclerView = view.findViewById(R.id.recyclerView);
 
         scheduleList = new ArrayList<>();
 
@@ -75,7 +79,9 @@ public class ClassScheduleFragment extends Fragment implements ClassScheduleAdap
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(classScheduleAdapter);
 
-        callStClassSchedule("19");
+        if(AppSharedPreference.getUserType().equals("3")) {
+            callStClassSchedule(GlobalOfferedCourseSectionId);
+        }
     }
 
 

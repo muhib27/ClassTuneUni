@@ -61,22 +61,50 @@
             android:layout_toEndOf="@+id/ll"
             android:background="@color/ashColor" />
         <LinearLayout
-            android:layout_marginTop="@dimen/size_40dp"
-            android:gravity="right|bottom"
-            android:layout_alignParentEnd="true"
-            android:layout_toEndOf="@+id/basicInfo"
+            android:layout_marginStart="@dimen/size_10dp"
+            android:layout_marginTop="@dimen/size_3dp"
+            android:layout_marginEnd="@dimen/size_5dp"
+            android:layout_toEndOf="@+id/ll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_marginEnd="@dimen/size_20dp"
-                android:layout_centerInParent="true"
-                android:layout_alignParentEnd="true"
-                android:id="@+id/time"
+                android:padding="@dimen/size_5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:text="Room:"
+                android:textColor="@color/appColor" />
+
+            <TextView
+                android:id="@+id/room"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/size_20dp"
+                android:text="3"
+                android:textStyle="bold"
+                android:textSize="@dimen/text_size_12_sp" />/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/size_30dp"
+            android:layout_toEndOf="@+id/basicInfo"
+            android:gravity="right|bottom"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/size_20dp"
                 android:padding="@dimen/size_10dp"
                 android:text="10:30am - 12:00pm"
                 android:textSize="@dimen/text_size_23_sp" />

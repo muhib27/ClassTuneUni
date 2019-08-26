@@ -12,6 +12,9 @@ public class AssignmentData {
     @SerializedName("page")
     @Expose
     private String page;
+    @SerializedName("assignment")
+    @Expose
+    private Assignment assignment;
 
     public List<Assignment> getAssignments() {
         return assignments;
@@ -27,5 +30,13 @@ public class AssignmentData {
 
     public void setPage(String page) {
         this.page = page;
+    }
+
+    public Assignment getAssignment() {
+        return assignment;
+    }
+
+    public void setAssignment(Assignment assignment) {
+        this.assignment = assignment;
     }
 }

@@ -33,6 +33,7 @@ public class AppUtility {
 
 	private static String[] suffix = new String[] { "", "k", "m", "b", "t" };
 	private static int MAX_LENGTH = 4;
+	private static String[] month = new String[]{"Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"};
 
 	private static char[] c = new char[] { 'k', 'm', 'b', 't' };
 
@@ -95,6 +96,13 @@ public class AppUtility {
 	 * r.substring(0, r.length() - 2) + r.substring(r.length() - 1); } return r;
 	 * }
 	 */
+
+	public static String getMonth(String m){
+		if (m!=null)
+		return month[Integer.parseInt(m)];
+		else
+			return "";
+	}
 
 	public static int getProductImageWidth(Context context) {
 		int density = context.getResources().getDisplayMetrics().densityDpi;

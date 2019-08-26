@@ -74,6 +74,7 @@
                 <!--android:layout_alignParentEnd="true"-->
                 <!--android:text="2.5" />-->
             <LinearLayout
+                android:id="@+id/numLl"
                 android:layout_marginEnd="@dimen/size_10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -102,6 +103,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="10" />
+            </LinearLayout>
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/imgLl"
+                android:layout_marginEnd="@dimen/size_10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/img"
+                    android:src="@drawable/uni_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
         </LinearLayout>

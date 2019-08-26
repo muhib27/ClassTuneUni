@@ -43,6 +43,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
+import static com.classtune.classtuneuni.activity.MainActivity.GlobalOfferedCourseSectionId;
 
 
 /**
@@ -100,7 +101,15 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.It
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(assignmentAdapter);
 
-        callOfferedCoursesApi();
+        if(AppSharedPreference.getUserType().equals("3"))
+        {
+            callStAssignmentListApi(GlobalOfferedCourseSectionId);
+
+        }
+        else {
+
+            callOfferedCoursesApi();
+        }
 
         //mTabHost.getTabWidget().setDividerDrawable(R.drawable.tab_divider);
 
@@ -205,6 +214,68 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.It
                             assignmentAdapter.addAllData(assignmentList);
 //                            Log.v("tt", noticeList.toString());
                           //  Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        uiHelper.dismissLoadingDialog();
+                    }
+
+                    @Override
+                    public void onComplete() {
+//                        progressDialog.dismiss();
+                        uiHelper.dismissLoadingDialog();
+                    }
+                });
+
+
+    }
+
+    private void callStAssignmentListApi(String globalOfferedCourseSectionId) {
+
+
+        if (!NetworkConnection.getInstance().isNetworkAvailable()) {
+            Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        uiHelper.showLoadingDialog("Please wait...");
+
+        // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
+        RetrofitApiClient.getApiInterfaceWithId().getStAssignmentList(AppSharedPreference.getApiKey(), globalOfferedCourseSectionId)
+
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<TeacherAssignmentResponse>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Response<TeacherAssignmentResponse> value) {
+                        uiHelper.dismissLoadingDialog();
+
+                        TeacherAssignmentResponse assignmentResponse = value.body();
+                        if (assignmentResponse.getStatus().getCode() == 200) {
+//
+                            assignmentList = assignmentResponse.getData().getAssignments();
+//
+//
+//                            List<String> dateList = new ArrayList<>();
+//                            for (int r = 0; r < noticeList.size(); r++) {
+//                                String sub = noticeList.get(r).getNotice().getCreatedAt().substring(0, 10);
+//                                if (!dateList.contains(sub))
+//                                    dateList.add(sub);
+//                            }
+
+//                            itemList = buildItemList(noticeList, dateList);
+                            assignmentAdapter.addAllData(assignmentList);
+//                            Log.v("tt", noticeList.toString());
+                            //  Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
                         } else
                             Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
                     }

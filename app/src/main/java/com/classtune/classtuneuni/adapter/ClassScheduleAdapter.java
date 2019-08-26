@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.assignment.Assignment;
 import com.classtune.classtuneuni.class_schedule.Routine;
 import com.classtune.classtuneuni.model.ClassScheduleModel;
+import com.classtune.classtuneuni.utils.AppUtility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,11 +59,25 @@ public class ClassScheduleAdapter extends RecyclerView.Adapter<RecyclerView.View
         final Routine routine = mValues.get(position);
         switch (getItemViewType(position)) {
             case ITEM:
-//                final MovieVH itemHolder = (MovieVH) viewHolder;
-//                itemHolder.day.setText(classScheduleModel.getDay());
-//                itemHolder.date.setText(classScheduleModel.getDate());
-//                itemHolder.monthYear.setText(classScheduleModel.getMonthYear());
-//                itemHolder.time.setText(classScheduleModel.getTime());
+                final MovieVH itemHolder = (MovieVH) viewHolder;
+                if(routine.getDay()!=null)
+                itemHolder.day.setText(routine.getDay());
+                if(routine.getDate()!=null)
+                itemHolder.date.setText(routine.getDate());
+                if(routine.getRoom()!=null)
+                itemHolder.room.setText(routine.getRoom());
+                if(routine.getEndTime()!=null && routine.getStartTime() != null)
+                itemHolder.time.setText(getDuration(routine.getEndTime().substring(0, 5), routine.getStartTime().substring(0, 5)));
+                if(routine.getMonth() != null && routine.getYear() !=null)
+                itemHolder.monthYear.setText(AppUtility.getMonth(routine.getMonth()) + ", " + routine.getYear() );
+
+                if(position == 0)
+                {
+                    itemHolder.ll.setBackgroundColor(mContext.getResources().getColor(R.color.appColor));
+                    itemHolder.day.setTextColor(mContext.getResources().getColor(R.color.white));
+                    itemHolder.date.setTextColor(mContext.getResources().getColor(R.color.white));
+                    itemHolder.monthYear.setTextColor(mContext.getResources().getColor(R.color.white));
+                }
 //                itemHolder.scheduleCell.setOnClickListener(new View.OnClickListener() {
 //                    @Override
 //                    public void onClick(View view) {
@@ -75,6 +91,31 @@ public class ClassScheduleAdapter extends RecyclerView.Adapter<RecyclerView.View
                 break;
         }
     }
+
+    private String getYearMonth(String month, String year) {
+
+       return "";
+    }
+
+    private String getDuration(String endTime, String startTime) {
+        String time = "";
+        time = getTime(startTime) +  " - " +getTime(endTime);
+        return time;
+    }
+    private String getTime(String st){
+        String time = "";
+        if(st.length()>2) {
+
+            if (Integer.parseInt(st.substring(0, 2)) >= 12) {
+                time = st + "pm";
+            } else {
+                time = st + "am";
+            }
+
+        }
+        return time;
+    }
+
 
 
     @Override
@@ -96,12 +137,12 @@ public class ClassScheduleAdapter extends RecyclerView.Adapter<RecyclerView.View
 
 
     protected class MovieVH extends RecyclerView.ViewHolder {
-        private TextView day;
-        private TextView date;
+        private TextView room;
+        private TextView day, date, time;
         private TextView monthYear; // displays "year | language"
         private ImageView mPosterImg;
         private ProgressBar mProgress;
-        private TextView time;
+        LinearLayout ll;
         private RelativeLayout scheduleCell;
         CardView cardView;
 
@@ -111,7 +152,9 @@ public class ClassScheduleAdapter extends RecyclerView.Adapter<RecyclerView.View
             date = itemView.findViewById(R.id.date);
             monthYear = itemView.findViewById(R.id.monthYear);
             time = itemView.findViewById(R.id.time);
+            room = itemView.findViewById(R.id.room);
             scheduleCell = itemView.findViewById(R.id.scheduleCell);
+            ll = itemView.findViewById(R.id.ll);
 
         }
     }
