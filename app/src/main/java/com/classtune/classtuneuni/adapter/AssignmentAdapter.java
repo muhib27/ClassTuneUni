@@ -119,9 +119,9 @@ public class AssignmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         itemHolder.imgLl.setVisibility(View.VISIBLE);
                         itemHolder.numLl.setVisibility(View.GONE);
                         if (result.getMark() != null)
-                            itemHolder.img.setImageDrawable(mContext.getResources().getDrawable(R.drawable.uni_icon));
+                            itemHolder.img.setImageDrawable(mContext.getResources().getDrawable(R.drawable.not_examined));
                         else
-                            itemHolder.img.setImageDrawable(mContext.getResources().getDrawable(R.drawable.delete_icon));
+                            itemHolder.img.setImageDrawable(mContext.getResources().getDrawable(R.drawable.not_submited));
                     } else {
                         itemHolder.present.setText("" + result.getSubmission());
                         if (result.getMark() != null)

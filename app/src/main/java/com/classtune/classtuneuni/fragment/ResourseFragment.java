@@ -1,32 +1,26 @@
 package com.classtune.classtuneuni.fragment;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TabHost;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
-import com.classtune.classtuneuni.adapter.ComResultAdapter;
-import com.classtune.classtuneuni.adapter.SubjectResultAdapter;
+import com.classtune.classtuneuni.adapter.ResourceAdapter;
 import com.classtune.classtuneuni.assignment.AssignmentSection;
-import com.classtune.classtuneuni.assignment.TeacherAssignmentResponse;
-import com.classtune.classtuneuni.model.ComResult;
-import com.classtune.classtuneuni.model.SubjectResultModel;
+import com.classtune.classtuneuni.resource.Resource;
+import com.classtune.classtuneuni.resource.ResourceResponse;
 import com.classtune.classtuneuni.response.StCourseSection;
-import com.classtune.classtuneuni.result.CourseResultData;
 import com.classtune.classtuneuni.result.StCourseResultResponse;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
@@ -43,22 +37,21 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
-import static com.classtune.classtuneuni.activity.MainActivity.GlobalOfferedCourseSectionId;
 import static com.classtune.classtuneuni.activity.MainActivity.GlobalCourseId;
+import static com.classtune.classtuneuni.activity.MainActivity.GlobalOfferedCourseSectionId;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SubjectResultFragment extends Fragment implements SubjectResultAdapter.ItemListener {
-    RecyclerView recyclerView;
-    private List<SubjectResultModel> resultList;
-    LinearLayoutManager linearLayoutManager;
-    SubjectResultAdapter subjectResultAdapter;
-    UIHelper uiHelper;
-    private TextView grade, totalObtained, hundred;
-    int totalSt;
+public class ResourseFragment extends Fragment {
 
-    public SubjectResultFragment() {
+    private RecyclerView recyclerView;
+    ResourceAdapter resourceAdapter;
+    GridLayoutManager manager;
+
+    UIHelper uiHelper;
+    private List<Resource> resourceList;
+    public ResourseFragment() {
         // Required empty public constructor
     }
 
@@ -67,35 +60,30 @@ public class SubjectResultFragment extends Fragment implements SubjectResultAdap
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_subject_result, container, false);
+        return inflater.inflate(R.layout.fragment_resourse, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         ((MainActivity)getActivity()).tabRl.setVisibility(View.VISIBLE);
 
+        resourceList = new ArrayList<>();
+
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        resourceAdapter = new ResourceAdapter(getActivity());
+        recyclerView.setAdapter(resourceAdapter);
+
+        recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(getResources()));
+//        recyclerView.setLayoutManager(linearLayoutManager);
+
+        manager = new GridLayoutManager(getActivity(), 3, GridLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         uiHelper = new UIHelper(getActivity());
-        recyclerView = view.findViewById(R.id.recyclerView);
-        grade = view.findViewById(R.id.grade_tv);
-        totalObtained = view.findViewById(R.id.totalObtained);
-        hundred = view.findViewById(R.id.hundred);
 
-        resultList = new ArrayList<>();
-
-
-
-        subjectResultAdapter = new SubjectResultAdapter(getActivity());
-        linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(getResources()));
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(subjectResultAdapter);
-
-        callSubjectResultApi(GlobalOfferedCourseSectionId);
 
         ((MainActivity)getActivity()).mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override
@@ -106,7 +94,7 @@ public class SubjectResultFragment extends Fragment implements SubjectResultAdap
                     StCourseSection ss = AppSharedPreference.getStUserTab(s, pos);
                     GlobalCourseId = ss.getCourseCode();
                     GlobalOfferedCourseSectionId = ss.getCourseOfferSectionId();
-                    callSubjectResultApi(GlobalOfferedCourseSectionId);
+                    callResourceListApi(GlobalOfferedCourseSectionId);
 
                 }
                 else {
@@ -116,25 +104,12 @@ public class SubjectResultFragment extends Fragment implements SubjectResultAdap
                 }
             }
         });
+
+        callResourceListApi(GlobalOfferedCourseSectionId);
+
     }
 
-
-    @Override
-    public void onItemClick(SubjectResultModel item, int pos) {
-        // Toast.makeText(getActivity(), " " + pos, Toast.LENGTH_LONG).show();
-        loadFragment();
-    }
-
-    private void loadFragment() {
-        // load fragment
-        AssignmentDetailsFragment assignmentDetailsFragment = new AssignmentDetailsFragment();
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.mainContainer, assignmentDetailsFragment, "assignmentDetailsFragment");
-        //transaction.addToBackStack(null);
-        transaction.commit();
-    }
-
-    private void callSubjectResultApi(String globalOfferedCourseSectionId) {
+    private void callResourceListApi(String globalOfferedCourseSectionId) {
 
 
         if (!NetworkConnection.getInstance().isNetworkAvailable()) {
@@ -144,30 +119,27 @@ public class SubjectResultFragment extends Fragment implements SubjectResultAdap
         uiHelper.showLoadingDialog("Please wait...");
 
         // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
-        RetrofitApiClient.getApiInterfaceWithId().getSubjectResult(AppSharedPreference.getApiKey(), globalOfferedCourseSectionId)
+        RetrofitApiClient.getApiInterfaceWithId().getSubjectResource(AppSharedPreference.getApiKey(), globalOfferedCourseSectionId, "0")
 
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Response<StCourseResultResponse>>() {
+                .subscribe(new Observer<Response<ResourceResponse>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Response<StCourseResultResponse> value) {
+                    public void onNext(Response<ResourceResponse> value) {
                         uiHelper.dismissLoadingDialog();
 
-                        StCourseResultResponse stCourseResultResponse = value.body();
-                        if (stCourseResultResponse.getStatus().getCode() == 200) {
+                        ResourceResponse resourceResponse = value.body();
+                        if (resourceResponse.getStatus().getCode() == 200) {
 //
-                            resultList = stCourseResultResponse.getData().getAssessments();
-                            if(resultList!=null)
-                            for(int i = 0; i<resultList.size(); i++){
-                                totalSt = totalSt + resultList.get(i).getWeight();
-                            }
-                            populateData(stCourseResultResponse.getData(), totalSt);
-                            subjectResultAdapter.addAllData(resultList);
+                            resourceList = resourceResponse.getData().getCourseMaterials();
+//
+
+                            resourceAdapter.addAllData(resourceList);
 //                            Log.v("tt", noticeList.toString());
                             //  Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
                         } else
@@ -189,14 +161,5 @@ public class SubjectResultFragment extends Fragment implements SubjectResultAdap
                 });
 
 
-    }
-
-    private void populateData(CourseResultData data, int totalSt) {
-        if(data.getGrade().getGrade()!=null)
-            grade.setText(data.getGrade().getGrade());
-
-        if(data.getTotalMarks()!=null)
-            totalObtained.setText("" + data.getTotalMarks());
-        hundred.setText(""+ totalSt + "%");
     }
 }

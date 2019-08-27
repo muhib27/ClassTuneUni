@@ -17,10 +17,13 @@ import com.classtune.classtuneuni.model.LoginApiModel;
 import com.classtune.classtuneuni.model.UniversityModel;
 import com.classtune.classtuneuni.notice.NoticeDetailsResponse;
 import com.classtune.classtuneuni.notice.StNoticeResonse;
+import com.classtune.classtuneuni.profile.StProfileRsponse;
+import com.classtune.classtuneuni.resource.ResourceResponse;
 import com.classtune.classtuneuni.response.NoticeOfferResponse;
 import com.classtune.classtuneuni.response.NoticeResonse;
 import com.classtune.classtuneuni.response.RegisTrationResponse;
 import com.classtune.classtuneuni.response.StSectionListResponse;
+import com.classtune.classtuneuni.result.StCourseResultResponse;
 import com.classtune.classtuneuni.utils.URLHelper;
 import com.google.gson.JsonElement;
 
@@ -205,6 +208,26 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST(URLHelper.STUDENT_ASSIGNMENT_DETAILS)
     Observable<Response<TeacherAssignmentResponse>> getStAssignmentDetails(@Field("api_key") String api_key, @Field("assignment_id") String assignment_id);
+
+    @FormUrlEncoded
+    @POST(URLHelper.STUDENT_SUBJECT_RESULT)
+    Observable<Response<StCourseResultResponse>> getSubjectResult(@Field("api_key") String api_key, @Field("course_offer_section_id") String course_offer_section_id);
+
+
+    @FormUrlEncoded
+    @POST(URLHelper.STUDENT_COURSE_RESOURCE)
+    Observable<Response<ResourceResponse>> getSubjectResource(@Field("api_key") String api_key, @Field("course_offer_sections_id") String course_offer_section_id, @Field("page") String page);
+
+    @FormUrlEncoded
+    @POST(URLHelper.STUDENT_PROFILE)
+    Observable<Response<StProfileRsponse>> getStProfile(@Field("api_key") String api_key);
+
+    @FormUrlEncoded
+    @POST(URLHelper.STUDENT_COURSE_MESSAGE)
+    Observable<Response<ResourceResponse>> getSubjectMessage(@Field("api_key") String api_key, @Field("course_offer_sections_id") String course_offer_section_id, @Field("page") String page);
+
+
 }
+
 
 

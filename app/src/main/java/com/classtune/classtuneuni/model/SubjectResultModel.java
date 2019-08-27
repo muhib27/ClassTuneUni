@@ -1,40 +1,40 @@
 package com.classtune.classtuneuni.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class SubjectResultModel {
-    private String assessmentName;
-    private String weight;
-    private String obtained;
+    @SerializedName("assessment")
+    @Expose
+    private String assessment;
+    @SerializedName("weight")
+    @Expose
+    private Integer weight;
+    @SerializedName("obtained")
+    @Expose
+    private Double obtained;
 
-    public SubjectResultModel() {
+    public String getAssessment() {
+        return assessment;
     }
 
-    public SubjectResultModel(String assessmentName, String weight, String obtained) {
-        this.assessmentName = assessmentName;
-        this.weight = weight;
-        this.obtained = obtained;
+    public void setAssessment(String assessment) {
+        this.assessment = assessment;
     }
 
-    public String getAssessmentName() {
-        return assessmentName;
-    }
-
-    public void setAssessmentName(String assessmentName) {
-        this.assessmentName = assessmentName;
-    }
-
-    public String getWeight() {
+    public Integer getWeight() {
         return weight;
     }
 
-    public void setWeight(String weight) {
+    public void setWeight(Integer weight) {
         this.weight = weight;
     }
 
-    public String getObtained() {
+    public Double getObtained() {
         return obtained;
     }
 
-    public void setObtained(String obtained) {
+    public void setObtained(Double obtained) {
         this.obtained = obtained;
     }
 }

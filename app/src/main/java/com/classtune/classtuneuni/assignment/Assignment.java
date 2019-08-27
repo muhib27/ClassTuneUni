@@ -1,8 +1,11 @@
 package com.classtune.classtuneuni.assignment;
 
 import com.classtune.classtuneuni.model.AssignmentModel;
+import com.classtune.classtuneuni.model.AttachmentModel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class Assignment {
     @SerializedName("assignment")
@@ -21,6 +24,10 @@ public class Assignment {
     @SerializedName("mark")
     @Expose
     private Integer mark;
+
+    @SerializedName("attachments")
+    @Expose
+    private List<AssinmentAttachment> attachments = null;
 
 
     public Integer getStudents() {
@@ -61,5 +68,13 @@ public class Assignment {
 
     public void setMark(Integer mark) {
         this.mark = mark;
+    }
+
+    public List<AssinmentAttachment> getAttachments() {
+        return attachments;
+    }
+
+    public void setAttachments(List<AssinmentAttachment> attachments) {
+        this.attachments = attachments;
     }
 }

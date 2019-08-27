@@ -33,6 +33,7 @@ public class CombinedResultFragment extends Fragment implements ComResultAdapter
     RecyclerView recyclerView;
     private ArrayList<ComResult> resultList;
     LinearLayoutManager linearLayoutManager;
+    ComResultAdapter comResultAdapter;
 
     public CombinedResultFragment() {
         // Required empty public constructor
@@ -49,25 +50,14 @@ public class CombinedResultFragment extends Fragment implements ComResultAdapter
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mTabHost = (TabHost) view.findViewById(android.R.id.tabhost);
 
-        mTabHost.setup();
-        setupTab(new TextView(getContext()), "All", "Summer 2019");
-        setupTab(new TextView(getContext()), "Tab 2", "Summer 2018");
-        setupTab(new TextView(getContext()), "Tab 3","Summer 2019");
-        setupTab(new TextView(getContext()), "Tab 1","Summer 2019");
-        setupTab(new TextView(getContext()), "Tab 2","Summer 2019");
-        setupTab(new TextView(getContext()), "Tab 3","Summer 2019");
 
         recyclerView = view.findViewById(R.id.recyclerView);
 
         resultList = new ArrayList<>();
 
-        resultList.add(new ComResult( "CSE 101", "5", "A"));
-        resultList.add(new ComResult( "CSE 101", "5", "B"));
-        resultList.add(new ComResult("CSE 101", "5", "C"));
 
-        ComResultAdapter comResultAdapter = new ComResultAdapter(getActivity(), resultList, this);
+        comResultAdapter = new ComResultAdapter(getActivity());
         linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(getResources()));
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -75,24 +65,6 @@ public class CombinedResultFragment extends Fragment implements ComResultAdapter
         recyclerView.setAdapter(comResultAdapter);
     }
 
-    private void setupTab(final View view, final String tag, String tag1) {
-        View tabview = createTabView(mTabHost.getContext(), tag, tag1);
-        TabHost.TabSpec setContent = mTabHost.newTabSpec(tag).setIndicator(tabview).setContent(new TabHost.TabContentFactory() {
-            public View createTabContent(String tag) {
-                return view;
-            }
-        });
-        mTabHost.addTab(setContent);
-    }
-
-    private static View createTabView(final Context context, final String text, final String text1) {
-        View view = LayoutInflater.from(context).inflate(R.layout.tabs_bg, null);
-        TextView tv = (TextView) view.findViewById(R.id.tabsText);
-        tv.setText(text);
-        TextView tvsmall = (TextView) view.findViewById(R.id.tabsTextSmall);
-        tvsmall.setText(text1);
-        return view;
-    }
 
     @Override
     public void onItemClick(ComResult item, int pos) {

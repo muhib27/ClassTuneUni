@@ -37,10 +37,10 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
 
     Fragment fragment;
     UIHelper uiHelper;
-    RelativeLayout rl_8, rl_1, rl_2, rl_3, rl_4, rl_5, rl_6, rl_7;
+    RelativeLayout rl_8, rl_1, rl_2, rl_3, rl_4, result, rl_6, rl_7;
 
     ImageView iv1, iv2, iv3, iv4, iv5, iv6, iv7, iv8;
-    TextView tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8;
+    TextView tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8, name, studentId;
 
     public MorePageFragment() {
         // Required empty public constructor
@@ -60,6 +60,7 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
 
         uiHelper = new UIHelper(getActivity());
 
+        iv1 = view.findViewById(R.id.profile_image);
         iv2 = view.findViewById(R.id.iv2);
         iv3 = view.findViewById(R.id.iv3);
         iv4 = view.findViewById(R.id.iv4);
@@ -73,6 +74,9 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
         tv5 = view.findViewById(R.id.tv5);
         tv6 = view.findViewById(R.id.tv6);
         tv7 = view.findViewById(R.id.tv7);
+
+        name = view.findViewById(R.id.name);
+        studentId = view.findViewById(R.id.studentId);
 
 
 
@@ -88,8 +92,8 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
         rl_4 = view.findViewById(R.id.rl_4);
         rl_4.setOnClickListener(this);
 
-        rl_5 = view.findViewById(R.id.rl_5);
-        rl_5.setOnClickListener(this);
+        result = view.findViewById(R.id.result);
+        result.setOnClickListener(this);
 
         rl_6 = view.findViewById(R.id.rl_6);
         rl_6.setOnClickListener(this);
@@ -111,6 +115,15 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+            case R.id.rl_1:
+                if (AppSharedPreference.getUserType().equals("3")) {
+                    fragment = new StudentProfileFragment();
+                    gotoFragment(fragment, "studentProfileFragment");
+                } else {
+//                    fragment = new EnrollStartFragment();
+//                    gotoFragment(fragment, "enrollStartFragment");
+                }
+                break;
             case R.id.rl_8:
                 callLogOutApi();
                 break;
@@ -136,9 +149,9 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
                 fragment = new ExamListFragment();
                 gotoFragment(fragment, "examListFragment");
                 break;
-            case R.id.rl_5:
-                fragment = new StudentProfileFragment();
-                gotoFragment(fragment, "studentProfileFragment");
+            case R.id.result:
+                fragment = new SubjectResultFragment();
+                gotoFragment(fragment, "subjectResultFragment");
                 break;
             case R.id.rl_6:
                 if(AppSharedPreference.getUserType().equals("3"))

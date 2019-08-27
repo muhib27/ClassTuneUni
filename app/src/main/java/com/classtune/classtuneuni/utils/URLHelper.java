@@ -11,8 +11,8 @@ public class URLHelper {
     public URLHelper() {
 	}
 	//public static final String BASE_URL= "http://192.168.3.43/";
-	public static final String BASE_URL= "http://uni.edoozz.com/";
-	//public static final String BASE_URL = "http://192.168.3.48/";
+	//public static final String BASE_URL= "http://uni.edoozz.com/";
+	public static final String BASE_URL = "http://192.168.3.48/";
 	//public static final String BASE_URL = "http://192.168.2.38/";
 	public static final String SUB_URL = "masterapi/";
 //	public final static String URL_BASE = "http://apimaster.classtune.com/api/";
@@ -70,13 +70,14 @@ public class URLHelper {
 
 	public static final String STUDENT_ASSIGNMENT_DETAILS = "assignment_api/student_view_assignment";
 
+	public static final String STUDENT_SUBJECT_RESULT = "exam_api/student_course_result";
+
+	public static final String STUDENT_COURSE_RESOURCE = "course_api/course_materials";
 
 
+	public static final String STUDENT_PROFILE = "exam_api/student_profile";
 
-
-
-
-
+	public static final String STUDENT_COURSE_MESSAGE = "course_api/course_discussion";
 
 
 

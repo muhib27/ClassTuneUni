@@ -14,10 +14,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.assignment.AssinmentAttachment;
 import com.classtune.classtuneuni.model.AssignmentModel;
 import com.classtune.classtuneuni.model.ComResult;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ComResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -28,10 +30,9 @@ public class ComResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private static final int HERO = 2;
     private static final int ITEM = 0;
 
-    public ComResultAdapter(Context context, ArrayList<ComResult> values, ItemListener itemListener) {
-        mValues = values;
+    public ComResultAdapter(Context context) {
+        mValues = new ArrayList<>();
         mContext = context;
-        mListener = itemListener;
     }
 
 
@@ -48,10 +49,6 @@ public class ComResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 viewHolder = new MovieVH(viewItem);
                 break;
 
-//            case HERO:
-//                View viewHero = inflater.inflate(R.layout.item_hero, parent, false);
-//                viewHolder = new HeroVH(viewHero);
-//                break;
         }
         return viewHolder;
     }
@@ -120,16 +117,14 @@ public class ComResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             }
         }
 
-        protected class HeroVH extends RecyclerView.ViewHolder {
-            private TextView title;
-            private TextView mMovieDesc;
-            private TextView mYear; // displays "year | language"
-            private ImageView mPosterImg;
-            private CardView cardView;
+    public void add(ComResult r) {
+        mValues.add(r);
+        notifyItemInserted(mValues.size() - 1);
+    }
 
-            public HeroVH(View itemView) {
-                super(itemView);
-                title = itemView.findViewById(R.id.textView);
-            }
+    public void addAllData(List<ComResult> moveResults) {
+        for (ComResult result : moveResults) {
+            add(result);
         }
+    }
     }

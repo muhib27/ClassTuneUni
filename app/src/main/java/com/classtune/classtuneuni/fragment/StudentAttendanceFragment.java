@@ -35,6 +35,7 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 
@@ -76,7 +77,9 @@ public class StudentAttendanceFragment extends Fragment {
         present = view.findViewById(R.id.present);
         parcentage = view.findViewById(R.id.parcentage);
 
-//        chart = view.findViewById(R.id.chart1);
+        chart = view.findViewById(R.id.chart1);
+        chart.getDescription().setEnabled(false);
+
 //        BarData data = new BarData(getXAxisValues(), getDataSet());
 //        chart.setData(data);
 //        chart.setDrawValueAboveBar(false);
@@ -97,6 +100,41 @@ public class StudentAttendanceFragment extends Fragment {
 
         callStAttendance("19");
 
+    }
+
+
+    private void setData(int present, int absent, int totalClass) {
+        ArrayList<BarEntry> yVal = new ArrayList<>();
+//        for(int i = 0; i< count; i++){
+//            float value = (float)(Math.random()*100);
+//            yVal.add(new BarEntry(i, (int)value));
+//        }
+
+        BarEntry v1e1 = new BarEntry(2, present);
+        yVal.add(v1e1);
+
+        BarEntry v1e2 = new BarEntry(3, absent);
+        yVal.add(v1e2);
+
+
+
+        BarDataSet set = new BarDataSet(yVal, "Data set");
+        set.setColors(ColorTemplate.MATERIAL_COLORS);
+        set.setDrawValues(true);
+
+        BarData data = new BarData(set);
+
+
+//        chart.getXAxis().setEnabled(false);
+      chart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+
+        YAxis rightYAxis = chart.getAxisRight();
+        rightYAxis.setEnabled(false);
+        rightYAxis.setDrawGridLines(false);
+
+        chart.setData(data);
+        chart.invalidate();
+        chart.animateY(500);
     }
 
 
@@ -128,6 +166,7 @@ public class StudentAttendanceFragment extends Fragment {
                         if (studentAttendanceResponse.getStatus().getCode() == 200) {
                             populateData(studentAttendanceResponse.getData());
 
+
                             //Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
                         } else
                             Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
@@ -155,6 +194,9 @@ public class StudentAttendanceFragment extends Fragment {
             present.setText("" + data.getPresent());
         if(data.getPercentage()!=null)
             parcentage.setText("" + data.getPercentage() + "%" );
+
+        setData(data.getPresent(), data.getAbsent(), data.getTotalClass());
+        chart.setFitBars(true);
     }
 
 //    private void setChart(){
@@ -242,16 +284,16 @@ public class StudentAttendanceFragment extends Fragment {
         dataSets.add(barDataSet1);
         return dataSets;
     }
-
-    private ArrayList<String> getXAxisValues() {
-        ArrayList<String> yAxis = new ArrayList<>();
-        yAxis.add("Well behaved staff (Total)");
-        yAxis.add("Utilization of untied fund adequate (Total)");
-        yAxis.add("Awareness generation (use ofIEC/BCC) (Total)");
-        yAxis.add("Grievance redressal mechanismin place (Total)");
-
-        return yAxis;
-    }
+//
+//    private ArrayList<String> getXAxisValues() {
+//        ArrayList<String> yAxis = new ArrayList<>();
+//        yAxis.add("Well behaved staff (Total)");
+//        yAxis.add("Utilization of untied fund adequate (Total)");
+//        yAxis.add("Awareness generation (use ofIEC/BCC) (Total)");
+//        yAxis.add("Grievance redressal mechanismin place (Total)");
+//
+//        return yAxis;
+//    }
 
 
 }

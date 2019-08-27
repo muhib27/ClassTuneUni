@@ -5,6 +5,8 @@ package com.classtune.classtuneuni.model;
  */
 
 public class AttachmentModel {
+
+
   private String fileName;
   private String filePath;
 

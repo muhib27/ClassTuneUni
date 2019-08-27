@@ -13,24 +13,30 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.assignment.Assignment;
 import com.classtune.classtuneuni.model.ComResult;
 import com.classtune.classtuneuni.model.ProfileCourseModel;
+import com.classtune.classtuneuni.profile.StCourseAssessment;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class StProfileInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private ArrayList<ProfileCourseModel> mValues;
+    private ArrayList<StCourseAssessment> mValues;
     private Context mContext;
     protected ItemListener mListener;
     private static final int HERO = 2;
     private static final int ITEM = 0;
 
-    public StProfileInfoAdapter(Context context, ArrayList<ProfileCourseModel> values, ItemListener itemListener) {
-        mValues = values;
+
+    public StProfileInfoAdapter(Context context) {
+        mValues = new ArrayList<>();
         mContext = context;
-        mListener = itemListener;
+
     }
 
 
@@ -57,13 +63,16 @@ public class StProfileInfoAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
-        final ProfileCourseModel result = mValues.get(position);
+        final StCourseAssessment result = mValues.get(position);
         switch (getItemViewType(position)) {
             case ITEM:
                 final MovieVH itemHolder = (MovieVH) viewHolder;
-                itemHolder.subject.setText(result.getSubject());
-                itemHolder.attendance.setText(result.getAttendance());
-                itemHolder.grade.setText(result.getResult());
+                if(result.getCourseCode()!=null)
+                itemHolder.subject.setText(result.getCourseCode());
+                if(result.getAttendance()!=null)
+                itemHolder.attendance.setText(""+result.getAttendance());
+                if(result.getObtained().getGrade()!=null)
+                itemHolder.grade.setText(result.getObtained().getGrade());
 //                itemHolder.cell.setOnClickListener(new View.OnClickListener() {
 //                    @Override
 //                    public void onClick(View view) {
@@ -119,16 +128,14 @@ public class StProfileInfoAdapter extends RecyclerView.Adapter<RecyclerView.View
             }
         }
 
-        protected class HeroVH extends RecyclerView.ViewHolder {
-            private TextView title;
-            private TextView mMovieDesc;
-            private TextView mYear; // displays "year | language"
-            private ImageView mPosterImg;
-            private CardView cardView;
+    public void add(StCourseAssessment r) {
+        mValues.add(r);
+        notifyItemInserted(mValues.size() - 1);
+    }
 
-            public HeroVH(View itemView) {
-                super(itemView);
-                title = itemView.findViewById(R.id.textView);
-            }
+    public void addAllData(List<StCourseAssessment> moveResults) {
+        for (StCourseAssessment result : moveResults) {
+            add(result);
         }
+    }
     }

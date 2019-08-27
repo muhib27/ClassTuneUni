@@ -13,24 +13,25 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.assignment.Assignment;
 import com.classtune.classtuneuni.model.ComResult;
 import com.classtune.classtuneuni.model.SubjectResultModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class SubjectResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private ArrayList<SubjectResultModel> mValues;
+    private List<SubjectResultModel> mValues;
     private Context mContext;
     protected ItemListener mListener;
     private static final int HERO = 2;
     private static final int ITEM = 0;
 
-    public SubjectResultAdapter(Context context, ArrayList<SubjectResultModel> values, ItemListener itemListener) {
-        mValues = values;
+    public SubjectResultAdapter(Context context) {
+        mValues = new ArrayList<>();
         mContext = context;
-        mListener = itemListener;
     }
 
 
@@ -61,9 +62,12 @@ public class SubjectResultAdapter extends RecyclerView.Adapter<RecyclerView.View
         switch (getItemViewType(position)) {
             case ITEM:
                 final MovieVH itemHolder = (MovieVH) viewHolder;
-                itemHolder.subject.setText(result.getAssessmentName());
-                itemHolder.gradePoint.setText(result.getWeight());
-                itemHolder.grade.setText(result.getObtained());
+                if(result.getAssessment()!= null)
+                itemHolder.subject.setText(result.getAssessment());
+                if(result.getWeight()!= null)
+                itemHolder.gradePoint.setText("" + result.getWeight() + "%");
+                if(result.getObtained()!= null)
+                itemHolder.grade.setText("" + result.getObtained());
 //                itemHolder.cardView.setOnClickListener(new View.OnClickListener() {
 //                    @Override
 //                    public void onClick(View view) {
@@ -118,16 +122,14 @@ public class SubjectResultAdapter extends RecyclerView.Adapter<RecyclerView.View
             }
         }
 
-        protected class HeroVH extends RecyclerView.ViewHolder {
-            private TextView title;
-            private TextView mMovieDesc;
-            private TextView mYear; // displays "year | language"
-            private ImageView mPosterImg;
-            private CardView cardView;
+    public void add(SubjectResultModel r) {
+        mValues.add(r);
+        notifyItemInserted(mValues.size() - 1);
+    }
 
-            public HeroVH(View itemView) {
-                super(itemView);
-                title = itemView.findViewById(R.id.textView);
-            }
+    public void addAllData(List<SubjectResultModel> moveResults) {
+        for (SubjectResultModel result : moveResults) {
+            add(result);
         }
+    }
     }

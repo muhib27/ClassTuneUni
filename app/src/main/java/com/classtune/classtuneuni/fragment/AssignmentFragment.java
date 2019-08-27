@@ -28,6 +28,7 @@ import com.classtune.classtuneuni.assignment.AssignmentSection;
 import com.classtune.classtuneuni.assignment.TeacherAssignmentResponse;
 import com.classtune.classtuneuni.course_resonse.CourseListResponse;
 import com.classtune.classtuneuni.model.AssignmentModel;
+import com.classtune.classtuneuni.response.StCourseSection;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
 import com.classtune.classtuneuni.utils.NetworkConnection;
@@ -43,6 +44,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
+import static com.classtune.classtuneuni.activity.MainActivity.GlobalCourseId;
 import static com.classtune.classtuneuni.activity.MainActivity.GlobalOfferedCourseSectionId;
 
 
@@ -111,32 +113,27 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.It
             callOfferedCoursesApi();
         }
 
-        //mTabHost.getTabWidget().setDividerDrawable(R.drawable.tab_divider);
 
-//
-//                tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
-//
-//        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.pigeon_hole_tab_).setTag("pigeonhole"));
-//        if (userPermission.isUserTasksSubmitTask())
-//            tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.submission_tray_tab).setTag("submission_tray"));
-//        else
-//            hideItem();
-//        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.cm_box).setTag("cm_box"));
-//        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.pigeon_hole_tab_).setTag("reading_package"));
-//        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.pigeon_hole_tab_).setTag("notice"));
-//        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.pigeon_hole_tab_).setTag("course_calendar"));
-//        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.pigeon_hole_tab_).setTag("events"));
-//        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.pigeon_hole_tab_).setTag("research_icon"));
-//        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.pigeon_hole_tab_).setTag("profile"));
+        ((MainActivity)getActivity()).mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String s) {
+                int pos = ((MainActivity)getActivity()).mTabHost.getCurrentTab();
+                if(AppSharedPreference.getUserType().equals("3"))
+                {
+                    StCourseSection ss = AppSharedPreference.getStUserTab(s, pos);
+                    GlobalCourseId = ss.getCourseCode();
+                    GlobalOfferedCourseSectionId = ss.getCourseOfferSectionId();
+                    callStAssignmentListApi(GlobalOfferedCourseSectionId);
 
-//        tabLayout.addTab(tabLayout.newTab().setTag("tab"));
-
-//
-//        for (int i = 0; i < tabLayout.getTabCount(); i++) {
-//            TabLayout.Tab tab = tabLayout.getTabAt(i);
-//            if (tab != null) tab.setCustomView(R.layout.view_home_tab);
-//        }
-//        tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#74af27"));
+                }
+                else {
+                    AssignmentSection ss = AppSharedPreference.getUserTab(s, pos);
+                    GlobalCourseId = ss.getCourseId();
+                    GlobalOfferedCourseSectionId = ss.getOfferedSectionId();
+                    callOfferedCoursesApi();
+                }
+            }
+        });
     }
 
     private void setupTab(final View view, final String tag, String tag1) {

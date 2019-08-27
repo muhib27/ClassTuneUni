@@ -25,6 +25,7 @@ import com.classtune.classtuneuni.fragment.CombinedResultFragment;
 import com.classtune.classtuneuni.fragment.HomeFragment;
 import com.classtune.classtuneuni.fragment.MorePageFragment;
 import com.classtune.classtuneuni.fragment.NoticeListFragment;
+import com.classtune.classtuneuni.fragment.ResourseFragment;
 import com.classtune.classtuneuni.response.StCourseSection;
 import com.classtune.classtuneuni.response.StSectionListResponse;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
@@ -88,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
                   StCourseSection ss = AppSharedPreference.getStUserTab(tabId, pos);
                   GlobalCourseId = ss.getCourseCode();
                   GlobalOfferedCourseSectionId = ss.getCourseOfferSectionId();
+
+
               }
               else {
                   AssignmentSection ss = AppSharedPreference.getUserTab(tabId, pos);
@@ -167,8 +170,8 @@ public class MainActivity extends AppCompatActivity {
 //                    else {
 //                        showNews();
 //                    }
-                    fragment = new CombinedResultFragment();
-                    loadFragment(fragment, "combinedResultFragment" , false);
+                    fragment = new ResourseFragment();
+                    loadFragment(fragment, "resourseFragment" , false);
                 } else if (tabId == R.id.quiz) {
                     //Toast.makeText(getApplicationContext(), TabMessage.get(tabId, true), Toast.LENGTH_LONG).show();
 //                    QuizFragment quizFragment = (QuizFragment) getSupportFragmentManager().findFragmentByTag("quizFragment");
