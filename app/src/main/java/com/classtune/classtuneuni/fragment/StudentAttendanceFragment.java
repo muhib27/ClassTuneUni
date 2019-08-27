@@ -24,8 +24,19 @@ import com.classtune.classtuneuni.attendance.StudentAttendanceResponse;
 import com.classtune.classtuneuni.course_resonse.CorsSecStudentResponse;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
+import com.classtune.classtuneuni.utils.MyValueFormatter;
 import com.classtune.classtuneuni.utils.NetworkConnection;
 import com.classtune.classtuneuni.utils.UIHelper;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.ValueFormatter;
+
+import java.util.ArrayList;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -43,6 +54,8 @@ public class StudentAttendanceFragment extends Fragment {
     public StudentAttendanceFragment() {
         // Required empty public constructor
     }
+    private BarChart chart;
+
 
 
     @Override
@@ -62,6 +75,26 @@ public class StudentAttendanceFragment extends Fragment {
         total = view.findViewById(R.id.total);
         present = view.findViewById(R.id.present);
         parcentage = view.findViewById(R.id.parcentage);
+
+//        chart = view.findViewById(R.id.chart1);
+//        BarData data = new BarData(getXAxisValues(), getDataSet());
+//        chart.setData(data);
+//        chart.setDrawValueAboveBar(false);
+//        chart.getXAxis().setTextSize(15f);
+//       // chart.setDescription("Percent(%)");
+//        //chart.getLegend().setEnabled(false);
+//
+//        // Hide the desc value of each bar on top
+//        chart.getXAxis().setEnabled(false);
+//
+//        YAxis rightYAxis = chart.getAxisRight();
+//        rightYAxis.setEnabled(false);
+//
+//        chart.animateXY(2000, 2000);
+//        chart.invalidate();
+
+
+
         callStAttendance("19");
 
     }
@@ -123,5 +156,102 @@ public class StudentAttendanceFragment extends Fragment {
         if(data.getPercentage()!=null)
             parcentage.setText("" + data.getPercentage() + "%" );
     }
+
+//    private void setChart(){
+//        chart.setOnChartValueSelectedListener(this);
+//
+//        chart.setDrawBarShadow(false);
+//        chart.setDrawValueAboveBar(true);
+//
+//        chart.getDescription().setEnabled(false);
+//
+//        // if more than 60 entries are displayed in the chart, no values will be
+//        // drawn
+//        chart.setMaxVisibleValueCount(60);
+//
+//        // scaling can now only be done on x- and y-axis separately
+//        chart.setPinchZoom(false);
+//
+//        chart.setDrawGridBackground(false);
+//        // chart.setDrawYLabels(false);
+//
+//        ValueFormatter xAxisFormatter = new DayAxisValueFormatter(chart);
+//
+//        XAxis xAxis = chart.getXAxis();
+//        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+//        xAxis.setTypeface(tfLight);
+//        xAxis.setDrawGridLines(false);
+//        xAxis.setGranularity(1f); // only intervals of 1 day
+//        xAxis.setLabelCount(7);
+//        xAxis.setValueFormatter(xAxisFormatter);
+//
+//        ValueFormatter custom = new MyValueFormatter("$");
+//
+//        YAxis leftAxis = chart.getAxisLeft();
+//        leftAxis.setTypeface(tfLight);
+//        leftAxis.setLabelCount(8, false);
+//        leftAxis.setValueFormatter(custom);
+//        leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
+//        leftAxis.setSpaceTop(15f);
+//        leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
+//
+//        YAxis rightAxis = chart.getAxisRight();
+//        rightAxis.setDrawGridLines(false);
+//        rightAxis.setTypeface(tfLight);
+//        rightAxis.setLabelCount(8, false);
+//        rightAxis.setValueFormatter(custom);
+//        rightAxis.setSpaceTop(15f);
+//        rightAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
+//
+//        Legend l = chart.getLegend();
+//        l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+//        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
+//        l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+//        l.setDrawInside(false);
+//        l.setForm(Legend.LegendForm.SQUARE);
+//        l.setFormSize(9f);
+//        l.setTextSize(11f);
+//        l.setXEntrySpace(4f);
+//
+//    }
+
+
+    private ArrayList<BarDataSet> getDataSet() {
+        ArrayList<BarDataSet> dataSets = null;
+
+        ArrayList<BarEntry> valueSet1 = new ArrayList<>();
+        BarEntry v1e1 = new BarEntry(96.000f, 0); // Jan
+        valueSet1.add(v1e1);
+        BarEntry v1e2 = new BarEntry(82.000f, 1); // Feb
+        valueSet1.add(v1e2);
+        BarEntry v1e3 = new BarEntry(88.000f, 2); // Mar
+        valueSet1.add(v1e3);
+        BarEntry v1e4 = new BarEntry(52.000f, 3); // Apr
+        valueSet1.add(v1e4);
+
+        BarDataSet barDataSet1 = new BarDataSet(valueSet1, "Availability of Drugs/Supplies");
+        //Chnaging the color
+        barDataSet1.setColor(Color.rgb(0, 169, 157));
+        //barDataSet1.setBarSpacePercent(30f);
+
+
+        // Hide the value on each bar
+        /*barDataSet1.setDrawValues(false);*/
+
+        dataSets = new ArrayList<>();
+        dataSets.add(barDataSet1);
+        return dataSets;
+    }
+
+    private ArrayList<String> getXAxisValues() {
+        ArrayList<String> yAxis = new ArrayList<>();
+        yAxis.add("Well behaved staff (Total)");
+        yAxis.add("Utilization of untied fund adequate (Total)");
+        yAxis.add("Awareness generation (use ofIEC/BCC) (Total)");
+        yAxis.add("Grievance redressal mechanismin place (Total)");
+
+        return yAxis;
+    }
+
 
 }

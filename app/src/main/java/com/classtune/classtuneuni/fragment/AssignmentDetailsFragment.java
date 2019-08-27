@@ -5,13 +5,16 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.assignment.AssignmentSectionResponse;
 import com.classtune.classtuneuni.assignment.TeacherAssignmentResponse;
 import com.classtune.classtuneuni.model.AssignmentModel;
@@ -35,6 +38,8 @@ public class AssignmentDetailsFragment extends Fragment implements View.OnClickL
     UIHelper uiHelper;
     String assignmentId = "";
     private TextView title, instructor, course, dueDate, assignDate, status, total, obtained;
+    private Button viewSubmission;
+    String id = "";
 
     public AssignmentDetailsFragment() {
         // Required empty public constructor
@@ -51,6 +56,11 @@ public class AssignmentDetailsFragment extends Fragment implements View.OnClickL
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        if(((MainActivity)getActivity()).tabRl.getVisibility() == View.VISIBLE)
+            ((MainActivity)getActivity()).tabRl.setVisibility(View.GONE);
+
+
         uiHelper = new UIHelper(getActivity());
         assignmentId = getArguments().getString("assignmentId");
         title = view.findViewById(R.id.title);
@@ -61,6 +71,9 @@ public class AssignmentDetailsFragment extends Fragment implements View.OnClickL
         total = view.findViewById(R.id.total);
         obtained = view.findViewById(R.id.totalObtained);
         status = view.findViewById(R.id.status);
+        viewSubmission = view.findViewById(R.id.viewSubmission);
+        viewSubmission.setOnClickListener(this);
+
 
         callStAssignmentViewApi(assignmentId);
     }
@@ -139,13 +152,31 @@ public class AssignmentDetailsFragment extends Fragment implements View.OnClickL
             total.setText(assignment.getMaxMarks());
 
         if(assignment.getMaxMarks()!=null && marks>0)
-            obtained.setText(marks);
+            obtained.setText(""+marks);
+
+        id = assignment.getId();
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+            case R.id.viewSubmission:
+                Fragment fragment = new AssiDetailsViewFragment();
+                gotoFragment(fragment, "assiDetailsViewFragment", id);
 
+                break;
         }
+    }
+
+    private void gotoFragment(Fragment fragment, String tag, String id) {
+        // load fragment
+        Bundle bundle = new Bundle();
+        bundle.putString("assignmentId", assignmentId);
+        bundle.putString("id", id);
+        fragment.setArguments(bundle);
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.mainContainer, fragment, tag);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }
