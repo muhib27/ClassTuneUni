@@ -21,6 +21,7 @@ import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.assignment.AssignmentSection;
 import com.classtune.classtuneuni.assignment.AssignmentSectionResponse;
 import com.classtune.classtuneuni.fragment.AssignmentFragment;
+import com.classtune.classtuneuni.fragment.ChatDetailsFragment;
 import com.classtune.classtuneuni.fragment.CombinedResultFragment;
 import com.classtune.classtuneuni.fragment.HomeFragment;
 import com.classtune.classtuneuni.fragment.MorePageFragment;
@@ -260,28 +261,45 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
 
     }
+    MenuItem item;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+
+        item = menu.findItem(R.id.chat);
+//        item.getActionView().setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //menu.performIdentifierAction(item.getItemId(), 0);
+//                Toast.makeText(getApplicationContext(), "chat", Toast.LENGTH_LONG).show();
+//            }
+//        });
         return true;
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
+        int id = item.getItemId();
+
+        switch (id) {
+            case R.id.chat:
+                Toast.makeText(getApplicationContext(), "chat", Toast.LENGTH_LONG).show();
+                fragment = new ChatDetailsFragment();
+                loadFragment(fragment, "chatDetailsFragment", false);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
 //
 
-        return super.onOptionsItemSelected(item);
     }
 
 

@@ -146,7 +146,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                         if (loginApiModel.getStatus().getCode()!= null && loginApiModel.getStatus().getCode() == 200) {
                             //    passwordChangeDialog();
 
-                            AppSharedPreference.setUserNameAndPassword(username, password, loginApiModel.getData().getApiKey(), rememberMe.isChecked(), loginApiModel.getData().getUserData().getUserType());
+                            AppSharedPreference.setUserNameAndPassword(loginApiModel.getData().getUserData().getId(),username, password, loginApiModel.getData().getApiKey(), rememberMe.isChecked(), loginApiModel.getData().getUserData().getUserType());
                             //callMenuApi();
 
                             Intent intent = new Intent(getActivity(), MainActivity.class);

@@ -11,8 +11,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.home.StHomeRespons;
+import com.classtune.classtuneuni.response.StSectionListResponse;
+import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
+import com.classtune.classtuneuni.utils.AppSharedPreference;
+import com.classtune.classtuneuni.utils.NetworkConnection;
+import com.classtune.classtuneuni.utils.UIHelper;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -25,6 +32,7 @@ public class HomeFragment extends Fragment {
 
 
     private TextView nextClassTime;
+    UIHelper uiHelper;
 //((TextView)findViewById(R.id.text)).setText(Html.fromHtml("X<sup>2</sup>"));
     public HomeFragment() {
         // Required empty public constructor
@@ -41,9 +49,58 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        uiHelper = new UIHelper(getActivity());
 
         nextClassTime = view.findViewById(R.id.nextClassTime);
         //nextClassTime.setText("10:30" + Html.fromHtml("<sub>am</sub>"));
+    }
+
+    private void callStudentSectionListApi() {
+
+
+        if (!NetworkConnection.getInstance().isNetworkAvailable()) {
+            Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        uiHelper.showLoadingDialog("Please wait...");
+
+        RetrofitApiClient.getApiInterfaceWithId().getStHome(AppSharedPreference.getApiKey())
+
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<StHomeRespons>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Response<StHomeRespons> value) {
+                        uiHelper.dismissLoadingDialog();
+
+                        StHomeRespons stHomeRespons = value.body();
+                        if (stHomeRespons.getStatus().getCode() == 200) {
+
+
+                        } else
+                            Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        uiHelper.dismissLoadingDialog();
+                    }
+
+                    @Override
+                    public void onComplete() {
+//                        progressDialog.dismiss();
+                        uiHelper.dismissLoadingDialog();
+                    }
+                });
+
+
     }
 
 

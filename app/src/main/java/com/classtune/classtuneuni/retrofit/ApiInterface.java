@@ -12,6 +12,9 @@ import com.classtune.classtuneuni.course_resonse.CourseOfferSectionResponse;
 import com.classtune.classtuneuni.course_resonse.OfferedCourseResponse;
 import com.classtune.classtuneuni.enroll.StEnrollResponse;
 import com.classtune.classtuneuni.exam.ExamResponse;
+import com.classtune.classtuneuni.home.StHomeRespons;
+import com.classtune.classtuneuni.message.StCourseMsgResponse;
+import com.classtune.classtuneuni.message.StSendMsgResponse;
 import com.classtune.classtuneuni.model.CommonStatus;
 import com.classtune.classtuneuni.model.LoginApiModel;
 import com.classtune.classtuneuni.model.UniversityModel;
@@ -224,8 +227,19 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST(URLHelper.STUDENT_COURSE_MESSAGE)
-    Observable<Response<ResourceResponse>> getSubjectMessage(@Field("api_key") String api_key, @Field("course_offer_sections_id") String course_offer_section_id, @Field("page") String page);
+    Observable<Response<StCourseMsgResponse>> getSubjectMessage(@Field("api_key") String api_key, @Field("course_offer_sections_id") String course_offer_section_id, @Field("page") String page);
 
+    @FormUrlEncoded
+    @POST(URLHelper.STUDENT_SEND_MESSAGE)
+    Observable<Response<StSendMsgResponse>> stSendMessage(@Field("api_key") String api_key, @Field("course_offer_section_id") String course_offer_section_id, @Field("message") String message);
+
+    @Multipart
+    @POST(URLHelper.STUDENT_SEND_MESSAGE)
+    Observable<Response<StSendMsgResponse>> stSentPhot(@Part MultipartBody.Part attachment_file_name, @Part("course_offer_section_id") RequestBody course_offer_section_id ,@Part("api_key") RequestBody api_key);
+
+    @FormUrlEncoded
+    @POST(URLHelper.STUDENT_HOME)
+    Observable<Response<StHomeRespons>> getStHome(@Field("api_key") String api_key);
 
 }
 

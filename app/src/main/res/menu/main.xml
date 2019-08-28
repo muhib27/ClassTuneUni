@@ -2,13 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/chat"
+        android:id="@+id/bell"
         android:title=""
         android:icon="@drawable/bell_icon"
         android:orderInCategory="100"
         app:showAsAction="always" />
     <item
-        android:id="@+id/bell"
+        android:id="@+id/chat"
         android:title=""
         android:icon="@drawable/chat_icon"
         android:orderInCategory="99"

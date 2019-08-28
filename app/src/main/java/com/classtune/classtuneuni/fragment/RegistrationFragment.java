@@ -2,7 +2,6 @@ package com.classtune.classtuneuni.fragment;
 
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -19,7 +18,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -30,9 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.classtune.classtuneuni.R;
-import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.adapter.ListAdapter;
-import com.classtune.classtuneuni.model.LoginApiModel;
 import com.classtune.classtuneuni.model.UniversityModel;
 import com.classtune.classtuneuni.response.RegisTrationResponse;
 import com.classtune.classtuneuni.response.UniData;
@@ -331,7 +327,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
                         if (regisTrationResponse.getStatus().getCode() != null && regisTrationResponse.getStatus().getCode() == 200) {
                             //    passwordChangeDialog();
 
-                            AppSharedPreference.setUserNameAndPassword(email, password, regisTrationResponse.getData().getApiKey(), false, regisTrationResponse.getData().getUserData().getUserType());
+                            AppSharedPreference.setUserNameAndPassword(regisTrationResponse.getData().getUserData().getId(), email, password, regisTrationResponse.getData().getApiKey(), false, regisTrationResponse.getData().getUserData().getUserType());
                             fragment = new UploadProfilePicFragment();
                             gotoFragment(fragment, "uploadProfilePicFragment");
                         } else
@@ -405,7 +401,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
                         if (regisTrationResponse.getStatus().getCode() != null && regisTrationResponse.getStatus().getCode() == 200) {
                             //    passwordChangeDialog();
 
-                            AppSharedPreference.setUserNameAndPassword(email, password, regisTrationResponse.getData().getApiKey(), false, regisTrationResponse.getData().getUserData().getUserType());
+                            AppSharedPreference.setUserNameAndPassword(regisTrationResponse.getData().getUserData().getId(), email, password, regisTrationResponse.getData().getApiKey(), false, regisTrationResponse.getData().getUserData().getUserType());
                             fragment = new UploadProfilePicFragment();
                             gotoFragment(fragment, "uploadProfilePicFragment");
                         } else
@@ -476,7 +472,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 
                         if (regisTrationResponse.getStatus().getCode() != null && regisTrationResponse.getStatus().getCode() == 200) {
                             //    passwordChangeDialog();
-                            AppSharedPreference.setUserNameAndPassword(email, password, regisTrationResponse.getData().getApiKey(), false, regisTrationResponse.getData().getUserData().getUserType());
+                            AppSharedPreference.setUserNameAndPassword(regisTrationResponse.getData().getUserData().getId(), email, password, regisTrationResponse.getData().getApiKey(), false, regisTrationResponse.getData().getUserData().getUserType());
 
                             fragment = new UploadProfilePicFragment();
                             gotoFragment(fragment, "uploadProfilePicFragment");

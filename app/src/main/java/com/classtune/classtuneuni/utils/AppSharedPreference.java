@@ -14,6 +14,7 @@ import com.classtune.classtuneuni.response.StCourseSection;
 public class AppSharedPreference {
     public static final String keyModelTestPrefs = "modelTestPrefs";
 
+    private static final String keyUserId = "id";
     private static final String keyIsFirstTime = "isFirstTime";
     private static final String keyUserName = "username";
     private static final String keyUserPassword = "userpassword";
@@ -75,10 +76,11 @@ public class AppSharedPreference {
         return user;
     }
 
-    public static void setUserNameAndPassword(String userId, String password, String api_key, boolean rememberMe, String userType) {
+    public static void setUserNameAndPassword(String id, String userId, String password, String api_key, boolean rememberMe, String userType) {
         final SharedPreferences pref = getSharedPreferences();
         final SharedPreferences.Editor editor = pref.edit();
 
+        editor.putString(keyUserId, id);
         editor.putString(keyUserName, userId);
         editor.putString(keyUserPassword, password);
         editor.putString(keyApiKey, api_key);
@@ -112,6 +114,11 @@ public class AppSharedPreference {
     public static String getFcm() {
         final SharedPreferences pref = getSharedPreferences();
         return pref.getString(keyFCMId, "");
+    }
+
+    public static String getUserId() {
+        final SharedPreferences pref = getSharedPreferences();
+        return pref.getString(keyUserId, "");
     }
 
     public static String getUserName() {

@@ -113,4 +113,5 @@
     <string name="java_customdatetimepicker_cancel">Cancel</string>
     <string name="marks">Marks</string>
     <string name="enter_st_id">Enter Your Student ID</string>
+    <string name="type_message">Type Message</string>
 </resources>
