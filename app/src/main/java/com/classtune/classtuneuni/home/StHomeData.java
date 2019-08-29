@@ -6,23 +6,16 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class StHomeData {
-    @SerializedName("attendance")
-    @Expose
-    private List<StHomeAttendance> attendance = null;
+
     @SerializedName("news_feed")
     @Expose
     private List<StHomeFeed> newsFeed = null;
-    @SerializedName("page")
+    @SerializedName("total_page")
     @Expose
-    private Object page;
+    private Integer total_page;
 
-    public List<StHomeAttendance> getAttendance() {
-        return attendance;
-    }
 
-    public void setAttendance(List<StHomeAttendance> attendance) {
-        this.attendance = attendance;
-    }
+
 
     public List<StHomeFeed> getNewsFeed() {
         return newsFeed;
@@ -32,11 +25,13 @@ public class StHomeData {
         this.newsFeed = newsFeed;
     }
 
-    public Object getPage() {
-        return page;
+    public Integer getTotal_page() {
+        return total_page;
     }
 
-    public void setPage(Object page) {
-        this.page = page;
+    public void setTotal_page(Integer total_page) {
+        this.total_page = total_page;
     }
+
+
 }

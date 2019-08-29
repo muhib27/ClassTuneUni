@@ -239,7 +239,11 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST(URLHelper.STUDENT_HOME)
-    Observable<Response<StHomeRespons>> getStHome(@Field("api_key") String api_key);
+    Observable<Response<StHomeRespons>> getStHome(@Field("api_key") String api_key, @Field("page") int page);
+
+    @FormUrlEncoded
+    @POST(URLHelper.STUDENT_HOME_HEADER)
+    Observable<Response<JsonElement>> getStHomeHeader(@Field("api_key") String api_key);
 
 }
 

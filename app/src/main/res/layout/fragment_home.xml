@@ -3,22 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:overScrollMode="never"
     tools:context=".fragment.HomeFragment">
 
     <LinearLayout
+        android:layout_height="match_parent"
+        android:descendantFocusability="blocksDescendants"
+        android:focusable="true"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:focusableInTouchMode="true">
 
         <LinearLayout
             android:layout_alignParentTop="true"
             android:id="@+id/summary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/size_10dp">
+            android:padding="@dimen/size_5dp">
 
             <LinearLayout
+                android:layout_marginEnd="@dimen/size_5dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
@@ -102,6 +107,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:layout_marginEnd="@dimen/size_5dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
@@ -118,7 +124,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical">
 
                         <RelativeLayout
@@ -169,7 +175,8 @@
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/text_size_8_sp" />
 
-                            <RelativeLayout
+                            <LinearLayout
+                                android:gravity="center_horizontal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
 
@@ -177,14 +184,12 @@
                                     android:id="@+id/nextClassTime"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_alignParentStart="true"
                                     android:background="@color/white"
                                     android:text="10:30"
                                     android:textColor="@color/appColor"
                                     android:textSize="@dimen/text_size_25_sp" />
 
                                 <TextView
-                                    android:layout_alignParentBottom="true"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_toEndOf="@+id/nextClassTime"
@@ -193,7 +198,7 @@
                                     android:paddingBottom="@dimen/size_3dp"
                                     android:textColor="@color/appColor"
                                     android:textSize="@dimen/size_16sp" />
-                            </RelativeLayout>
+                            </LinearLayout>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -219,7 +224,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical">
 
                         <RelativeLayout
@@ -270,22 +275,22 @@
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/text_size_8_sp" />
 
-                            <RelativeLayout
+                            <LinearLayout
+                                android:gravity="center_horizontal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
 
                                 <TextView
+                                    android:gravity="center"
                                     android:id="@+id/date"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_centerInParent="true"
                                     android:background="@color/white"
                                     android:text="24"
                                     android:textColor="@color/appColor"
                                     android:textSize="@dimen/text_size_25_sp" />
 
                                 <TextView
-                                    android:layout_alignParentBottom="true"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_toEndOf="@+id/date"
@@ -294,7 +299,7 @@
                                     android:paddingBottom="@dimen/size_3dp"
                                     android:textColor="@color/appColor"
                                     android:textSize="@dimen/size_16sp" />
-                            </RelativeLayout>
+                            </LinearLayout>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -305,28 +310,24 @@
         </LinearLayout>
 
 
-
-        <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@+id/summary"-->
-        <!--android:layout_marginTop="@dimen/size_40dp">-->
-
-        <!--<com.github.mikephil.charting.charts.BarChart-->
-        <!--android:id="@+id/chart1"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="400dp" />-->
-
-        <!--</LinearLayout>-->
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <android.support.v4.widget.NestedScrollView
+            android:focusableInTouchMode="true"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:scrollbars="vertical"
-            app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior" />
+            android:layout_height="wrap_content">
+            <FrameLayout
+                android:focusableInTouchMode="false"
+                android:descendantFocusability="blocksDescendants"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+            <android.support.v7.widget.RecyclerView
 
-
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior" />
+            </FrameLayout>
+        </android.support.v4.widget.NestedScrollView>
     </LinearLayout>
 </ScrollView>

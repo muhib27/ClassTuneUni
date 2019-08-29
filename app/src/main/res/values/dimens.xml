@@ -47,4 +47,6 @@
     <dimen name="text_size_8_sp">8sp</dimen>
     <dimen name="text_size_9_sp">9sp</dimen>
     <dimen name="text_size_24_sp">24sp</dimen>
+    <dimen name="activity_margin_half">8dp</dimen>
+    <dimen name="size_55dp">55dp</dimen>
 </resources>

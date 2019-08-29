@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="@dimen/size_10dp"
+    android:layout_marginTop="@dimen/size_3dp"
+    android:layout_marginBottom="@dimen/size_3dp"
+    android:layout_marginStart="@dimen/size_10dp"
+    android:layout_marginEnd="@dimen/size_10dp"
+    android:paddingBottom="@dimen/size_10dp"
+    app:cardElevation="@dimen/size_5dp"
     android:layout_height="wrap_content">
+    <LinearLayout
+        android:padding="@dimen/size_10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -75,18 +86,19 @@
             android:textColor="@color/ashTextColor"
             android:id="@+id/subtitle"
             android:textSize="@dimen/text_size_14_sp"
+            android:layout_marginTop="@dimen/size_5dp"
             android:text="Ab. Rahim"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
     <View
-        android:layout_marginTop="@dimen/size_10dp"
-        android:background="@color/ash_b5"
+        android:layout_marginTop="@dimen/size_20dp"
+        android:background="@color/menu_divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
     <RelativeLayout
-        android:layout_marginTop="@dimen/size_20dp"
+        android:paddingTop="@dimen/size_10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
@@ -132,5 +144,6 @@
         </LinearLayout>
 
     </RelativeLayout>
+    </LinearLayout>
 
-</LinearLayout>
+</android.support.v7.widget.CardView>
