@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/size_10dp"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/avatar"
+            android:scaleType="fitXY"
+            android:layout_width="@dimen/size_50dp"
+            android:layout_height="@dimen/size_50dp" />
+        <LinearLayout
+            android:layout_marginStart="@dimen/size_20dp"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/name"
+                android:textSize="@dimen/size_15sp"
+                android:text="Ab. Rahim"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textColor="@color/appColor"
+                    android:id="@+id/subject"
+                    android:textSize="@dimen/text_size_12_sp"
+                    android:text="Ab. Rahim"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <View
+                    android:layout_marginEnd="@dimen/size_10dp"
+                    android:layout_marginStart="@dimen/size_10dp"
+                    android:background="@color/ash_b5"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"/>
+                <TextView
+                    android:textColor="@color/ashTextColor"
+                    android:id="@+id/time"
+                    android:textSize="@dimen/text_size_12_sp"
+                    android:text="2 days ago"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/size_20dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textColor="@color/appColor"
+            android:id="@+id/title"
+            android:textSize="@dimen/size_16sp"
+            android:text="Ab. Rahim"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textColor="@color/ashTextColor"
+            android:id="@+id/subtitle"
+            android:textSize="@dimen/text_size_14_sp"
+            android:text="Ab. Rahim"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
