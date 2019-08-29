@@ -129,6 +129,7 @@ public class HomeFragment extends Fragment {
                         uiHelper.dismissLoadingDialog();
                     }
 
+
                     @Override
                     public void onComplete() {
 //                        progressDialog.dismiss();
