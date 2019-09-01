@@ -203,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
 //                    if(morePageFragment !=null) {
 //                        boolean b = morePageFragment.isVisible();
                     fragment = new MorePageFragment();
-                    loadFragment(fragment, "morePageFragment", false);
+                    loadFragment(fragment, "morePageFragment", true);
                     //  }
                 }
             }
@@ -212,9 +212,11 @@ public class MainActivity extends AppCompatActivity {
         bottomBar.setOnTabReselectListener(new OnTabReselectListener() {
             @Override
             public void onTabReSelected(@IdRes int tabId) {
-                Toast.makeText(getApplicationContext(), TabMessage.get(tabId, true), Toast.LENGTH_LONG).show();
+              //  Toast.makeText(getApplicationContext(), TabMessage.get(tabId, true), Toast.LENGTH_LONG).show();
                 MorePageFragment morePageFragment = (MorePageFragment) getSupportFragmentManager().findFragmentByTag("morePageFragment");
-                if (morePageFragment != null && !morePageFragment.isVisible()) {
+                if(morePageFragment!=null && morePageFragment.isVisible())
+                    return;
+                else if (morePageFragment == null) {
                     fragment = new MorePageFragment();
                     loadFragment(fragment, "morePageFragment", true);
                 }
@@ -308,6 +310,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.mainContainer, fragment, tag);
         if(backstack)
+            if(!backstack)
         transaction.addToBackStack(null);
         transaction.commit();
     }

@@ -18,6 +18,7 @@ import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.adapter.StHomeAdapter;
 import com.classtune.classtuneuni.home.StHomeAttendance;
 import com.classtune.classtuneuni.home.StHomeFeed;
+import com.classtune.classtuneuni.home.StHomeHeaderData;
 import com.classtune.classtuneuni.home.StHomeHeaderRespons;
 import com.classtune.classtuneuni.home.StHomeRespons;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
@@ -50,7 +51,7 @@ public class HomeFragment extends Fragment implements PaginationAdapterCallback 
     private boolean isLoading = false;
     private boolean isLastPage = false;
     // limiting to 5 for this tutorial, since total pages in actual API is very large. Feel free to modify.
-    private int TOTAL_PAGES = 3;
+    private int TOTAL_PAGES;
     private int currentPage = PAGE_START;
 
     StHomeAdapter stHomeAdapter;
@@ -183,7 +184,7 @@ public class HomeFragment extends Fragment implements PaginationAdapterCallback 
                             stHomeFeedList = stHomeRespons.getData().getNewsFeed();
                             //stHomeFeedList = getList();
                             stHomeAdapter.addAllData(stHomeFeedList);
-                            //TOTAL_PAGES = stHomeRespons.getData().getTotal_page();
+                            TOTAL_PAGES = stHomeRespons.getData().getTotal_page();
 
                             if (currentPage < TOTAL_PAGES) stHomeAdapter.addLoadingFooter();
                             else isLastPage = true;
@@ -244,6 +245,8 @@ public class HomeFragment extends Fragment implements PaginationAdapterCallback 
 
                             //stHomeAdapter.addAllData(stHomeFeedList);
 
+                           // populateData(stHomeHeaderRespons.getData());
+
                             callStudentHomeApi();
                         } else
 
@@ -268,9 +271,30 @@ public class HomeFragment extends Fragment implements PaginationAdapterCallback 
 
     }
 
+    private void populateData(StHomeHeaderData data) {
+        if(data.getAttendance().get(0).getCourseCode()!=null)
+        stHomeAdapter.attendanceSubCode.setText(data.getAttendance().get(0).getCourseCode());
+        if(data.getAttendance().get(0).getPresent()!=null)
+            stHomeAdapter.attendancePresent.setText(data.getAttendance().get(0).getPresent() + "/" + data.getAttendance().get(0).getTotalClass());
+        if(data.getAttendance().get(0).getPercentage()!=null)
+            stHomeAdapter.attendanceParcent.setText(data.getAttendance().get(0).getPercentage() + "%");
+        if(data.getNextClass().getCourseCode()!=null)
+        stHomeAdapter.nextSubCode.setText(data.getNextClass().getCourseCode());
+        if(data.getNextClass().getInstructor()!=null)
+            stHomeAdapter.nextTeacher.setText(data.getNextClass().getInstructor());
+        if(data.getNextClass().getStartTime()!=null)
+            stHomeAdapter.nextTime.setText(data.getNextClass().getStartTime());
+        if(data.getDueSubmission().getCourseName()!=null)
+        stHomeAdapter.dueSubCode.setText(data.getDueSubmission().getCourseCode());
+        if(data.getDueSubmission().getCourseCode()!=null)
+            stHomeAdapter.dueAubject.setText(data.getDueSubmission().getCourseName());
+        if(data.getDueSubmission().getCourseCode()!=null)
+            stHomeAdapter.dueDate.setText(data.getDueSubmission().getDueDate());
+    }
+
     private void callStudentHomeNextApi() {
 
-        stHomeAdapter.headerSubCode.setText("test");
+//        stHomeAdapter.headerSubCode.setText("test");
 
         if (!NetworkConnection.getInstance().isNetworkAvailable()) {
             Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();

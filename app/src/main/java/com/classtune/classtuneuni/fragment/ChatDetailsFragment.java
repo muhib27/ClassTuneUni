@@ -2,6 +2,7 @@ package com.classtune.classtuneuni.fragment;
 
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.database.Cursor;
@@ -17,6 +18,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TabHost;
@@ -257,7 +260,8 @@ public class ChatDetailsFragment extends Fragment implements View.OnClickListene
                         //      displayName, Long.toString(fileSize));
                         //textFile.setText(strFileSize);
                         AttachmentModel attachmentModel = new AttachmentModel(displayName, path);
-                        callPhotoApi(GlobalOfferedCourseSectionId, attachmentModel);
+                        //callPhotoApi(GlobalOfferedCourseSectionId, attachmentModel);
+                        createConfirmDialog(GlobalOfferedCourseSectionId, attachmentModel);
                        // addAttachment(attachmentModel);
                     }
                     if (c != null && !c.isClosed()) {
@@ -349,7 +353,7 @@ public class ChatDetailsFragment extends Fragment implements View.OnClickListene
             Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
             return;
         }
-        uiHelper.showLoadingDialog("Please wait...");
+        //uiHelper.showLoadingDialog("Please wait...");
 
         // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
         RetrofitApiClient.getApiInterfaceWithId().stSentPhot(body,globalOfferedCourseSectionIdrb, apiKey)
@@ -364,7 +368,7 @@ public class ChatDetailsFragment extends Fragment implements View.OnClickListene
 
                     @Override
                     public void onNext(Response<StSendMsgResponse> value) {
-                        uiHelper.dismissLoadingDialog();
+                       // uiHelper.dismissLoadingDialog();
 
                         if (value.code() == 200) {
                             //Toast.makeText(getActivity(), "Image Upload Success", Toast.LENGTH_SHORT).show();
@@ -376,13 +380,13 @@ public class ChatDetailsFragment extends Fragment implements View.OnClickListene
                     public void onError(Throwable e) {
 
                         Toast.makeText(getActivity(), "Image Upload failed", Toast.LENGTH_SHORT).show();
-                        uiHelper.dismissLoadingDialog();
+                        //uiHelper.dismissLoadingDialog();
                     }
 
                     @Override
                     public void onComplete() {
 //                        progressDialog.dismiss();
-                        uiHelper.dismissLoadingDialog();
+                        //uiHelper.dismissLoadingDialog();
                     }
                 });
 
@@ -396,7 +400,7 @@ public class ChatDetailsFragment extends Fragment implements View.OnClickListene
             Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
             return;
         }
-        uiHelper.showLoadingDialog("Please wait...");
+        //uiHelper.showLoadingDialog("Please wait...");
 
         // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
         RetrofitApiClient.getApiInterfaceWithId().stSendMessage(AppSharedPreference.getApiKey(), globalOfferedCourseSectionId, text)
@@ -411,7 +415,7 @@ public class ChatDetailsFragment extends Fragment implements View.OnClickListene
 
                     @Override
                     public void onNext(Response<StSendMsgResponse> value) {
-                        uiHelper.dismissLoadingDialog();
+                   //     uiHelper.dismissLoadingDialog();
 
                         StSendMsgResponse stSendMsgResponse = value.body();
                         if (stSendMsgResponse.getStatus().getCode() == 200) {
@@ -429,13 +433,13 @@ public class ChatDetailsFragment extends Fragment implements View.OnClickListene
                     public void onError(Throwable e) {
 
                         Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
-                        uiHelper.dismissLoadingDialog();
+                      //  uiHelper.dismissLoadingDialog();
                     }
 
                     @Override
                     public void onComplete() {
 //                        progressDialog.dismiss();
-                        uiHelper.dismissLoadingDialog();
+                      //  uiHelper.dismissLoadingDialog();
                     }
                 });
 
@@ -473,5 +477,38 @@ public class ChatDetailsFragment extends Fragment implements View.OnClickListene
 //        }
 //        return subItemList;
 //    }
+
+
+    private void createConfirmDialog(String globalOfferedCourseSectionId, final AttachmentModel attachmentModel) {
+
+        final Dialog dialog = new Dialog(getActivity(), R.style.Theme_Dialog);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.send_photo_dialog_view);
+
+
+
+        Button cancel = dialog.findViewById(R.id.cancel);
+        Button send = dialog.findViewById(R.id.send);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callPhotoApi(GlobalOfferedCourseSectionId, attachmentModel);
+                dialog.dismiss();
+
+            }
+        });
+
+
+        dialog.show();
+
+    }
 
 }

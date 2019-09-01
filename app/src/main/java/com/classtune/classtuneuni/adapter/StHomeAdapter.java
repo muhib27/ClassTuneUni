@@ -55,14 +55,16 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private static final int RESOURCE = 8;
     private static final int EXAM_SCHEDULE = 2;
     private static final int EXAM_REPORT = 3;
-    private TextView title, attendanceSubCode, attendancePresent, attendanceParcent, nextSubCode, nextTeacher, nextTime, dueSubCode, dueAubject, dueDate;
+    public TextView title, attendanceSubCode, attendancePresent, attendanceParcent, nextSubCode, nextTeacher, nextTime, dueSubCode, dueAubject, dueDate;
 
 
     private static final int LOADING = 10;
 
     public TextView headerSubCode;
 
-    public static final String BASE_URL = "http://192.168.3.48";
+   // public static final String BASE_URL = "http://192.168.3.48";
+    public static final String BASE_URL= "http://uni.edoozz.com";
+
 
 
     private boolean isLoadingAdded = false;

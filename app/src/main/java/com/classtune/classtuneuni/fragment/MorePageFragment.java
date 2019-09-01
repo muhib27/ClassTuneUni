@@ -2,12 +2,14 @@ package com.classtune.classtuneuni.fragment;
 
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +17,14 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.LoginActivity;
+import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.model.User;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
@@ -24,6 +32,7 @@ import com.classtune.classtuneuni.utils.NetworkConnection;
 import com.classtune.classtuneuni.utils.UIHelper;
 import com.google.gson.JsonElement;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -35,6 +44,10 @@ import retrofit2.Response;
  */
 public class MorePageFragment extends Fragment implements View.OnClickListener {
 
+    public static final String BASE_URL = "http://192.168.3.48";
+
+    CircleImageView pic;
+    //private TextView name, studentId;
     Fragment fragment;
     UIHelper uiHelper;
     RelativeLayout rl_8, rl_1, rl_2, rl_3, rl_4, result, rl_6, rl_7;
@@ -58,9 +71,13 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        if(((MainActivity)getActivity()).tabRl.getVisibility() == View.VISIBLE)
+            ((MainActivity)getActivity()).tabRl.setVisibility(View.GONE);
         uiHelper = new UIHelper(getActivity());
 
-        iv1 = view.findViewById(R.id.profile_image);
+        pic = view.findViewById(R.id.profile_image);
+
+        //iv1 = view.findViewById(R.id.profile_image);
         iv2 = view.findViewById(R.id.iv2);
         iv3 = view.findViewById(R.id.iv3);
         iv4 = view.findViewById(R.id.iv4);
@@ -103,6 +120,30 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
 
         rl_8 = view.findViewById(R.id.rl_8);
         rl_8.setOnClickListener(this);
+
+
+        Glide.with(getActivity())
+                .load(BASE_URL + AppSharedPreference.getUserImage())
+                //.load("http://via.placeholder.com/300.png")
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        // log exception
+                        Log.e("TAG", "Error loading image", e);
+                        return false; // important to return false so the error placeholder can be placed
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        return false;
+                    }
+                })
+                .into(pic);
+
+        name.setText(AppSharedPreference.getUserName());
+        studentId.setText(AppSharedPreference.getUserId());
+
+
 
 
         if (AppSharedPreference.getUserType().equals("2")) {

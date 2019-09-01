@@ -13,7 +13,7 @@
     <tab
         id="@+id/news"
         icon="@drawable/resource"
-        title="Result"
+        title="Resource"
          />
     <tab
         id="@+id/quiz"
