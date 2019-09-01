@@ -21,10 +21,12 @@ import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.adapter.ExamListAdapter;
 import com.classtune.classtuneuni.adapter.SubjectResultAdapter;
+import com.classtune.classtuneuni.assignment.AssignmentSection;
 import com.classtune.classtuneuni.assignment.TeacherAssignmentResponse;
 import com.classtune.classtuneuni.exam.ExamResponse;
 import com.classtune.classtuneuni.model.ExamInfoModel;
 import com.classtune.classtuneuni.model.SubjectResultModel;
+import com.classtune.classtuneuni.response.StCourseSection;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
 import com.classtune.classtuneuni.utils.NetworkConnection;
@@ -40,6 +42,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
+import static com.classtune.classtuneuni.activity.MainActivity.GlobalCourseId;
 import static com.classtune.classtuneuni.activity.MainActivity.GlobalOfferedCourseSectionId;
 
 /**
@@ -89,6 +92,27 @@ public class ExamListFragment extends Fragment implements ExamListAdapter.ItemLi
         else {
 
         }
+
+        ((MainActivity)getActivity()).mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String s) {
+                int pos = ((MainActivity)getActivity()).mTabHost.getCurrentTab();
+                if(AppSharedPreference.getUserType().equals("3"))
+                {
+                    StCourseSection ss = AppSharedPreference.getStUserTab(s, pos);
+                    GlobalCourseId = ss.getCourseCode();
+                    GlobalOfferedCourseSectionId = ss.getCourseOfferSectionId();
+                    callStExamListApi(GlobalOfferedCourseSectionId);
+
+                }
+                else {
+                    AssignmentSection ss = AppSharedPreference.getUserTab(s, pos);
+                    GlobalCourseId = ss.getCourseId();
+                    GlobalOfferedCourseSectionId = ss.getOfferedSectionId();
+                    //callOfferedCoursesApi();
+                }
+            }
+        });
     }
 
 

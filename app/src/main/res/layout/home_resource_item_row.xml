@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:id="@+id/cardView"
     android:layout_marginTop="@dimen/size_3dp"
     android:layout_marginBottom="@dimen/size_3dp"
     android:layout_marginStart="@dimen/size_10dp"
@@ -20,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
+                android:id="@+id/pic"
                 android:src="@drawable/avatar"
                 android:scaleType="fitXY"
                 android:layout_width="@dimen/size_50dp"
@@ -79,6 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageView
+                    android:id="@+id/resourseImg"
                     android:src="@drawable/avatar"
                     android:layout_width="match_parent"
                     android:layout_height="150dp" />
@@ -90,6 +93,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/size_55dp">
                     <TextView
+                        android:id="@+id/title"
                         android:text="Title"
                         android:textSize="@dimen/text_size_14_sp"
                         android:textColor="@color/white"

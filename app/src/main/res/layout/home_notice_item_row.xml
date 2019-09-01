@@ -9,6 +9,7 @@
     android:layout_marginEnd="@dimen/size_10dp"
     android:paddingBottom="@dimen/size_10dp"
     app:cardElevation="@dimen/size_5dp"
+    android:id="@+id/cardView"
     android:layout_height="wrap_content">
     <LinearLayout
         android:orientation="vertical"
@@ -20,6 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
+            android:id="@+id/pic"
             android:src="@drawable/avatar"
             android:scaleType="fitXY"
             android:layout_width="@dimen/size_50dp"

@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.notice.NoticcCourseSection;
 import com.classtune.classtuneuni.notice.NoticeDetails;
 import com.classtune.classtuneuni.notice.NoticeDetailsResponse;
@@ -65,6 +66,9 @@ public class TeacherNoticeDetails extends Fragment implements View.OnClickListen
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        if(((MainActivity)getActivity()).tabRl.getVisibility() == View.VISIBLE)
+            ((MainActivity)getActivity()).tabRl.setVisibility(View.GONE);
 
         noticeId = getArguments().getString("noticeId");
         uiHelper = new UIHelper(getActivity());

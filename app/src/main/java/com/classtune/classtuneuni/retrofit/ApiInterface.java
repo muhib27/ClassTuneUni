@@ -12,6 +12,7 @@ import com.classtune.classtuneuni.course_resonse.CourseOfferSectionResponse;
 import com.classtune.classtuneuni.course_resonse.OfferedCourseResponse;
 import com.classtune.classtuneuni.enroll.StEnrollResponse;
 import com.classtune.classtuneuni.exam.ExamResponse;
+import com.classtune.classtuneuni.home.StHomeHeaderRespons;
 import com.classtune.classtuneuni.home.StHomeRespons;
 import com.classtune.classtuneuni.message.StCourseMsgResponse;
 import com.classtune.classtuneuni.message.StSendMsgResponse;
@@ -243,7 +244,7 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST(URLHelper.STUDENT_HOME_HEADER)
-    Observable<Response<JsonElement>> getStHomeHeader(@Field("api_key") String api_key);
+    Observable<Response<StHomeHeaderRespons>> getStHomeHeader(@Field("api_key") String api_key);
 
 }
 

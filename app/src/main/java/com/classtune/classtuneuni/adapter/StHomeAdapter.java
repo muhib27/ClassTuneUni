@@ -1,6 +1,7 @@
 package com.classtune.classtuneuni.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +20,22 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
+import com.classtune.classtuneuni.fragment.AssignmentDetailsFragment;
+import com.classtune.classtuneuni.fragment.ResourceViewFragment;
+import com.classtune.classtuneuni.fragment.TeacherNoticeDetails;
 import com.classtune.classtuneuni.home.StHomeFeed;
 import com.classtune.classtuneuni.model.AssignmentModel;
+import com.classtune.classtuneuni.utils.AppUtility;
 import com.classtune.classtuneuni.utils.PaginationAdapterCallback;
+import com.classtune.classtuneuni.utils.UIHelper;
+import com.classtune.classtuneuni.utils.URLHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +59,8 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private static final int LOADING = 10;
 
     public TextView headerSubCode;
+
+    public static final String BASE_URL = "http://192.168.3.48";
 
 
     private boolean isLoadingAdded = false;
@@ -94,7 +109,7 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 viewHolder = new ExamResultView(viewExamResult);
                 break;
             case RESOURCE:
-                View viewResource = inflater.inflate(R.layout.home_exam_result_item_row, parent, false);
+                View viewResource = inflater.inflate(R.layout.home_resource_item_row, parent, false);
                 viewHolder = new ResourceView(viewResource);
                 break;
             case LOADING:
@@ -116,22 +131,127 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
             case ASSIGNMENT:
                 final AssignmentView assignmentHolder = (AssignmentView) viewHolder;
-//                assignmentHolder.title.setText(result.getContent());
-//                assignmentHolder.name.setText(result.getSenderName());
+                if (result.getContentName() != null)
+                    assignmentHolder.subtitle.setText(result.getContentName());
+                if (result.getInstructor() != null)
+                    assignmentHolder.name.setText(result.getInstructor());
+                if (result.getFeedTime() != null)
+                    assignmentHolder.time.setText(result.getFeedTime());
+                if (result.getCourseCode() != null)
+                    assignmentHolder.subject.setText(result.getCourseCode());
+                if (result.getDueDate() != null)
+                    assignmentHolder.date.setText(AppUtility.getDateString(result.getDueDate(),AppUtility.DATE_FORMAT_APP, AppUtility.DATE_FORMAT_SERVER));
+                if (result.getAssignmentMark() != null)
+                    assignmentHolder.marks.setText(""+result.getAssignmentMark());
+                if(result.getInstructorImage()!=null)
+                Glide.with(mContext)
+                        .load( BASE_URL + result.getInstructorImage())
+                        //.load("http://via.placeholder.com/300.png")
+                        .listener(new RequestListener<Drawable>() {
+                            @Override
+                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                // log exception
+                                Log.e("TAG", "Error loading image", e);
+                                return false; // important to return false so the error placeholder can be placed
+                            }
+
+                            @Override
+                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                return false;
+                            }
+                        })
+                        .into(assignmentHolder.pic);
+
+                assignmentHolder.cardView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Fragment fragment = new AssignmentDetailsFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("assignmentId", result.getAssignmentId());
+                        gotoFragment(fragment, "assignmentDetailsFragment", bundle);
+
+                    }
+                });
 
 
                 break;
             case ASSIGNMENT_MARK:
                 final AssignmentMarkView assignmentMarkView = (AssignmentMarkView) viewHolder;
-//                assignmentHolder.title.setText(result.getContent());
-//                assignmentHolder.name.setText(result.getSenderName());
+                if (result.getContentName() != null)
+                    assignmentMarkView.subtitle.setText(result.getContentName());
+                if (result.getInstructor() != null)
+                    assignmentMarkView.name.setText(result.getInstructor());
+                if (result.getFeedTime() != null)
+                    assignmentMarkView.time.setText(result.getFeedTime());
+                if (result.getCourseCode() != null)
+                    assignmentMarkView.subject.setText(result.getCourseCode());
+                if (result.getDueDate() != null)
+                    assignmentMarkView.date.setText(AppUtility.getDateString(result.getDueDate(),AppUtility.DATE_FORMAT_APP, AppUtility.DATE_FORMAT_SERVER));
+                if (result.getAssignmentMark() != null && result.getObtainedMark()!=null)
+                    assignmentMarkView.marks.setText(""+ result.getObtainedMark() + "/" +result.getAssignmentMark() );
+                if(result.getInstructorImage()!=null)
+                Glide.with(mContext)
+                        .load(BASE_URL + result.getInstructorImage())
+                       // .load("https://champs21.com/wp-content/uploads/2019/08/dengue.jpg")
+                        .listener(new RequestListener<Drawable>() {
+                            @Override
+                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                // log exception
+                                Log.e("TAG", "Error loading image", e);
+                                return false; // important to return false so the error placeholder can be placed
+                            }
 
-
-
+                            @Override
+                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                return false;
+                            }
+                        })
+                        .into(assignmentMarkView.pic);
+                assignmentMarkView.cardView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Fragment fragment = new AssignmentDetailsFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("assignmentId", result.getAssignmentId());
+                        gotoFragment(fragment, "assignmentDetailsFragment", bundle);
+                    }
+                });
                 break;
             case NOTICE:
                 final NoticeView noticeViewHolder = (NoticeView) viewHolder;
-                //  heroHolder.title.setText(result.getContent());
+                if (result.getInstructor() != null)
+                    noticeViewHolder.name.setText(result.getInstructor());
+                if (result.getFeedTime() != null)
+                    noticeViewHolder.time.setText(result.getFeedTime());
+                if (result.getCourseCode() != null)
+                    noticeViewHolder.subject.setText(result.getCourseCode());
+                if(result.getInstructorImage()!=null)
+                Glide.with(mContext)
+                        .load(BASE_URL + result.getInstructorImage())
+                        //.load("http://via.placeholder.com/300.png")
+                        .listener(new RequestListener<Drawable>() {
+                            @Override
+                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                // log exception
+                                Log.e("TAG", "Error loading image", e);
+                                return false; // important to return false so the error placeholder can be placed
+                            }
+
+                            @Override
+                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                return false;
+                            }
+                        })
+                        .into(noticeViewHolder.pic);
+                noticeViewHolder.cardView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Fragment fragment = new TeacherNoticeDetails();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("noticeId", result.getNoticeId());
+                        gotoFragment(fragment, "assignmentDetailsFragment", bundle);
+                    }
+                });
 
                 break;
             case HEADER:
@@ -142,17 +262,142 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
             case EXAM_SCHEDULE:
                 final ExamView examViewHolder = (ExamView) viewHolder;
-                //  heroHolder.title.setText(result.getContent());
+                if (result.getInstructor() != null)
+                    examViewHolder.name.setText(result.getInstructor());
+                if (result.getFeedTime() != null)
+                    examViewHolder.time.setText(result.getFeedTime());
+                if (result.getCourseCode() != null)
+                    examViewHolder.subject.setText(result.getCourseCode());
+                if (result.getExamDate() != null)
+                    examViewHolder.date.setText(AppUtility.getDateString(result.getExamDate(),AppUtility.DATE_FORMAT_APP, AppUtility.DATE_FORMAT_SERVER));
+                if (result.getExamMark() != null)
+                    examViewHolder.marks.setText(""+result.getExamMark());
+                if(result.getInstructorImage()!=null)
+                Glide.with(mContext)
+                        .load(BASE_URL + result.getInstructorImage())
+                        //.load("http://via.placeholder.com/300.png")
+                        .listener(new RequestListener<Drawable>() {
+                            @Override
+                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                // log exception
+                                Log.e("TAG", "Error loading image", e);
+                                return false; // important to return false so the error placeholder can be placed
+                            }
+
+                            @Override
+                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                return false;
+                            }
+                        })
+                        .into(examViewHolder.pic);
+
+                examViewHolder.cardView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
 
                 break;
             case EXAM_REPORT:
                 final ExamResultView examResultViewHolder = (ExamResultView) viewHolder;
-                //  heroHolder.title.setText(result.getContent());
+                if (result.getInstructor() != null)
+                    examResultViewHolder.name.setText(result.getInstructor());
+                if (result.getFeedTime() != null)
+                    examResultViewHolder.time.setText(result.getFeedTime());
+                if (result.getCourseCode() != null)
+                    examResultViewHolder.subject.setText(result.getCourseCode());
+                if (result.getExamDate() != null)
+                    examResultViewHolder.date.setText(AppUtility.getDateString(result.getExamDate(),AppUtility.DATE_FORMAT_APP, AppUtility.DATE_FORMAT_SERVER));
+                if (result.getExamMark() != null && result.getObtainedMark()!= null)
+                    examResultViewHolder.marks.setText(""+ result.getObtainedMark() + "/" + result.getExamMark());
+                if(result.getInstructorImage()!=null)
+                Glide.with(mContext)
+                        .load(BASE_URL + result.getInstructorImage())
+                        //.load("http://via.placeholder.com/300.png")
+                        .listener(new RequestListener<Drawable>() {
+                            @Override
+                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                // log exception
+                                Log.e("TAG", "Error loading image", e);
+                                return false; // important to return false so the error placeholder can be placed
+                            }
+
+                            @Override
+                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                return false;
+                            }
+                        })
+                        .into(examResultViewHolder.pic);
+                examResultViewHolder.cardView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
 
                 break;
             case RESOURCE:
                 final ResourceView resourceView = (ResourceView) viewHolder;
-                //  heroHolder.title.setText(result.getContent());
+                if (result.getInstructor() != null)
+                    resourceView.name.setText(result.getInstructor());
+                if (result.getFeedTime() != null)
+                    resourceView.time.setText(result.getFeedTime());
+                if (result.getCourseCode() != null) {
+                    resourceView.subject.setText(result.getCourseCode());
+                    resourceView.subjectCode.setText(result.getCourseCode());
+                }
+                if (result.getTitle() != null)
+                    resourceView.title.setText(result.getInstructor());
+                if (result.getCourseName() != null)
+                    resourceView.course.setText(result.getCourseName());
+                if(result.getInstructorImage()!=null)
+                Glide.with(mContext)
+                        .load(BASE_URL + result.getInstructorImage())
+                        //.load("http://via.placeholder.com/300.png")
+                        .listener(new RequestListener<Drawable>() {
+                            @Override
+                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                // log exception
+                                Log.e("TAG", "Error loading image", e);
+                                return false; // important to return false so the error placeholder can be placed
+                            }
+
+                            @Override
+                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                return false;
+                            }
+                        })
+                        .into(resourceView.pic);
+                if(result.getThumbnail()!=null)
+                    Glide.with(mContext)
+                            .load(result.getThumbnail())
+                            //.load("http://via.placeholder.com/300.png")
+                            .listener(new RequestListener<Drawable>() {
+                                @Override
+                                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                    // log exception
+                                    Log.e("TAG", "Error loading image", e);
+                                    return false; // important to return false so the error placeholder can be placed
+                                }
+
+                                @Override
+                                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                    return false;
+                                }
+                            })
+                            .into(resourceView.resurceImg);
+                resourceView.cardView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Fragment fragment =new ResourceViewFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("title", result.getCourseName());
+                        bundle.putString("subCode", result.getMaterialTitle());
+                        bundle.putString("content", result.getMaterialContent());
+                        gotoFragment(fragment, "resourceViewFragment", bundle);
+                    }
+                });
 
                 break;
             case LOADING:
@@ -191,23 +436,22 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if (position == mValues.size() - 1 && isLoadingAdded)
             return LOADING;
         else {
-            if (position == 0)
+            if (mValues.get(position).getContentType()!=null && mValues.get(position).getContentType() == 100)
                 return HEADER;
-            else {
-                if (mValues.get(position).getContentType() == 1)
-                    return NOTICE;
-                else if (mValues.get(position).getContentType() == 2)
-                    return EXAM_SCHEDULE;
-                else if (mValues.get(position).getContentType() == 3)
-                    return EXAM_REPORT;
-                else if (mValues.get(position).getContentType() == 5)
-                    return ASSIGNMENT;
-                else if (mValues.get(position).getContentType() == 7)
-                    return ASSIGNMENT_MARK;
-                else
-                    //if (mValues.get(position).getContentType() == 8)
-                    return RESOURCE;
-            }
+            if (mValues.get(position).getContentType()!=null && mValues.get(position).getContentType() == 1)
+                return NOTICE;
+            else if (mValues.get(position).getContentType()!=null && mValues.get(position).getContentType() == 2)
+                return EXAM_SCHEDULE;
+            else if (mValues.get(position).getContentType()!=null && mValues.get(position).getContentType() == 3)
+                return EXAM_REPORT;
+            else if (mValues.get(position).getContentType()!=null && mValues.get(position).getContentType() == 5)
+                return ASSIGNMENT;
+            else if (mValues.get(position).getContentType()!=null && mValues.get(position).getContentType() == 7)
+                return ASSIGNMENT_MARK;
+            else
+                //if (mValues.get(position).getContentType() == 8)
+                return RESOURCE;
+
         }
     }
 
@@ -217,27 +461,28 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
 
     protected class AssignmentView extends RecyclerView.ViewHolder {
-        private TextView title;
-        private TextView name;
-        private TextView dueDate; // displays "year | language"
-        private ImageView img;
+        private TextView subtitle;
+        private TextView name, marks;
+        private TextView date; // displays "year | language"
+        private ImageView pic;
         private ProgressBar mProgress;
-        private TextView subject, section, present, total;
+        private TextView subject, time, present, total;
         private FrameLayout itemLayout;
         CardView cardView;
-        CircleImageView pic;
+        // CircleImageView pic;
         LinearLayout numLl, imgLl;
 
         public AssignmentView(View itemView) {
             super(itemView);
-
-            title = itemView.findViewById(R.id.text);
+//            assignedDate = itemView.findViewById(R.id.assignedDate);
+            date = itemView.findViewById(R.id.date);
             pic = itemView.findViewById(R.id.pic);
             name = itemView.findViewById(R.id.name);
-//            assignedDate = itemView.findViewById(R.id.assignedDate);
-//            dueDate = itemView.findViewById(R.id.dueDate);
-//            subject = itemView.findViewById(R.id.subject);
-//            section = itemView.findViewById(R.id.section);
+            subtitle = itemView.findViewById(R.id.subtitle);
+            subject = itemView.findViewById(R.id.subject);
+            time = itemView.findViewById(R.id.time);
+            marks = itemView.findViewById(R.id.marks);
+            cardView = itemView.findViewById(R.id.cardView);
 //            present = itemView.findViewById(R.id.present);
 //            total = itemView.findViewById(R.id.total);
 //            img = itemView.findViewById(R.id.img);
@@ -250,26 +495,28 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     protected class AssignmentMarkView extends RecyclerView.ViewHolder {
-        private TextView title;
+        private TextView subtitle, marks;
         private TextView name;
-        private TextView dueDate; // displays "year | language"
-        private ImageView img;
-        private ProgressBar mProgress;
-        private TextView subject, section, present, total;
+        private TextView date; // displays "year | language"
+        private ImageView pic;
+        // private ProgressBar pic;
+        private TextView subject, time, present, total;
         private FrameLayout itemLayout;
         CardView cardView;
-        CircleImageView pic;
+        // CircleImageView pic;
         LinearLayout numLl, imgLl;
 
         public AssignmentMarkView(View itemView) {
             super(itemView);
 
-            title = itemView.findViewById(R.id.text);
+            date = itemView.findViewById(R.id.date);
             pic = itemView.findViewById(R.id.pic);
             name = itemView.findViewById(R.id.name);
-//            assignedDate = itemView.findViewById(R.id.assignedDate);
-//            dueDate = itemView.findViewById(R.id.dueDate);
-//            subject = itemView.findViewById(R.id.subject);
+            subtitle = itemView.findViewById(R.id.subtitle);
+            subject = itemView.findViewById(R.id.subject);
+            time = itemView.findViewById(R.id.time);
+            marks = itemView.findViewById(R.id.marks);
+            cardView = itemView.findViewById(R.id.cardView);
 //            section = itemView.findViewById(R.id.section);
 //            present = itemView.findViewById(R.id.present);
 //            total = itemView.findViewById(R.id.total);
@@ -283,19 +530,26 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     protected class NoticeView extends RecyclerView.ViewHolder {
-        private TextView title;
+        private TextView subtitle, name, subject, time;
         private TextView mMovieDesc;
         private TextView mYear; // displays "year | language"
-        private ImageView mPosterImg;
+        private ImageView pic;
         private CardView cardView;
-        CircleImageView pic;
+        // CircleImageView pic;
 
         public NoticeView(View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.text);
+
+
             pic = itemView.findViewById(R.id.pic);
+            name = itemView.findViewById(R.id.name);
+            subtitle = itemView.findViewById(R.id.subtitle);
+            subject = itemView.findViewById(R.id.subject);
+            time = itemView.findViewById(R.id.time);
+            cardView = itemView.findViewById(R.id.cardView);
         }
     }
+
     protected class Header extends RecyclerView.ViewHolder {
         private TextView title;
         private TextView mMovieDesc;
@@ -313,47 +567,68 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     protected class ExamView extends RecyclerView.ViewHolder {
-        private TextView title;
+        private TextView subtitle, name, subject, time, marks;
         private TextView mMovieDesc;
-        private TextView mYear; // displays "year | language"
-        private ImageView mPosterImg;
+        private TextView mYear, date; // displays "year | language"
+        private ImageView pic;
         private CardView cardView;
-        CircleImageView pic;
+        //CircleImageView pic;
 
         public ExamView(View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.text);
+            date = itemView.findViewById(R.id.date);
             pic = itemView.findViewById(R.id.pic);
+            name = itemView.findViewById(R.id.name);
+            subtitle = itemView.findViewById(R.id.subtitle);
+            subject = itemView.findViewById(R.id.subject);
+            time = itemView.findViewById(R.id.time);
+            marks = itemView.findViewById(R.id.marks);
+            cardView = itemView.findViewById(R.id.cardView);
         }
     }
 
     protected class ExamResultView extends RecyclerView.ViewHolder {
-        private TextView title;
+        private TextView subtitle, date, name, subject, time, marks;
         private TextView mMovieDesc;
         private TextView mYear; // displays "year | language"
-        private ImageView mPosterImg;
+        private ImageView pic;
         private CardView cardView;
-        CircleImageView pic;
+        //CircleImageView pic;
 
         public ExamResultView(View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.text);
+            date = itemView.findViewById(R.id.date);
             pic = itemView.findViewById(R.id.pic);
+            name = itemView.findViewById(R.id.name);
+            subtitle = itemView.findViewById(R.id.subtitle);
+            subject = itemView.findViewById(R.id.subject);
+            time = itemView.findViewById(R.id.time);
+            marks = itemView.findViewById(R.id.marks);
+            cardView = itemView.findViewById(R.id.cardView);
         }
     }
 
     protected class ResourceView extends RecyclerView.ViewHolder {
-        private TextView title;
+        private TextView title, time, name, date, subject, course, subjectCode;
         private TextView mMovieDesc;
         private TextView mYear; // displays "year | language"
-        private ImageView mPosterImg;
+        private ImageView pic, resurceImg;
         private CardView cardView;
-        CircleImageView pic;
+        // CircleImageView pic;
 
         public ResourceView(View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.text);
             pic = itemView.findViewById(R.id.pic);
+            resurceImg = itemView.findViewById(R.id.resourseImg);
+            name = itemView.findViewById(R.id.name);
+            title = itemView.findViewById(R.id.title);
+            subject = itemView.findViewById(R.id.subject);
+            subjectCode = itemView.findViewById(R.id.subjectCode);
+            course = itemView.findViewById(R.id.course);
+            time = itemView.findViewById(R.id.time);
+            cardView = itemView.findViewById(R.id.cardView);
+
+
         }
     }
 
@@ -448,14 +723,13 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return mValues.get(position);
     }
 
-    private void gotoFragment(Fragment fragment, String tag, String assignmentId) {
+    private void gotoFragment(Fragment fragment, String tag, Bundle bundle) {
         // load fragment
-        Bundle bundle = new Bundle();
-        bundle.putString("assignmentId", assignmentId);
+
         fragment.setArguments(bundle);
         FragmentTransaction transaction = ((MainActivity) mContext).getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.mainContainer, fragment, tag);
-        //transaction.addToBackStack(null);
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 }

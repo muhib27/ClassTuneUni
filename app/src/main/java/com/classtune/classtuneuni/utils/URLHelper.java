@@ -9,8 +9,8 @@ public class URLHelper {
     public URLHelper() {
 	}
 	//public static final String BASE_URL= "http://192.168.3.43/";
-	public static final String BASE_URL= "http://uni.edoozz.com/";
-	//public static final String BASE_URL = "http://192.168.3.48/";
+	//public static final String BASE_URL= "http://uni.edoozz.com/";
+	public static final String BASE_URL = "http://192.168.3.48/";
 	//public static final String BASE_URL = "http://192.168.2.38/";
 	public static final String SUB_URL = "masterapi/";
 //	public final static String URL_BASE = "http://apimaster.classtune.com/api/";

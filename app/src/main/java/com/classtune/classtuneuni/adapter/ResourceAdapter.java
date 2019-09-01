@@ -3,8 +3,11 @@ package com.classtune.classtuneuni.adapter;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -24,6 +27,9 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.activity.MainActivity;
+import com.classtune.classtuneuni.fragment.AssignmentViewFragment;
+import com.classtune.classtuneuni.fragment.ResourceViewFragment;
 import com.classtune.classtuneuni.model.ComResult;
 import com.classtune.classtuneuni.resource.Resource;
 import com.classtune.classtuneuni.utils.AppUtility;
@@ -80,14 +86,18 @@ public class ResourceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     if(parts[0].contains("-"))
                         itemHolder.date.setText(AppUtility.getDateString(parts[0], AppUtility.DATE_FORMAT_APP, AppUtility.DATE_FORMAT_SERVER));
                 }
-//                itemHolder.cell.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        if (mListener != null) {
-//                            mListener.onItemClick(result, position);
-//                        }
-//                        }
-//                    });
+                itemHolder.cardView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Fragment fragment =new ResourceViewFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("title", result.getChapterTitle());
+                        bundle.putString("subCode", result.getCourseName());
+                        bundle.putString("content", result.getContent());
+                        gotoFragment(fragment, "resourceViewFragment", bundle);
+                    }
+                });
 
 
 
@@ -162,7 +172,7 @@ public class ResourceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             subject = itemView.findViewById(R.id.subject);
             date = itemView.findViewById(R.id.date);
             imageView = itemView.findViewById(R.id.imageView);
-            cell = itemView.findViewById(R.id.cell);
+            cardView = itemView.findViewById(R.id.cardView);
 
         }
     }
@@ -191,4 +201,13 @@ public class ResourceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 //                .centerCrop()
 //                .crossFade();
 //    }
+
+    private void gotoFragment(Fragment fragment, String tag, Bundle bundle) {
+        // load fragment
+        fragment.setArguments(bundle);
+        FragmentTransaction transaction = ((MainActivity)mContext).getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.mainContainer, fragment, tag);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 }

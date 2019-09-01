@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,7 +16,9 @@ import android.widget.Toast;
 
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.adapter.StHomeAdapter;
+import com.classtune.classtuneuni.home.StHomeAttendance;
 import com.classtune.classtuneuni.home.StHomeFeed;
+import com.classtune.classtuneuni.home.StHomeHeaderRespons;
 import com.classtune.classtuneuni.home.StHomeRespons;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
@@ -40,6 +41,7 @@ import retrofit2.Response;
 public class HomeFragment extends Fragment implements PaginationAdapterCallback {
     RecyclerView recyclerView;
     private List<StHomeFeed> stHomeFeedList;
+    private List<StHomeAttendance> stHomeAttendanceList;
     LinearLayoutManager linearLayoutManager;
 
     private static final int PAGE_START = 0;
@@ -74,6 +76,7 @@ public class HomeFragment extends Fragment implements PaginationAdapterCallback 
         uiHelper = new UIHelper(getActivity());
 
         stHomeFeedList = new ArrayList<>();
+        stHomeAttendanceList = new ArrayList<>();
 
         nextClassTime = view.findViewById(R.id.nextClassTime);
         //nextClassTime.setText("10:30" + Html.fromHtml("<sub>am</sub>"));
@@ -130,7 +133,9 @@ public class HomeFragment extends Fragment implements PaginationAdapterCallback 
        // ViewCompat.setNestedScrollingEnabled(recyclerView, false);
 
         if(AppSharedPreference.getUserType().equals("3")) {
-            callStudentHomeApi();        }
+           // callStudentHomeApi();
+           callStudentHomeHeaderApi();
+        }
         else {
 
         }
@@ -154,7 +159,8 @@ public class HomeFragment extends Fragment implements PaginationAdapterCallback 
             Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
             return;
         }
-        uiHelper.showLoadingDialog("Please wait...");
+        if (!uiHelper.isDialogActive())
+            uiHelper.showLoadingDialog("Please wait...");
 
         RetrofitApiClient.getApiInterfaceWithId().getStHome(AppSharedPreference.getApiKey(), currentPage)
 
@@ -173,10 +179,7 @@ public class HomeFragment extends Fragment implements PaginationAdapterCallback 
                         StHomeRespons stHomeRespons = value.body();
                         if ( stHomeRespons!= null && stHomeRespons.getStatus().getCode() == 200) {
 
-                            StHomeFeed stHomeFeed = new StHomeFeed(0);
-                            stHomeFeedList.add(stHomeFeed);
-                            stHomeAdapter.addAllData(stHomeFeedList);
-                            stHomeAdapter.clear();
+
                             stHomeFeedList = stHomeRespons.getData().getNewsFeed();
                             //stHomeFeedList = getList();
                             stHomeAdapter.addAllData(stHomeFeedList);
@@ -185,15 +188,65 @@ public class HomeFragment extends Fragment implements PaginationAdapterCallback 
                             if (currentPage < TOTAL_PAGES) stHomeAdapter.addLoadingFooter();
                             else isLastPage = true;
                         } else
-                            stHomeFeed = new StHomeFeed(0);
-                        stHomeFeedList.add(stHomeFeed);
-                        stHomeAdapter.addAllData(stHomeFeedList);
-                        stHomeAdapter.clear();
 
-                            stHomeFeedList = getList();
-                        stHomeAdapter.addAllData(stHomeFeedList);
-                        if (currentPage < TOTAL_PAGES) stHomeAdapter.addLoadingFooter();
-                        else isLastPage = true;
+                            Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        uiHelper.dismissLoadingDialog();
+                    }
+
+
+                    @Override
+                    public void onComplete() {
+//                        progressDialog.dismiss();
+                        uiHelper.dismissLoadingDialog();
+                    }
+                });
+
+
+    }
+
+    private void callStudentHomeHeaderApi() {
+
+
+        if (!NetworkConnection.getInstance().isNetworkAvailable()) {
+            Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        uiHelper.showLoadingDialog("Please wait...");
+
+        RetrofitApiClient.getApiInterfaceWithId().getStHomeHeader(AppSharedPreference.getApiKey())
+
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<StHomeHeaderRespons>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Response<StHomeHeaderRespons> value) {
+                        // uiHelper.dismissLoadingDialog();
+
+                        StHomeHeaderRespons stHomeHeaderRespons = value.body();
+                        if (stHomeHeaderRespons != null && stHomeHeaderRespons.getStatus().getCode() == 200) {
+
+                            StHomeFeed stHomeFeed = new StHomeFeed(100);
+                            stHomeFeedList.add(stHomeFeed);
+                            stHomeAdapter.addAllData(stHomeFeedList);
+
+                            stHomeAttendanceList = stHomeHeaderRespons.getData().getAttendance();
+
+                            //stHomeAdapter.addAllData(stHomeFeedList);
+
+                            callStudentHomeApi();
+                        } else
+
                             Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
                     }
 
@@ -223,7 +276,7 @@ public class HomeFragment extends Fragment implements PaginationAdapterCallback 
             Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
             return;
         }
-        uiHelper.showLoadingDialog("Please wait...");
+      //  uiHelper.showLoadingDialog("Please wait...");
 
         RetrofitApiClient.getApiInterfaceWithId().getStHome(AppSharedPreference.getApiKey(), currentPage)
 
@@ -237,30 +290,20 @@ public class HomeFragment extends Fragment implements PaginationAdapterCallback 
 
                     @Override
                     public void onNext(Response<StHomeRespons> value) {
-                        uiHelper.dismissLoadingDialog();
+                       // uiHelper.dismissLoadingDialog();
 
                         StHomeRespons stHomeRespons = value.body();
                         if (stHomeRespons!= null && stHomeRespons.getStatus().getCode() == 200) {
                             stHomeAdapter.removeLoadingFooter();
                             isLoading = false;
-
                             stHomeFeedList = stHomeRespons.getData().getNewsFeed();
-
-
                             stHomeAdapter.addAllData(stHomeFeedList);
                             //TOTAL_PAGES = stHomeRespons.getData().getTotal_page();
 
                             if (currentPage < TOTAL_PAGES) stHomeAdapter.addLoadingFooter();
                             else isLastPage = true;
                         } else
-                            stHomeAdapter.removeLoadingFooter();
-                        isLoading = false;
 
-                        stHomeFeedList = getList();
-
-                        stHomeAdapter.addAllData(stHomeFeedList);
-                        if (currentPage < TOTAL_PAGES) stHomeAdapter.addLoadingFooter();
-                        else isLastPage = true;
                             Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
                     }
 
@@ -268,14 +311,14 @@ public class HomeFragment extends Fragment implements PaginationAdapterCallback 
                     public void onError(Throwable e) {
 
                         Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
-                        uiHelper.dismissLoadingDialog();
+                       // uiHelper.dismissLoadingDialog();
                     }
 
 
                     @Override
                     public void onComplete() {
 //                        progressDialog.dismiss();
-                        uiHelper.dismissLoadingDialog();
+                        //uiHelper.dismissLoadingDialog();
                     }
                 });
 

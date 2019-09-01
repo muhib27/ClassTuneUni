@@ -64,6 +64,7 @@
                         android:textSize="@dimen/text_size_14_sp" />
 
                     <TextView
+                        android:id="@+id/total"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
@@ -74,6 +75,7 @@
                         android:textSize="@dimen/text_size_8_sp" />
 
                     <TextView
+                        android:id="@+id/parcentage"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
@@ -139,6 +141,7 @@
                     android:padding="@dimen/size_10dp">
 
                     <TextView
+                        android:id="@+id/nextSubCode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
@@ -148,6 +151,7 @@
                         android:textSize="@dimen/text_size_14_sp" />
 
                     <TextView
+                        android:id="@+id/nextTeacher"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
@@ -239,6 +243,7 @@
                     android:padding="@dimen/size_10dp">
 
                     <TextView
+                        android:id="@+id/dueSubCode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
@@ -248,6 +253,7 @@
                         android:textSize="@dimen/text_size_14_sp" />
 
                     <TextView
+                        android:id="@+id/dueTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"

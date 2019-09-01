@@ -409,7 +409,7 @@ public class MainActivity extends AppCompatActivity {
                         uiHelper.dismissLoadingDialog();
 
                         StSectionListResponse stSectionListResponse = value.body();
-                        if (stSectionListResponse.getStatus().getCode() == 200) {
+                        if (stSectionListResponse!= null && stSectionListResponse.getStatus().getCode() == 200) {
                             stAddSection(stSectionListResponse.getData().getCourseSection());
 
                         } else

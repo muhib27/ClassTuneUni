@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.adapter.ItemAdapter;
 import com.classtune.classtuneuni.adapter.MultiSelectionSpinner;
 import com.classtune.classtuneuni.model.Item;
@@ -76,6 +77,8 @@ public class NoticeListFragment extends Fragment implements View.OnClickListener
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         uiHelper = new UIHelper(getActivity());
+        if(((MainActivity)getActivity()).tabRl.getVisibility() == View.VISIBLE)
+            ((MainActivity)getActivity()).tabRl.setVisibility(View.GONE);
 
         noticeList = new ArrayList<>();
         noticeInfoList = new ArrayList<>();

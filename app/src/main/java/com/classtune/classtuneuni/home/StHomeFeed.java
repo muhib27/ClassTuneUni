@@ -16,15 +16,21 @@ public class StHomeFeed {
     @SerializedName("is_read")
     @Expose
     private String isRead;
+    @SerializedName("title")
+    @Expose
+    private String title;
+    @SerializedName("assignment_id")
+    @Expose
+    private String assignmentId;
+    @SerializedName("assignment_mark")
+    @Expose
+    private Integer assignmentMark;
+    @SerializedName("due_date")
+    @Expose
+    private String dueDate;
     @SerializedName("obtained_mark")
     @Expose
-    private String obtainedMark;
-    @SerializedName("obtained_grade")
-    @Expose
-    private String obtainedGrade;
-    @SerializedName("obtained_point")
-    @Expose
-    private String obtainedPoint;
+    private Integer obtainedMark;
     @SerializedName("course_name")
     @Expose
     private String courseName;
@@ -34,6 +40,12 @@ public class StHomeFeed {
     @SerializedName("instructor")
     @Expose
     private String instructor;
+    @SerializedName("instructor_image")
+    @Expose
+    private String instructorImage;
+    @SerializedName("feed_time")
+    @Expose
+    private String feedTime;
     @SerializedName("exam_id")
     @Expose
     private String examId;
@@ -45,7 +57,7 @@ public class StHomeFeed {
     private String examDate;
     @SerializedName("exam_mark")
     @Expose
-    private String examMark;
+    private Integer examMark;
     @SerializedName("notice_id")
     @Expose
     private String noticeId;
@@ -55,15 +67,40 @@ public class StHomeFeed {
     @SerializedName("notice_descriptions")
     @Expose
     private String noticeDescriptions;
-    @SerializedName("title")
-    @Expose
-    private String title;
     @SerializedName("description")
     @Expose
     private String description;
     @SerializedName("attachments")
     @Expose
     private List<AssinmentAttachment> attachments = null;
+    @SerializedName("material_id")
+    @Expose
+    private String materialId;
+    @SerializedName("chapter_id")
+    @Expose
+    private String chapterId;
+    @SerializedName("material_title")
+    @Expose
+    private String materialTitle;
+    @SerializedName("material_content")
+    @Expose
+    private String materialContent;
+    @SerializedName("created_at")
+    @Expose
+    private String createdAt;
+    @SerializedName("thumbnail")
+    @Expose
+    private String thumbnail;
+    @SerializedName("chapter_title")
+    @Expose
+    private String chapterTitle;
+
+    public StHomeFeed(Integer contentType) {
+        this.contentType = contentType;
+    }
+
+    public StHomeFeed() {
+    }
 
     public Integer getContentType() {
         return contentType;
@@ -89,29 +126,22 @@ public class StHomeFeed {
         this.isRead = isRead;
     }
 
-    public String getObtainedMark() {
-        return obtainedMark;
+    public String getTitle() {
+        return title;
     }
 
-    public void setObtainedMark(String obtainedMark) {
-        this.obtainedMark = obtainedMark;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getObtainedGrade() {
-        return obtainedGrade;
+    public String getAssignmentId() {
+        return assignmentId;
     }
 
-    public void setObtainedGrade(String obtainedGrade) {
-        this.obtainedGrade = obtainedGrade;
+    public void setAssignmentId(String assignmentId) {
+        this.assignmentId = assignmentId;
     }
 
-    public String getObtainedPoint() {
-        return obtainedPoint;
-    }
-
-    public void setObtainedPoint(String obtainedPoint) {
-        this.obtainedPoint = obtainedPoint;
-    }
 
     public String getCourseName() {
         return courseName;
@@ -135,6 +165,22 @@ public class StHomeFeed {
 
     public void setInstructor(String instructor) {
         this.instructor = instructor;
+    }
+
+    public String getInstructorImage() {
+        return instructorImage;
+    }
+
+    public void setInstructorImage(String instructorImage) {
+        this.instructorImage = instructorImage;
+    }
+
+    public String getFeedTime() {
+        return feedTime;
+    }
+
+    public void setFeedTime(String feedTime) {
+        this.feedTime = feedTime;
     }
 
     public String getExamId() {
@@ -161,13 +207,6 @@ public class StHomeFeed {
         this.examDate = examDate;
     }
 
-    public String getExamMark() {
-        return examMark;
-    }
-
-    public void setExamMark(String examMark) {
-        this.examMark = examMark;
-    }
 
     public String getNoticeId() {
         return noticeId;
@@ -193,20 +232,68 @@ public class StHomeFeed {
         this.noticeDescriptions = noticeDescriptions;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getMaterialId() {
+        return materialId;
+    }
+
+    public void setMaterialId(String materialId) {
+        this.materialId = materialId;
+    }
+
+    public String getChapterId() {
+        return chapterId;
+    }
+
+    public void setChapterId(String chapterId) {
+        this.chapterId = chapterId;
+    }
+
+    public String getMaterialTitle() {
+        return materialTitle;
+    }
+
+    public void setMaterialTitle(String materialTitle) {
+        this.materialTitle = materialTitle;
+    }
+
+    public String getMaterialContent() {
+        return materialContent;
+    }
+
+    public void setMaterialContent(String materialContent) {
+        this.materialContent = materialContent;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    public String getChapterTitle() {
+        return chapterTitle;
+    }
+
+    public void setChapterTitle(String chapterTitle) {
+        this.chapterTitle = chapterTitle;
     }
 
     public List<AssinmentAttachment> getAttachments() {
@@ -217,10 +304,36 @@ public class StHomeFeed {
         this.attachments = attachments;
     }
 
-    public StHomeFeed(int contentType) {
-        this.contentType = contentType;
+
+    public String getDueDate() {
+        return dueDate;
     }
 
-    public StHomeFeed() {
+    public void setDueDate(String dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public Integer getAssignmentMark() {
+        return assignmentMark;
+    }
+
+    public void setAssignmentMark(Integer assignmentMark) {
+        this.assignmentMark = assignmentMark;
+    }
+
+    public Integer getObtainedMark() {
+        return obtainedMark;
+    }
+
+    public void setObtainedMark(Integer obtainedMark) {
+        this.obtainedMark = obtainedMark;
+    }
+
+    public Integer getExamMark() {
+        return examMark;
+    }
+
+    public void setExamMark(Integer examMark) {
+        this.examMark = examMark;
     }
 }
