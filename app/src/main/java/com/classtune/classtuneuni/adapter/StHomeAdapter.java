@@ -55,6 +55,8 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private static final int RESOURCE = 8;
     private static final int EXAM_SCHEDULE = 2;
     private static final int EXAM_REPORT = 3;
+    private TextView title, attendanceSubCode, attendancePresent, attendanceParcent, nextSubCode, nextTeacher, nextTime, dueSubCode, dueAubject, dueDate;
+
 
     private static final int LOADING = 10;
 
@@ -551,7 +553,6 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     protected class Header extends RecyclerView.ViewHolder {
-        private TextView title;
         private TextView mMovieDesc;
         private TextView mYear; // displays "year | language"
         private ImageView mPosterImg;
@@ -561,8 +562,18 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public Header(View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.text);
-            headerSubCode = itemView.findViewById(R.id.headerSubCode);
-            pic = itemView.findViewById(R.id.pic);
+            attendanceSubCode = itemView.findViewById(R.id.headerSubCode);
+            attendancePresent = itemView.findViewById(R.id.total);
+            attendanceParcent = itemView.findViewById(R.id.parcentage);
+
+            nextSubCode = itemView.findViewById(R.id.nextSubCode);
+            nextTeacher = itemView.findViewById(R.id.nextTeacher);
+            nextTeacher = itemView.findViewById(R.id.nextClassTime);
+
+            dueSubCode = itemView.findViewById(R.id.dueSubCode);
+            dueAubject = itemView.findViewById(R.id.dueTitle);
+            dueDate = itemView.findViewById(R.id.date);
+           // pic = itemView.findViewById(R.id.pic);
         }
     }
 
