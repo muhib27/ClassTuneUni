@@ -4,330 +4,327 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:overScrollMode="never"
+    android:focusableInTouchMode="true"
     tools:context=".fragment.HomeFragment">
 
     <LinearLayout
         android:layout_height="match_parent"
-        android:descendantFocusability="blocksDescendants"
-        android:focusable="true"
         android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:focusableInTouchMode="true">
+        android:layout_width="match_parent">
 
-        <LinearLayout
-            android:layout_alignParentTop="true"
-            android:id="@+id/summary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/size_5dp">
+        <!--<LinearLayout-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:id="@+id/summary"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:padding="@dimen/size_5dp">-->
 
-            <LinearLayout
-                android:layout_marginEnd="@dimen/size_5dp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
+            <!--<LinearLayout-->
+                <!--android:layout_marginEnd="@dimen/size_5dp"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1">-->
 
-                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/cardView1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/size_1dp"
-                    android:elevation="3dp"
-                    android:padding="@dimen/size_10dp"
-                    card_view:cardCornerRadius="0dp"
-                    card_view:cardElevation="5dp">
+                <!--<android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"-->
+                    <!--android:id="@+id/cardView1"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_margin="@dimen/size_1dp"-->
+                    <!--android:elevation="3dp"-->
+                    <!--android:padding="@dimen/size_10dp"-->
+                    <!--card_view:cardCornerRadius="0dp"-->
+                    <!--card_view:cardElevation="5dp">-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:orientation="vertical">-->
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/appColor">
+                        <!--<RelativeLayout-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:background="@color/appColor">-->
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentStart="true"
-                                android:padding="@dimen/size_10dp"
-                                android:text="@string/attendance"
-                                android:textColor="@color/white"
-                                android:textSize="@dimen/text_size_12_sp" />
+                            <!--<TextView-->
+                                <!--android:textIsSelectable="true"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_alignParentStart="true"-->
+                                <!--android:padding="@dimen/size_10dp"-->
+                                <!--android:text="@string/attendance"-->
+                                <!--android:textColor="@color/white"-->
+                                <!--android:textSize="@dimen/text_size_12_sp" />-->
 
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_centerInParent="true"
-                                android:paddingEnd="@dimen/size_5dp"
-                                android:src="@drawable/ic_play_arrow_white_24dp" />
-                        </RelativeLayout>
+                            <!--<ImageView-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_alignParentEnd="true"-->
+                                <!--android:layout_centerInParent="true"-->
+                                <!--android:paddingEnd="@dimen/size_5dp"-->
+                                <!--android:src="@drawable/ic_play_arrow_white_24dp" />-->
+                        <!--</RelativeLayout>-->
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="@dimen/size_10dp">
+                        <!--<LinearLayout-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:orientation="vertical"-->
+                            <!--android:padding="@dimen/size_10dp">-->
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@color/white"
-                                android:gravity="center"
-                                android:text="CSE 101"
-                                android:textColor="@color/appColor"
-                                android:textSize="@dimen/text_size_14_sp" />
+                            <!--<TextView-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:background="@color/white"-->
+                                <!--android:gravity="center"-->
+                                <!--android:text="CSE 101"-->
+                                <!--android:textColor="@color/appColor"-->
+                                <!--android:textSize="@dimen/text_size_14_sp" />-->
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@color/white"
-                                android:gravity="center"
-                                android:padding="@dimen/size_5dp"
-                                android:text="15/16 days"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/text_size_8_sp" />
+                            <!--<TextView-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:background="@color/white"-->
+                                <!--android:gravity="center"-->
+                                <!--android:padding="@dimen/size_5dp"-->
+                                <!--android:text="15/16 days"-->
+                                <!--android:textColor="@color/black"-->
+                                <!--android:textSize="@dimen/text_size_8_sp" />-->
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@color/white"
-                                android:gravity="center"
-                                android:text="94%"
-                                android:textColor="@color/appColor"
-                                android:textSize="@dimen/text_size_25_sp" />
-                        </LinearLayout>
+                            <!--<TextView-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:background="@color/white"-->
+                                <!--android:gravity="center"-->
+                                <!--android:text="94%"-->
+                                <!--android:textColor="@color/appColor"-->
+                                <!--android:textSize="@dimen/text_size_25_sp" />-->
+                        <!--</LinearLayout>-->
 
-                    </LinearLayout>
+                    <!--</LinearLayout>-->
 
-                </android.support.v7.widget.CardView>
-            </LinearLayout>
+                <!--</android.support.v7.widget.CardView>-->
+            <!--</LinearLayout>-->
 
-            <LinearLayout
-                android:layout_marginEnd="@dimen/size_5dp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
+            <!--<LinearLayout-->
+                <!--android:layout_marginEnd="@dimen/size_5dp"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1">-->
 
-                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/cardView2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/size_1dp"
-                    android:elevation="3dp"
-                    android:padding="@dimen/size_10dp"
-                    card_view:cardCornerRadius="0dp"
-                    card_view:cardElevation="5dp">
+                <!--<android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"-->
+                    <!--android:id="@+id/cardView2"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_margin="@dimen/size_1dp"-->
+                    <!--android:elevation="3dp"-->
+                    <!--android:padding="@dimen/size_10dp"-->
+                    <!--card_view:cardCornerRadius="0dp"-->
+                    <!--card_view:cardElevation="5dp">-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:orientation="vertical">-->
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/appColor">
+                        <!--<RelativeLayout-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:background="@color/appColor">-->
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentStart="true"
-                                android:padding="@dimen/size_10dp"
-                                android:text="@string/next_class"
-                                android:textColor="@color/white"
-                                android:textSize="@dimen/text_size_12_sp" />
+                            <!--<TextView-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_alignParentStart="true"-->
+                                <!--android:padding="@dimen/size_10dp"-->
+                                <!--android:text="@string/next_class"-->
+                                <!--android:textColor="@color/white"-->
+                                <!--android:textSize="@dimen/text_size_12_sp" />-->
 
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_centerInParent="true"
-                                android:paddingEnd="@dimen/size_5dp"
-                                android:src="@drawable/ic_play_arrow_white_24dp" />
-                        </RelativeLayout>
+                            <!--<ImageView-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_alignParentEnd="true"-->
+                                <!--android:layout_centerInParent="true"-->
+                                <!--android:paddingEnd="@dimen/size_5dp"-->
+                                <!--android:src="@drawable/ic_play_arrow_white_24dp" />-->
+                        <!--</RelativeLayout>-->
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="@dimen/size_10dp">
+                        <!--<LinearLayout-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:orientation="vertical"-->
+                            <!--android:padding="@dimen/size_10dp">-->
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@color/white"
-                                android:gravity="center"
-                                android:text="CSE 101"
-                                android:textColor="@color/appColor"
-                                android:textSize="@dimen/text_size_14_sp" />
+                            <!--<TextView-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:background="@color/white"-->
+                                <!--android:gravity="center"-->
+                                <!--android:text="CSE 101"-->
+                                <!--android:textColor="@color/appColor"-->
+                                <!--android:textSize="@dimen/text_size_14_sp" />-->
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@color/white"
-                                android:gravity="center"
-                                android:padding="@dimen/size_5dp"
-                                android:text="Md. Rahim"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/text_size_8_sp" />
+                            <!--<TextView-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:background="@color/white"-->
+                                <!--android:gravity="center"-->
+                                <!--android:padding="@dimen/size_5dp"-->
+                                <!--android:text="Md. Rahim"-->
+                                <!--android:textColor="@color/black"-->
+                                <!--android:textSize="@dimen/text_size_8_sp" />-->
 
-                            <LinearLayout
-                                android:gravity="center_horizontal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                            <!--<LinearLayout-->
+                                <!--android:gravity="center_horizontal"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content">-->
 
-                                <TextView
-                                    android:id="@+id/nextClassTime"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:background="@color/white"
-                                    android:text="10:30"
-                                    android:textColor="@color/appColor"
-                                    android:textSize="@dimen/text_size_25_sp" />
+                                <!--<TextView-->
+                                    <!--android:id="@+id/nextClassTime"-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:background="@color/white"-->
+                                    <!--android:text="10:30"-->
+                                    <!--android:textColor="@color/appColor"-->
+                                    <!--android:textSize="@dimen/text_size_25_sp" />-->
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_toEndOf="@+id/nextClassTime"
-                                    android:background="@color/white"
-                                    android:text="am"
-                                    android:paddingBottom="@dimen/size_3dp"
-                                    android:textColor="@color/appColor"
-                                    android:textSize="@dimen/size_16sp" />
-                            </LinearLayout>
-                        </LinearLayout>
+                                <!--<TextView-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:layout_toEndOf="@+id/nextClassTime"-->
+                                    <!--android:background="@color/white"-->
+                                    <!--android:text="am"-->
+                                    <!--android:paddingBottom="@dimen/size_3dp"-->
+                                    <!--android:textColor="@color/appColor"-->
+                                    <!--android:textSize="@dimen/size_16sp" />-->
+                            <!--</LinearLayout>-->
+                        <!--</LinearLayout>-->
 
-                    </LinearLayout>
-
-
-                </android.support.v7.widget.CardView>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/cardView3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/size_1dp"
-                    android:elevation="3dp"
-                    android:padding="@dimen/size_10dp"
-                    card_view:cardCornerRadius="0dp"
-                    card_view:cardElevation="5dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/appColor">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentStart="true"
-                                android:padding="@dimen/size_10dp"
-                                android:text="@string/due"
-                                android:textColor="@color/white"
-                                android:textSize="@dimen/text_size_12_sp" />
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_centerInParent="true"
-                                android:paddingEnd="@dimen/size_5dp"
-                                android:src="@drawable/ic_play_arrow_white_24dp" />
-                        </RelativeLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="@dimen/size_10dp">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@color/white"
-                                android:gravity="center"
-                                android:text="PHY 101"
-                                android:textColor="@color/appColor"
-                                android:textSize="@dimen/text_size_14_sp" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@color/white"
-                                android:gravity="center"
-                                android:padding="@dimen/size_5dp"
-                                android:text="Assignment"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/text_size_8_sp" />
-
-                            <LinearLayout
-                                android:gravity="center_horizontal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-
-                                <TextView
-                                    android:gravity="center"
-                                    android:id="@+id/date"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:background="@color/white"
-                                    android:text="24"
-                                    android:textColor="@color/appColor"
-                                    android:textSize="@dimen/text_size_25_sp" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_toEndOf="@+id/date"
-                                    android:background="@color/white"
-                                    android:text="July"
-                                    android:paddingBottom="@dimen/size_3dp"
-                                    android:textColor="@color/appColor"
-                                    android:textSize="@dimen/size_16sp" />
-                            </LinearLayout>
-                        </LinearLayout>
-
-                    </LinearLayout>
+                    <!--</LinearLayout>-->
 
 
-                </android.support.v7.widget.CardView>
-            </LinearLayout>
-        </LinearLayout>
+                <!--</android.support.v7.widget.CardView>-->
+            <!--</LinearLayout>-->
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1">-->
+
+                <!--<android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"-->
+                    <!--android:id="@+id/cardView3"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_margin="@dimen/size_1dp"-->
+                    <!--android:elevation="3dp"-->
+                    <!--android:padding="@dimen/size_10dp"-->
+                    <!--card_view:cardCornerRadius="0dp"-->
+                    <!--card_view:cardElevation="5dp">-->
+
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:orientation="vertical">-->
+
+                        <!--<RelativeLayout-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:background="@color/appColor">-->
+
+                            <!--<TextView-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_alignParentStart="true"-->
+                                <!--android:padding="@dimen/size_10dp"-->
+                                <!--android:text="@string/due"-->
+                                <!--android:textColor="@color/white"-->
+                                <!--android:textSize="@dimen/text_size_12_sp" />-->
+
+                            <!--<ImageView-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_alignParentEnd="true"-->
+                                <!--android:layout_centerInParent="true"-->
+                                <!--android:paddingEnd="@dimen/size_5dp"-->
+                                <!--android:src="@drawable/ic_play_arrow_white_24dp" />-->
+                        <!--</RelativeLayout>-->
+
+                        <!--<LinearLayout-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:orientation="vertical"-->
+                            <!--android:padding="@dimen/size_10dp">-->
+
+                            <!--<TextView-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:background="@color/white"-->
+                                <!--android:gravity="center"-->
+                                <!--android:text="PHY 101"-->
+                                <!--android:textColor="@color/appColor"-->
+                                <!--android:textSize="@dimen/text_size_14_sp" />-->
+
+                            <!--<TextView-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:background="@color/white"-->
+                                <!--android:gravity="center"-->
+                                <!--android:padding="@dimen/size_5dp"-->
+                                <!--android:text="Assignment"-->
+                                <!--android:textColor="@color/black"-->
+                                <!--android:textSize="@dimen/text_size_8_sp" />-->
+
+                            <!--<LinearLayout-->
+                                <!--android:gravity="center_horizontal"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content">-->
+
+                                <!--<TextView-->
+                                    <!--android:gravity="center"-->
+                                    <!--android:id="@+id/date"-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:background="@color/white"-->
+                                    <!--android:text="24"-->
+                                    <!--android:textColor="@color/appColor"-->
+                                    <!--android:textSize="@dimen/text_size_25_sp" />-->
+
+                                <!--<TextView-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:layout_toEndOf="@+id/date"-->
+                                    <!--android:background="@color/white"-->
+                                    <!--android:text="July"-->
+                                    <!--android:paddingBottom="@dimen/size_3dp"-->
+                                    <!--android:textColor="@color/appColor"-->
+                                    <!--android:textSize="@dimen/size_16sp" />-->
+                            <!--</LinearLayout>-->
+                        <!--</LinearLayout>-->
+
+                    <!--</LinearLayout>-->
 
 
-        <android.support.v4.widget.NestedScrollView
-            android:focusableInTouchMode="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <FrameLayout
-                android:focusableInTouchMode="false"
-                android:descendantFocusability="blocksDescendants"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                <!--</android.support.v7.widget.CardView>-->
+            <!--</LinearLayout>-->
+        <!--</LinearLayout>-->
+        <!--<View-->
+            <!--android:layout_width="0px"-->
+            <!--android:layout_height="0px"-->
+            <!--android:focusable="true"-->
+            <!--android:focusableInTouchMode="true"/>-->
+
+
+
+            <!--<FrameLayout-->
+                <!--android:focusableInTouchMode="true"-->
+                <!--android:descendantFocusability="blocksDescendants"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
 
             <android.support.v7.widget.RecyclerView
-
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@null"
-                app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior" />
-            </FrameLayout>
-        </android.support.v4.widget.NestedScrollView>
+                />
+            <!--</FrameLayout>-->
     </LinearLayout>
 </ScrollView>

@@ -216,4 +216,11 @@ public class StHomeFeed {
     public void setAttachments(List<AssinmentAttachment> attachments) {
         this.attachments = attachments;
     }
+
+    public StHomeFeed(int contentType) {
+        this.contentType = contentType;
+    }
+
+    public StHomeFeed() {
+    }
 }

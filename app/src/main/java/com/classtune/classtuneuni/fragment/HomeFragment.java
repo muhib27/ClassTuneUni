@@ -43,11 +43,12 @@ public class HomeFragment extends Fragment implements PaginationAdapterCallback 
     LinearLayoutManager linearLayoutManager;
 
     private static final int PAGE_START = 0;
+    boolean f = false;
 
     private boolean isLoading = false;
     private boolean isLastPage = false;
     // limiting to 5 for this tutorial, since total pages in actual API is very large. Feel free to modify.
-    private int TOTAL_PAGES;
+    private int TOTAL_PAGES = 3;
     private int currentPage = PAGE_START;
 
     StHomeAdapter stHomeAdapter;
@@ -81,23 +82,32 @@ public class HomeFragment extends Fragment implements PaginationAdapterCallback 
 
 
         stHomeAdapter = new StHomeAdapter(getActivity(), this);
-        linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(getResources()));
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(stHomeAdapter);
-        ViewCompat.setNestedScrollingEnabled(recyclerView, false);
-//        recyclerView.setFocusable(false);
+
+
+//        recyclerView.setFocusable(true);
+
+
+
+
+
+
 
         recyclerView.addOnScrollListener(new PaginationScrollListener(linearLayoutManager) {
             @Override
             protected void loadMoreItems() {
                 isLoading = true;
                 currentPage += 1;
+                int visibleItemCount = linearLayoutManager.getChildCount();
+                int totalItemCount = linearLayoutManager.getItemCount();
+                int firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition();
 
 //                boolean a = isLastItemDisplaying(recyclerView);
-//                if(a)
-                callStudentHomeNextApi();
+//                if(firstVisibleItemPosition>0)
+                        callStudentHomeNextApi();
             }
 
             @Override
@@ -116,13 +126,15 @@ public class HomeFragment extends Fragment implements PaginationAdapterCallback 
             }
         });
 
-
+        recyclerView.setAdapter(stHomeAdapter);
+       // ViewCompat.setNestedScrollingEnabled(recyclerView, false);
 
         if(AppSharedPreference.getUserType().equals("3")) {
             callStudentHomeApi();        }
         else {
 
         }
+
     }
 
     private boolean isLastItemDisplaying(RecyclerView recyclerView) {
@@ -134,6 +146,7 @@ public class HomeFragment extends Fragment implements PaginationAdapterCallback 
         return false;
     }
 
+    StHomeFeed stHomeFeed;
     private void callStudentHomeApi() {
 
 
@@ -159,15 +172,28 @@ public class HomeFragment extends Fragment implements PaginationAdapterCallback 
 
                         StHomeRespons stHomeRespons = value.body();
                         if ( stHomeRespons!= null && stHomeRespons.getStatus().getCode() == 200) {
+
+                            StHomeFeed stHomeFeed = new StHomeFeed(0);
+                            stHomeFeedList.add(stHomeFeed);
+                            stHomeAdapter.addAllData(stHomeFeedList);
                             stHomeAdapter.clear();
                             stHomeFeedList = stHomeRespons.getData().getNewsFeed();
-
+                            //stHomeFeedList = getList();
                             stHomeAdapter.addAllData(stHomeFeedList);
-                            TOTAL_PAGES = stHomeRespons.getData().getTotal_page();
+                            //TOTAL_PAGES = stHomeRespons.getData().getTotal_page();
 
                             if (currentPage < TOTAL_PAGES) stHomeAdapter.addLoadingFooter();
                             else isLastPage = true;
                         } else
+                            stHomeFeed = new StHomeFeed(0);
+                        stHomeFeedList.add(stHomeFeed);
+                        stHomeAdapter.addAllData(stHomeFeedList);
+                        stHomeAdapter.clear();
+
+                            stHomeFeedList = getList();
+                        stHomeAdapter.addAllData(stHomeFeedList);
+                        if (currentPage < TOTAL_PAGES) stHomeAdapter.addLoadingFooter();
+                        else isLastPage = true;
                             Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
                     }
 
@@ -191,6 +217,7 @@ public class HomeFragment extends Fragment implements PaginationAdapterCallback 
 
     private void callStudentHomeNextApi() {
 
+        stHomeAdapter.headerSubCode.setText("test");
 
         if (!NetworkConnection.getInstance().isNetworkAvailable()) {
             Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
@@ -213,18 +240,27 @@ public class HomeFragment extends Fragment implements PaginationAdapterCallback 
                         uiHelper.dismissLoadingDialog();
 
                         StHomeRespons stHomeRespons = value.body();
-                        if (stHomeRespons.getStatus().getCode() == 200) {
+                        if (stHomeRespons!= null && stHomeRespons.getStatus().getCode() == 200) {
                             stHomeAdapter.removeLoadingFooter();
                             isLoading = false;
 
                             stHomeFeedList = stHomeRespons.getData().getNewsFeed();
 
+
                             stHomeAdapter.addAllData(stHomeFeedList);
-                            TOTAL_PAGES = stHomeRespons.getData().getTotal_page();
+                            //TOTAL_PAGES = stHomeRespons.getData().getTotal_page();
 
                             if (currentPage < TOTAL_PAGES) stHomeAdapter.addLoadingFooter();
                             else isLastPage = true;
                         } else
+                            stHomeAdapter.removeLoadingFooter();
+                        isLoading = false;
+
+                        stHomeFeedList = getList();
+
+                        stHomeAdapter.addAllData(stHomeFeedList);
+                        if (currentPage < TOTAL_PAGES) stHomeAdapter.addLoadingFooter();
+                        else isLastPage = true;
                             Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
                     }
 
@@ -244,6 +280,28 @@ public class HomeFragment extends Fragment implements PaginationAdapterCallback 
                 });
 
 
+    }
+
+    private List<StHomeFeed> getList(){
+        List<StHomeFeed> list = new ArrayList<>();
+        StHomeFeed stHomeFeed = new StHomeFeed(1);
+        list.add(stHomeFeed);
+        stHomeFeed = new StHomeFeed(2);
+        list.add(stHomeFeed);
+        stHomeFeed = new StHomeFeed(3);
+        list.add(stHomeFeed);
+        stHomeFeed = new StHomeFeed(5);
+        list.add(stHomeFeed);
+        stHomeFeed = new StHomeFeed(7);
+        list.add(stHomeFeed);
+        stHomeFeed = new StHomeFeed(8);
+        list.add(stHomeFeed);
+        stHomeFeed = new StHomeFeed(1);
+        list.add(stHomeFeed);
+
+
+
+        return list;
     }
 
 

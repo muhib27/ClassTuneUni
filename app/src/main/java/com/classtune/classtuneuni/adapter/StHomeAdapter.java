@@ -45,6 +45,8 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     private static final int LOADING = 10;
 
+    public TextView headerSubCode;
+
 
     private boolean isLoadingAdded = false;
     private boolean retryPageLoad = false;
@@ -99,10 +101,10 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 View viewLoading = inflater.inflate(R.layout.item_progress, parent, false);
                 viewHolder = new LoadingVH(viewLoading);
                 break;
-//            case HEADER:
-//                View viewHeader = inflater.inflate(R.layout.home_header, parent, false);
-//                viewHolder = new LoadingVH(viewHeader);
-//                break;
+            case HEADER:
+                View viewHeader = inflater.inflate(R.layout.home_header, parent, false);
+                viewHolder = new Header(viewHeader);
+                break;
         }
         return viewHolder;
     }
@@ -132,11 +134,11 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 //  heroHolder.title.setText(result.getContent());
 
                 break;
-//            case HEADER:
-//                final Header headerHolder = (Header) viewHolder;
-//                //  heroHolder.title.setText(result.getContent());
-//
-//                break;
+            case HEADER:
+                final Header headerHolder = (Header) viewHolder;
+                //  heroHolder.title.setText(result.getContent());
+
+                break;
 
             case EXAM_SCHEDULE:
                 final ExamView examViewHolder = (ExamView) viewHolder;
@@ -188,9 +190,9 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         if (position == mValues.size() - 1 && isLoadingAdded)
             return LOADING;
-//        else {
-//            if (position == 0)
-//                return HEADER;
+        else {
+            if (position == 0)
+                return HEADER;
             else {
                 if (mValues.get(position).getContentType() == 1)
                     return NOTICE;
@@ -205,7 +207,7 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 else
                     //if (mValues.get(position).getContentType() == 8)
                     return RESOURCE;
-     //       }
+            }
         }
     }
 
@@ -305,6 +307,7 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public Header(View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.text);
+            headerSubCode = itemView.findViewById(R.id.headerSubCode);
             pic = itemView.findViewById(R.id.pic);
         }
     }

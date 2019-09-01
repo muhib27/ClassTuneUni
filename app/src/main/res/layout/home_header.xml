@@ -54,6 +54,7 @@
                     android:padding="@dimen/size_10dp">
 
                     <TextView
+                        android:id="@+id/headerSubCode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
