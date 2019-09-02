@@ -2,11 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/tabsLayout"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/tab_bg_selector"
     android:gravity="center"
+    android:layout_gravity="center_vertical"
     android:orientation="vertical"
-    android:paddingTop="10dp">
+    android:paddingBottom="@dimen/size_5dp"
+    android:paddingTop="5dp">
 
     <TextView
         android:paddingLeft="@dimen/size_10dp"
