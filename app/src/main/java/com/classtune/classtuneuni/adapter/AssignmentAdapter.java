@@ -3,6 +3,7 @@ package com.classtune.classtuneuni.adapter;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -24,6 +26,7 @@ import com.classtune.classtuneuni.fragment.TeacherStudentListFragment;
 import com.classtune.classtuneuni.model.AssignmentModel;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
 import com.classtune.classtuneuni.utils.AppUtility;
+import com.classtune.classtuneuni.utils.PaginationAdapterCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,13 +37,20 @@ public class AssignmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private List<Assignment> mValues;
     private Context mContext;
     protected ItemListener mListener;
-    private static final int HERO = 2;
+    private static final int LOADING = 2;
     private static final int ITEM = 0;
 
-    public AssignmentAdapter(Context context, ItemListener itemListener) {
+    private boolean isLoadingAdded = false;
+    private boolean retryPageLoad = false;
+
+    private PaginationAdapterCallback mCallback;
+
+    private String errorMsg;
+
+    public AssignmentAdapter(Context context, PaginationAdapterCallback mCallback) {
         mValues = new ArrayList<>();
         mContext = context;
-        mListener = itemListener;
+        this.mCallback = mCallback;
     }
 
 //    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -86,10 +96,10 @@ public class AssignmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 viewHolder = new MovieVH(viewItem);
                 break;
 
-//            case HERO:
-//                View viewHero = inflater.inflate(R.layout.item_hero, parent, false);
-//                viewHolder = new HeroVH(viewHero);
-//                break;
+            case LOADING:
+                View viewLoading = inflater.inflate(R.layout.item_progress, parent, false);
+                viewHolder = new LoadingVH(viewLoading);
+                break;
         }
         return viewHolder;
     }
@@ -100,6 +110,7 @@ public class AssignmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         switch (getItemViewType(position)) {
             case ITEM:
                 final MovieVH itemHolder = (MovieVH) viewHolder;
+                if(result.getAssignment().getTitle()!=null)
                 itemHolder.title.setText(result.getAssignment().getTitle());
 
                 String str = "";
@@ -171,6 +182,24 @@ public class AssignmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
 
                 break;
+
+            case LOADING:
+                LoadingVH loadingVH = (LoadingVH) viewHolder;
+
+                if (retryPageLoad) {
+                    loadingVH.mErrorLayout.setVisibility(View.VISIBLE);
+                    loadingVH.mProgressBar.setVisibility(View.GONE);
+
+                    loadingVH.mErrorTxt.setText(
+                            errorMsg != null ?
+                                    errorMsg :
+                                    mContext.getString(R.string.error_msg_unknown));
+
+                } else {
+                    loadingVH.mErrorLayout.setVisibility(View.GONE);
+                    loadingVH.mProgressBar.setVisibility(View.VISIBLE);
+                }
+                break;
         }
     }
 
@@ -227,6 +256,45 @@ public class AssignmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
+    protected class LoadingVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private ProgressBar mProgressBar;
+        private ImageButton mRetryBtn;
+        private TextView mErrorTxt;
+        private LinearLayout mErrorLayout;
+
+        public LoadingVH(View itemView) {
+            super(itemView);
+
+            mProgressBar = (ProgressBar) itemView.findViewById(R.id.loadmore_progress);
+            mRetryBtn = (ImageButton) itemView.findViewById(R.id.loadmore_retry);
+            mErrorTxt = (TextView) itemView.findViewById(R.id.loadmore_errortxt);
+            mErrorLayout = (LinearLayout) itemView.findViewById(R.id.loadmore_errorlayout);
+
+            mRetryBtn.setOnClickListener(this);
+            mErrorLayout.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.loadmore_retry:
+                case R.id.loadmore_errorlayout:
+
+                    showRetry(false, null);
+                    mCallback.retryPageLoad();
+
+                    break;
+            }
+        }
+    }
+
+    public void showRetry(boolean show, @Nullable String errorMsg) {
+        retryPageLoad = show;
+        notifyItemChanged(mValues.size() - 1);
+
+        if (errorMsg != null) this.errorMsg = errorMsg;
+    }
+
     protected class HeroVH extends RecyclerView.ViewHolder {
         private TextView title;
         private TextView mMovieDesc;
@@ -249,6 +317,47 @@ public class AssignmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         for (Assignment result : moveResults) {
             add(result);
         }
+    }
+
+    public void remove(Assignment r) {
+        int position = mValues.indexOf(r);
+        if (position > -1) {
+            mValues.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public void clear() {
+        isLoadingAdded = false;
+        while (getItemCount() > 0) {
+            remove(getItem(0));
+        }
+    }
+
+    public boolean isEmpty() {
+        return getItemCount() == 0;
+    }
+
+
+    public void addLoadingFooter() {
+        isLoadingAdded = true;
+        add(new Assignment());
+    }
+
+    public void removeLoadingFooter() {
+        isLoadingAdded = false;
+
+        int position = mValues.size() - 1;
+        Assignment result = getItem(position);
+
+        if (result != null) {
+            mValues.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public Assignment getItem(int position) {
+        return mValues.get(position);
     }
 
     private void gotoFragment(Fragment fragment, String tag, String assignmentId) {

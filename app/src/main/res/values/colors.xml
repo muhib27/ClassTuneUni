@@ -3,11 +3,14 @@
     <!--<color name="colorPrimary">#008577</color>-->
     <!--<color name="colorPrimaryDark">#00574B</color>-->
     <color name="colorPrimary">#FFFFFF</color>
-    <color name="colorPrimaryDark">#90BE47</color>
+    <!--<color name="colorPrimaryDark">#90BE47</color>-->
+    <color name="colorPrimaryDark">#D71921</color>
     <color name="colorAccent">#D81B60</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-    <color name="appColor">#90BE47</color>
+    <!--<color name="appColor">#90BE47</color>-->
+    <color name="appColor">#D71921</color>
+
 
     <color name="selected">#a8cf45</color>
     <color name="unselected">#ff8cae3b</color>

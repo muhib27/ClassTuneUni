@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.adapter.StHomeAdapter;
 import com.classtune.classtuneuni.home.StHomeAttendance;
 import com.classtune.classtuneuni.home.StHomeFeed;
@@ -45,12 +47,11 @@ public class HomeFragment extends Fragment implements PaginationAdapterCallback 
     private List<StHomeAttendance> stHomeAttendanceList;
     LinearLayoutManager linearLayoutManager;
 
+
     private static final int PAGE_START = 0;
     boolean f = false;
-
     private boolean isLoading = false;
     private boolean isLastPage = false;
-    // limiting to 5 for this tutorial, since total pages in actual API is very large. Feel free to modify.
     private int TOTAL_PAGES;
     private int currentPage = PAGE_START;
 
@@ -74,6 +75,10 @@ public class HomeFragment extends Fragment implements PaginationAdapterCallback 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        if(((MainActivity)getActivity()).tabRl.getVisibility() == View.VISIBLE)
+            ((MainActivity)getActivity()).tabRl.setVisibility(View.GONE);
+
         uiHelper = new UIHelper(getActivity());
 
         stHomeFeedList = new ArrayList<>();
@@ -90,13 +95,6 @@ public class HomeFragment extends Fragment implements PaginationAdapterCallback 
         recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(getResources()));
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-
-//        recyclerView.setFocusable(true);
-
-
-
-
 
 
 
@@ -153,7 +151,7 @@ public class HomeFragment extends Fragment implements PaginationAdapterCallback 
     }
 
     StHomeFeed stHomeFeed;
-    private void callStudentHomeApi() {
+    private void callStudentHomeApi(final StHomeHeaderData data) {
 
 
         if (!NetworkConnection.getInstance().isNetworkAvailable()) {
@@ -180,10 +178,16 @@ public class HomeFragment extends Fragment implements PaginationAdapterCallback 
                         StHomeRespons stHomeRespons = value.body();
                         if ( stHomeRespons!= null && stHomeRespons.getStatus().getCode() == 200) {
 
+                            StHomeFeed stHomeFeed = new StHomeFeed(100);
+                           // stHomeFeedList.add(stHomeFeed);
+                           // stHomeAdapter.addAllData(stHomeFeedList);
 
                             stHomeFeedList = stHomeRespons.getData().getNewsFeed();
                             //stHomeFeedList = getList();
+                            stHomeFeedList.add(0, stHomeFeed);
                             stHomeAdapter.addAllData(stHomeFeedList);
+
+                            stHomeAdapter.addAllHeader(data);
                             TOTAL_PAGES = stHomeRespons.getData().getTotal_page();
 
                             if (currentPage < TOTAL_PAGES) stHomeAdapter.addLoadingFooter();
@@ -237,17 +241,17 @@ public class HomeFragment extends Fragment implements PaginationAdapterCallback 
                         StHomeHeaderRespons stHomeHeaderRespons = value.body();
                         if (stHomeHeaderRespons != null && stHomeHeaderRespons.getStatus().getCode() == 200) {
 
-                            StHomeFeed stHomeFeed = new StHomeFeed(100);
-                            stHomeFeedList.add(stHomeFeed);
-                            stHomeAdapter.addAllData(stHomeFeedList);
+//                            StHomeFeed stHomeFeed = new StHomeFeed(100);
+//                            stHomeFeedList.add(stHomeFeed);
+//                            stHomeAdapter.addAllData(stHomeFeedList);
 
-                            stHomeAttendanceList = stHomeHeaderRespons.getData().getAttendance();
+                           // stHomeAttendanceList = stHomeHeaderRespons.getData().getAttendance();
 
-                            //stHomeAdapter.addAllData(stHomeFeedList);
+                            //stHomeAdapter.addAllHeader(stHomeHeaderRespons.getData());
 
                            // populateData(stHomeHeaderRespons.getData());
 
-                            callStudentHomeApi();
+                            callStudentHomeApi(stHomeHeaderRespons.getData());
                         } else
 
                             Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
@@ -264,7 +268,7 @@ public class HomeFragment extends Fragment implements PaginationAdapterCallback 
                     @Override
                     public void onComplete() {
 //                        progressDialog.dismiss();
-                        uiHelper.dismissLoadingDialog();
+                       // uiHelper.dismissLoadingDialog();
                     }
                 });
 
@@ -272,24 +276,24 @@ public class HomeFragment extends Fragment implements PaginationAdapterCallback 
     }
 
     private void populateData(StHomeHeaderData data) {
-        if(data.getAttendance().get(0).getCourseCode()!=null)
-        stHomeAdapter.attendanceSubCode.setText(data.getAttendance().get(0).getCourseCode());
-        if(data.getAttendance().get(0).getPresent()!=null)
-            stHomeAdapter.attendancePresent.setText(data.getAttendance().get(0).getPresent() + "/" + data.getAttendance().get(0).getTotalClass());
-        if(data.getAttendance().get(0).getPercentage()!=null)
-            stHomeAdapter.attendanceParcent.setText(data.getAttendance().get(0).getPercentage() + "%");
-        if(data.getNextClass().getCourseCode()!=null)
-        stHomeAdapter.nextSubCode.setText(data.getNextClass().getCourseCode());
-        if(data.getNextClass().getInstructor()!=null)
-            stHomeAdapter.nextTeacher.setText(data.getNextClass().getInstructor());
-        if(data.getNextClass().getStartTime()!=null)
-            stHomeAdapter.nextTime.setText(data.getNextClass().getStartTime());
-        if(data.getDueSubmission().getCourseName()!=null)
-        stHomeAdapter.dueSubCode.setText(data.getDueSubmission().getCourseCode());
-        if(data.getDueSubmission().getCourseCode()!=null)
-            stHomeAdapter.dueAubject.setText(data.getDueSubmission().getCourseName());
-        if(data.getDueSubmission().getCourseCode()!=null)
-            stHomeAdapter.dueDate.setText(data.getDueSubmission().getDueDate());
+//        if(data.getAttendance().get(0).getCourseCode()!=null)
+//        stHomeAdapter.attendanceSubCode.setText(data.getAttendance().get(0).getCourseCode());
+//        if(data.getAttendance().get(0).getPresent()!=null)
+//            stHomeAdapter.attendancePresent.setText(data.getAttendance().get(0).getPresent() + "/" + data.getAttendance().get(0).getTotalClass());
+//        if(data.getAttendance().get(0).getPercentage()!=null)
+//            stHomeAdapter.attendanceParcent.setText(data.getAttendance().get(0).getPercentage() + "%");
+//        if(data.getNextClass().getCourseCode()!=null)
+//        stHomeAdapter.nextSubCode.setText(data.getNextClass().getCourseCode());
+//        if(data.getNextClass().getInstructor()!=null)
+//            stHomeAdapter.nextTeacher.setText(data.getNextClass().getInstructor());
+//        if(data.getNextClass().getStartTime()!=null)
+//            stHomeAdapter.nextTime.setText(data.getNextClass().getStartTime());
+//        if(data.getDueSubmission().getCourseName()!=null)
+//        stHomeAdapter.dueSubCode.setText(data.getDueSubmission().getCourseCode());
+//        if(data.getDueSubmission().getCourseCode()!=null)
+//            stHomeAdapter.dueAubject.setText(data.getDueSubmission().getCourseName());
+//        if(data.getDueSubmission().getCourseCode()!=null)
+//            stHomeAdapter.dueDate.setText(data.getDueSubmission().getDueDate());
     }
 
     private void callStudentHomeNextApi() {

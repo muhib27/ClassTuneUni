@@ -1,12 +1,15 @@
 package com.classtune.classtuneuni.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +19,11 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.message.StCourseDiscussion;
@@ -81,6 +89,36 @@ public class StMsgAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 CURRENT_ID = result.getSenderId();
                 itemHolder.title.setText(result.getContent());
                 itemHolder.name.setText(result.getSenderName());
+                if(result.getThumbnail()!=null)
+                {
+                    itemHolder.img.setVisibility(View.VISIBLE);
+                    if(result.getThumbnail()!=null)
+                    {
+                        itemHolder.img.setVisibility(View.VISIBLE);
+                        Glide.with(mContext)
+                                .load(result.getThumbnail())
+                                //.load("http://via.placeholder.com/300.png")
+                                .listener(new RequestListener<Drawable>() {
+                                    @Override
+                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                        // log exception
+                                        Log.e("TAG", "Error loading image", e);
+                                        return false; // important to return false so the error placeholder can be placed
+                                    }
+
+                                    @Override
+                                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                        return false;
+                                    }
+                                })
+                                .into(itemHolder.img);
+
+                    }
+
+                }
+                else {
+                    itemHolder.img.setVisibility(View.GONE);
+                }
 
                 if(position>0 && PREVIOUS_ID.equals(CURRENT_ID)) {
                     itemHolder.pic.setVisibility(View.INVISIBLE);
@@ -166,6 +204,38 @@ public class StMsgAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 heroHolder.title.setText(result.getContent());
                 if(position>0 && PREVIOUS_ID.equals(CURRENT_ID))
                     heroHolder.pic.setVisibility(View.INVISIBLE);
+
+                if(result.getThumbnail()!=null)
+                {
+                    heroHolder.img.setVisibility(View.VISIBLE);
+                    if(result.getThumbnail()!=null)
+                    {
+                        heroHolder.img.setVisibility(View.VISIBLE);
+                        Glide.with(mContext)
+                                .load(result.getThumbnail())
+                                //.load("http://via.placeholder.com/300.png")
+                                .listener(new RequestListener<Drawable>() {
+                                    @Override
+                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                        // log exception
+                                        Log.e("TAG", "Error loading image", e);
+                                        return false; // important to return false so the error placeholder can be placed
+                                    }
+
+                                    @Override
+                                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                        return false;
+                                    }
+                                })
+                                .into(heroHolder.img);
+
+                    }
+
+                }
+                else {
+                    heroHolder.img.setVisibility(View.GONE);
+                }
+
                 break;
         }
     }
@@ -214,6 +284,7 @@ public class StMsgAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             title = itemView.findViewById(R.id.text);
             pic = itemView.findViewById(R.id.pic);
             name = itemView.findViewById(R.id.name);
+            img = itemView.findViewById(R.id.img);
 //            assignedDate = itemView.findViewById(R.id.assignedDate);
 //            dueDate = itemView.findViewById(R.id.dueDate);
 //            subject = itemView.findViewById(R.id.subject);
@@ -233,13 +304,14 @@ public class StMsgAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         private TextView title;
         private TextView mMovieDesc;
         private TextView mYear; // displays "year | language"
-        private ImageView mPosterImg;
+        private ImageView img;
         private CardView cardView;
         CircleImageView pic;
 
         public HeroVH(View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.text);
+            img = itemView.findViewById(R.id.img);
             pic = itemView.findViewById(R.id.pic);
         }
     }

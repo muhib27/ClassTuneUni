@@ -22,7 +22,7 @@
         android:layout_below="@+id/upload"
         android:layout_centerHorizontal="true"
         android:text="Successful"
-        android:textColor="@color/appColor"
+        android:textColor="@color/black"
         android:textSize="@dimen/text_size_30_sp"
         android:textStyle="bold" />
 
@@ -39,7 +39,7 @@
             android:layout_centerInParent="true"
             android:gravity="center"
             android:src="@drawable/ic_check_circle_black_250dp"
-            app:civ_border_color="#9BC125"
+            app:civ_border_color="#B5B5B5"
             app:civ_border_width="@dimen/size_10dp" />
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -49,7 +49,7 @@
             android:layout_centerInParent="true"
             android:gravity="center"
             android:src="@drawable/ic_check_circle_black_250dp"
-            app:civ_border_color="#D9DB4D"
+            app:civ_border_color="#E6E6E6"
             app:civ_border_width="10dp" />
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -69,10 +69,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/pic_up"
-        android:layout_marginLeft="@dimen/size_20dp"
+        android:layout_marginLeft="@dimen/size_30dp"
         android:layout_marginTop="@dimen/size_50dp"
-        android:layout_marginRight="@dimen/size_20dp"
-        android:background="@drawable/app_button_bg"
+        android:layout_marginRight="@dimen/size_30dp"
+        android:background="@drawable/selected_red"
         android:padding="@dimen/size_10dp"
         android:text="Proceed"
         android:textAllCaps="false"

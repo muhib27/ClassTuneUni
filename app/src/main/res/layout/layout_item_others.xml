@@ -46,6 +46,15 @@
                 android:text="text"
                 android:textColor="@color/black"
                 android:textSize="@dimen/size_15sp" />
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_3dp"
+                android:background="@color/menu_divider"
+                android:padding="@dimen/size_10dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/size_15sp" />
         </LinearLayout>
 
     </LinearLayout>

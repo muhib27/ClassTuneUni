@@ -29,6 +29,8 @@ public class AppUtility {
 
 	public static final String DATE_FORMAT_SERVER = "yyyy-MM-dd";
 	public static final String DATE_FORMAT_APP = "dd MMM yyyy";
+
+	public static final String DATE_FORMAT_D_M = "dd,MMM";
 	public static final String DATE_FORMAT_FACEBOOK = "MM/dd/yyyy";
 
 	private static String[] suffix = new String[] { "", "k", "m", "b", "t" };

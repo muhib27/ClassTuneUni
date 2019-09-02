@@ -203,7 +203,7 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST(URLHelper.STUDENT_ASSIGNMENT_LIST)
-    Observable<Response<TeacherAssignmentResponse>> getStAssignmentList(@Field("api_key") String api_key, @Field("course_offer_section_id") String course_offer_section_id);
+    Observable<Response<TeacherAssignmentResponse>> getStAssignmentList(@Field("api_key") String api_key, @Field("course_offer_section_id") String course_offer_section_id,  @Field("page") int page);
 
     @FormUrlEncoded
     @POST(URLHelper.STUDENT_EXAM_LIST)

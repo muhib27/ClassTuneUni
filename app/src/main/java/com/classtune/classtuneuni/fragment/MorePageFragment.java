@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -50,7 +51,8 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
     //private TextView name, studentId;
     Fragment fragment;
     UIHelper uiHelper;
-    RelativeLayout rl_8, rl_1, rl_2, rl_3, rl_4, result, rl_6, rl_7;
+    RelativeLayout rl_8,  rl_2, rl_3, rl_4, result, rl_6, rl_7;
+    LinearLayout rl_1;
 
     ImageView iv1, iv2, iv3, iv4, iv5, iv6, iv7, iv8;
     TextView tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8, name, studentId;
@@ -123,7 +125,7 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
 
 
         Glide.with(getActivity())
-                .load(BASE_URL + AppSharedPreference.getUserImage())
+                .load(AppSharedPreference.getUserImage())
                 //.load("http://via.placeholder.com/300.png")
                 .listener(new RequestListener<Drawable>() {
                     @Override

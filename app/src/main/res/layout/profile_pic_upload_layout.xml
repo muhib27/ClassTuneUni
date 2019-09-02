@@ -5,16 +5,38 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_gravity="center">
-    <Button
+    <LinearLayout
         android:id="@+id/skipBtn"
+        android:padding="@dimen/size_10dp"
         android:layout_marginEnd="@dimen/size_20dp"
-        android:textColor="@color/ashTextColor"
-        android:text="Skip"
-        android:layout_gravity="end"
+        android:orientation="horizontal"
         android:gravity="center"
-        android:background="@drawable/square_border_app_color"
+        android:layout_gravity="end"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+        <TextView
+            android:textColor="@color/ash_b5"
+            android:textSize="@dimen/size_20sp"
+            android:text="Skip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/size_10dp"
+            android:src="@drawable/right_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+    <!--<Button-->
+        <!--android:id="@+id/skipBtn"-->
+        <!--android:layout_marginEnd="@dimen/size_20dp"-->
+        <!--android:textColor="@color/ashTextColor"-->
+        <!--android:text="Skip"-->
+        <!--android:layout_gravity="end"-->
+        <!--android:gravity="center"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content" />-->
 
     <ScrollView
         android:layout_width="match_parent"
@@ -32,7 +54,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/size_40dp"
                 android:text="Upload"
-                android:textColor="@color/appColor"
+                android:textColor="@color/black"
                 android:textSize="@dimen/text_size_30_sp"
                 android:textStyle="bold" />
 
@@ -59,7 +81,7 @@
                     android:layout_centerInParent="true"
                     android:gravity="center"
                     android:src="@drawable/avatar"
-                    app:civ_border_color="@color/ashColor"
+                    app:civ_border_color="@color/appColor"
                     app:civ_border_width="2dp" />
 
                 <android.support.design.widget.FloatingActionButton
@@ -73,7 +95,7 @@
                     android:layout_marginBottom="@dimen/size_80dp"
                     android:src="@drawable/ic_add_black_24dp"
                     android:tint="@android:color/white"
-                    app:backgroundTint="@color/appColor" />
+                    app:backgroundTint="@color/black" />
             </RelativeLayout>
 
 
@@ -86,9 +108,9 @@
                 android:layout_marginTop="@dimen/size_40dp"
                 android:layout_marginRight="@dimen/size_20dp"
                 android:layout_marginBottom="@dimen/size_20dp"
-                android:background="@drawable/selected"
+                android:background="@drawable/selected_red"
                 android:padding="@dimen/size_10dp"
-                android:text="@string/register"
+                android:text="@string/continue_text"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_size_23_sp"

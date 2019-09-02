@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ClassTuneUni</string>
+    <string name="app_name">Edoozz</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -21,7 +21,10 @@
     <string name="forget_password">Forget Password</string>
     <string name="do_not_have_account">Don\'t have an account? </string>
     <string name="register_here"> Register Here</string>
-    <string name="copyright">&#169;  ClassTune 2019</string>
+    <string name="copyright">&#169; <font color='#000000'>ED</font><font color='#D71921'>OO</font><font color='#000000'>ZZ 2019</font></string>
+
+    <!--<string name="copyright">&#169;  ED<![CDATA[<b><font color=#0000FF>OO</font></b>]]>ZZ 2019</string>-->
+
     <string name="hint_name">Enter Your Name</string>
     <string name="hint_con_password">Confirm Password</string>
     <string name="terms_con"><![CDATA[Terms & Conditions]]></string>

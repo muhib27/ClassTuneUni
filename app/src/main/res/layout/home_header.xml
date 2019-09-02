@@ -64,6 +64,7 @@
                         android:textSize="@dimen/text_size_14_sp" />
 
                     <TextView
+                        android:maxLines="1"
                         android:id="@+id/total"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -72,7 +73,7 @@
                         android:padding="@dimen/size_5dp"
                         android:text="15/16 days"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/text_size_8_sp" />
+                        android:textSize="@dimen/text_size_10_sp" />
 
                     <TextView
                         android:id="@+id/parcentage"
@@ -138,7 +139,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="@dimen/size_10dp">
+                    android:paddingTop="@dimen/size_10dp"
+                    android:paddingBottom="@dimen/size_10dp">
 
                     <TextView
                         android:id="@+id/nextSubCode"
@@ -157,9 +159,10 @@
                         android:background="@color/white"
                         android:gravity="center"
                         android:padding="@dimen/size_5dp"
+                        android:maxLines="1"
                         android:text="Md. Rahim"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/text_size_8_sp" />
+                        android:textSize="@dimen/text_size_10_sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -175,15 +178,15 @@
                             android:textColor="@color/appColor"
                             android:textSize="@dimen/text_size_25_sp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_toEndOf="@+id/nextClassTime"
-                            android:background="@color/white"
-                            android:paddingBottom="@dimen/size_3dp"
-                            android:text="am"
-                            android:textColor="@color/appColor"
-                            android:textSize="@dimen/size_16sp" />
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_toEndOf="@+id/nextClassTime"-->
+                            <!--android:background="@color/white"-->
+                            <!--android:paddingBottom="@dimen/size_3dp"-->
+                            <!--android:text="am"-->
+                            <!--android:textColor="@color/appColor"-->
+                            <!--android:textSize="@dimen/size_16sp" />-->
                     </LinearLayout>
                 </LinearLayout>
 
@@ -240,7 +243,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="@dimen/size_10dp">
+                    android:paddingTop="@dimen/size_10dp"
+                    android:paddingBottom="@dimen/size_10dp">
 
                     <TextView
                         android:id="@+id/dueSubCode"
@@ -253,6 +257,7 @@
                         android:textSize="@dimen/text_size_14_sp" />
 
                     <TextView
+                        android:maxLines="1"
                         android:id="@+id/dueTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -261,11 +266,11 @@
                         android:padding="@dimen/size_5dp"
                         android:text="Assignment"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/text_size_8_sp" />
+                        android:textSize="@dimen/text_size_10_sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:gravity="center_horizontal">
 
                         <TextView
@@ -278,15 +283,15 @@
                             android:textColor="@color/appColor"
                             android:textSize="@dimen/text_size_25_sp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_toEndOf="@+id/date"
-                            android:background="@color/white"
-                            android:paddingBottom="@dimen/size_3dp"
-                            android:text="July"
-                            android:textColor="@color/appColor"
-                            android:textSize="@dimen/size_16sp" />
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_toEndOf="@+id/date"-->
+                            <!--android:background="@color/white"-->
+                            <!--android:paddingBottom="@dimen/size_3dp"-->
+                            <!--android:text="July"-->
+                            <!--android:textColor="@color/appColor"-->
+                            <!--android:textSize="@dimen/size_16sp" />-->
                     </LinearLayout>
                 </LinearLayout>
 

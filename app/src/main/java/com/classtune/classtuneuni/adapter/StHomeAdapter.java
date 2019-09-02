@@ -30,7 +30,11 @@ import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.fragment.AssignmentDetailsFragment;
 import com.classtune.classtuneuni.fragment.ResourceViewFragment;
 import com.classtune.classtuneuni.fragment.TeacherNoticeDetails;
+import com.classtune.classtuneuni.home.StDueSubmission;
+import com.classtune.classtuneuni.home.StHomeAttendance;
 import com.classtune.classtuneuni.home.StHomeFeed;
+import com.classtune.classtuneuni.home.StHomeHeaderData;
+import com.classtune.classtuneuni.home.StNextClass;
 import com.classtune.classtuneuni.model.AssignmentModel;
 import com.classtune.classtuneuni.utils.AppUtility;
 import com.classtune.classtuneuni.utils.PaginationAdapterCallback;
@@ -46,6 +50,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<StHomeFeed> mValues;
+    private List<StHomeAttendance> stHomeAttendanceList;
     private Context mContext;
     protected ItemListener mListener;
     private static final int HEADER = 0;
@@ -55,7 +60,6 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private static final int RESOURCE = 8;
     private static final int EXAM_SCHEDULE = 2;
     private static final int EXAM_REPORT = 3;
-    public TextView title, attendanceSubCode, attendancePresent, attendanceParcent, nextSubCode, nextTeacher, nextTime, dueSubCode, dueAubject, dueDate;
 
 
     private static final int LOADING = 10;
@@ -63,7 +67,7 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public TextView headerSubCode;
 
    // public static final String BASE_URL = "http://192.168.3.48";
-    public static final String BASE_URL= "http://uni.edoozz.com";
+    public static final String BASE_URL= "http://uni.edoozz.com/";
 
 
 
@@ -77,6 +81,7 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public StHomeAdapter(Context context, PaginationAdapterCallback mCallback) {
         mValues = new ArrayList<>();
+        stHomeAttendanceList = new ArrayList<>();
         mContext = context;
         this.mCallback = mCallback;
 
@@ -261,6 +266,27 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             case HEADER:
                 final Header headerHolder = (Header) viewHolder;
                 //  heroHolder.title.setText(result.getContent());
+                headerHolder.attendanceSubCode.setText(stHomeAttendanceList.get(0).getCourseCode());
+                headerHolder.attendancePresent.setText(""+stHomeAttendanceList.get(0).getPresent() + "/"  + stHomeAttendanceList.get(0).getTotalClass());
+                headerHolder.attendanceParcent.setText(""+ stHomeAttendanceList.get(0).getPercentage() + "%");
+
+                if(stNextClass != null && stNextClass.getCourseCode()!=null)
+                headerHolder.nextSubCode.setText(stNextClass.getCourseCode());
+                if(stNextClass != null && stNextClass.getInstructor()!=null)
+                headerHolder.nextTeacher.setText(stNextClass.getInstructor());
+                if(stNextClass != null && stNextClass.getStartTime()!=null)
+                headerHolder.nextTime.setText(getTime(stNextClass.getStartTime().substring(0, 5)));
+
+                if(stDueSubmission != null && stDueSubmission.getCourseCode()!=null)
+                headerHolder.dueSubCode.setText(stDueSubmission.getCourseCode());
+                if(stDueSubmission != null && stDueSubmission.getCourseName()!=null)
+                headerHolder.dueSubject.setText(stDueSubmission.getCourseName());
+                if(stDueSubmission != null && stDueSubmission.getDueDate()!=null)
+                headerHolder.dueDate.setText(AppUtility.getDateString(stDueSubmission.getDueDate(), AppUtility.DATE_FORMAT_D_M, AppUtility.DATE_FORMAT_SERVER));
+                //AppUtility.getDateString(stDueSubmission.getDueDate(), AppUtility.DATE_FORMAT_D_M, AppUtility.DATE_FORMAT_SERVER)
+
+            //    AppUtility.getMonth(routine.getMonth()) + ", " + routine.getYear()
+
 
                 break;
 
@@ -424,6 +450,20 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
+    private String getTime(String st){
+        String time = "";
+        if(st.length()>2) {
+
+            if (Integer.parseInt(st.substring(0, 2)) >= 12) {
+                time = st + "pm";
+            } else {
+                time = st + "am";
+            }
+
+        }
+        return time;
+    }
+
 //    @Override
 //    public void onBindViewHolder(ViewHolder viewHolder, int position) {
 //        viewHolder.setData(mValues.get(position));
@@ -560,6 +600,8 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         private ImageView mPosterImg;
         private CardView cardView;
         CircleImageView pic;
+        public TextView title, attendanceSubCode, attendancePresent, attendanceParcent, nextSubCode, nextTeacher, nextTime, dueSubCode, dueSubject, dueDate;
+
 
         public Header(View itemView) {
             super(itemView);
@@ -570,10 +612,10 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
             nextSubCode = itemView.findViewById(R.id.nextSubCode);
             nextTeacher = itemView.findViewById(R.id.nextTeacher);
-            nextTeacher = itemView.findViewById(R.id.nextClassTime);
+            nextTime = itemView.findViewById(R.id.nextClassTime);
 
             dueSubCode = itemView.findViewById(R.id.dueSubCode);
-            dueAubject = itemView.findViewById(R.id.dueTitle);
+            dueSubject = itemView.findViewById(R.id.dueTitle);
             dueDate = itemView.findViewById(R.id.date);
            // pic = itemView.findViewById(R.id.pic);
         }
@@ -693,6 +735,23 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         for (StHomeFeed result : moveResults) {
             add(result);
         }
+    }
+
+//    public void addHeader(StHomeFeed r) {
+//        mValues.add(r);
+//        notifyItemInserted(mValues.size() - 1);
+//    }
+
+    StNextClass stNextClass;
+    StDueSubmission stDueSubmission;
+    public void addAllHeader(StHomeHeaderData stHomeHeaderData) {
+//        for (StHomeAttendance result : moveResults) {
+//            add(result);
+//        }
+
+        stHomeAttendanceList = stHomeHeaderData.getAttendance();
+        stNextClass = stHomeHeaderData.getNextClass();
+        stDueSubmission = stHomeHeaderData.getDueSubmission();
     }
 
     public void remove(StHomeFeed r) {

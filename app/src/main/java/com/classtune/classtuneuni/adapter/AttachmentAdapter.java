@@ -1,5 +1,6 @@
 package com.classtune.classtuneuni.adapter;
 
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -28,6 +29,8 @@ import com.classtune.classtuneuni.model.CourseModel;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.Context.DOWNLOAD_SERVICE;
 
 
 public class AttachmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -66,6 +69,8 @@ public class AttachmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return viewHolder;
     }
 
+    private DownloadManager dm;
+    private long enqueue;
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
         final AssinmentAttachment result = mValues.get(position);
@@ -79,6 +84,15 @@ public class AttachmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     public void onClick(View view) {
                         mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri
                                 .parse(result.getUrl())));
+//                        String url = "https://appharbor.com/assets/images/stackoverflow-logo.png";
+//                        Intent i = new Intent(Intent.ACTION_VIEW);
+//                        i.setData(Uri.parse(url));
+//                        mContext.startActivity(i);
+
+//                        dm = (DownloadManager) mContext.getSystemService(DOWNLOAD_SERVICE);
+//                        DownloadManager.Request request = new DownloadManager.Request(
+//                                Uri.parse(result.getUrl()));
+//                        enqueue = dm.enqueue(request);
                     }
                 });
 

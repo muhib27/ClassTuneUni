@@ -48,7 +48,7 @@
                 android:layout_weight="1"
                 android:id="@+id/login"
                 android:layout_height="wrap_content"
-                android:background="@drawable/selected"
+                android:background="@drawable/selected_red"
                 android:paddingTop="@dimen/size_5dp"
                 android:paddingBottom="@dimen/size_5dp"
                 android:text="@string/login"

@@ -94,7 +94,7 @@ public class NoticeListFragment extends Fragment implements View.OnClickListener
         rvItem.setLayoutManager(layoutManager);
 
         if (AppSharedPreference.getUserType().equals("3")) {
-
+            fabAdd.hide();
             callStudentNoticeListApi();
         } else
             callNoticeListApi();

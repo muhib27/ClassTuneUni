@@ -14,7 +14,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <item name="android:statusBarColor">@color/black</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -27,6 +27,7 @@
     <style name="CustomTitleTextAppearance">
         <item name="android:textSize">13sp</item>
         <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/bottom_inactive</item>
     </style>
 
 

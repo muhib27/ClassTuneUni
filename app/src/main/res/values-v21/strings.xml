@@ -5,7 +5,8 @@
     <string name="hint_email">Enter Your Email</string>
     <string name="remember_me">Remember Me</string>
     <string name="register_here">Register Here</string>
-    <string name="copyright">&#169;  ClassTune2019</string>
+    <string name="copyright">&#169; <font color='#000000'>ED</font><font color='#D71921'>OO</font><font color='#000000'>ZZ 2019</font></string>
+    <!--<string name="copyright">&#169;  ED<![CDATA[<b><font color=#0000FF>OO</font></b>]]>ZZ 2019</string>-->
     <string name="hint_name">Enter Your Name</string>
     <string name="hint_con_password">Confirm Password</string>
     <string name="terms_con"><![CDATA[Terms & Conditions]]></string>

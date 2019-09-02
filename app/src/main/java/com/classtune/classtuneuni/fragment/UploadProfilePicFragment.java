@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,7 +68,8 @@ import static com.vincent.filepicker.activity.ImagePickActivity.IS_NEED_CAMERA;
  */
 public class UploadProfilePicFragment extends Fragment implements View.OnClickListener, EasyPermissions.PermissionCallbacks, EasyPermissions.RationaleCallbacks {
     UIHelper uiHelper;
-    Button registerBtn, skipBtn;
+    Button registerBtn;
+    LinearLayout skipBtn;
     Fragment fragment;
     FloatingActionButton fab;
     String filePathSt = "";
@@ -298,7 +300,9 @@ public class UploadProfilePicFragment extends Fragment implements View.OnClickLi
                         uiHelper.dismissLoadingDialog();
 
                         if (value.code() == 200) {
-                            Toast.makeText(getActivity(), "Image Upload Success", Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(getActivity(), "Image Upload Success", Toast.LENGTH_SHORT).show();
+                            fragment = new SuccessFragment();
+                            gotoFragment(fragment, "successFragment");
                         } else
                             Toast.makeText(getActivity(), "Image Upload failed", Toast.LENGTH_SHORT).show();
                     }

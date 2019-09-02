@@ -4,13 +4,13 @@
     <item
         android:id="@+id/bell"
         android:title=""
-        android:icon="@drawable/bell_icon"
+        android:icon="@drawable/notification"
         android:orderInCategory="100"
         app:showAsAction="always" />
     <item
         android:id="@+id/chat"
         android:title=""
-        android:icon="@drawable/chat_icon"
+        android:icon="@drawable/group_discussion"
         android:orderInCategory="99"
         app:showAsAction="always" />
 </menu>

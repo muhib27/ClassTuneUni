@@ -32,6 +32,8 @@ import com.classtune.classtuneuni.response.StCourseSection;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
 import com.classtune.classtuneuni.utils.NetworkConnection;
+import com.classtune.classtuneuni.utils.PaginationAdapterCallback;
+import com.classtune.classtuneuni.utils.PaginationScrollListener;
 import com.classtune.classtuneuni.utils.UIHelper;
 import com.classtune.classtuneuni.utils.VerticalSpaceItemDecoration;
 
@@ -51,7 +53,7 @@ import static com.classtune.classtuneuni.activity.MainActivity.GlobalOfferedCour
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AssignmentFragment extends Fragment implements AssignmentAdapter.ItemListener, View.OnClickListener {
+public class AssignmentFragment extends Fragment implements AssignmentAdapter.ItemListener, View.OnClickListener, PaginationAdapterCallback {
     TabLayout tabLayout;
     TabHost mTabHost;
     RecyclerView recyclerView;
@@ -60,6 +62,13 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.It
     UIHelper uiHelper;
     AssignmentAdapter assignmentAdapter;
     FloatingActionButton fabAdd;
+
+    private static final int PAGE_START = 0;
+    boolean f = false;
+    private boolean isLoading = false;
+    private boolean isLastPage = false;
+    private int TOTAL_PAGES;
+    private int currentPage = PAGE_START;
 
 
     public AssignmentFragment() {
@@ -101,17 +110,18 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.It
         recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(getResources()));
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(assignmentAdapter);
 
-        if(AppSharedPreference.getUserType().equals("3"))
-        {
-            callStAssignmentListApi(GlobalOfferedCourseSectionId);
 
-        }
-        else {
-
-            callOfferedCoursesApi();
-        }
+//        if(AppSharedPreference.getUserType().equals("3"))
+//        {
+//            fabAdd.hide();
+//            callStAssignmentListApi(GlobalOfferedCourseSectionId);
+//
+//        }
+//        else {
+//
+//            callOfferedCoursesApi();
+//        }
 
 
         ((MainActivity)getActivity()).mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
@@ -134,6 +144,45 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.It
                 }
             }
         });
+
+
+        recyclerView.addOnScrollListener(new PaginationScrollListener(linearLayoutManager) {
+            @Override
+            protected void loadMoreItems() {
+                isLoading = true;
+                currentPage += 1;
+
+                callStAssignmentListNextApi(GlobalOfferedCourseSectionId);
+            }
+
+            @Override
+            public int getTotalPageCount() {
+                return TOTAL_PAGES;
+            }
+
+            @Override
+            public boolean isLastPage() {
+                return isLastPage;
+            }
+
+            @Override
+            public boolean isLoading() {
+                return isLoading;
+            }
+        });
+
+        recyclerView.setAdapter(assignmentAdapter);
+        // ViewCompat.setNestedScrollingEnabled(recyclerView, false);
+
+        if(AppSharedPreference.getUserType().equals("3")) {
+            fabAdd.hide();
+            callStAssignmentListApi(GlobalOfferedCourseSectionId);
+        }
+        else {
+            fabAdd.show();
+            callOfferedCoursesApi();
+
+        }
     }
 
     private void setupTab(final View view, final String tag, String tag1) {
@@ -242,7 +291,7 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.It
         uiHelper.showLoadingDialog("Please wait...");
 
         // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
-        RetrofitApiClient.getApiInterfaceWithId().getStAssignmentList(AppSharedPreference.getApiKey(), globalOfferedCourseSectionId)
+        RetrofitApiClient.getApiInterfaceWithId().getStAssignmentList(AppSharedPreference.getApiKey(), globalOfferedCourseSectionId, currentPage)
 
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -257,20 +306,17 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.It
                         uiHelper.dismissLoadingDialog();
 
                         TeacherAssignmentResponse assignmentResponse = value.body();
-                        if (assignmentResponse.getStatus().getCode() == 200) {
-//
-                            assignmentList = assignmentResponse.getData().getAssignments();
-//
-//
-//                            List<String> dateList = new ArrayList<>();
-//                            for (int r = 0; r < noticeList.size(); r++) {
-//                                String sub = noticeList.get(r).getNotice().getCreatedAt().substring(0, 10);
-//                                if (!dateList.contains(sub))
-//                                    dateList.add(sub);
-//                            }
+                        if (assignmentResponse != null && assignmentResponse.getStatus().getCode() == 200) {
 
-//                            itemList = buildItemList(noticeList, dateList);
+                            assignmentList = assignmentResponse.getData().getAssignments();
+
                             assignmentAdapter.addAllData(assignmentList);
+
+
+                            TOTAL_PAGES = assignmentResponse.getData().getTotalPage();
+
+                            if (currentPage <  (TOTAL_PAGES - 1)) assignmentAdapter.addLoadingFooter();
+                            else isLastPage = true;
 //                            Log.v("tt", noticeList.toString());
                             //  Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
                         } else
@@ -288,6 +334,66 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.It
                     public void onComplete() {
 //                        progressDialog.dismiss();
                         uiHelper.dismissLoadingDialog();
+                    }
+                });
+
+
+    }
+
+    private void callStAssignmentListNextApi(String globalOfferedCourseSectionId) {
+
+
+        if (!NetworkConnection.getInstance().isNetworkAvailable()) {
+            Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        //uiHelper.showLoadingDialog("Please wait...");
+
+        // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
+        RetrofitApiClient.getApiInterfaceWithId().getStAssignmentList(AppSharedPreference.getApiKey(), globalOfferedCourseSectionId, currentPage)
+
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<TeacherAssignmentResponse>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Response<TeacherAssignmentResponse> value) {
+                       // uiHelper.dismissLoadingDialog();
+
+                        TeacherAssignmentResponse assignmentResponse = value.body();
+                        if (assignmentResponse != null && assignmentResponse.getStatus().getCode() == 200) {
+
+                            assignmentAdapter.removeLoadingFooter();
+                            isLoading = false;
+                            assignmentList = assignmentResponse.getData().getAssignments();
+
+                            assignmentAdapter.addAllData(assignmentList);
+
+//                            TOTAL_PAGES = assignmentResponse.getData().getTotalPage();
+
+                            if (currentPage < (TOTAL_PAGES - 1)) assignmentAdapter.addLoadingFooter();
+                            else isLastPage = true;
+//                            Log.v("tt", noticeList.toString());
+                            //  Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        //uiHelper.dismissLoadingDialog();
+                    }
+
+                    @Override
+                    public void onComplete() {
+//                        progressDialog.dismiss();
+                        //uiHelper.dismissLoadingDialog();
                     }
                 });
 
@@ -358,5 +464,10 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.It
         transaction.replace(R.id.mainContainer, fragment, tag);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    public void retryPageLoad() {
+
     }
 }

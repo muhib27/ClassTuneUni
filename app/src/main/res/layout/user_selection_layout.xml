@@ -18,11 +18,12 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:text="Select"
-            android:textColor="@color/appColor"
+            android:textColor="@color/black"
             android:textSize="@dimen/text_size_30_sp"
             android:textStyle="bold" />
 
         <TextView
+            android:textColor="@color/ash_b5"
             android:id="@+id/your_pf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -54,7 +55,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/student_icon" />
+                android:src="@drawable/student" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -80,7 +81,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/student_icon" />
+                android:src="@drawable/teacher" />
 
             <TextView
                 android:layout_width="wrap_content"

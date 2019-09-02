@@ -41,8 +41,8 @@
 
                 <TextView
                     android:textSize="@dimen/text_size_14_sp"
-                    android:textColor="@color/appColor"
-                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textStyle="normal"
                     android:id="@+id/subject"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
 
                 <TextView
                     android:textColor="@color/black"
-                    android:textStyle="normal"
+                    android:textStyle="bold"
                     android:textSize="@dimen/text_size_14_sp"
                     android:id="@+id/section"
                     android:layout_width="wrap_content"

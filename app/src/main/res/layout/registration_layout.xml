@@ -24,7 +24,7 @@
                 android:id="@+id/imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/login_logo"
+                android:src="@drawable/splash_logo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -57,7 +57,7 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/name_icon" />
+                    android:src="@drawable/name" />
 
                 <EditText
                     android:imeOptions="actionNext"
@@ -94,7 +94,7 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/email_icon" />
+                    android:src="@drawable/email" />
 
                 <EditText
                     android:id="@+id/et_email"
@@ -174,7 +174,7 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/uni_icon" />
+                    android:src="@drawable/uni_name" />
 
                 <TextView
                     android:id="@+id/et_uni_name"
@@ -212,7 +212,7 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/student" />
+                    android:src="@drawable/id" />
 
                 <EditText
                     android:id="@+id/studentId"
@@ -248,7 +248,7 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/lock_icon" />
+                    android:src="@drawable/password" />
 
                 <EditText
                     android:id="@+id/et_password"
@@ -283,7 +283,7 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/lock_icon" />
+                    android:src="@drawable/password" />
 
                 <EditText
                     android:id="@+id/et_con_password"
@@ -330,7 +330,6 @@
 
 
 
-
             <Button
                 android:id="@+id/continueBtn"
                 android:layout_width="match_parent"
@@ -338,7 +337,7 @@
                 android:layout_marginLeft="@dimen/size_20dp"
                 android:layout_marginTop="@dimen/size_20dp"
                 android:layout_marginRight="@dimen/size_20dp"
-                android:background="@drawable/selected"
+                android:background="@drawable/selected_red"
                 android:text="@string/continue_text"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
