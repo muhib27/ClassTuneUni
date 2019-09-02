@@ -14,7 +14,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:textColor="@color/appColor"
+            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/size_20dp"

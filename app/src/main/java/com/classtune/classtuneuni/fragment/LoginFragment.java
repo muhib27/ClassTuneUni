@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +41,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     EditText etPassword;
     CheckBox rememberMe;
     Button btnLogin;
+    TextView register;
 
     UIHelper uiHelper;
 
@@ -69,6 +71,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         progressDialog.setMax(100);
         progressDialog.setMessage("Authenticating...");
 
+
+        register = view.findViewById(R.id.register);
+        register.setOnClickListener(this);
 
         etUserName = view.findViewById(R.id.et_email);
         TextView tvForgetPassword = view.findViewById(R.id.tv_forget_password);
@@ -195,6 +200,11 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 //                validateFieldAndCallLogIn();
                 validateFieldAndCallLogIn();
                 break;
+            case R.id.register:
+                Fragment fragment = new UserSelectionFragment();
+                loadFragment(fragment, "userSelectionFragment");
+
+                break;
 //            case R.id.tv_forget_password:
 //                Intent intent = new Intent(LoginActivity.this, ForgetPasswordActivity.class);
 //                startActivity(intent);
@@ -204,4 +214,13 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 break;
         }
     }
+
+    private void loadFragment(Fragment fragment, String tag) {
+        // load fragment
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.loginContainer, fragment, tag);
+
+        transaction.commit();
+    }
+
 }

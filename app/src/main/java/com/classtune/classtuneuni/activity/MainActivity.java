@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                     //Toast.makeText(getApplicationContext(), TabMessage.get(tabId, true), Toast.LENGTH_LONG).show();
 
                     fragment = new HomeFragment();
-                    loadFragment(fragment, "homeFragment", false);
+                    loadFragment(fragment, "homeFragment", true);
 
 //                    fragment = new AttendanceSummaryFragment();
 //                    loadFragment(fragment, "attendanceSummaryFragment");
@@ -253,14 +253,25 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
       //  super.onBackPressed();
+
+        int backStackCount = getSupportFragmentManager().getBackStackEntryCount();
+
         MorePageFragment morePageFragment = (MorePageFragment) getSupportFragmentManager().findFragmentByTag("morePageFragment");
         if (morePageFragment != null && morePageFragment.isVisible()) {
             fragment = new HomeFragment();
-            loadFragment(fragment, "homeFragment", false);
+            loadFragment(fragment, "homeFragment", true);
             bottomBar.selectTabAtPosition(0);
         }
-        else
-            super.onBackPressed();
+        if(backStackCount == 1){
+            getSupportFragmentManager().popBackStack();
+            fragment = new HomeFragment();
+            loadFragment(fragment, "homeFragment", true);
+
+        }
+        else if(backStackCount<=0)
+            finish();
+//        else
+//            super.onBackPressed();
 
     }
     MenuItem item;
@@ -309,7 +320,6 @@ public class MainActivity extends AppCompatActivity {
         // load fragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.mainContainer, fragment, tag);
-        if(backstack)
             if(!backstack)
         transaction.addToBackStack(null);
         transaction.commit();
