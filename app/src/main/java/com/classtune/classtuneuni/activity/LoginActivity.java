@@ -9,7 +9,9 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.fragment.LoginFragment;
 import com.classtune.classtuneuni.fragment.PreLoginFragment;
+import com.classtune.classtuneuni.utils.AppSharedPreference;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener  {
 
@@ -23,8 +25,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.fragment_pre_login);
 
-        fragment = new PreLoginFragment();
-        loadFragment(fragment, "preLoginFragment");
+        if(AppSharedPreference.getFirstTimeLogin()) {
+            fragment = new PreLoginFragment();
+            loadFragment(fragment, "preLoginFragment");
+        }
+        else {
+            fragment = new LoginFragment();
+            loadFragment(fragment, "loginFragment");
+        }
     }
 
 

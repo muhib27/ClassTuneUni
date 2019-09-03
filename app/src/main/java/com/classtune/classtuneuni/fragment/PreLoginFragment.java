@@ -43,6 +43,7 @@ public class PreLoginFragment extends Fragment implements View.OnClickListener {
 
         login.setOnClickListener(this);
         register.setOnClickListener(this);
+
     }
 
     Fragment fragment;

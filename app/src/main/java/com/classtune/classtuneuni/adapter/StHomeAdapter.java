@@ -281,8 +281,10 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 headerHolder.dueSubCode.setText(stDueSubmission.getCourseCode());
                 if(stDueSubmission != null && stDueSubmission.getCourseName()!=null)
                 headerHolder.dueSubject.setText(stDueSubmission.getCourseName());
-                if(stDueSubmission != null && stDueSubmission.getDueDate()!=null)
-                headerHolder.dueDate.setText(AppUtility.getDateString(stDueSubmission.getDueDate(), AppUtility.DATE_FORMAT_D_M, AppUtility.DATE_FORMAT_SERVER));
+                if(stDueSubmission != null && stDueSubmission.getDueDate()!=null) {
+                    headerHolder.dueDate.setText(getDate(stDueSubmission.getDueDate()));
+                    headerHolder.month.setText(AppUtility.getMonth(stDueSubmission.getDueDate().substring(4,6)));
+                }
                 //AppUtility.getDateString(stDueSubmission.getDueDate(), AppUtility.DATE_FORMAT_D_M, AppUtility.DATE_FORMAT_SERVER)
 
             //    AppUtility.getMonth(routine.getMonth()) + ", " + routine.getYear()
@@ -450,6 +452,13 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
+    private String getDate(String dueDate) {
+        String[] parts = dueDate.split("-");
+
+
+        return parts[2];
+    }
+
     private String getTime(String st){
         String time = "";
         if(st.length()>2) {
@@ -596,7 +605,7 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     protected class Header extends RecyclerView.ViewHolder {
         private TextView mMovieDesc;
-        private TextView mYear; // displays "year | language"
+        private TextView month; // displays "year | language"
         private ImageView mPosterImg;
         private CardView cardView;
         CircleImageView pic;
@@ -617,6 +626,7 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             dueSubCode = itemView.findViewById(R.id.dueSubCode);
             dueSubject = itemView.findViewById(R.id.dueTitle);
             dueDate = itemView.findViewById(R.id.date);
+            month = itemView.findViewById(R.id.month);
            // pic = itemView.findViewById(R.id.pic);
         }
     }

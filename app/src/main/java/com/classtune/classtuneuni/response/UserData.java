@@ -21,6 +21,10 @@ public class UserData {
     @Expose
     private String userType;
 
+    @SerializedName("student_id")
+    @Expose
+    private String studentId;
+
     public String getId() {
         return id;
     }
@@ -61,4 +65,11 @@ public class UserData {
         this.userType = userType;
     }
 
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
 }

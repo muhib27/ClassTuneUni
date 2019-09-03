@@ -78,7 +78,7 @@ public class ResourseFragment extends Fragment {
         recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(getResources()));
 //        recyclerView.setLayoutManager(linearLayoutManager);
 
-        manager = new GridLayoutManager(getActivity(), 3, GridLayoutManager.VERTICAL, false);
+        manager = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
@@ -94,7 +94,6 @@ public class ResourseFragment extends Fragment {
                     StCourseSection ss = AppSharedPreference.getStUserTab(s, pos);
                     GlobalCourseId = ss.getCourseCode();
                     GlobalOfferedCourseSectionId = ss.getCourseOfferSectionId();
-                    resourceList.clear();
                     callResourceListApi(GlobalOfferedCourseSectionId);
 
                 }
@@ -106,6 +105,13 @@ public class ResourseFragment extends Fragment {
             }
         });
 
+//        if(GlobalOfferedCourseSectionId.isEmpty())
+//        {
+//            int pos = ((MainActivity)getActivity()).mTabHost.getCurrentTab();
+//            StCourseSection ss = AppSharedPreference.getStUserTab(s, pos);
+//            GlobalCourseId = ss.getCourseCode();
+//            GlobalOfferedCourseSectionId = ss.getCourseOfferSectionId();
+//        }
         callResourceListApi(GlobalOfferedCourseSectionId);
 
     }
@@ -136,6 +142,7 @@ public class ResourseFragment extends Fragment {
 
                         ResourceResponse resourceResponse = value.body();
                         if (resourceResponse.getStatus().getCode() == 200) {
+                            resourceAdapter.clear();
 //
                             resourceList = resourceResponse.getData().getCourseMaterials();
 //

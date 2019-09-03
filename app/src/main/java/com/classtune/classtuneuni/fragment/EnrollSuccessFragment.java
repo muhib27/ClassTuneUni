@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.activity.MainActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,6 +40,10 @@ public class EnrollSuccessFragment extends Fragment {
         teacherName = view.findViewById(R.id.teacherName);
         section = view.findViewById(R.id.section);
         duration = view.findViewById(R.id.duration);
+
+
+        ((MainActivity)getActivity()).callStudentSectionListApi();
+
 
         if(getArguments().getString("courseName") != null)
             courseName.setText(getArguments().getString("courseName"));

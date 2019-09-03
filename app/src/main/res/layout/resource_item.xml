@@ -26,7 +26,9 @@
             android:src="@drawable/avatar" />
 
         <TextView
+            android:gravity="center_horizontal"
             android:text="Title"
+            android:maxLines="2"
             android:textStyle="bold"
             android:textSize="@dimen/size_16sp"
             android:id="@+id/title"
@@ -36,6 +38,7 @@
             android:textColor="@color/black"
             android:layout_below="@+id/imageView" />
         <TextView
+            android:maxLines="2"
             android:layout_marginBottom="@dimen/size_5dp"
             android:gravity="center_horizontal"
             android:text="Subject"

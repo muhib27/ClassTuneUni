@@ -2,6 +2,7 @@ package com.classtune.classtuneuni.fragment;
 
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,11 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.adapter.ComResultAdapter;
@@ -54,6 +61,7 @@ public class StudentProfileFragment extends Fragment implements StProfileInfoAda
     UIHelper uiHelper;
     CircleImageView profileImg;
     private TextView name, studentId, email, currentCourse, totalCourse;
+    public static final String BASE_URL= "http://uni.edoozz.com/";
 
     public StudentProfileFragment() {
         // Required empty public constructor
@@ -80,12 +88,35 @@ public class StudentProfileFragment extends Fragment implements StProfileInfoAda
 
         stCourseAssessmentList = new ArrayList<>();
 
-
+        profileImg = view.findViewById(R.id.profile_image);
         name = view.findViewById(R.id.name);
         studentId = view.findViewById(R.id.studentId);
         email = view.findViewById(R.id.email);
         currentCourse = view.findViewById(R.id.currentCourse);
         totalCourse = view.findViewById(R.id.totalCourse);
+
+
+        name.setText(AppSharedPreference.getUserName());
+        email.setText(AppSharedPreference.getUserEmail());
+        studentId.setText(AppSharedPreference.getUserId());
+
+        Glide.with(getActivity())
+                .load(BASE_URL + AppSharedPreference.getUserImage())
+                //.load("http://via.placeholder.com/300.png")
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        // log exception
+                        Log.e("TAG", "Error loading image", e);
+                        return false; // important to return false so the error placeholder can be placed
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        return false;
+                    }
+                })
+                .into(profileImg);
 
 
         stProfileInfoAdapter = new StProfileInfoAdapter(getActivity());
@@ -151,12 +182,31 @@ public class StudentProfileFragment extends Fragment implements StProfileInfoAda
     }
 
     private void populateData(StProfileData data) {
-        if(data.getProfile().getName()!=null)
-            name.setText(data.getProfile().getName());
-        if(data.getProfile().getEmail()!=null)
-            email.setText(data.getProfile().getEmail());
-        if(data.getProfile().getStudentId()!=null)
-            studentId.setText(data.getProfile().getStudentId());
+//        //if(data.getProfile().getName()!=null)
+//            name.setText(AppSharedPreference.getUserName());
+//        //if(data.getProfile().getEmail()!=null)
+//            email.setText(AppSharedPreference.getUserEmail());
+//        //if(data.getProfile().getStudentId()!=null)
+//            studentId.setText(AppSharedPreference.getUserId());
+//
+//        Glide.with(getActivity())
+//                .load(BASE_URL + AppSharedPreference.getUserImage())
+//                //.load("http://via.placeholder.com/300.png")
+//                .listener(new RequestListener<Drawable>() {
+//                    @Override
+//                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+//                        // log exception
+//                        Log.e("TAG", "Error loading image", e);
+//                        return false; // important to return false so the error placeholder can be placed
+//                    }
+//
+//                    @Override
+//                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+//                        return false;
+//                    }
+//                })
+//                .into(profileImg);
+
         if(data.getEnrolledCourse()!=null)
             currentCourse.setText(""+data.getEnrolledCourse());
         if(data.getCompletedCourse()!=null)

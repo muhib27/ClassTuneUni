@@ -13,8 +13,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.home.StHomeFeed;
 import com.classtune.classtuneuni.model.ExamInfoModel;
 import com.classtune.classtuneuni.utils.AppUtility;
+import com.classtune.classtuneuni.utils.PaginationAdapterCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,11 @@ public class ExamListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     protected ItemListener mListener;
     private static final int HERO = 2;
     private static final int ITEM = 0;
+
+    private boolean isLoadingAdded = false;
+    private boolean retryPageLoad = false;
+    private PaginationAdapterCallback mCallback;
+    private String errorMsg;
 
     public ExamListAdapter(Context context) {
         mValues = new ArrayList<>();
@@ -132,4 +139,48 @@ public class ExamListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             add(result);
         }
     }
+
+
+    public void remove(ExamInfoModel r) {
+        int position = mValues.indexOf(r);
+        if (position > -1) {
+            mValues.remove(position);
+            notifyItemRemoved(position);
+        }
     }
+
+    public void clear() {
+        isLoadingAdded = false;
+        while (getItemCount() > 0) {
+            remove(getItem(0));
+        }
+    }
+
+    public boolean isEmpty() {
+        return getItemCount() == 0;
+    }
+
+
+    public void addLoadingFooter() {
+        isLoadingAdded = true;
+        add(new ExamInfoModel());
+    }
+
+    public void removeLoadingFooter() {
+        isLoadingAdded = false;
+
+        int position = mValues.size() - 1;
+        ExamInfoModel result = getItem(position);
+
+        if (result != null) {
+            mValues.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public ExamInfoModel getItem(int position) {
+        return mValues.get(position);
+    }
+
+
+}

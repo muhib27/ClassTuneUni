@@ -26,7 +26,6 @@ import com.bumptech.glide.request.target.Target;
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.LoginActivity;
 import com.classtune.classtuneuni.activity.MainActivity;
-import com.classtune.classtuneuni.model.User;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
 import com.classtune.classtuneuni.utils.NetworkConnection;
@@ -45,7 +44,8 @@ import retrofit2.Response;
  */
 public class MorePageFragment extends Fragment implements View.OnClickListener {
 
-    public static final String BASE_URL = "http://192.168.3.48";
+    //public static final String BASE_URL = "http://192.168.3.48";
+    public static final String BASE_URL= "http://uni.edoozz.com/";
 
     CircleImageView pic;
     //private TextView name, studentId;
@@ -123,9 +123,10 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
         rl_8 = view.findViewById(R.id.rl_8);
         rl_8.setOnClickListener(this);
 
+        String s = BASE_URL + AppSharedPreference.getUserImage();
 
         Glide.with(getActivity())
-                .load(AppSharedPreference.getUserImage())
+                .load(BASE_URL + AppSharedPreference.getUserImage())
                 //.load("http://via.placeholder.com/300.png")
                 .listener(new RequestListener<Drawable>() {
                     @Override
@@ -259,7 +260,26 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
     }
 
     private void userLogout() {
-        User user = new User("", "", "", "");
+
+
+        String email = AppSharedPreference.getUserEmail();
+        boolean rememberMe = AppSharedPreference.getRememberMe();
+        String fcm = AppSharedPreference.getFcm();
+
+
+        if(rememberMe){
+            AppSharedPreference.clearData();
+            AppSharedPreference.setUserNameAndPassword("",email,"","", true, "", "", "", "");
+            AppSharedPreference.setFcm(fcm);
+
+        }
+        else {
+            AppSharedPreference.clearData();
+            AppSharedPreference.setUserNameAndPassword("","","","", false, "", "", "", "");
+            AppSharedPreference.setFcm(fcm);
+        }
+
+
 //        AppSharedPreference.setUserBasicInfo(user);
 //        if (AppSharedPreference.getRememberMe()) {
 //            AppSharedPreference.setUserNameAndPassword(AppSharedPreference.getUserName(), AppSharedPreference.getUserPassword(), "", true);
@@ -267,7 +287,11 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
 //        } else {
 //            AppSharedPreference.setUserNameAndPassword("", "", "", false);
 //        }
+
+
         AppSharedPreference.setUsingFirstTime(true);
+        AppSharedPreference.setFirstTimeLogin(false);
+
         Intent i = new Intent(getActivity(), LoginActivity.class);
         startActivity(i);
         getActivity().finish();
@@ -277,7 +301,7 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
         // load fragment
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.mainContainer, fragment, tag);
-        transaction.addToBackStack(null);
+        //transaction.addToBackStack(null);
         transaction.commit();
     }
 }

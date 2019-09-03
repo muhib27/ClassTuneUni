@@ -81,4 +81,7 @@ public class StCourseDiscussion {
     public void setDiscussionId(String discussionId) {
         this.discussionId = discussionId;
     }
+
+    public StCourseDiscussion() {
+    }
 }

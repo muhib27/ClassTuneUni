@@ -210,10 +210,12 @@ public class UploadProfilePicFragment extends Fragment implements View.OnClickLi
                 Uri imageUri = Uri.fromFile(file);
                 long fileSizeInKB = file.length() / 1024;
                 long fileSizeInMB = fileSizeInKB / 1024;
-                if(fileSizeInMB<=2)
+                if(fileSizeInMB<=5)
                 Glide.with(this)
                         .load(imageUri)
                         .into(profileImg);
+                else
+                    Toast.makeText(getActivity(), "Image is too large", Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -282,7 +284,7 @@ public class UploadProfilePicFragment extends Fragment implements View.OnClickLi
             Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
             return;
         }
-        uiHelper.showLoadingDialog("Submitting your task...");
+        uiHelper.showLoadingDialog("Please wait...");
 
         // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
         RetrofitApiClient.getApiInterfaceWithId().userImageUpload(body, apiKey)

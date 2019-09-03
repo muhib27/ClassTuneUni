@@ -82,7 +82,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_20dp"
+            android:layout_marginTop="@dimen/size_30dp"
             android:orientation="vertical">
 
             <TextView
@@ -107,7 +107,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="@dimen/size_20dp"
+            android:layout_marginTop="@dimen/size_30dp"
             android:background="@color/menu_divider" />
 
         <RelativeLayout

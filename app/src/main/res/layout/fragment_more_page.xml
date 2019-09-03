@@ -394,7 +394,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
                 android:paddingEnd="@dimen/size_20dp"
-                android:src="@drawable/enroll_icon" />
+                android:src="@drawable/logout" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -415,13 +415,13 @@
                     android:textStyle="normal" />
             </LinearLayout>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerInParent="true"
-                android:paddingEnd="@dimen/size_20dp"
-                android:src="@drawable/next_icon" />
+            <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:paddingEnd="@dimen/size_20dp"-->
+                <!--android:src="@drawable/next_icon" />-->
 
         </RelativeLayout>
         <View

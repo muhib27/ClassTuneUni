@@ -87,8 +87,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
         if(AppSharedPreference.getRememberMe())
         {
-            if(!AppSharedPreference.getUserName().isEmpty())
-                etUserName.setText(AppSharedPreference.getUserName());
+            if(!AppSharedPreference.getUserEmail().isEmpty())
+                etUserName.setText(AppSharedPreference.getUserEmail());
             if(!AppSharedPreference.getUserPassword().isEmpty())
                 etPassword.setText(AppSharedPreference.getUserPassword());
             rememberMe.setChecked(true);
@@ -151,7 +151,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                         if (loginApiModel.getStatus().getCode()!= null && loginApiModel.getStatus().getCode() == 200) {
                             //    passwordChangeDialog();
 
-                            AppSharedPreference.setUserNameAndPassword(loginApiModel.getData().getUserData().getId(),username, password, loginApiModel.getData().getApiKey(), rememberMe.isChecked(), loginApiModel.getData().getUserData().getUserType(), loginApiModel.getData().getUserData().getImage());
+                            AppSharedPreference.setUserNameAndPassword(loginApiModel.getData().getUserData().getId(),loginApiModel.getData().getUserData().getEmail(), password, loginApiModel.getData().getApiKey(), rememberMe.isChecked(), loginApiModel.getData().getUserData().getUserType(), loginApiModel.getData().getUserData().getImage(), loginApiModel.getData().getUserData().getName(), loginApiModel.getData().getUserData().getStudentId());
                             //callMenuApi();
 
                             Intent intent = new Intent(getActivity(), MainActivity.class);

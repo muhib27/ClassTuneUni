@@ -30,6 +30,7 @@ import com.classtune.classtuneuni.response.StCourseSection;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
 import com.classtune.classtuneuni.utils.NetworkConnection;
+import com.classtune.classtuneuni.utils.PaginationAdapterCallback;
 import com.classtune.classtuneuni.utils.UIHelper;
 import com.classtune.classtuneuni.utils.VerticalSpaceItemDecoration;
 
@@ -56,6 +57,8 @@ public class ExamListFragment extends Fragment implements ExamListAdapter.ItemLi
     LinearLayoutManager linearLayoutManager;
     ExamListAdapter examListAdapter;
     UIHelper uiHelper;
+
+
     public ExamListFragment() {
         // Required empty public constructor
     }

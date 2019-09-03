@@ -143,11 +143,15 @@ public class AssignmentDetailsFragment extends Fragment implements View.OnClickL
         }
         if(assignment.getDueDate()!=null)
             dueDate.setText(AppUtility.getDateString(assignment.getDueDate(), AppUtility.DATE_FORMAT_APP, AppUtility.DATE_FORMAT_SERVER));
-        if(submission >0)
+        if(submission >0) {
+            viewSubmission.setVisibility(View.VISIBLE);
             status.setText("Submited");
-        else
+        }
+        else {
+            viewSubmission.setVisibility(View.GONE);
             status.setText("Not Submited");
 
+        }
         if(assignment.getMaxMarks()!=null)
             total.setText(assignment.getMaxMarks());
 

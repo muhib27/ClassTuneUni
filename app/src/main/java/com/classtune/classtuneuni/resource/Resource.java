@@ -103,4 +103,7 @@ public class Resource {
     public void setInstructor(String instructor) {
         this.instructor = instructor;
     }
+
+    public Resource() {
+    }
 }

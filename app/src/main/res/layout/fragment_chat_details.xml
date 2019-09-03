@@ -23,7 +23,7 @@
         <LinearLayout
             android:id="@+id/upload"
             android:padding="@dimen/size_16dp"
-            android:background="@drawable/app_button_blue_bg"
+            android:background="@drawable/app_button_blue_b5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         <ImageView

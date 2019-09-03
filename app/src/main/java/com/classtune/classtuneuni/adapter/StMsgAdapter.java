@@ -28,7 +28,9 @@ import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.message.StCourseDiscussion;
 import com.classtune.classtuneuni.model.AssignmentModel;
+import com.classtune.classtuneuni.resource.Resource;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
+import com.classtune.classtuneuni.utils.PaginationAdapterCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +48,13 @@ public class StMsgAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     private static String PREVIOUS_ID = "";
     private static  String CURRENT_ID = "";
+
+    private boolean isLoadingAdded = false;
+    private boolean retryPageLoad = false;
+
+    private PaginationAdapterCallback mCallback;
+
+    private String errorMsg;
 
     public StMsgAdapter(Context context) {
         mValues = new ArrayList<>();
@@ -255,7 +264,7 @@ public class StMsgAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 //        if (position == 0) {
 //            return HERO;
 //        } else
-        if (mValues.get(position).getSenderId().equals(AppSharedPreference.getUserId()))
+        if (mValues.get(position).getSenderId().equals(AppSharedPreference.getId()))
             return HERO;
         else
             return ITEM;
@@ -325,6 +334,47 @@ public class StMsgAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         for (StCourseDiscussion result : moveResults) {
             add(result);
         }
+    }
+
+    public void remove(StCourseDiscussion r) {
+        int position = mValues.indexOf(r);
+        if (position > -1) {
+            mValues.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public void clear() {
+        isLoadingAdded = false;
+        while (getItemCount() > 0) {
+            remove(getItem(0));
+        }
+    }
+
+    public boolean isEmpty() {
+        return getItemCount() == 0;
+    }
+
+
+    public void addLoadingFooter() {
+        isLoadingAdded = true;
+        add(new StCourseDiscussion());
+    }
+
+    public void removeLoadingFooter() {
+        isLoadingAdded = false;
+
+        int position = mValues.size() - 1;
+        StCourseDiscussion result = getItem(position);
+
+        if (result != null) {
+            mValues.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public StCourseDiscussion getItem(int position) {
+        return mValues.get(position);
     }
 
     private void gotoFragment(Fragment fragment, String tag, String assignmentId) {

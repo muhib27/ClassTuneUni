@@ -77,7 +77,7 @@
                 android:src="@drawable/email" />
 
             <EditText
-                android:textColor="@color/appColor"
+                android:textColor="@color/black"
                 android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -111,7 +111,7 @@
                 android:src="@drawable/password" />
 
             <EditText
-                android:textColor="@color/appColor"
+                android:textColor="@color/black"
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -140,8 +140,9 @@
                 android:text="@string/remember_me"/>
 
             <TextView
+                android:textStyle="bold"
                 android:id="@+id/tv_forget_password"
-                android:textColor="@color/appColor"
+                android:textColor="@color/black"
                 android:layout_centerInParent="true"
                 android:layout_alignParentRight="true"
                 android:text="@string/forget_password"
@@ -189,7 +190,7 @@
                 android:layout_marginTop="0dp"
                 android:layout_toEndOf="@+id/ask"
                 android:text="@string/register_here"
-                android:textColor="@color/appColor"
+                android:textColor="@color/black"
                 android:textSize="@dimen/size_16sp"
                 android:textStyle="bold" />
 

@@ -65,9 +65,9 @@ public class ResourceViewFragment extends Fragment {
     private void populateData() {
         if (contentSt != null)
             webView.loadData(contentSt, "text/html; charset=utf-8", "UTF-8");
-        if (titleSt != null)
-            title.setText(titleSt);
         if (subjectName != null)
-            subCode.setText(subjectName);
+            title.setText(subjectName);
+        if (titleSt != null)
+            subCode.setText(titleSt);
     }
 }

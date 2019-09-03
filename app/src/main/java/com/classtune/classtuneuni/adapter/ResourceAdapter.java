@@ -30,9 +30,11 @@ import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.fragment.AssignmentViewFragment;
 import com.classtune.classtuneuni.fragment.ResourceViewFragment;
+import com.classtune.classtuneuni.home.StHomeFeed;
 import com.classtune.classtuneuni.model.ComResult;
 import com.classtune.classtuneuni.resource.Resource;
 import com.classtune.classtuneuni.utils.AppUtility;
+import com.classtune.classtuneuni.utils.PaginationAdapterCallback;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -46,6 +48,13 @@ public class ResourceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     protected ItemListener mListener;
     private static final int HERO = 2;
     private static final int ITEM = 0;
+
+    private boolean isLoadingAdded = false;
+    private boolean retryPageLoad = false;
+
+    private PaginationAdapterCallback mCallback;
+
+    private String errorMsg;
 
     public ResourceAdapter(Context context) {
         mValues = new ArrayList<>();
@@ -77,7 +86,7 @@ public class ResourceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             case ITEM:
                 final MovieVH itemHolder = (MovieVH) viewHolder;
                 if(result.getChapterTitle()!=null)
-                itemHolder.title.setText(result.getChapterTitle());
+                itemHolder.title.setText(result.getTitle());
                 if(result.getCourseName()!=null)
                 itemHolder.subject.setText(result.getCourseName());
                 if(result.getCreatedAt()!=null) {
@@ -183,14 +192,51 @@ public class ResourceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
 
-    public void clearList(){
-        mValues.clear();
-    }
-
     public void addAllData(List<Resource> moveResults) {
         for (Resource result : moveResults) {
             add(result);
         }
+    }
+
+    public void remove(Resource r) {
+        int position = mValues.indexOf(r);
+        if (position > -1) {
+            mValues.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public void clear() {
+        isLoadingAdded = false;
+        while (getItemCount() > 0) {
+            remove(getItem(0));
+        }
+    }
+
+    public boolean isEmpty() {
+        return getItemCount() == 0;
+    }
+
+
+    public void addLoadingFooter() {
+        isLoadingAdded = true;
+        add(new Resource());
+    }
+
+    public void removeLoadingFooter() {
+        isLoadingAdded = false;
+
+        int position = mValues.size() - 1;
+        Resource result = getItem(position);
+
+        if (result != null) {
+            mValues.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public Resource getItem(int position) {
+        return mValues.get(position);
     }
 
 //    private DrawableRequestBuilder<String> loadThumbImage(@NonNull String posterPath) {

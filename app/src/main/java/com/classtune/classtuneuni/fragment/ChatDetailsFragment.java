@@ -27,22 +27,18 @@ import android.widget.Toast;
 
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
-import com.classtune.classtuneuni.adapter.AssignmentAdapter;
 import com.classtune.classtuneuni.adapter.StMsgAdapter;
-import com.classtune.classtuneuni.assignment.Assignment;
 import com.classtune.classtuneuni.assignment.AssignmentSection;
 import com.classtune.classtuneuni.message.StCourseDiscussion;
 import com.classtune.classtuneuni.message.StCourseMsgResponse;
 import com.classtune.classtuneuni.message.StSendMsgResponse;
 import com.classtune.classtuneuni.model.AttachmentModel;
-import com.classtune.classtuneuni.resource.ResourceResponse;
 import com.classtune.classtuneuni.response.StCourseSection;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
 import com.classtune.classtuneuni.utils.NetworkConnection;
 import com.classtune.classtuneuni.utils.UIHelper;
 import com.classtune.classtuneuni.utils.VerticalSpaceItemDecoration;
-import com.google.gson.JsonElement;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -122,7 +118,7 @@ public class ChatDetailsFragment extends Fragment implements View.OnClickListene
 
         if(AppSharedPreference.getUserType().equals("3"))
         {
-            callMsgApi(GlobalOfferedCourseSectionId);
+            callMsgApi(GlobalOfferedCourseSectionId, true);
 
         }
         else {
@@ -140,7 +136,7 @@ public class ChatDetailsFragment extends Fragment implements View.OnClickListene
                     StCourseSection ss = AppSharedPreference.getStUserTab(s, pos);
                     GlobalCourseId = ss.getCourseCode();
                     GlobalOfferedCourseSectionId = ss.getCourseOfferSectionId();
-                    callMsgApi(GlobalOfferedCourseSectionId);
+                    callMsgApi(GlobalOfferedCourseSectionId, true);
 
                 }
                 else {
@@ -273,13 +269,14 @@ public class ChatDetailsFragment extends Fragment implements View.OnClickListene
         }
     }
 
-    private void callMsgApi(String globalOfferedCourseSectionId) {
+    private void callMsgApi(String globalOfferedCourseSectionId, boolean b) {
 
 
         if (!NetworkConnection.getInstance().isNetworkAvailable()) {
             Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
             return;
         }
+        if(true)
         uiHelper.showLoadingDialog("Please wait...");
 
         // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
@@ -299,6 +296,7 @@ public class ChatDetailsFragment extends Fragment implements View.OnClickListene
 
                         StCourseMsgResponse stCourseMsgResponse = value.body();
                         if (stCourseMsgResponse.getStatus().getCode() == 200) {
+                            stMsgAdapter.clear();
 //
                             courseDiscussionList = stCourseMsgResponse.getData().getCourseDiscussion();
 //
@@ -419,7 +417,7 @@ public class ChatDetailsFragment extends Fragment implements View.OnClickListene
 
                         StSendMsgResponse stSendMsgResponse = value.body();
                         if (stSendMsgResponse.getStatus().getCode() == 200) {
-                            callMsgApi(GlobalOfferedCourseSectionId);
+                            callMsgApi(GlobalOfferedCourseSectionId, false);
                             msg.setText("");
 //
 

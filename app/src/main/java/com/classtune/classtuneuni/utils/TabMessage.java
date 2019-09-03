@@ -8,28 +8,28 @@ import com.classtune.classtuneuni.R;
  */
 public class TabMessage {
     public static String get(int menuItemId, boolean isReselection) {
-        String message = "Content for ";
+        String message = "";
 
         switch (menuItemId) {
             case R.id.home:
                 message += "home";
                 break;
             case R.id.assistant:
-                message += "assistant";
+                message += "assignment";
                 break;
             case R.id.news:
-                message += "news";
+                message += "resource";
                 break;
             case R.id.quiz:
-                message += "quiz";
+                message += "notice";
                 break;
             case R.id.forum:
-                message += "forum";
+                message += "more";
                 break;
         }
 
         if (isReselection) {
-            message += " WAS RESELECTED! YAY!";
+            message += "";
         }
 
         return message;

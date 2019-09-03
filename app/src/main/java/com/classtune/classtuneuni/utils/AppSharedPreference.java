@@ -15,9 +15,12 @@ public class AppSharedPreference {
     public static final String keyModelTestPrefs = "modelTestPrefs";
 
     private static final String keyUserImg = "img";
-    private static final String keyUserId = "id";
+    private static final String keyId = "id";
+    private static final String keyUserId = "userId";
     private static final String keyIsFirstTime = "isFirstTime";
+    private static final String keyIsFirsLogin = "isFirstLogin";
     private static final String keyUserName = "username";
+    private static final String keyUserEmail = "useremail";
     private static final String keyUserPassword = "userpassword";
     private static final String keyApiKey = "api_key";
     private static final String keyRememberMe = "rememberMe";
@@ -27,6 +30,12 @@ public class AppSharedPreference {
 
     private static SharedPreferences getSharedPreferences() {
         return MyApplication.getContext().getSharedPreferences(keyModelTestPrefs, 0);
+    }
+    public static void clearData() {
+        final SharedPreferences pref = getSharedPreferences();
+        SharedPreferences.Editor editor = pref.edit();
+        editor.clear();
+        editor.apply();
     }
 
     public static boolean getUsingFirstTime() {
@@ -39,6 +48,19 @@ public class AppSharedPreference {
         final SharedPreferences.Editor editor = pref.edit();
 
         editor.putBoolean(keyIsFirstTime, isFirstTime);
+        editor.apply();
+    }
+
+    public static boolean getFirstTimeLogin() {
+        final SharedPreferences pref = getSharedPreferences();
+        return pref.getBoolean(keyIsFirsLogin, true);
+    }
+
+    public static void setFirstTimeLogin(boolean isFirstTime) {
+        final SharedPreferences pref = getSharedPreferences();
+        final SharedPreferences.Editor editor = pref.edit();
+
+        editor.putBoolean(keyIsFirsLogin, isFirstTime);
         editor.apply();
     }
 
@@ -77,12 +99,14 @@ public class AppSharedPreference {
         return user;
     }
 
-    public static void setUserNameAndPassword(String id, String userId, String password, String api_key, boolean rememberMe, String userType, String image) {
+    public static void setUserNameAndPassword(String id, String email, String password, String api_key, boolean rememberMe, String userType, String image, String name, String userId) {
         final SharedPreferences pref = getSharedPreferences();
         final SharedPreferences.Editor editor = pref.edit();
 
-        editor.putString(keyUserId, id);
-        editor.putString(keyUserName, userId);
+        editor.putString(keyId, id);
+        editor.putString(keyUserId, userId);
+        editor.putString(keyUserEmail, email);
+        editor.putString(keyUserName, name);
         editor.putString(keyUserPassword, password);
         editor.putString(keyUserImg, image);
 
@@ -119,6 +143,10 @@ public class AppSharedPreference {
         return pref.getString(keyFCMId, "");
     }
 
+    public static String getId() {
+        final SharedPreferences pref = getSharedPreferences();
+        return pref.getString(keyId, "");
+    }
     public static String getUserId() {
         final SharedPreferences pref = getSharedPreferences();
         return pref.getString(keyUserId, "");
@@ -131,6 +159,10 @@ public class AppSharedPreference {
     public static String getUserName() {
         final SharedPreferences pref = getSharedPreferences();
         return pref.getString(keyUserName, "");
+    }
+    public static String getUserEmail() {
+        final SharedPreferences pref = getSharedPreferences();
+        return pref.getString(keyUserEmail, "");
     }
 
     public static boolean getRememberMe() {

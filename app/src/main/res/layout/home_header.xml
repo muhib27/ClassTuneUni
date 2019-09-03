@@ -76,13 +76,14 @@
                         android:textSize="@dimen/text_size_10_sp" />
 
                     <TextView
+                        android:textStyle="bold"
                         android:id="@+id/parcentage"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:gravity="center"
                         android:text="94%"
-                        android:textColor="@color/appColor"
+                        android:textColor="@color/ash_b5"
                         android:textSize="@dimen/text_size_25_sp" />
                 </LinearLayout>
 
@@ -169,12 +170,13 @@
                         android:gravity="center_horizontal">
 
                         <TextView
+                            android:textStyle="bold"
                             android:id="@+id/nextClassTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@color/white"
                             android:text="10:30"
-                            android:textColor="@color/appColor"
+                            android:textColor="@color/ash_b5"
                             android:textSize="@dimen/text_size_25_sp" />
 
                         <!--<TextView-->
@@ -273,24 +275,26 @@
                         android:gravity="center_horizontal">
 
                         <TextView
+                            android:textStyle="bold"
                             android:id="@+id/date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@color/white"
                             android:gravity="center"
                             android:text="24"
-                            android:textColor="@color/appColor"
+                            android:textColor="@color/ash_b5"
                             android:textSize="@dimen/text_size_25_sp" />
 
-                        <!--<TextView-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_toEndOf="@+id/date"-->
-                            <!--android:background="@color/white"-->
-                            <!--android:paddingBottom="@dimen/size_3dp"-->
-                            <!--android:text="July"-->
-                            <!--android:textColor="@color/appColor"-->
-                            <!--android:textSize="@dimen/size_16sp" />-->
+                        <TextView
+                            android:id="@+id/month"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@+id/date"
+                            android:background="@color/white"
+                            android:paddingBottom="@dimen/size_3dp"
+                            android:text="July"
+                            android:textColor="@color/ash_b5"
+                            android:textSize="@dimen/size_16sp" />
                     </LinearLayout>
                 </LinearLayout>
 
