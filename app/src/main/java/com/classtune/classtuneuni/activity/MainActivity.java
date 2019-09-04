@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     fragment = new AssignmentFragment();
-                    loadFragment(fragment, "assignmentFragment", true);
+                    loadFragment(fragment, "assignmentFragment", false);
 
                 } else if (tabId == R.id.news) {
 
@@ -199,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     fragment = new MorePageFragment();
-                    loadFragment(fragment, "morePageFragment", true);
+                    loadFragment(fragment, "morePageFragment", false);
                     //  }
                 }
             }
@@ -518,6 +518,8 @@ public class MainActivity extends AppCompatActivity {
 
         AppSharedPreference.setUserTab(sections.get(0), 0);
         tabRl.setVisibility(View.GONE);
+        if(sections.size()>0)
+            GlobalOfferedCourseSectionId = sections.get(0).getOfferedSectionId();
 
 
     }

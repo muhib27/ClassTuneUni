@@ -28,7 +28,9 @@ import com.bumptech.glide.request.target.Target;
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.fragment.AssignmentDetailsFragment;
+import com.classtune.classtuneuni.fragment.ClassScheduleFragment;
 import com.classtune.classtuneuni.fragment.ResourceViewFragment;
+import com.classtune.classtuneuni.fragment.StudentAttendanceFragment;
 import com.classtune.classtuneuni.fragment.TeacherNoticeDetails;
 import com.classtune.classtuneuni.home.StDueSubmission;
 import com.classtune.classtuneuni.home.StHomeAttendance;
@@ -288,6 +290,33 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 //AppUtility.getDateString(stDueSubmission.getDueDate(), AppUtility.DATE_FORMAT_D_M, AppUtility.DATE_FORMAT_SERVER)
 
             //    AppUtility.getMonth(routine.getMonth()) + ", " + routine.getYear()
+
+                headerHolder.attendance.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Fragment fragment = new StudentAttendanceFragment();
+                        Bundle bundle = new Bundle();
+                        gotoFragment(fragment, "studentAttendanceFragment", bundle);
+                    }
+                });
+                headerHolder.nextClass.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Fragment fragment = new ClassScheduleFragment();
+                        Bundle bundle = new Bundle();
+                      //  bundle.putString("assignmentId", result.getAssignmentId());
+                        gotoFragment(fragment, "classScheduleFragment", bundle);
+                    }
+                });
+                headerHolder.due.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Fragment fragment = new AssignmentDetailsFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("assignmentId", result.getAssignmentId());
+                        gotoFragment(fragment, "assignmentDetailsFragment", bundle);
+                    }
+                });
 
 
                 break;
@@ -609,6 +638,7 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         private ImageView mPosterImg;
         private CardView cardView;
         CircleImageView pic;
+        private LinearLayout attendance, nextClass, due;
         public TextView title, attendanceSubCode, attendancePresent, attendanceParcent, nextSubCode, nextTeacher, nextTime, dueSubCode, dueSubject, dueDate;
 
 
@@ -628,6 +658,10 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             dueDate = itemView.findViewById(R.id.date);
             month = itemView.findViewById(R.id.month);
            // pic = itemView.findViewById(R.id.pic);
+
+            attendance = itemView.findViewById(R.id.attendance);
+            nextClass = itemView.findViewById(R.id.classSchedule);
+            due = itemView.findViewById(R.id.due);
         }
     }
 

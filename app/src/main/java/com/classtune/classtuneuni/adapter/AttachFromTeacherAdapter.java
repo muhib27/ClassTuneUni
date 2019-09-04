@@ -4,7 +4,6 @@ import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -21,19 +20,13 @@ import android.widget.TextView;
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.assignment.AssinmentAttachment;
-import com.classtune.classtuneuni.course_resonse.Course;
-import com.classtune.classtuneuni.fragment.CourseOfferFragment;
-import com.classtune.classtuneuni.fragment.OfferedCourseDetailsFragment;
-import com.classtune.classtuneuni.model.AttachmentModel;
 import com.classtune.classtuneuni.model.CourseModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.content.Context.DOWNLOAD_SERVICE;
 
-
-public class AttachmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class AttachFromTeacherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<AssinmentAttachment> mValues;
     private Context mContext;
@@ -41,7 +34,7 @@ public class AttachmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private static final int HERO = 2;
     private static final int ITEM = 0;
 
-    public AttachmentAdapter(Context context) {
+    public AttachFromTeacherAdapter(Context context) {
 //        mValues = values;
         mContext = context;
         mValues = new ArrayList<>();
@@ -69,7 +62,8 @@ public class AttachmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return viewHolder;
     }
 
-
+    private DownloadManager dm;
+    private long enqueue;
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
         final AssinmentAttachment result = mValues.get(position);

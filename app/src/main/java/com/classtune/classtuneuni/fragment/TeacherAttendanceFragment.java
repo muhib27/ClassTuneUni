@@ -18,6 +18,8 @@ import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.adapter.PagerAdapter;
 
+import java.util.Objects;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -43,7 +45,7 @@ public class TeacherAttendanceFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((MainActivity)getActivity()).tabRl.setVisibility(View.VISIBLE);
+        ((MainActivity) Objects.requireNonNull(getActivity())).tabRl.setVisibility(View.VISIBLE);
 
         viewPager = (ViewPager) view.findViewById(R.id.pager);
         pagerAdapter = new PagerAdapter(getActivity().getSupportFragmentManager());

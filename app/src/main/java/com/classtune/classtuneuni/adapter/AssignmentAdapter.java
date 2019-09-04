@@ -367,7 +367,7 @@ public class AssignmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         fragment.setArguments(bundle);
         FragmentTransaction transaction = ((MainActivity) mContext).getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.mainContainer, fragment, tag);
-        //transaction.addToBackStack(null);
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 }

@@ -210,7 +210,7 @@ public class UploadProfilePicFragment extends Fragment implements View.OnClickLi
                 Uri imageUri = Uri.fromFile(file);
                 long fileSizeInKB = file.length() / 1024;
                 long fileSizeInMB = fileSizeInKB / 1024;
-                if(fileSizeInMB<=5)
+                if(fileSizeInMB<=3)
                 Glide.with(this)
                         .load(imageUri)
                         .into(profileImg);

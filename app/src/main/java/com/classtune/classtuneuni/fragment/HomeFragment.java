@@ -98,6 +98,8 @@ public class HomeFragment extends Fragment implements PaginationAdapterCallback 
 
 
 
+
+
         recyclerView.addOnScrollListener(new PaginationScrollListener(linearLayoutManager) {
             @Override
             protected void loadMoreItems() {
@@ -129,6 +131,7 @@ public class HomeFragment extends Fragment implements PaginationAdapterCallback 
         });
 
         recyclerView.setAdapter(stHomeAdapter);
+
        // ViewCompat.setNestedScrollingEnabled(recyclerView, false);
 
         if(AppSharedPreference.getUserType().equals("3")) {

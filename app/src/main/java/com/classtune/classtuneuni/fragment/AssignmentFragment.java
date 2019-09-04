@@ -39,6 +39,7 @@ import com.classtune.classtuneuni.utils.VerticalSpaceItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -127,20 +128,20 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.It
         ((MainActivity)getActivity()).mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override
             public void onTabChanged(String s) {
-                int pos = ((MainActivity)getActivity()).mTabHost.getCurrentTab();
-                if(AppSharedPreference.getUserType().equals("3"))
-                {
-                    StCourseSection ss = AppSharedPreference.getStUserTab(s, pos);
-                    GlobalCourseId = ss.getCourseCode();
-                    GlobalOfferedCourseSectionId = ss.getCourseOfferSectionId();
-                    callStAssignmentListApi(GlobalOfferedCourseSectionId);
+                if (((MainActivity) Objects.requireNonNull(getActivity())).mTabHost != null) {
+                    int pos = ((MainActivity) getActivity()).mTabHost.getCurrentTab();
+                    if (AppSharedPreference.getUserType().equals("3")) {
+                        StCourseSection ss = AppSharedPreference.getStUserTab(s, pos);
+                        GlobalCourseId = ss.getCourseCode();
+                        GlobalOfferedCourseSectionId = ss.getCourseOfferSectionId();
+                        callStAssignmentListApi(GlobalOfferedCourseSectionId);
 
-                }
-                else {
-                    AssignmentSection ss = AppSharedPreference.getUserTab(s, pos);
-                    GlobalCourseId = ss.getCourseId();
-                    GlobalOfferedCourseSectionId = ss.getOfferedSectionId();
-                    callOfferedCoursesApi();
+                    } else {
+                        AssignmentSection ss = AppSharedPreference.getUserTab(s, pos);
+                        GlobalCourseId = ss.getCourseId();
+                        GlobalOfferedCourseSectionId = ss.getOfferedSectionId();
+                        callOfferedCoursesApi();
+                    }
                 }
             }
         });

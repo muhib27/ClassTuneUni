@@ -2,12 +2,17 @@ package com.classtune.classtuneuni.fragment;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.activity.MainActivity;
+
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,4 +32,9 @@ public class TeacherClassReportFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_teacher_class_report, container, false);
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ((MainActivity) Objects.requireNonNull(getActivity())).tabRl.setVisibility(View.VISIBLE);
+    }
 }

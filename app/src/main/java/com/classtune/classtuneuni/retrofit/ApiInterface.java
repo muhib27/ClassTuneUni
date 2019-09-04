@@ -161,9 +161,7 @@ public interface ApiInterface {
     @POST(URLHelper.OFFERED_SECTION_LIST)
     Observable<Response<AssignmentSectionResponse>> getOfferedSectionList(@Field("api_key") String api_key);
 
-    @FormUrlEncoded
-    @POST(URLHelper.OFFERED_COURSE_LIST)
-    Observable<Response<CourseOfferSectionResponse>> getOfferedCourseList(@Field("api_key") String api_key);
+
 
     @FormUrlEncoded
     @POST(URLHelper.SECTION_STUDENT_LIST)
@@ -245,6 +243,13 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST(URLHelper.STUDENT_HOME_HEADER)
     Observable<Response<StHomeHeaderRespons>> getStHomeHeader(@Field("api_key") String api_key);
+
+
+    //teacher
+
+//    @FormUrlEncoded
+//    @POST(URLHelper.OFFERED_COURSE_LIST)
+//    Observable<Response<CourseOfferSectionResponse>> getOfferedCourseList(@Field("api_key") String api_key);
 
 }
 

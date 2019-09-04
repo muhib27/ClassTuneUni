@@ -35,7 +35,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         }
         else if (position == 2)
         {
-            fragment = new NoticeListFragment();
+            fragment = new StudentReportFragment();
         }
         return fragment;
     }

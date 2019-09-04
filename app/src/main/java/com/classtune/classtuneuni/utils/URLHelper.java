@@ -47,7 +47,7 @@ public class URLHelper {
 	public static final String ASSIGNMENT_LIST = "assignment_api/assignment_list";
 	public static final String ASSIGNMENT_SUBMITED_LIST = "assignment_api/view";
 	public static final String OFFERED_SECTION_LIST = "assignment_api/offered_sections";
-	public static final String OFFERED_COURSE_LIST = "assignment_api/offered_courses";
+	//public static final String OFFERED_COURSE_LIST = "assignment_api/offered_courses";
     public static final String ASSIGNMENT_ADD ="assignment_api/add" ;
 
 	public static final String STUDENT_ASSIGNMENT_LIST = "assignment_api/student_course_assignments";
@@ -83,7 +83,8 @@ public class URLHelper {
 
 
 
-
+//teacher
+public static final String OFFERED_COURSE_LIST = "course_api/course_offers";
 
 
 
