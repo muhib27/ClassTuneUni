@@ -10,4 +10,12 @@ public class StudentListData {
     @SerializedName("students")
     @Expose
     private List<Student> students = null;
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
 }

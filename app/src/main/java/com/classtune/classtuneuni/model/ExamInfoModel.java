@@ -29,6 +29,26 @@ public class ExamInfoModel {
     @Expose
     private String obtainedMark;
 
+    @SerializedName("assessment_id")
+    @Expose
+    private String assessmentId;
+
+    @SerializedName("assessment_name")
+    @Expose
+    private String assessmentName;
+
+    @SerializedName("published")
+    @Expose
+    private String published;
+
+    @SerializedName("total_students")
+    @Expose
+    private String totalStudents;
+    @SerializedName("participants")
+    @Expose
+    private String participants;
+
+
     public String getExamId() {
         return examId;
     }
@@ -91,5 +111,45 @@ public class ExamInfoModel {
 
     public void setObtainedMark(String obtainedMark) {
         this.obtainedMark = obtainedMark;
+    }
+
+    public String getAssessmentId() {
+        return assessmentId;
+    }
+
+    public void setAssessmentId(String assessmentId) {
+        this.assessmentId = assessmentId;
+    }
+
+    public String getPublished() {
+        return published;
+    }
+
+    public void setPublished(String published) {
+        this.published = published;
+    }
+
+    public String getTotalStudents() {
+        return totalStudents;
+    }
+
+    public void setTotalStudents(String totalStudents) {
+        this.totalStudents = totalStudents;
+    }
+
+    public String getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(String participants) {
+        this.participants = participants;
+    }
+
+    public String getAssessmentName() {
+        return assessmentName;
+    }
+
+    public void setAssessmentName(String assessmentName) {
+        this.assessmentName = assessmentName;
     }
 }

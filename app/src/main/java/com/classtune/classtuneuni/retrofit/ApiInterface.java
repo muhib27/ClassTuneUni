@@ -5,6 +5,7 @@ import com.classtune.classtuneuni.assignment.AssignmentSectionResponse;
 import com.classtune.classtuneuni.assignment.AssignmentSubmitedListResponse;
 import com.classtune.classtuneuni.assignment.TeacherAssignmentResponse;
 import com.classtune.classtuneuni.attendance.StudentAttendanceResponse;
+import com.classtune.classtuneuni.attendance.StudentListAttenResponse;
 import com.classtune.classtuneuni.class_schedule.StClsScheduleResponse;
 import com.classtune.classtuneuni.course_resonse.CorsSecStudentResponse;
 import com.classtune.classtuneuni.course_resonse.CourseListResponse;
@@ -31,15 +32,19 @@ import com.classtune.classtuneuni.result.StCourseResultResponse;
 import com.classtune.classtuneuni.utils.URLHelper;
 import com.google.gson.JsonElement;
 
+import java.util.List;
+
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Response;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Query;
 
 
 //import io.reactivex.Observable;
@@ -165,6 +170,8 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST(URLHelper.SECTION_STUDENT_LIST)
+    //Observable<Response<JsonElement>> getSectionStudentList(@Field("api_key") String api_key, @Field("course_offer_sections_id") String course_offer_sections_id);
+
     Observable<Response<CorsSecStudentResponse>> getSectionStudentList(@Field("api_key") String api_key, @Field("course_offer_sections_id") String course_offer_sections_id);
 
     //    @POST(URLHelper.ASSIGNMENT_ADD)
@@ -251,6 +258,21 @@ public interface ApiInterface {
 //    @POST(URLHelper.OFFERED_COURSE_LIST)
 //    Observable<Response<CourseOfferSectionResponse>> getOfferedCourseList(@Field("api_key") String api_key);
 
+    @FormUrlEncoded
+    @POST(URLHelper.TEACHER_EXAM_LIST)
+    Observable<Response<ExamResponse>> getTeacherExamList(@Field("api_key") String api_key, @Field("course_offer_section_id") String course_offer_section_id);
+
+
+//    @FormUrlEncoded
+//    @POST(Api.user_create_monthly_Plan)
+//    Observable<Response<ResponseBody>> monthly_plan(@Query("user_id") int userId,
+//                                                    @Query("month") String month,
+//                                                    @Query("api_token") String token,
+//                                                    @Field("plan_list[]") List<String> plan_list);
+
+//    @FormUrlEncoded
+//    @POST(URLHelper.ATTENDANCE_STUDENT_LIST)
+//    Observable<Response<StudentListAttenResponse>> getSecStudents(@Field("api_key") String api_key, @Field("course_offer_sections_id") String course_offer_sections_id);
 }
 
 

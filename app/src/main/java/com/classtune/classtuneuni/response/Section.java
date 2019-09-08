@@ -12,6 +12,8 @@ public class Section {
     @Expose
     private String name;
 
+    private String sectionStatus;
+
     public Section(String id, String name) {
         this.id = id;
         this.name = name;
@@ -37,5 +39,13 @@ public class Section {
     @Override
     public String toString() {
         return name;
+    }
+
+    public String getSectionStatus() {
+        return sectionStatus;
+    }
+
+    public void setSectionStatus(String sectionStatus) {
+        this.sectionStatus = sectionStatus;
     }
 }

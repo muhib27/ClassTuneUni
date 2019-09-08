@@ -22,6 +22,7 @@ import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.notice.NoticcCourseSection;
 import com.classtune.classtuneuni.notice.NoticeDetails;
 import com.classtune.classtuneuni.notice.NoticeDetailsResponse;
+import com.classtune.classtuneuni.response.CourseSection;
 import com.classtune.classtuneuni.response.NoticeOfferResponse;
 import com.classtune.classtuneuni.response.Section;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
@@ -32,6 +33,7 @@ import com.google.gson.JsonElement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -49,6 +51,7 @@ public class TeacherNoticeDetails extends Fragment implements View.OnClickListen
     UIHelper uiHelper;
     Button back, edit, delete;
     String noticeId ="";
+    List<NoticcCourseSection> noticeSectionList;
 
 
     public TeacherNoticeDetails() {
@@ -67,11 +70,13 @@ public class TeacherNoticeDetails extends Fragment implements View.OnClickListen
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if(((MainActivity)getActivity()).tabRl.getVisibility() == View.VISIBLE)
+        if(((MainActivity) Objects.requireNonNull(getActivity())).tabRl.getVisibility() == View.VISIBLE)
             ((MainActivity)getActivity()).tabRl.setVisibility(View.GONE);
 
         noticeId = getArguments().getString("noticeId");
         uiHelper = new UIHelper(getActivity());
+
+        noticeSectionList = new ArrayList<>();
 
         title = view.findViewById(R.id.title);
         course = view.findViewById(R.id.course);
@@ -198,6 +203,7 @@ public class TeacherNoticeDetails extends Fragment implements View.OnClickListen
     }
 
     private void populateData(NoticeDetails data) {
+        noticeSectionList = data.getCourseSection();
         getCourseSection(data.getCourseSection());
         title.setText(data.getNotices().getTitle());
         date.setText(data.getNotices().getCreatedAt());
@@ -312,14 +318,10 @@ public class TeacherNoticeDetails extends Fragment implements View.OnClickListen
                         noticeOfferResponseList = new ArrayList<>();
 
                         NoticeOfferResponse noticeOfferResponse = value.body();
-                        if (noticeOfferResponse.getCode() == 200) {
+                        if (noticeOfferResponse.getStatus().getCode() == 200) {
 
                             noticeOfferResponseList = noticeOfferResponse.getNoticeOfferData().getSections();
-//                            Log.v("noticeResponseModel", value.message());
-//                            List<Notice> noticeList = noticeResonse.getData().getNotice();
-//                            Collections.reverse(noticeList);
-//                            itemAdapter.addAllData(noticeList);
-//                            Log.v("tt", noticeList.toString());
+
                             createNoticeDialog();
                             //  Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
                         } else
@@ -406,8 +408,11 @@ public class TeacherNoticeDetails extends Fragment implements View.OnClickListen
             view1 = inflater.inflate(R.layout.checkbox_section_view, main, false);
             checkBox = view1.findViewById(R.id.cb);
             // ll = (LinearLayout) view1.findViewById(R.id.ll);
-            checkBox.setText(noticeOfferResponseList.get(i).getName());
-            checkBox.setId(Integer.parseInt(noticeOfferResponseList.get(i).getId()));
+            for(int j = 0; j<noticeSectionList.size(); j++) {
+               // noticeSectionList.get(j).g
+                checkBox.setText(noticeOfferResponseList.get(i).getName());
+                checkBox.setId(Integer.parseInt(noticeOfferResponseList.get(i).getId()));
+            }
             main.addView(checkBox, i);
         }
 

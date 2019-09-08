@@ -5,61 +5,149 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".fragment.TakeAttendanceFragment">
-
-    <RelativeLayout
-        android:id="@+id/tab"
+    <TextView
+        android:layout_alignParentTop="true"
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="@dimen/size_10dp"
-        android:orientation="horizontal">
+        android:layout_marginTop="@dimen/size_40dp"
+        android:fontFamily="@font/robotobold"
+        android:maxLines="2"
+        android:padding="@dimen/size_10dp"
+        android:text="Class Test 2"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_28_sp"
+        android:textStyle="bold" />
+    <RelativeLayout
+        android:id="@+id/examInfo"
+        android:layout_below="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv"
+        <LinearLayout
+            android:layout_marginTop="@dimen/size_5dp"
+            android:id="@+id/basicInfo"
+            android:layout_alignParentStart="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="Download" />
+            android:orientation="vertical">
 
-        <TabHost
-            android:id="@android:id/tabhost"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toStartOf="@+id/tv">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_10dp"
+                android:padding="@dimen/size_10dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Md. Rohim"
+                        android:textSize="@dimen/text_size_12_sp" />
+
+                    <View
+                        android:layout_width="@dimen/size_12dp"
+                        android:layout_height="@dimen/size_12dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/size_20dp"
+                        android:layout_marginRight="@dimen/size_20dp"
+                        android:background="@drawable/filled_circle" />
+
+                    <TextView
+                        android:id="@+id/courseCode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="CSE 101"
+                        android:textColor="#90BE47"
+                        android:textSize="@dimen/text_size_12_sp" />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="@dimen/size_10dp"
+                android:layout_marginTop="@dimen/size_10dp"
+                android:orientation="horizontal">
 
-                <HorizontalScrollView
-                    android:layout_width="fill_parent"
+                <TextView
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fillViewport="true"
-                    android:scrollbars="none">
+                    android:text="@string/examDateText"
+                    android:textSize="@dimen/text_size_10_sp" />
 
-                    <TabWidget
-                        android:id="@android:id/tabs"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </HorizontalScrollView>
-
-                <FrameLayout
-                    android:id="@android:id/tabcontent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                </FrameLayout>
+                <TextView
+                    android:id="@+id/examDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/size_10dp"
+                    android:text="22 Julu, 2019"
+                    android:textColor="@color/appColor"
+                    android:textSize="@dimen/text_size_10_sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
-        </TabHost>
+
+        </LinearLayout>
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/cardView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            card_view:cardElevation="4dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="@dimen/size_20dp"
+            card_view:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_margin="@dimen/size_10dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/participant"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/text_size_25_sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--"/>
+
+                <View
+                    android:paddingRight="@dimen/size_10dp"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:background="#B5B5B5"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+                <TextView
+                    android:id="@+id/total"
+                    android:paddingRight="@dimen/size_20dp"
+                    android:paddingLeft="@dimen/size_20dp"
+                    android:textSize="@dimen/text_size_25_sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10"/>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
     </RelativeLayout>
+
+
     <LinearLayout
+        android:layout_marginTop="@dimen/size_10dp"
         android:id="@+id/header"
-        android:layout_below="@+id/tab"
+        android:layout_below="@+id/examInfo"
         android:elevation="@dimen/size_3dp"
         android:layout_marginLeft="@dimen/size_10dp"
         android:layout_marginRight="@dimen/size_10dp"

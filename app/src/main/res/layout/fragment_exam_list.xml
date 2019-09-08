@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.ExamListFragment">
 
@@ -14,6 +15,59 @@
         android:background="@null"
         android:scrollbars="vertical"
         app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior" />
+
+    <!--<View-->
+        <!--android:layout_marginBottom="-100dp"-->
+        <!--android:layout_marginTop="-100dp"-->
+        <!--android:clickable="false"-->
+        <!--android:id="@+id/shadowView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="#F2FFFFFF"-->
+        <!--android:visibility="visible" />-->
+    <com.github.clans.fab.FloatingActionMenu
+        android:fitsSystemWindows="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/menu_yellow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="-200dp"
+        fab:menu_labels_style="@style/MenuLabelsStyle"
+        fab:menu_labels_showAnimation="@anim/jump_from_down"
+        fab:menu_labels_hideAnimation="@anim/jump_to_down"
+        fab:menu_animationDelayPerItem="0"
+        fab:menu_shadowColor="#444"
+        fab:menu_colorNormal="#FFB805"
+        fab:menu_colorPressed="#F2AB00"
+        fab:menu_colorRipple="#D99200">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bell_icon"
+            fab:fab_label="Menu item 1"
+            style="@style/MenuButtonsStyle" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/email_icon"
+            fab:fab_label="Menu item 2"
+            style="@style/MenuButtonsStyle" />
+
+        <!--<com.github.clans.fab.FloatingActionButton-->
+            <!--android:id="@+id/fab32"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/ic_edit"-->
+            <!--fab:fab_label="@string/lorem_ipsum"-->
+            <!--style="@style/MenuButtonsStyle" />-->
+
+    </com.github.clans.fab.FloatingActionMenu>
 
 
 </RelativeLayout>

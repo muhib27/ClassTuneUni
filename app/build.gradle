@@ -55,6 +55,7 @@ dependencies {
     }
 
     implementation 'com.vincent.filepicker:MultiTypeFilePicker:1.0.8'
+    implementation 'com.github.clans:fab:1.6.4'
 //    implementation 'com.github.MdFarhanRaja:SearchableSpinner:2.0'
 
 }

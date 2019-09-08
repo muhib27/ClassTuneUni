@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -13,6 +14,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,6 +53,8 @@ import static com.classtune.classtuneuni.activity.MainActivity.GlobalOfferedCour
  * A simple {@link Fragment} subclass.
  */
 public class ExamListFragment extends Fragment implements ExamListAdapter.ItemListener {
+    FloatingActionButton fab1, fab2, fab3;
+    FloatingActionButton fab;
 
     TabHost mTabHost;
     RecyclerView recyclerView;
@@ -57,6 +62,8 @@ public class ExamListFragment extends Fragment implements ExamListAdapter.ItemLi
     LinearLayoutManager linearLayoutManager;
     ExamListAdapter examListAdapter;
     UIHelper uiHelper;
+
+
 
 
     public ExamListFragment() {
@@ -77,6 +84,17 @@ public class ExamListFragment extends Fragment implements ExamListAdapter.ItemLi
         ((MainActivity)getActivity()).tabRl.setVisibility(View.VISIBLE);
         uiHelper = new UIHelper(getActivity());
 
+
+
+
+
+        if(AppSharedPreference.getUserType().equals("3")){
+
+        }
+        else {
+
+        }
+
         recyclerView = view.findViewById(R.id.recyclerView);
 
         examList = new ArrayList<>();
@@ -93,7 +111,7 @@ public class ExamListFragment extends Fragment implements ExamListAdapter.ItemLi
             callStExamListApi(GlobalOfferedCourseSectionId);
         }
         else {
-
+            callTeacherExamListApi(GlobalOfferedCourseSectionId);
         }
 
         ((MainActivity)getActivity()).mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
@@ -112,7 +130,7 @@ public class ExamListFragment extends Fragment implements ExamListAdapter.ItemLi
                     AssignmentSection ss = AppSharedPreference.getUserTab(s, pos);
                     GlobalCourseId = ss.getCourseId();
                     GlobalOfferedCourseSectionId = ss.getOfferedSectionId();
-                    //callOfferedCoursesApi();
+                    callTeacherExamListApi(GlobalOfferedCourseSectionId);
                 }
             }
         });
@@ -195,4 +213,69 @@ public class ExamListFragment extends Fragment implements ExamListAdapter.ItemLi
 
 
     }
+
+
+    private void callTeacherExamListApi(String globalOfferedCourseSectionId) {
+
+
+        if (!NetworkConnection.getInstance().isNetworkAvailable()) {
+            Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        uiHelper.showLoadingDialog("Please wait...");
+
+        // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
+        RetrofitApiClient.getApiInterfaceWithId().getTeacherExamList(AppSharedPreference.getApiKey(), globalOfferedCourseSectionId)
+
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<ExamResponse>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Response<ExamResponse> value) {
+                        uiHelper.dismissLoadingDialog();
+
+                        ExamResponse examResponse = value.body();
+                        if (examResponse.getStatus().getCode() == 200) {
+//
+                            examList = examResponse.getData().getExams();
+//
+//
+//                            List<String> dateList = new ArrayList<>();
+//                            for (int r = 0; r < noticeList.size(); r++) {
+//                                String sub = noticeList.get(r).getNotice().getCreatedAt().substring(0, 10);
+//                                if (!dateList.contains(sub))
+//                                    dateList.add(sub);
+//                            }
+
+//                            itemList = buildItemList(noticeList, dateList);
+                            examListAdapter.clear();
+                            examListAdapter.addAllData(examList);
+//                            Log.v("tt", noticeList.toString());
+                            //  Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        uiHelper.dismissLoadingDialog();
+                    }
+
+                    @Override
+                    public void onComplete() {
+//                        progressDialog.dismiss();
+                        uiHelper.dismissLoadingDialog();
+                    }
+                });
+
+
+    }
+
 }

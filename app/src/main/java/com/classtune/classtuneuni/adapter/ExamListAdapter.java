@@ -1,7 +1,10 @@
 package com.classtune.classtuneuni.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,8 +16,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.activity.MainActivity;
+import com.classtune.classtuneuni.fragment.TeacherResultEntryFragment;
 import com.classtune.classtuneuni.home.StHomeFeed;
 import com.classtune.classtuneuni.model.ExamInfoModel;
+import com.classtune.classtuneuni.utils.AppSharedPreference;
 import com.classtune.classtuneuni.utils.AppUtility;
 import com.classtune.classtuneuni.utils.PaginationAdapterCallback;
 
@@ -51,7 +57,7 @@ public class ExamListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         switch (viewType) {
             case ITEM:
-                View viewItem = inflater.inflate(R.layout.exam_item_row, parent, false);
+                View viewItem = inflater.inflate(R.layout.teacher_exam_item_row, parent, false);
                 viewHolder = new MovieVH(viewItem);
                 break;
 
@@ -65,13 +71,29 @@ public class ExamListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         switch (getItemViewType(position)) {
             case ITEM:
                 final MovieVH itemHolder = (MovieVH) viewHolder;
-                itemHolder.examName.setText(examInfoModel.getExamName());
+                if(AppSharedPreference.getUserType().equals("3")) {
+                    itemHolder.praticipantText.setVisibility(View.INVISIBLE);
+                    if(examInfoModel.getObtainedMark()!=null)
+                        itemHolder.marks.setText(examInfoModel.getObtainedMark());
+                    if(examInfoModel.getExamMark()!=null)
+                        itemHolder.total.setText(examInfoModel.getExamMark());
+                    if(examInfoModel.getInstructor()!=null)
+                    itemHolder.name.setText(examInfoModel.getInstructor());
+                }
+                else {
+                    itemHolder.praticipantText.setVisibility(View.VISIBLE);
+                    if(examInfoModel.getParticipants()!=null)
+                        itemHolder.marks.setText(examInfoModel.getParticipants());
+                    if(examInfoModel.getTotalStudents()!=null)
+                        itemHolder.total.setText(examInfoModel.getTotalStudents());
+                    if(examInfoModel.getAssessmentName()!=null)
+                    itemHolder.name.setText(examInfoModel.getAssessmentName());
+                }
+
+                if(examInfoModel.getExamName()!=null)
+                    itemHolder.examName.setText(examInfoModel.getExamName());
+
                 itemHolder.subject.setText(examInfoModel.getCourseCode());
-                itemHolder.name.setText(examInfoModel.getInstructor());
-                if(examInfoModel.getObtainedMark()!=null)
-                itemHolder.marks.setText(examInfoModel.getObtainedMark());
-                if(examInfoModel.getExamMark()!=null)
-                itemHolder.total.setText(examInfoModel.getExamMark());
                 if(examInfoModel.getExamDate()!=null)
                     itemHolder.date.setText(AppUtility.getDateString(examInfoModel.getExamDate(), AppUtility.DATE_FORMAT_APP, AppUtility.DATE_FORMAT_SERVER));
                 itemHolder.examCell.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +102,18 @@ public class ExamListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 //                        if (mListener != null) {
 //                            mListener.onItemClick(examInfoModel, position);
 //                        }
+                        if(AppSharedPreference.getUserType().equals("2"))
+                        {
+                            Fragment fragment =new TeacherResultEntryFragment();
+                            Bundle bundle = new Bundle();
+                            bundle.putString("examName", examInfoModel.getExamName());
+                            bundle.putString("courseCode", examInfoModel.getCourseCode());
+                            bundle.putString("assessmentName", examInfoModel.getAssessmentName());
+                            bundle.putString("examDate", examInfoModel.getExamDate());
+                            bundle.putString("participant", examInfoModel.getParticipants());
+                            bundle.putString("total", examInfoModel.getTotalStudents());
+                            gotoFragment(fragment, "reacherResultEntryFragment", bundle);
+                        }
                         }
                     });
                 break;
@@ -112,7 +146,7 @@ public class ExamListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             private TextView marks, total, date; // displays "year | language"
             private ImageView mPosterImg;
             private ProgressBar mProgress;
-            private TextView examName;
+            private TextView examName, praticipantText;
             private RelativeLayout examCell;
             CardView cardView;
 
@@ -125,9 +159,11 @@ public class ExamListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 marks = itemView.findViewById(R.id.marks);
                 examCell = itemView.findViewById(R.id.examCell);
                 date = itemView.findViewById(R.id.examDate);
+                praticipantText = itemView.findViewById(R.id.participantText);
 
             }
         }
+
 
     public void add(ExamInfoModel r) {
         mValues.add(r);
@@ -139,7 +175,6 @@ public class ExamListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             add(result);
         }
     }
-
 
     public void remove(ExamInfoModel r) {
         int position = mValues.indexOf(r);
@@ -182,5 +217,13 @@ public class ExamListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return mValues.get(position);
     }
 
+    private void gotoFragment(Fragment fragment, String tag, Bundle bundle) {
+        // load fragment
 
+        fragment.setArguments(bundle);
+        FragmentTransaction transaction = ((MainActivity) mContext).getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.mainContainer, fragment, tag);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 }

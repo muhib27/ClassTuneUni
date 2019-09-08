@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.assignment.Assignment;
 import com.classtune.classtuneuni.class_schedule.Routine;
+import com.classtune.classtuneuni.home.StHomeFeed;
 import com.classtune.classtuneuni.model.ClassScheduleModel;
 import com.classtune.classtuneuni.utils.AppUtility;
 
@@ -30,6 +31,9 @@ public class ClassScheduleAdapter extends RecyclerView.Adapter<RecyclerView.View
     protected ItemListener mListener;
     private static final int HERO = 2;
     private static final int ITEM = 0;
+
+    private boolean isLoadingAdded = false;
+    private boolean retryPageLoad = false;
 
     public ClassScheduleAdapter(Context context) {
         mValues = new ArrayList<>();
@@ -169,4 +173,21 @@ public class ClassScheduleAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
+    public void remove(Routine r) {
+        int position = mValues.indexOf(r);
+        if (position > -1) {
+            mValues.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public void clear() {
+        isLoadingAdded = false;
+        while (getItemCount() > 0) {
+            remove(getItem(0));
+        }
+    }
+    public Routine getItem(int position) {
+        return mValues.get(position);
+    }
 }

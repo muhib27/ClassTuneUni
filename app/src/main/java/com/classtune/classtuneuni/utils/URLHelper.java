@@ -6,6 +6,8 @@ package com.classtune.classtuneuni.utils;
 public class URLHelper {
 
 
+
+
     public URLHelper() {
 	}
 	//public static final String BASE_URL= "http://192.168.3.43/";
@@ -85,6 +87,11 @@ public class URLHelper {
 
 //teacher
 public static final String OFFERED_COURSE_LIST = "course_api/course_offers";
+	public static final String TEACHER_EXAM_LIST = "exam_api/exam_list";
+
+	public static final String ATTENDANCE_STUDENT_LIST ="attendance_api/enrolled_students" ;
+
+
 
 
 

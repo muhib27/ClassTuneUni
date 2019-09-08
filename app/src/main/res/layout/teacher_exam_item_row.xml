@@ -35,6 +35,7 @@
                 android:textStyle="normal" />
 
             <LinearLayout
+                android:gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/size_10dp"
@@ -48,10 +49,11 @@
                     android:textSize="@dimen/text_size_14_sp" />
 
                 <View
-                    android:layout_width="@dimen/size_16dp"
-                    android:layout_height="@dimen/size_16dp"
-                    android:layout_marginLeft="@dimen/size_20dp"
-                    android:layout_marginRight="@dimen/size_20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="@dimen/size_10dp"
+                    android:layout_height="@dimen/size_10dp"
+                    android:layout_marginLeft="@dimen/size_10dp"
+                    android:layout_marginRight="@dimen/size_10dp"
                     android:background="@drawable/filled_circle" />
 
                 <TextView
@@ -112,7 +114,7 @@
                     android:id="@+id/marks"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2.5"
+                    android:text="--"
                     android:textColor="@color/appColor"
                     android:textSize="@dimen/text_size_36_sp"
                     android:textStyle="bold" />
@@ -134,6 +136,7 @@
                     android:textSize="@dimen/text_size_14_sp" />
             </LinearLayout>
             <TextView
+                android:id="@+id/participantText"
                 android:textColor="#717171"
                 android:textSize="@dimen/text_size_10_sp"
                 android:layout_alignParentEnd="true"

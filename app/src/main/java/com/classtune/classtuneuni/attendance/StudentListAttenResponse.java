@@ -11,4 +11,20 @@ public class StudentListAttenResponse {
     @SerializedName("data")
     @Expose
     private StudentListData data;
+
+    public CommonStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(CommonStatus status) {
+        this.status = status;
+    }
+
+    public StudentListData getData() {
+        return data;
+    }
+
+    public void setData(StudentListData data) {
+        this.data = data;
+    }
 }

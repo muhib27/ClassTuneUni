@@ -19,6 +19,8 @@ public class Student {
     @Expose
     private String absent;
 
+    private String status;
+
     public String getUserId() {
         return userId;
     }
@@ -49,5 +51,13 @@ public class Student {
 
     public void setAbsent(String absent) {
         this.absent = absent;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

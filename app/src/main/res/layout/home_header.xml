@@ -60,7 +60,7 @@
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:gravity="center"
-                        android:text="CSE 101"
+                        android:text=""
                         android:textColor="@color/appColor"
                         android:textSize="@dimen/text_size_14_sp" />
 
@@ -72,7 +72,7 @@
                         android:background="@color/white"
                         android:gravity="center"
                         android:padding="@dimen/size_5dp"
-                        android:text="15/16 days"
+                        android:text=""
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_size_10_sp" />
 
@@ -83,7 +83,7 @@
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:gravity="center"
-                        android:text="94%"
+                        android:text=""
                         android:textColor="@color/ash_b5"
                         android:textSize="@dimen/text_size_25_sp" />
                 </LinearLayout>
@@ -150,7 +150,7 @@
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:gravity="center"
-                        android:text="CSE 101"
+                        android:text=""
                         android:textColor="@color/appColor"
                         android:textSize="@dimen/text_size_14_sp" />
 
@@ -162,7 +162,7 @@
                         android:gravity="center"
                         android:padding="@dimen/size_5dp"
                         android:maxLines="1"
-                        android:text="Md. Rahim"
+                        android:text=""
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_size_10_sp" />
 
@@ -177,7 +177,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@color/white"
-                            android:text="10:30"
+                            android:text=""
                             android:textColor="@color/ash_b5"
                             android:textSize="@dimen/text_size_25_sp" />
 
@@ -256,7 +256,7 @@
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:gravity="center"
-                        android:text="PHY 101"
+                        android:text=""
                         android:textColor="@color/appColor"
                         android:textSize="@dimen/text_size_14_sp" />
 
@@ -268,7 +268,7 @@
                         android:background="@color/white"
                         android:gravity="center"
                         android:padding="@dimen/size_5dp"
-                        android:text="Assignment"
+                        android:text=""
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_size_10_sp" />
 
@@ -284,7 +284,7 @@
                             android:layout_height="wrap_content"
                             android:background="@color/white"
                             android:gravity="center"
-                            android:text="24"
+                            android:text=""
                             android:textColor="@color/ash_b5"
                             android:textSize="@dimen/text_size_25_sp" />
 
@@ -295,7 +295,7 @@
                             android:layout_toEndOf="@+id/date"
                             android:background="@color/white"
                             android:paddingBottom="@dimen/size_3dp"
-                            android:text="July"
+                            android:text=""
                             android:textColor="@color/ash_b5"
                             android:textSize="@dimen/size_16sp" />
                     </LinearLayout>

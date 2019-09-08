@@ -13,12 +13,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TabHost;
 
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.adapter.PagerAdapter;
+import com.classtune.classtuneuni.assignment.AssignmentSection;
+import com.classtune.classtuneuni.response.StCourseSection;
+import com.classtune.classtuneuni.utils.AppSharedPreference;
 
 import java.util.Objects;
+
+import static com.classtune.classtuneuni.activity.MainActivity.GlobalCourseId;
+import static com.classtune.classtuneuni.activity.MainActivity.GlobalOfferedCourseSectionId;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,6 +53,8 @@ public class TeacherAttendanceFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ((MainActivity) Objects.requireNonNull(getActivity())).tabRl.setVisibility(View.VISIBLE);
+
+
 
         viewPager = (ViewPager) view.findViewById(R.id.pager);
         pagerAdapter = new PagerAdapter(getActivity().getSupportFragmentManager());

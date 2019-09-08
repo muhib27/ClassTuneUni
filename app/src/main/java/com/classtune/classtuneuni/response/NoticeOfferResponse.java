@@ -1,35 +1,25 @@
 package com.classtune.classtuneuni.response;
 
 
+import com.classtune.classtuneuni.model.CommonStatus;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class NoticeOfferResponse {
 
-    @SerializedName("code")
+    @SerializedName("status")
     @Expose
-    private Integer code;
-    @SerializedName("msg")
-    @Expose
-    private String msg;
+    private CommonStatus status;;
     @SerializedName("data")
     @Expose
     private NoticeOfferData noticeOfferData;
 
-    public Integer getCode() {
-        return code;
+    public CommonStatus getStatus() {
+        return status;
     }
 
-    public void setCode(Integer code) {
-        this.code = code;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setStatus(CommonStatus status) {
+        this.status = status;
     }
 
     public NoticeOfferData getNoticeOfferData() {

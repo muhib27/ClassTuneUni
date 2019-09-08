@@ -96,8 +96,10 @@ public class NoticeListFragment extends Fragment implements View.OnClickListener
         if (AppSharedPreference.getUserType().equals("3")) {
             fabAdd.hide();
             callStudentNoticeListApi();
-        } else
+        } else {
+            fabAdd.show();
             callNoticeListApi();
+        }
     }
 
 //    private List<Item> buildItemList() {
@@ -300,7 +302,7 @@ public class NoticeListFragment extends Fragment implements View.OnClickListener
                         noticeOfferResponseList = new ArrayList<>();
 
                         NoticeOfferResponse noticeOfferResponse = value.body();
-                        if (noticeOfferResponse.getCode() == 200) {
+                        if (noticeOfferResponse.getStatus().getCode() == 200) {
 
                             noticeOfferResponseList = noticeOfferResponse.getNoticeOfferData().getSections();
 //                            Log.v("noticeResponseModel", value.message());

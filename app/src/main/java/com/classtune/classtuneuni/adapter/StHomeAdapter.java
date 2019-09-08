@@ -268,9 +268,14 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             case HEADER:
                 final Header headerHolder = (Header) viewHolder;
                 //  heroHolder.title.setText(result.getContent());
-                headerHolder.attendanceSubCode.setText(stHomeAttendanceList.get(0).getCourseCode());
-                headerHolder.attendancePresent.setText(""+stHomeAttendanceList.get(0).getPresent() + "/"  + stHomeAttendanceList.get(0).getTotalClass());
-                headerHolder.attendanceParcent.setText(""+ stHomeAttendanceList.get(0).getPercentage() + "%");
+                if(stHomeAttendanceList.size()>0) {
+                    if (stHomeAttendanceList.get(0).getCourseCode() != null)
+                        headerHolder.attendanceSubCode.setText(stHomeAttendanceList.get(0).getCourseCode());
+                    if (stHomeAttendanceList.get(0).getPresent() != null && stHomeAttendanceList.get(0).getCourseCode() != null)
+                    headerHolder.attendancePresent.setText("" + stHomeAttendanceList.get(0).getPresent() + "/" + stHomeAttendanceList.get(0).getTotalClass());
+                    if (stHomeAttendanceList.get(0).getPercentage() != null)
+                    headerHolder.attendanceParcent.setText("" + stHomeAttendanceList.get(0).getPercentage() + "%");
+                }
 
                 if(stNextClass != null && stNextClass.getCourseCode()!=null)
                 headerHolder.nextSubCode.setText(stNextClass.getCourseCode());
@@ -812,6 +817,9 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             remove(getItem(0));
         }
     }
+    public StHomeFeed getItem(int position) {
+        return mValues.get(position);
+    }
 
     public boolean isEmpty() {
         return getItemCount() == 0;
@@ -835,9 +843,7 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
-    public StHomeFeed getItem(int position) {
-        return mValues.get(position);
-    }
+
 
     private void gotoFragment(Fragment fragment, String tag, Bundle bundle) {
         // load fragment

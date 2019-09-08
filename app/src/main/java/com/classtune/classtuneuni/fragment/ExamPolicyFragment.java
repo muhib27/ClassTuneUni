@@ -13,24 +13,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TabHost;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
-import com.classtune.classtuneuni.adapter.ClassScheduleAdapter;
+import com.classtune.classtuneuni.adapter.SubjectResultAdapter;
 import com.classtune.classtuneuni.assignment.AssignmentSection;
-import com.classtune.classtuneuni.class_schedule.Routine;
-import com.classtune.classtuneuni.class_schedule.StClsScheduleResponse;
-import com.classtune.classtuneuni.model.ClassScheduleModel;
+import com.classtune.classtuneuni.model.SubjectResultModel;
 import com.classtune.classtuneuni.response.StCourseSection;
+import com.classtune.classtuneuni.result.CourseResultData;
+import com.classtune.classtuneuni.result.StCourseResultResponse;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
 import com.classtune.classtuneuni.utils.NetworkConnection;
 import com.classtune.classtuneuni.utils.UIHelper;
+import com.classtune.classtuneuni.utils.VerticalSpaceItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -44,15 +45,16 @@ import static com.classtune.classtuneuni.activity.MainActivity.GlobalOfferedCour
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ClassScheduleFragment extends Fragment implements ClassScheduleAdapter.ItemListener {
-
-    UIHelper uiHelper;
+public class ExamPolicyFragment extends Fragment implements SubjectResultAdapter.ItemListener {
     RecyclerView recyclerView;
-    private List<Routine> scheduleList;
+    private List<SubjectResultModel> resultList;
     LinearLayoutManager linearLayoutManager;
-    ClassScheduleAdapter classScheduleAdapter;
+    SubjectResultAdapter subjectResultAdapter;
+    UIHelper uiHelper;
+    private TextView grade, totalObtained, hundred;
+    int totalSt;
 
-    public ClassScheduleFragment() {
+    public ExamPolicyFragment() {
         // Required empty public constructor
     }
 
@@ -61,107 +63,111 @@ public class ClassScheduleFragment extends Fragment implements ClassScheduleAdap
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_class_schedule, container, false);
+        return inflater.inflate(R.layout.fragment_subject_result, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
+        ((MainActivity)getActivity()).tabRl.setVisibility(View.VISIBLE);
+
+
         uiHelper = new UIHelper(getActivity());
-
-        ((MainActivity) Objects.requireNonNull(getActivity())).tabRl.setVisibility(View.VISIBLE);
-
         recyclerView = view.findViewById(R.id.recyclerView);
+        grade = view.findViewById(R.id.grade_tv);
+        totalObtained = view.findViewById(R.id.totalObtained);
+        hundred = view.findViewById(R.id.hundred);
 
-        scheduleList = new ArrayList<>();
+        resultList = new ArrayList<>();
 
 
-        classScheduleAdapter = new ClassScheduleAdapter(getActivity());
+
+        subjectResultAdapter = new SubjectResultAdapter(getActivity());
         linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-//        recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(getResources()));
+        recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(getResources()));
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(classScheduleAdapter);
+        recyclerView.setAdapter(subjectResultAdapter);
 
-        //if(AppSharedPreference.getUserType().equals("3")) {
-            callStClassSchedule(GlobalOfferedCourseSectionId);
-       // }
+        callSubjectResultApi(GlobalOfferedCourseSectionId);
 
         ((MainActivity)getActivity()).mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override
             public void onTabChanged(String s) {
-                if (((MainActivity) Objects.requireNonNull(getActivity())).mTabHost != null) {
-                    int pos = ((MainActivity) getActivity()).mTabHost.getCurrentTab();
-                    if (AppSharedPreference.getUserType().equals("3")) {
-                        StCourseSection ss = AppSharedPreference.getStUserTab(s, pos);
-                        GlobalCourseId = ss.getCourseCode();
-                        GlobalOfferedCourseSectionId = ss.getCourseOfferSectionId();
-                        callStClassSchedule(GlobalOfferedCourseSectionId);
+                int pos = ((MainActivity)getActivity()).mTabHost.getCurrentTab();
+                if(AppSharedPreference.getUserType().equals("3"))
+                {
+                    StCourseSection ss = AppSharedPreference.getStUserTab(s, pos);
+                    GlobalCourseId = ss.getCourseCode();
+                    GlobalOfferedCourseSectionId = ss.getCourseOfferSectionId();
+                    callSubjectResultApi(GlobalOfferedCourseSectionId);
 
-                    } else {
-                        AssignmentSection ss = AppSharedPreference.getUserTab(s, pos);
-                        GlobalCourseId = ss.getCourseId();
-                        GlobalOfferedCourseSectionId = ss.getOfferedSectionId();
-                        callStClassSchedule(GlobalOfferedCourseSectionId);
-                    }
+                }
+                else {
+                    AssignmentSection ss = AppSharedPreference.getUserTab(s, pos);
+                    GlobalCourseId = ss.getCourseId();
+                    GlobalOfferedCourseSectionId = ss.getOfferedSectionId();
                 }
             }
         });
-
     }
 
 
     @Override
-    public void onItemClick(ClassScheduleModel item, int pos) {
+    public void onItemClick(SubjectResultModel item, int pos) {
         // Toast.makeText(getActivity(), " " + pos, Toast.LENGTH_LONG).show();
-      //  loadFragment();
+        loadFragment();
     }
 
     private void loadFragment() {
         // load fragment
-        ExamDetailsFragment examDetailsFragment = new ExamDetailsFragment();
+        AssignmentDetailsFragment assignmentDetailsFragment = new AssignmentDetailsFragment();
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.mainContainer, examDetailsFragment, "examDetailsFragment");
+        transaction.replace(R.id.mainContainer, assignmentDetailsFragment, "assignmentDetailsFragment");
         //transaction.addToBackStack(null);
         transaction.commit();
     }
 
-    private void callStClassSchedule(String courseId) {
+    private void callSubjectResultApi(String globalOfferedCourseSectionId) {
+
 
         if (!NetworkConnection.getInstance().isNetworkAvailable()) {
             Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (!uiHelper.isDialogActive())
-            uiHelper.showLoadingDialog("Please wait...");
+        uiHelper.showLoadingDialog("Please wait...");
 
         // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
-        RetrofitApiClient.getApiInterfaceWithId().getStClassSchedule(AppSharedPreference.getApiKey(), courseId)
+        RetrofitApiClient.getApiInterfaceWithId().getSubjectResult(AppSharedPreference.getApiKey(), globalOfferedCourseSectionId)
 
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Response<StClsScheduleResponse>>() {
+                .subscribe(new Observer<Response<StCourseResultResponse>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Response<StClsScheduleResponse> value) {
+                    public void onNext(Response<StCourseResultResponse> value) {
                         uiHelper.dismissLoadingDialog();
 
-                        StClsScheduleResponse stClsScheduleResponse = value.body();
-                        if (stClsScheduleResponse.getStatus().getCode() == 200) {
-                            //populateData(studentAttendanceResponse.getData());
-                            //scheduleList = new ArrayList<>();
-                            classScheduleAdapter.clear();
-                            classScheduleAdapter.addAllData(stClsScheduleResponse.getData().getRoutine());
-
-                            //Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
-                        } else {
+                        StCourseResultResponse stCourseResultResponse = value.body();
+                        if (stCourseResultResponse.getStatus().getCode() == 200) {
+//
+                            resultList = stCourseResultResponse.getData().getAssessments();
+                            if(resultList!=null)
+                            for(int i = 0; i<resultList.size(); i++){
+                                totalSt = totalSt + resultList.get(i).getWeight();
+                            }
+                            populateData(stCourseResultResponse.getData(), totalSt);
+                            subjectResultAdapter.addAllData(resultList);
+//                            Log.v("tt", noticeList.toString());
+                            //  Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                        } else
                             Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
-                        }
                     }
 
                     @Override
@@ -177,7 +183,16 @@ public class ClassScheduleFragment extends Fragment implements ClassScheduleAdap
                         uiHelper.dismissLoadingDialog();
                     }
                 });
+
+
     }
 
+    private void populateData(CourseResultData data, int totalSt) {
+        if(data.getGrade().getGrade()!=null)
+            grade.setText(data.getGrade().getGrade());
 
+        if(data.getTotalMarks()!=null)
+            totalObtained.setText("" + data.getTotalMarks());
+        hundred.setText(""+ totalSt + "%");
+    }
 }

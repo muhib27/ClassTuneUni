@@ -258,6 +258,7 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.It
 //                            }
 
 //                            itemList = buildItemList(noticeList, dateList);
+                            assignmentAdapter.clear();
                             assignmentAdapter.addAllData(assignmentList);
 //                            Log.v("tt", noticeList.toString());
                           //  Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();

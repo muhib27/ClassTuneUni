@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".fragment.CombinedResultFragment">
+
+    <TextView
+        android:id="@+id/edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/size_20dp"
+        android:layout_marginEnd="@dimen/size_10dp"
+        android:background="@color/appColor"
+        android:paddingStart="@dimen/size_15dp"
+        android:paddingTop="@dimen/size_5dp"
+        android:paddingEnd="@dimen/size_15dp"
+        android:paddingBottom="@dimen/size_5dp"
+        android:text="Edit"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_16_sp" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_grade_obtained"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="@dimen/size_10dp"
+                android:text="Exam Policy"
+                android:textSize="@dimen/text_size_22_sp" />
+
+            <TextView
+                android:id="@+id/grade_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_grade_obtained"
+                android:gravity="center"
+                android:text="CSE 101"
+                android:textColor="@color/appColor"
+                android:textSize="@dimen/text_size_48_sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/breakdown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/grade_tv"
+                android:gravity="center"
+                android:padding="@dimen/size_10dp"
+                android:text="Result Breakdown"
+                android:textSize="@dimen/text_size_16_sp" />
+
+            <LinearLayout
+                android:id="@+id/listHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/breakdown"
+                android:layout_marginLeft="@dimen/size_10dp"
+                android:layout_marginRight="@dimen/size_10dp"
+                android:background="@color/appColor"
+                android:elevation="@dimen/size_3dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/subject"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/my_custom_bold_font"
+                    android:gravity="center"
+                    android:padding="@dimen/size_10dp"
+                    android:text="Assessment"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_16_sp"
+                    android:textStyle="bold" />
+
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/size_10dp"
+                    android:layout_marginBottom="@dimen/size_10dp"
+                    android:background="@color/white" />
+
+                <TextView
+                    android:id="@+id/grade"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/my_custom_bold_font"
+                    android:gravity="center"
+                    android:padding="@dimen/size_10dp"
+                    android:text="Weight"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_16_sp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/listHeader"
+                android:background="@null"
+                android:scrollbars="vertical"
+                app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/recyclerView"
+                android:layout_marginLeft="@dimen/size_10dp"
+                android:layout_marginRight="@dimen/size_10dp"
+                android:layout_marginBottom="@dimen/size_20dp"
+                android:background="#E6E6E6"
+                android:elevation="@dimen/size_3dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/total"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/my_custom_bold_font"
+                    android:gravity="center"
+                    android:padding="@dimen/size_10dp"
+                    android:text="Total"
+                    android:textColor="@color/appColor"
+                    android:textSize="@dimen/text_size_22_sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/hundred"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.2"
+                    android:fontFamily="@font/my_custom_bold_font"
+                    android:gravity="center"
+                    android:padding="@dimen/size_10dp"
+                    android:text="100%"
+                    android:textColor="#717171"
+                    android:textSize="@dimen/text_size_18_sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/totalObtained"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/my_custom_bold_font"
+                    android:gravity="center"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="@dimen/size_10dp"
+                    android:text="86"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_18_sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

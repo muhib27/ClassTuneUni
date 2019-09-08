@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TabWidget;
@@ -25,6 +26,7 @@ import android.widget.Toast;
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.adapter.TakeAttendanceAdapter;
+import com.classtune.classtuneuni.assignment.AssignmentSection;
 import com.classtune.classtuneuni.course_resonse.CorsSecStudentResponse;
 import com.classtune.classtuneuni.model.STAttendanceModel;
 import com.classtune.classtuneuni.model.Student;
@@ -36,12 +38,17 @@ import com.classtune.classtuneuni.utils.UIHelper;
 import com.classtune.classtuneuni.utils.VerticalSpaceItemDecoration;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
+
+import static com.classtune.classtuneuni.activity.MainActivity.GlobalCourseId;
+import static com.classtune.classtuneuni.activity.MainActivity.GlobalOfferedCourseSectionId;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,6 +61,9 @@ public class TakeAttendanceFragment extends Fragment implements TakeAttendanceAd
     LinearLayoutManager linearLayoutManager;
     TakeAttendanceAdapter takeAttendanceAdapter;
     UIHelper uiHelper;
+    List<String> absentList;
+    String absent = "";
+    private Button save, reset;
 
 //    private MyFragmentTabHost mTabHostAttendanceTeacher;
 
@@ -79,51 +89,46 @@ public class TakeAttendanceFragment extends Fragment implements TakeAttendanceAd
         super.onViewCreated(view, savedInstanceState);
 
         uiHelper = new UIHelper(getActivity());
-//        mTabHostAttendanceTeacher = view
-//                .findViewById(R.id.tabhost_attendance_teacher);
-//
-//        initialiseTabHost(savedInstanceState);
-//        mTabHost = (TabHost) view.findViewById(android.R.id.tabhost);
-//
-//        mTabHost.setup();
-//        setupTab(new TextView(getContext()), "All", "Summer 2019");
-//        setupTab(new TextView(getContext()), "Tab 2", "Summer 2018");
-//        setupTab(new TextView(getContext()), "Tab 3","Summer 2019");
-//        setupTab(new TextView(getContext()), "Tab 1","Summer 2019");
-//        setupTab(new TextView(getContext()), "Tab 2","Summer 2019");
-//        setupTab(new TextView(getContext()), "Tab 3","Summer 2019");
+        ((MainActivity) Objects.requireNonNull(getActivity())).tabRl.setVisibility(View.VISIBLE);
+        ((MainActivity) Objects.requireNonNull(getActivity())).mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String s) {
+                if (((MainActivity) Objects.requireNonNull(getActivity())).mTabHost != null) {
+                    int pos = ((MainActivity) getActivity()).mTabHost.getCurrentTab();
 
-//        mTabHost1 = (TabHost) view.findViewById(R.id.tabHost);
+                    AssignmentSection ss = AppSharedPreference.getUserTab(s, pos);
+                    GlobalCourseId = ss.getCourseId();
+                    GlobalOfferedCourseSectionId = ss.getOfferedSectionId();
+                    callSectionStudentList(GlobalOfferedCourseSectionId);
+                }
+            }
+        });
 
-//        mTabHost1.setup();
-//        setupTab1(new TextView(getContext()), "All", "Summer 2019");
-//        setupTab1(new TextView(getContext()), "Tab 2", "Summer 2018");
-//        setupTab1(new TextView(getContext()), "Tab 3","Summer 2019");
-
-//        tabRl = view.findViewById(R.id.tab);
-//        tabRl.setVisibility(View.GONE);
-        ((MainActivity)getActivity()).tabRl.setVisibility(View.VISIBLE);
+        absentList = new ArrayList<>();
 
         recyclerView = view.findViewById(R.id.recyclerView);
+        save = view.findViewById(R.id.save_btn);
+        reset = view.findViewById(R.id.reset_btn);
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for(int i=0; i<takeAttendanceAdapter.mValues.size();i++){
+                   if(takeAttendanceAdapter.mValues.get(i).getStatus().equals("0"))
+                       if(!absent.isEmpty())
+                       absent = "|" + absent + takeAttendanceAdapter.mValues.get(i).getStudentId();
+                       else
+                           absent = absent + takeAttendanceAdapter.mValues.get(i).getStudentId();
+                    //if(studentList.get(i).getAbsent().equals())
+                }
+
+            }
+        });
+
 
         studentList = new ArrayList<>();
 
-//        studentList.add(new STAttendanceModel( "1", "Md. Rahim", "1"));
-//        studentList.add(new STAttendanceModel( "2", "Md. Rahim", "1"));
-//        studentList.add(new STAttendanceModel( "3", "Md. Rahim", "1"));
-//        studentList.add(new STAttendanceModel( "4", "Md. Rahim", "1"));
-//        studentList.add(new STAttendanceModel( "1", "Md. Rahim", "1"));
-//        studentList.add(new STAttendanceModel( "2", "Md. Rahim", "1"));
-//        studentList.add(new STAttendanceModel( "3", "Md. Rahim", "1"));
-//        studentList.add(new STAttendanceModel( "4", "Md. Rahim", "1"));
-//        studentList.add(new STAttendanceModel( "1", "Md. Rahim", "1"));
-//        studentList.add(new STAttendanceModel( "2", "Md. Rahim", "1"));
-//        studentList.add(new STAttendanceModel( "3", "Md. Rahim", "1"));
-//        studentList.add(new STAttendanceModel( "4", "Md. Rahim", "1"));
-//        studentList.add(new STAttendanceModel( "1", "Md. Rahim", "1"));
-//        studentList.add(new STAttendanceModel( "2", "Md. Rahim", "1"));
-//        studentList.add(new STAttendanceModel( "3", "Md. Rahim", "1"));
-//        studentList.add(new STAttendanceModel( "4", "Md. Rahim", "1"));
+
 
 
         takeAttendanceAdapter = new TakeAttendanceAdapter(getActivity());
@@ -133,7 +138,7 @@ public class TakeAttendanceFragment extends Fragment implements TakeAttendanceAd
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(takeAttendanceAdapter);
 
-        callSectionStudentList("19");
+        callSectionStudentList(GlobalOfferedCourseSectionId);
     }
 
     private void setupTab(final View view, final String tag, String tag1) {
@@ -203,8 +208,10 @@ public class TakeAttendanceFragment extends Fragment implements TakeAttendanceAd
                         uiHelper.dismissLoadingDialog();
 
                         CorsSecStudentResponse corsSecStudentResponse = value.body();
+                        takeAttendanceAdapter.clear();
                         if (corsSecStudentResponse.getStatus().getCode() == 200) {
 //                            populateData(corsSecStudentResponse.getData().getSectionCourse());
+
                             takeAttendanceAdapter.addAllData(corsSecStudentResponse.getData().getStudents());
 
                             //Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();

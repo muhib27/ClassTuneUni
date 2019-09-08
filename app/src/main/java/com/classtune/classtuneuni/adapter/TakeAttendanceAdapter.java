@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.fragment.TakeAttendanceFragment;
 import com.classtune.classtuneuni.model.STAttendanceModel;
 import com.classtune.classtuneuni.model.Student;
 
@@ -24,11 +25,13 @@ import java.util.List;
 
 public class TakeAttendanceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Student> mValues;
+    public List<Student> mValues;
     private Context mContext;
     protected ItemListener mListener;
     private static final int HERO = 2;
     private static final int ITEM = 0;
+
+    private boolean isLoadingAdded = false;
 
     public TakeAttendanceAdapter(Context context) {
         mValues = new ArrayList<>();
@@ -76,6 +79,7 @@ public class TakeAttendanceAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                         itemHolder.statusLl.setBackground(ContextCompat.getDrawable(mContext, R.drawable.absent_bg));
                     }
                     itemHolder.status.setText("A");
+                    student.setStatus("0");
 
                 }
                 else
@@ -86,6 +90,7 @@ public class TakeAttendanceAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                         itemHolder.statusLl.setBackground(ContextCompat.getDrawable(mContext, R.drawable.present_bg));
                     }
                     itemHolder.status.setText("P");
+                    student.setStatus("1");
                 }
 //                itemHolder.rightImg.setText(stAttendanceModel.getObtained());
                 itemHolder.statusLl.setOnClickListener(new View.OnClickListener() {
@@ -102,6 +107,7 @@ public class TakeAttendanceAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                                 itemHolder.statusLl.setBackground(ContextCompat.getDrawable(mContext, R.drawable.absent_bg));
                             }
                             itemHolder.status.setText("A");
+                            student.setStatus("0");
 
 
                         }
@@ -112,6 +118,7 @@ public class TakeAttendanceAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                                 itemHolder.statusLl.setBackground(ContextCompat.getDrawable(mContext, R.drawable.present_bg));
                             }
                             itemHolder.status.setText("P");
+                            student.setStatus("1");
                         }
                         }
                     });
@@ -185,5 +192,22 @@ public class TakeAttendanceAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         for (Student result : moveResults) {
             add(result);
         }
+    }
+    public void remove(Student r) {
+        int position = mValues.indexOf(r);
+        if (position > -1) {
+            mValues.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public void clear() {
+        isLoadingAdded = false;
+        while (getItemCount() > 0) {
+            remove(getItem(0));
+        }
+    }
+    public Student getItem(int position) {
+        return mValues.get(position);
     }
 }
