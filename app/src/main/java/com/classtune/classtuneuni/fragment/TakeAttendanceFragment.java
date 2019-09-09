@@ -1,16 +1,13 @@
 package com.classtune.classtuneuni.fragment;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
-import android.widget.TabWidget;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,16 +24,21 @@ import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.adapter.TakeAttendanceAdapter;
 import com.classtune.classtuneuni.assignment.AssignmentSection;
 import com.classtune.classtuneuni.course_resonse.CorsSecStudentResponse;
+import com.classtune.classtuneuni.exam.ExamPolicyResponse;
+import com.classtune.classtuneuni.model.CommonStatus;
 import com.classtune.classtuneuni.model.STAttendanceModel;
 import com.classtune.classtuneuni.model.Student;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
-import com.classtune.classtuneuni.utils.MyFragmentTabHost;
+import com.classtune.classtuneuni.utils.AppUtility;
 import com.classtune.classtuneuni.utils.NetworkConnection;
 import com.classtune.classtuneuni.utils.UIHelper;
-import com.classtune.classtuneuni.utils.VerticalSpaceItemDecoration;
+import com.google.gson.JsonElement;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -53,7 +54,7 @@ import static com.classtune.classtuneuni.activity.MainActivity.GlobalOfferedCour
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TakeAttendanceFragment extends Fragment implements TakeAttendanceAdapter.ItemListener{
+public class TakeAttendanceFragment extends Fragment implements TakeAttendanceAdapter.ItemListener, View.OnClickListener {
     TabHost mTabHost, mTabHost1;
     RelativeLayout tabRl;
     RecyclerView recyclerView;
@@ -64,6 +65,9 @@ public class TakeAttendanceFragment extends Fragment implements TakeAttendanceAd
     List<String> absentList;
     String absent = "";
     private Button save, reset;
+    private TextView classNo, classDate;
+
+    private String classDateFormatServerString = "", classAttendanceFormatServerString = "";
 
 //    private MyFragmentTabHost mTabHostAttendanceTeacher;
 
@@ -99,12 +103,18 @@ public class TakeAttendanceFragment extends Fragment implements TakeAttendanceAd
                     AssignmentSection ss = AppSharedPreference.getUserTab(s, pos);
                     GlobalCourseId = ss.getCourseId();
                     GlobalOfferedCourseSectionId = ss.getOfferedSectionId();
-                    callSectionStudentList(GlobalOfferedCourseSectionId);
+                    callSectionStudentList(GlobalOfferedCourseSectionId, classDateFormatServerString);
                 }
             }
         });
 
         absentList = new ArrayList<>();
+        classNo = view.findViewById(R.id.classNo);
+        classDate = view.findViewById(R.id.date);
+
+        classDate.setText(getCurrentDate());
+
+        classDate.setOnClickListener(this);
 
         recyclerView = view.findViewById(R.id.recyclerView);
         save = view.findViewById(R.id.save_btn);
@@ -113,14 +123,18 @@ public class TakeAttendanceFragment extends Fragment implements TakeAttendanceAd
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                absent = "";
                 for(int i=0; i<takeAttendanceAdapter.mValues.size();i++){
                    if(takeAttendanceAdapter.mValues.get(i).getStatus().equals("0"))
                        if(!absent.isEmpty())
-                       absent = "|" + absent + takeAttendanceAdapter.mValues.get(i).getStudentId();
+                           absent = absent +  "|" +  takeAttendanceAdapter.mValues.get(i).getStudentId();
                        else
                            absent = absent + takeAttendanceAdapter.mValues.get(i).getStudentId();
+
                     //if(studentList.get(i).getAbsent().equals())
                 }
+                Log.v("TAG", absent);
+                callTakeAttendance(GlobalOfferedCourseSectionId, absent);
 
             }
         });
@@ -138,44 +152,9 @@ public class TakeAttendanceFragment extends Fragment implements TakeAttendanceAd
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(takeAttendanceAdapter);
 
-        callSectionStudentList(GlobalOfferedCourseSectionId);
+        callSectionStudentList(GlobalOfferedCourseSectionId, classDateFormatServerString);
     }
 
-    private void setupTab(final View view, final String tag, String tag1) {
-        View tabview = createTabView(mTabHost.getContext(), tag, tag1);
-        TabHost.TabSpec setContent = mTabHost.newTabSpec(tag).setIndicator(tabview).setContent(new TabHost.TabContentFactory() {
-            public View createTabContent(String tag) {
-                return view;
-            }
-        });
-        mTabHost.addTab(setContent);
-    }
-
-    private static View createTabView(final Context context, final String text, final String text1) {
-        View view = LayoutInflater.from(context).inflate(R.layout.tabs_bg, null);
-        TextView tv = (TextView) view.findViewById(R.id.tabsText);
-        tv.setText(text);
-        TextView tvsmall = (TextView) view.findViewById(R.id.tabsTextSmall);
-        tvsmall.setText(text1);
-        return view;
-    }
-
-    private void setupTab1(final View view, final String tag, String tag1) {
-        View tabview = createTabView1(mTabHost1.getContext(), tag, tag1);
-        TabHost.TabSpec setContent = mTabHost.newTabSpec(tag).setIndicator(tabview).setContent(new TabHost.TabContentFactory() {
-            public View createTabContent(String tag) {
-                return view;
-            }
-        });
-        mTabHost.addTab(setContent);
-    }
-
-    private static View createTabView1(final Context context, final String text, final String text1) {
-        View view = LayoutInflater.from(context).inflate(R.layout.tabs_bg1, null);
-        TextView tv = (TextView) view.findViewById(R.id.tabsText);
-        tv.setText(text);
-        return view;
-    }
 
     @Override
     public void onItemClick(STAttendanceModel item, int pos) {
@@ -183,7 +162,7 @@ public class TakeAttendanceFragment extends Fragment implements TakeAttendanceAd
     }
 
 
-    private void callSectionStudentList(String courseId) {
+    private void callSectionStudentList(String courseId, String classDateFormatServerString) {
 
         if (!NetworkConnection.getInstance().isNetworkAvailable()) {
             Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
@@ -193,7 +172,7 @@ public class TakeAttendanceFragment extends Fragment implements TakeAttendanceAd
             uiHelper.showLoadingDialog("Please wait...");
 
         // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
-        RetrofitApiClient.getApiInterfaceWithId().getSectionStudentList(AppSharedPreference.getApiKey(), courseId)
+        RetrofitApiClient.getApiInterfaceWithId().getSectionStudentList(AppSharedPreference.getApiKey(), courseId, classDateFormatServerString)
 
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -211,7 +190,8 @@ public class TakeAttendanceFragment extends Fragment implements TakeAttendanceAd
                         takeAttendanceAdapter.clear();
                         if (corsSecStudentResponse.getStatus().getCode() == 200) {
 //                            populateData(corsSecStudentResponse.getData().getSectionCourse());
-
+                            if(corsSecStudentResponse.getData().getClassNo()!=null)
+                            classNo.setText(""+corsSecStudentResponse.getData().getClassNo());
                             takeAttendanceAdapter.addAllData(corsSecStudentResponse.getData().getStudents());
 
                             //Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
@@ -232,6 +212,98 @@ public class TakeAttendanceFragment extends Fragment implements TakeAttendanceAd
                         uiHelper.dismissLoadingDialog();
                     }
                 });
+    }
+
+
+    private void callTakeAttendance(String globalOfferedCourseSectionId, String absentSt) {
+
+
+        if (!NetworkConnection.getInstance().isNetworkAvailable()) {
+            Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        uiHelper.showLoadingDialog("Please wait...");
+
+        // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
+        RetrofitApiClient.getApiInterfaceWithId().TakeAttendance(AppSharedPreference.getApiKey(), globalOfferedCourseSectionId, absentSt, classDateFormatServerString)
+
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<CommonStatus>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Response<CommonStatus> value) {
+                        uiHelper.dismissLoadingDialog();
+
+                        CommonStatus commonStatus = value.body();
+                        if (commonStatus.getCode() == 200) {
+
+                            //  Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        uiHelper.dismissLoadingDialog();
+                    }
+
+                    @Override
+                    public void onComplete() {
+//                        progressDialog.dismiss();
+                        uiHelper.dismissLoadingDialog();
+                    }
+                });
+
+
+    }
+
+    private String getCurrentDate(){
+        Date c = Calendar.getInstance().getTime();
+      //  System.out.println("Current time => " + c);
+
+        SimpleDateFormat df = new SimpleDateFormat("dd, MMM yyyy");
+        String formattedDate = df.format(c);
+
+        SimpleDateFormat dateAtt = new SimpleDateFormat(AppUtility.DATE_FORMAT_SERVER);
+        classAttendanceFormatServerString = dateAtt.format(c);
+
+        return formattedDate;
+    }
+    private void showDatepicker() {
+        DatePickerFragment picker = new DatePickerFragment();
+        picker.setCallbacks(endDatePickerCallback);
+        picker.show(getFragmentManager(), "datePicker");
+    }
+
+    DatePickerFragment.DatePickerOnSetDateListener endDatePickerCallback = new DatePickerFragment.DatePickerOnSetDateListener() {
+
+        @Override
+        public void onDateSelected(int month, String monthName, int day,
+                                   int year, String dateFormatServer, String dateFormatApp,
+                                   Date date) {
+            // TODO Auto-generated method stub
+            classDate.setText(dateFormatApp);
+            // chooseEndDateTextView.setText(dateFormatApp);
+            classDateFormatServerString = dateFormatServer;
+            classAttendanceFormatServerString = dateFormatServer;
+            callSectionStudentList(GlobalOfferedCourseSectionId, classDateFormatServerString);
+        }
+    };
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.date:
+                showDatepicker();
+                break;
+        }
     }
 
 

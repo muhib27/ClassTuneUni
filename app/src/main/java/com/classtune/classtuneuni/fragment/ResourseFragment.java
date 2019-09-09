@@ -101,6 +101,7 @@ public class ResourseFragment extends Fragment {
                     AssignmentSection ss = AppSharedPreference.getUserTab(s, pos);
                     GlobalCourseId = ss.getCourseId();
                     GlobalOfferedCourseSectionId = ss.getOfferedSectionId();
+                    callResourceListApi(GlobalOfferedCourseSectionId);
                 }
             }
         });

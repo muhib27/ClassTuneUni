@@ -19,6 +19,9 @@ public class CourseSctionData {
     @SerializedName("course")
     @Expose
     private SectionCourse sectionCourse;
+    @SerializedName("class_no")
+    @Expose
+    private Integer classNo;
 
     public List<Student> getStudents() {
         return students;
@@ -50,5 +53,13 @@ public class CourseSctionData {
 
     public void setSectionCourse(SectionCourse sectionCourse) {
         this.sectionCourse = sectionCourse;
+    }
+
+    public Integer getClassNo() {
+        return classNo;
+    }
+
+    public void setClassNo(Integer classNo) {
+        this.classNo = classNo;
     }
 }

@@ -12,18 +12,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
+import com.classtune.classtuneuni.adapter.ExamPolicyAdapter;
 import com.classtune.classtuneuni.adapter.SubjectResultAdapter;
-import com.classtune.classtuneuni.assignment.AssignmentSection;
+import com.classtune.classtuneuni.exam.ExamPolicyResponse;
+import com.classtune.classtuneuni.exam.Policy;
 import com.classtune.classtuneuni.model.SubjectResultModel;
-import com.classtune.classtuneuni.response.StCourseSection;
+import com.classtune.classtuneuni.response.Section;
 import com.classtune.classtuneuni.result.CourseResultData;
-import com.classtune.classtuneuni.result.StCourseResultResponse;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
 import com.classtune.classtuneuni.utils.NetworkConnection;
@@ -32,6 +32,7 @@ import com.classtune.classtuneuni.utils.VerticalSpaceItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -39,20 +40,21 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
-import static com.classtune.classtuneuni.activity.MainActivity.GlobalCourseId;
 import static com.classtune.classtuneuni.activity.MainActivity.GlobalOfferedCourseSectionId;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ExamPolicyFragment extends Fragment implements SubjectResultAdapter.ItemListener {
+public class ExamPolicyFragment extends Fragment implements SubjectResultAdapter.ItemListener{
     RecyclerView recyclerView;
-    private List<SubjectResultModel> resultList;
+    private List<Policy> policyList;
     LinearLayoutManager linearLayoutManager;
-    SubjectResultAdapter subjectResultAdapter;
+    ExamPolicyAdapter examPolicyAdapter;
     UIHelper uiHelper;
-    private TextView grade, totalObtained, hundred;
+    private TextView subCode, totalObtained, hundred, edit;
     int totalSt;
+    String subCodeSt = "";
+    List<String> editedList;
 
     public ExamPolicyFragment() {
         // Required empty public constructor
@@ -63,7 +65,7 @@ public class ExamPolicyFragment extends Fragment implements SubjectResultAdapter
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_subject_result, container, false);
+        return inflater.inflate(R.layout.fragment_exam_policy, container, false);
     }
 
     @Override
@@ -71,47 +73,55 @@ public class ExamPolicyFragment extends Fragment implements SubjectResultAdapter
         super.onViewCreated(view, savedInstanceState);
 
 
-        ((MainActivity)getActivity()).tabRl.setVisibility(View.VISIBLE);
+        if (((MainActivity) Objects.requireNonNull(getActivity())).tabRl.getVisibility() == View.VISIBLE)
+            ((MainActivity) getActivity()).tabRl.setVisibility(View.GONE);
 
+        subCodeSt = getArguments().getString("sub_code");
+
+        editedList = new ArrayList<>();
 
         uiHelper = new UIHelper(getActivity());
         recyclerView = view.findViewById(R.id.recyclerView);
-        grade = view.findViewById(R.id.grade_tv);
-        totalObtained = view.findViewById(R.id.totalObtained);
-        hundred = view.findViewById(R.id.hundred);
+//        edit = view.findViewById(R.id.edit);
+//        edit.setOnClickListener(this);
+        subCode = view.findViewById(R.id.subCode);
+        subCode.setText(subCodeSt);
+//        totalObtained = view.findViewById(R.id.totalObtained);
+//        hundred = view.findViewById(R.id.hundred);
 
-        resultList = new ArrayList<>();
+        policyList = new ArrayList<>();
 
 
-
-        subjectResultAdapter = new SubjectResultAdapter(getActivity());
+        examPolicyAdapter = new ExamPolicyAdapter(getActivity());
         linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(getResources()));
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(subjectResultAdapter);
+        recyclerView.setAdapter(examPolicyAdapter);
 
-        callSubjectResultApi(GlobalOfferedCourseSectionId);
 
-        ((MainActivity)getActivity()).mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
-            @Override
-            public void onTabChanged(String s) {
-                int pos = ((MainActivity)getActivity()).mTabHost.getCurrentTab();
-                if(AppSharedPreference.getUserType().equals("3"))
-                {
-                    StCourseSection ss = AppSharedPreference.getStUserTab(s, pos);
-                    GlobalCourseId = ss.getCourseCode();
-                    GlobalOfferedCourseSectionId = ss.getCourseOfferSectionId();
-                    callSubjectResultApi(GlobalOfferedCourseSectionId);
 
-                }
-                else {
-                    AssignmentSection ss = AppSharedPreference.getUserTab(s, pos);
-                    GlobalCourseId = ss.getCourseId();
-                    GlobalOfferedCourseSectionId = ss.getOfferedSectionId();
-                }
-            }
-        });
+        callSubjectPolicyApi(GlobalOfferedCourseSectionId);
+
+//        ((MainActivity)getActivity()).mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+//            @Override
+//            public void onTabChanged(String s) {
+//                int pos = ((MainActivity)getActivity()).mTabHost.getCurrentTab();
+//                if(AppSharedPreference.getUserType().equals("3"))
+//                {
+//                    StCourseSection ss = AppSharedPreference.getStUserTab(s, pos);
+//                    GlobalCourseId = ss.getCourseCode();
+//                    GlobalOfferedCourseSectionId = ss.getCourseOfferSectionId();
+//                    callSubjectResultApi(GlobalOfferedCourseSectionId);
+//
+//                }
+//                else {
+//                    AssignmentSection ss = AppSharedPreference.getUserTab(s, pos);
+//                    GlobalCourseId = ss.getCourseId();
+//                    GlobalOfferedCourseSectionId = ss.getOfferedSectionId();
+//                }
+//            }
+//        });
     }
 
 
@@ -130,7 +140,7 @@ public class ExamPolicyFragment extends Fragment implements SubjectResultAdapter
         transaction.commit();
     }
 
-    private void callSubjectResultApi(String globalOfferedCourseSectionId) {
+    private void callSubjectPolicyApi(String globalOfferedCourseSectionId) {
 
 
         if (!NetworkConnection.getInstance().isNetworkAvailable()) {
@@ -140,30 +150,28 @@ public class ExamPolicyFragment extends Fragment implements SubjectResultAdapter
         uiHelper.showLoadingDialog("Please wait...");
 
         // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
-        RetrofitApiClient.getApiInterfaceWithId().getSubjectResult(AppSharedPreference.getApiKey(), globalOfferedCourseSectionId)
+        RetrofitApiClient.getApiInterfaceWithId().getSubjectpolicy(AppSharedPreference.getApiKey(), globalOfferedCourseSectionId)
 
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Response<StCourseResultResponse>>() {
+                .subscribe(new Observer<Response<ExamPolicyResponse>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Response<StCourseResultResponse> value) {
+                    public void onNext(Response<ExamPolicyResponse> value) {
                         uiHelper.dismissLoadingDialog();
 
-                        StCourseResultResponse stCourseResultResponse = value.body();
-                        if (stCourseResultResponse.getStatus().getCode() == 200) {
-//
-                            resultList = stCourseResultResponse.getData().getAssessments();
-                            if(resultList!=null)
-                            for(int i = 0; i<resultList.size(); i++){
-                                totalSt = totalSt + resultList.get(i).getWeight();
-                            }
-                            populateData(stCourseResultResponse.getData(), totalSt);
-                            subjectResultAdapter.addAllData(resultList);
+                        ExamPolicyResponse examPolicyResponse = value.body();
+                        examPolicyAdapter.clear();
+                        if (examPolicyResponse.getStatus().getCode() == 200) {
+                            policyList = examPolicyResponse.getData().getPolicies();
+
+                            examPolicyAdapter.addAllData(policyList, false);
+                            //examPolicyAdapter.disableEditing();
+
 //                            Log.v("tt", noticeList.toString());
                             //  Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
                         } else
@@ -188,11 +196,36 @@ public class ExamPolicyFragment extends Fragment implements SubjectResultAdapter
     }
 
     private void populateData(CourseResultData data, int totalSt) {
-        if(data.getGrade().getGrade()!=null)
-            grade.setText(data.getGrade().getGrade());
+//        if(data.getGrade().getGrade()!=null)
+//            grade.setText(data.getGrade().getGrade());
 
-        if(data.getTotalMarks()!=null)
-            totalObtained.setText("" + data.getTotalMarks());
-        hundred.setText(""+ totalSt + "%");
+//        if(data.getTotalMarks()!=null)
+//            totalObtained.setText("" + data.getTotalMarks());
+//        hundred.setText(""+ totalSt + "%");
     }
+
+
+
+//    @Override
+//    public void onClick(View view) {
+//        switch (view.getId()) {
+//            case R.id.edit:
+//                String st = "";
+//                if (edit.getText().toString().equals("Edit")) {
+//                    edit.setText("Save");
+//                    examPolicyAdapter.clear();
+//                    examPolicyAdapter.addAllData(policyList, true);
+//                } else {
+//                    edit.setText("Edit");
+//                    for(int i = 0; i<examPolicyAdapter.mValues.size(); i++)
+//                    {
+//                        st = examPolicyAdapter.mValues.get(i).getName() + "|" +   examPolicyAdapter.mValues.get(i).getPercentage();
+//                        editedList.add(st);
+//                    }
+//                    examPolicyAdapter.clear();
+//                    examPolicyAdapter.addAllData(policyList, true);
+//                }
+//                break;
+//        }
+//    }
 }

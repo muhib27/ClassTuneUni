@@ -28,27 +28,28 @@
     <com.github.clans.fab.FloatingActionMenu
         android:fitsSystemWindows="true"
         android:layout_alignParentEnd="true"
-        android:id="@+id/menu_yellow"
+        android:id="@+id/fabMenu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="-200dp"
+        android:layout_marginTop="-100dp"
         fab:menu_labels_style="@style/MenuLabelsStyle"
         fab:menu_labels_showAnimation="@anim/jump_from_down"
         fab:menu_labels_hideAnimation="@anim/jump_to_down"
         fab:menu_animationDelayPerItem="0"
+        fab:menu_backgroundColor="#ccffffff"
         fab:menu_shadowColor="#444"
-        fab:menu_colorNormal="#FFB805"
-        fab:menu_colorPressed="#F2AB00"
-        fab:menu_colorRipple="#D99200">
+        fab:menu_colorNormal="#000000"
+        fab:menu_colorPressed="#000000"
+        fab:menu_colorRipple="#000000">
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/bell_icon"
-            fab:fab_label="Menu item 1"
+            fab:fab_label="Create New Exam"
             style="@style/MenuButtonsStyle" />
 
         <com.github.clans.fab.FloatingActionButton
@@ -56,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/email_icon"
-            fab:fab_label="Menu item 2"
+            fab:fab_label="Exam Policy"
             style="@style/MenuButtonsStyle" />
 
         <!--<com.github.clans.fab.FloatingActionButton-->

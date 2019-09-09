@@ -12,6 +12,7 @@ import com.classtune.classtuneuni.course_resonse.CourseListResponse;
 import com.classtune.classtuneuni.course_resonse.CourseOfferSectionResponse;
 import com.classtune.classtuneuni.course_resonse.OfferedCourseResponse;
 import com.classtune.classtuneuni.enroll.StEnrollResponse;
+import com.classtune.classtuneuni.exam.ExamPolicyResponse;
 import com.classtune.classtuneuni.exam.ExamResponse;
 import com.classtune.classtuneuni.home.StHomeHeaderRespons;
 import com.classtune.classtuneuni.home.StHomeRespons;
@@ -172,7 +173,7 @@ public interface ApiInterface {
     @POST(URLHelper.SECTION_STUDENT_LIST)
     //Observable<Response<JsonElement>> getSectionStudentList(@Field("api_key") String api_key, @Field("course_offer_sections_id") String course_offer_sections_id);
 
-    Observable<Response<CorsSecStudentResponse>> getSectionStudentList(@Field("api_key") String api_key, @Field("course_offer_sections_id") String course_offer_sections_id);
+    Observable<Response<CorsSecStudentResponse>> getSectionStudentList(@Field("api_key") String api_key, @Field("course_offer_sections_id") String course_offer_sections_id, @Field("date") String date);
 
     //    @POST(URLHelper.ASSIGNMENT_ADD)
 //        //Observable<Response<JsonElement>> getTaskAssign(@Body RequestBody file);
@@ -273,6 +274,17 @@ public interface ApiInterface {
 //    @FormUrlEncoded
 //    @POST(URLHelper.ATTENDANCE_STUDENT_LIST)
 //    Observable<Response<StudentListAttenResponse>> getSecStudents(@Field("api_key") String api_key, @Field("course_offer_sections_id") String course_offer_sections_id);
+
+    @FormUrlEncoded
+    @POST(URLHelper.SUBJECT_EXAM_POLICY)
+    Observable<Response<ExamPolicyResponse>> getSubjectpolicy(@Field("api_key") String api_key, @Field("course_offer_section_id") String course_offer_section_id);
+
+
+    @FormUrlEncoded
+    @POST(URLHelper.TAKE_ATTENDANCE)
+    Observable<Response<CommonStatus>> TakeAttendance(@Field("api_key") String api_key, @Field("course_offer_section_id") String course_offer_section_id, @Field("absence") String absence, @Field("date") String date);
+
+
 }
 
 
