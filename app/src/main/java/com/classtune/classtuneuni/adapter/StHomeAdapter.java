@@ -142,8 +142,8 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
             case ASSIGNMENT:
                 final AssignmentView assignmentHolder = (AssignmentView) viewHolder;
-                if (result.getContentName() != null)
-                    assignmentHolder.subtitle.setText(result.getContentName());
+                if (result.getTitle() != null)
+                    assignmentHolder.subtitle.setText(result.getTitle());
                 if (result.getInstructor() != null)
                     assignmentHolder.name.setText(result.getInstructor());
                 if (result.getFeedTime() != null)
@@ -188,8 +188,8 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 break;
             case ASSIGNMENT_MARK:
                 final AssignmentMarkView assignmentMarkView = (AssignmentMarkView) viewHolder;
-                if (result.getContentName() != null)
-                    assignmentMarkView.subtitle.setText(result.getContentName());
+                if (result.getTitle() != null)
+                    assignmentMarkView.subtitle.setText(result.getTitle());
                 if (result.getInstructor() != null)
                     assignmentMarkView.name.setText(result.getInstructor());
                 if (result.getFeedTime() != null)
@@ -234,6 +234,8 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     noticeViewHolder.name.setText(result.getInstructor());
                 if (result.getFeedTime() != null)
                     noticeViewHolder.time.setText(result.getFeedTime());
+                if (result.getNoticeTitle() != null)
+                    noticeViewHolder.subtitle.setText(result.getNoticeTitle());
                 if (result.getCourseCode() != null)
                     noticeViewHolder.subject.setText(result.getCourseCode());
                 if(result.getInstructorImage()!=null)
@@ -330,6 +332,8 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 final ExamView examViewHolder = (ExamView) viewHolder;
                 if (result.getInstructor() != null)
                     examViewHolder.name.setText(result.getInstructor());
+                if (result.getExamName() != null)
+                    examViewHolder.subtitle.setText(result.getExamName());
                 if (result.getFeedTime() != null)
                     examViewHolder.time.setText(result.getFeedTime());
                 if (result.getCourseCode() != null)
@@ -369,6 +373,8 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 final ExamResultView examResultViewHolder = (ExamResultView) viewHolder;
                 if (result.getInstructor() != null)
                     examResultViewHolder.name.setText(result.getInstructor());
+                if (result.getExamName() != null)
+                    examResultViewHolder.subtitle.setText(result.getExamName());
                 if (result.getFeedTime() != null)
                     examResultViewHolder.time.setText(result.getFeedTime());
                 if (result.getCourseCode() != null)
@@ -414,7 +420,7 @@ public class StHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     resourceView.subjectCode.setText(result.getCourseCode());
                 }
                 if (result.getTitle() != null)
-                    resourceView.title.setText(result.getInstructor());
+                    resourceView.title.setText(result.getTitle());
                 if (result.getCourseName() != null)
                     resourceView.course.setText(result.getCourseName());
                 if(result.getInstructorImage()!=null)

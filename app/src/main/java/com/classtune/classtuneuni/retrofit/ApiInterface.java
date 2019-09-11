@@ -4,6 +4,7 @@ package com.classtune.classtuneuni.retrofit;
 import com.classtune.classtuneuni.assignment.AssignmentSectionResponse;
 import com.classtune.classtuneuni.assignment.AssignmentSubmitedListResponse;
 import com.classtune.classtuneuni.assignment.TeacherAssignmentResponse;
+import com.classtune.classtuneuni.attendance.AttendanceReportResponse;
 import com.classtune.classtuneuni.attendance.StudentAttendanceResponse;
 import com.classtune.classtuneuni.attendance.StudentListAttenResponse;
 import com.classtune.classtuneuni.class_schedule.StClsScheduleResponse;
@@ -282,7 +283,13 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST(URLHelper.TAKE_ATTENDANCE)
-    Observable<Response<CommonStatus>> TakeAttendance(@Field("api_key") String api_key, @Field("course_offer_section_id") String course_offer_section_id, @Field("absence") String absence, @Field("date") String date);
+    Observable<Response<JsonElement>> TakeAttendance(@Field("api_key") String api_key, @Field("course_offer_section_id") String course_offer_section_id, @Field("absence") String absence, @Field("date") String date);
+
+    @FormUrlEncoded
+    @POST(URLHelper.STUDENT_ATTENDANCE_REPORT)
+    Observable<Response<AttendanceReportResponse>> getStudentReport(@Field("api_key") String api_key, @Field("course_offer_section_id") String course_offer_section_id);
+
+
 
 
 }

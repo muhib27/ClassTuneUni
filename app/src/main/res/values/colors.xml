@@ -24,5 +24,7 @@
     <color name="iron">#CCCCCC</color>
     <color name="ash_b5">#B5B5B5</color>
     <color name="placeholder_grey_20">#33AAADC4</color>
+    <color name="app_blue">#4495FF</color>
+
 
 </resources>

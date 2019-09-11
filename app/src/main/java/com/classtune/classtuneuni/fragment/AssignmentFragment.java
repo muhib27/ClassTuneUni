@@ -55,6 +55,8 @@ import static com.classtune.classtuneuni.activity.MainActivity.GlobalOfferedCour
  * A simple {@link Fragment} subclass.
  */
 public class AssignmentFragment extends Fragment implements AssignmentAdapter.ItemListener, View.OnClickListener, PaginationAdapterCallback {
+
+   // https://stackoverflow.com/questions/30867852/viewpager-setonpagechangelistener-deprecated/30867886#30867
     TabLayout tabLayout;
     TabHost mTabHost;
     RecyclerView recyclerView;
@@ -243,22 +245,14 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.It
                     @Override
                     public void onNext(Response<TeacherAssignmentResponse> value) {
                         uiHelper.dismissLoadingDialog();
-
+                        assignmentAdapter.clear();
                         TeacherAssignmentResponse assignmentResponse = value.body();
                         if (assignmentResponse.getStatus().getCode() == 200) {
 //
+                            assignmentList.clear();
                             assignmentList = assignmentResponse.getData().getAssignments();
-//
-//
-//                            List<String> dateList = new ArrayList<>();
-//                            for (int r = 0; r < noticeList.size(); r++) {
-//                                String sub = noticeList.get(r).getNotice().getCreatedAt().substring(0, 10);
-//                                if (!dateList.contains(sub))
-//                                    dateList.add(sub);
-//                            }
 
-//                            itemList = buildItemList(noticeList, dateList);
-                            assignmentAdapter.clear();
+
                             assignmentAdapter.addAllData(assignmentList);
 //                            Log.v("tt", noticeList.toString());
                           //  Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
@@ -308,6 +302,9 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.It
                         uiHelper.dismissLoadingDialog();
 
                         TeacherAssignmentResponse assignmentResponse = value.body();
+
+                        assignmentAdapter.clear();
+
                         if (assignmentResponse != null && assignmentResponse.getStatus().getCode() == 200) {
 
                             assignmentList = assignmentResponse.getData().getAssignments();

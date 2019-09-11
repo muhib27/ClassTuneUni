@@ -17,6 +17,16 @@ public class StAttendanceData {
     @Expose
     private Integer percentage;
 
+    @SerializedName("user_id")
+    @Expose
+    private String userId;
+    @SerializedName("student_id")
+    @Expose
+    private String studentId;
+    @SerializedName("name")
+    @Expose
+    private String name;
+
     public Integer getTotalClass() {
         return totalClass;
     }
@@ -47,5 +57,29 @@ public class StAttendanceData {
 
     public void setPercentage(Integer percentage) {
         this.percentage = percentage;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

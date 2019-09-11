@@ -88,6 +88,21 @@ public class TakeAttendanceFragment extends Fragment implements TakeAttendanceAd
         return rootView;
     }
 
+    private boolean _hasLoadedOnce= false;
+    @Override
+    public void setUserVisibleHint(boolean isFragmentVisible_) {
+        super.setUserVisibleHint(true);
+
+
+        if (this.isVisible()) {
+            // we check that the fragment is becoming visible
+            if (isFragmentVisible_ && !_hasLoadedOnce) {
+                callSectionStudentList(GlobalOfferedCourseSectionId, classDateFormatServerString);
+                _hasLoadedOnce = true;
+            }
+        }
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -127,9 +142,9 @@ public class TakeAttendanceFragment extends Fragment implements TakeAttendanceAd
                 for(int i=0; i<takeAttendanceAdapter.mValues.size();i++){
                    if(takeAttendanceAdapter.mValues.get(i).getStatus().equals("0"))
                        if(!absent.isEmpty())
-                           absent = absent +  "|" +  takeAttendanceAdapter.mValues.get(i).getStudentId();
+                           absent = absent +  "|" +  takeAttendanceAdapter.mValues.get(i).getUserId();
                        else
-                           absent = absent + takeAttendanceAdapter.mValues.get(i).getStudentId();
+                           absent = absent + takeAttendanceAdapter.mValues.get(i).getUserId();
 
                     //if(studentList.get(i).getAbsent().equals())
                 }
@@ -152,7 +167,7 @@ public class TakeAttendanceFragment extends Fragment implements TakeAttendanceAd
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(takeAttendanceAdapter);
 
-        callSectionStudentList(GlobalOfferedCourseSectionId, classDateFormatServerString);
+//        callSectionStudentList(GlobalOfferedCourseSectionId, classDateFormatServerString);
     }
 
 
@@ -225,22 +240,21 @@ public class TakeAttendanceFragment extends Fragment implements TakeAttendanceAd
         uiHelper.showLoadingDialog("Please wait...");
 
         // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
-        RetrofitApiClient.getApiInterfaceWithId().TakeAttendance(AppSharedPreference.getApiKey(), globalOfferedCourseSectionId, absentSt, classDateFormatServerString)
+        RetrofitApiClient.getApiInterfaceWithId().TakeAttendance(AppSharedPreference.getApiKey(), globalOfferedCourseSectionId, absentSt, classAttendanceFormatServerString)
 
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Response<CommonStatus>>() {
+                .subscribe(new Observer<Response<JsonElement>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Response<CommonStatus> value) {
+                    public void onNext(Response<JsonElement> value) {
                         uiHelper.dismissLoadingDialog();
 
-                        CommonStatus commonStatus = value.body();
-                        if (commonStatus.getCode() == 200) {
+                        if (value.code() == 200) {
 
                             //  Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
                         } else

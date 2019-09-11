@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/cell"
+    android:background="@drawable/student_report_cell_bg"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/size_5dp"
     android:orientation="horizontal">
 
     <LinearLayout
@@ -107,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/my_custom_medium_font"
                     android:text="Classes"
-                    android:textColor="@color/appColor"
+                    android:textColor="@color/ashTextColor"
                     android:textSize="@dimen/text_size_8_sp"
                     android:textStyle="normal" />
 
@@ -120,7 +122,7 @@
                 android:fontFamily="@font/my_custom_medium_font"
                 android:gravity="center"
                 android:text="94%"
-                android:textColor="#4495FF"
+                android:textColor="@color/app_blue"
                 android:textSize="@dimen/text_size_18_sp"
                 android:textStyle="normal" />
         </LinearLayout>

@@ -2,7 +2,6 @@ package com.classtune.classtuneuni.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,28 +11,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.classtune.classtuneuni.R;
-import com.classtune.classtuneuni.assignment.Participant;
-import com.classtune.classtuneuni.attendance.StAttendanceData;
 import com.classtune.classtuneuni.model.ExamInfoModel;
 import com.classtune.classtuneuni.model.Student;
-
 
 import java.util.ArrayList;
 import java.util.List;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 
+public class TeacherMarkAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-public class StudentReportAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
-    private ArrayList<StAttendanceData> mValues;
+    private ArrayList<Student> mValues;
     private Context mContext;
     protected ItemListener mListener;
     private static final int HERO = 2;
     private static final int ITEM = 0;
 
-
-    public StudentReportAdapter(Context context) {
+    public TeacherMarkAdapter(Context context) {
         mValues = new ArrayList<>();
         mContext = context;
     }
@@ -48,7 +41,7 @@ public class StudentReportAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         switch (viewType) {
             case ITEM:
-                View viewItem = inflater.inflate(R.layout.student_report_item_row, parent, false);
+                View viewItem = inflater.inflate(R.layout.course_student_section_item_row, parent, false);
                 viewHolder = new MovieVH(viewItem);
                 break;
 
@@ -58,23 +51,18 @@ public class StudentReportAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
-        final StAttendanceData stAttendanceData = mValues.get(position);
+        final Student student = mValues.get(position);
         switch (getItemViewType(position)) {
             case ITEM:
                 final MovieVH itemHolder = (MovieVH) viewHolder;
-                if(stAttendanceData.getName()!=null)
-                itemHolder.name.setText(stAttendanceData.getName());
-                if(stAttendanceData.getStudentId()!=null)
-                itemHolder.studentId.setText(stAttendanceData.getStudentId());
-                if(stAttendanceData.getPresent()!=null)
-                    itemHolder.parcent.setText(""+ stAttendanceData.getPresent());
+                itemHolder.name.setText(student.getStudentName());
+                itemHolder.studentId.setText(student.getStudentId());
+                itemHolder.cell.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
-//                itemHolder.cell.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//
-//                    }
-//                });
+                    }
+                });
                 break;
         }
     }
@@ -101,55 +89,33 @@ public class StudentReportAdapter extends RecyclerView.Adapter<RecyclerView.View
     protected class MovieVH extends RecyclerView.ViewHolder {
         private TextView name;
         private TextView studentId;
-        private TextView dayCount;
-        private TextView dayText;
-        private TextView parcent;
+        private TextView view;
+        private ImageView delete;
         private LinearLayout cell, viewLl, deleteLl;
-        CircleImageView imageView;
-
 
 
         public MovieVH(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.name);
             studentId = itemView.findViewById(R.id.studentId);
-            dayText = itemView.findViewById(R.id.dayText);
-            dayCount = itemView.findViewById(R.id.dayCount);
-            parcent = itemView.findViewById(R.id.parcent);
-            imageView = itemView.findViewById(R.id.image);
-//            cell = itemView.findViewById(R.id.cell);
-//            viewLl = itemView.findViewById(R.id.viewLl);
+            view = itemView.findViewById(R.id.view);
+            cell = itemView.findViewById(R.id.cell);
+            viewLl = itemView.findViewById(R.id.viewLl);
+            deleteLl = itemView.findViewById(R.id.deleteLl);
 
 
         }
     }
 
-    public void add(StAttendanceData r) {
+    public void add(Student r) {
         mValues.add(r);
         notifyItemInserted(mValues.size() - 1);
     }
 
-    public void addAllData(List<StAttendanceData> moveResults) {
-        for (StAttendanceData result : moveResults) {
+    public void addAllData(List<Student> moveResults) {
+        for (Student result : moveResults) {
             add(result);
         }
-    }
-
-    public void remove(StAttendanceData r) {
-        int position = mValues.indexOf(r);
-        if (position > -1) {
-            mValues.remove(position);
-            notifyItemRemoved(position);
-        }
-    }
-
-    public void clear() {
-        while (getItemCount() > 0) {
-            remove(getItem(0));
-        }
-    }
-    public StAttendanceData getItem(int position) {
-        return mValues.get(position);
     }
 
 }
