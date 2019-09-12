@@ -263,6 +263,7 @@ public class HomeFragment extends Fragment implements PaginationAdapterCallback 
                     @Override
                     public void onError(Throwable e) {
 
+                        if(getActivity()!=null)
                         Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
                         uiHelper.dismissLoadingDialog();
                     }

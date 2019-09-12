@@ -235,7 +235,7 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST(URLHelper.STUDENT_COURSE_MESSAGE)
-    Observable<Response<StCourseMsgResponse>> getSubjectMessage(@Field("api_key") String api_key, @Field("course_offer_sections_id") String course_offer_section_id, @Field("page") String page);
+    Observable<Response<StCourseMsgResponse>> getSubjectMessage(@Field("api_key") String api_key, @Field("course_offer_sections_id") String course_offer_section_id, @Field("page") int page);
 
     @FormUrlEncoded
     @POST(URLHelper.STUDENT_SEND_MESSAGE)

@@ -64,6 +64,18 @@ public class TeacAssiDetailsViewFragment extends Fragment  implements View.OnCli
     ViewPager viewPager;
 
 
+    public static TeacAssiDetailsViewFragment newInstance(String text) {
+
+        TeacAssiDetailsViewFragment f = new TeacAssiDetailsViewFragment();
+        Bundle b = new Bundle();
+        b.putString("text", text);
+        //    b.putInt("img", image);
+
+        f.setArguments(b);
+
+        return f;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -75,31 +87,34 @@ public class TeacAssiDetailsViewFragment extends Fragment  implements View.OnCli
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        uiHelper = new UIHelper(getActivity());
-        viewPager = view.findViewById(R.id.pager);
+        TextView tv = (TextView) view.findViewById(R.id.title);
+        tv.setText(getArguments().getString("text"));
+
+//        uiHelper = new UIHelper(getActivity());
+//        viewPager = view.findViewById(R.id.pager);
 
 
 //        assignmentId = getArguments().getString("assignmentId");
 //        attachmentId = getArguments().getString("id");
 //        attachmentModelList = new ArrayList<>();
 
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
-
-            }
-
-            @Override
-            public void onPageSelected(int i) {
-
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
-
-            }
-        });
+//        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int i, float v, int i1) {
+//
+//            }
+//
+//            @Override
+//            public void onPageSelected(int i) {
+//
+//
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int i) {
+//
+//            }
+//        });
 
 
 

@@ -37,6 +37,8 @@ import com.classtune.classtuneuni.response.StCourseSection;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
 import com.classtune.classtuneuni.utils.NetworkConnection;
+import com.classtune.classtuneuni.utils.PaginationAdapterCallback;
+import com.classtune.classtuneuni.utils.PaginationScrollListener;
 import com.classtune.classtuneuni.utils.UIHelper;
 import com.classtune.classtuneuni.utils.VerticalSpaceItemDecoration;
 
@@ -64,7 +66,7 @@ import static com.classtune.classtuneuni.activity.MainActivity.GlobalOfferedCour
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ChatDetailsFragment extends Fragment implements View.OnClickListener,EasyPermissions.PermissionCallbacks, EasyPermissions.RationaleCallbacks {
+public class ChatDetailsFragment extends Fragment implements View.OnClickListener,EasyPermissions.PermissionCallbacks, EasyPermissions.RationaleCallbacks, PaginationAdapterCallback {
 
     StMsgAdapter stMsgAdapter;
     UIHelper uiHelper;
@@ -78,6 +80,13 @@ public class ChatDetailsFragment extends Fragment implements View.OnClickListene
     private static final String[] STORAGE_AND_CAMERA =
             {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
     private static final int RC_STORAGE_CAMERA_PERM = 124;
+
+    private static final int PAGE_START = 0;
+    boolean f = false;
+    private boolean isLoading = false;
+    private boolean isLastPage = false;
+    private int TOTAL_PAGES;
+    private int currentPage = PAGE_START;
 
 
     public ChatDetailsFragment() {
@@ -110,10 +119,35 @@ public class ChatDetailsFragment extends Fragment implements View.OnClickListene
         courseDiscussionList = new ArrayList<>();
         stMsgAdapter = new StMsgAdapter(getActivity());
 
-        linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, true);
         recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(getResources()));
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        recyclerView.addOnScrollListener(new PaginationScrollListener(linearLayoutManager) {
+            @Override
+            protected void loadMoreItems() {
+                isLoading = true;
+                currentPage += 1;
+
+                callMsgApiNext(GlobalOfferedCourseSectionId);
+            }
+
+            @Override
+            public int getTotalPageCount() {
+                return TOTAL_PAGES;
+            }
+
+            @Override
+            public boolean isLastPage() {
+                return isLastPage;
+            }
+
+            @Override
+            public boolean isLoading() {
+                return isLoading;
+            }
+        });
         recyclerView.setAdapter(stMsgAdapter);
 
         if(AppSharedPreference.getUserType().equals("3"))
@@ -276,11 +310,11 @@ public class ChatDetailsFragment extends Fragment implements View.OnClickListene
             Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(true)
+        if(b)
         uiHelper.showLoadingDialog("Please wait...");
 
         // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
-        RetrofitApiClient.getApiInterfaceWithId().getSubjectMessage(AppSharedPreference.getApiKey(), globalOfferedCourseSectionId, "0")
+        RetrofitApiClient.getApiInterfaceWithId().getSubjectMessage(AppSharedPreference.getApiKey(), globalOfferedCourseSectionId, 0)
 
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -302,6 +336,10 @@ public class ChatDetailsFragment extends Fragment implements View.OnClickListene
 //
 
                             stMsgAdapter.addAllData(courseDiscussionList);
+                            TOTAL_PAGES = stCourseMsgResponse.getData().getTotal_page();
+
+                            if (currentPage < (TOTAL_PAGES-1)) stMsgAdapter.addLoadingFooter();
+                            else isLastPage = true;
 //                            Log.v("tt", noticeList.toString());
                             //  Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
                         } else
@@ -319,6 +357,66 @@ public class ChatDetailsFragment extends Fragment implements View.OnClickListene
                     public void onComplete() {
 //                        progressDialog.dismiss();
                         uiHelper.dismissLoadingDialog();
+                    }
+                });
+
+
+    }
+
+
+    private void callMsgApiNext(String globalOfferedCourseSectionId) {
+
+
+        if (!NetworkConnection.getInstance().isNetworkAvailable()) {
+            Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
+        // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
+        RetrofitApiClient.getApiInterfaceWithId().getSubjectMessage(AppSharedPreference.getApiKey(), globalOfferedCourseSectionId, currentPage)
+
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<StCourseMsgResponse>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Response<StCourseMsgResponse> value) {
+                        //uiHelper.dismissLoadingDialog();
+
+                        StCourseMsgResponse stCourseMsgResponse = value.body();
+                        if (stCourseMsgResponse.getStatus().getCode() == 200) {
+                            stMsgAdapter.removeLoadingFooter();
+                            isLoading = false;
+//
+                            courseDiscussionList = stCourseMsgResponse.getData().getCourseDiscussion();
+//
+
+                            stMsgAdapter.addAllData(courseDiscussionList);
+
+                            if (currentPage < (TOTAL_PAGES-1)) stMsgAdapter.addLoadingFooter();
+                            else isLastPage = true;
+//                            Log.v("tt", noticeList.toString());
+                            //  Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                       // uiHelper.dismissLoadingDialog();
+                    }
+
+                    @Override
+                    public void onComplete() {
+//                        progressDialog.dismiss();
+                      //  uiHelper.dismissLoadingDialog();
                     }
                 });
 
@@ -509,4 +607,8 @@ public class ChatDetailsFragment extends Fragment implements View.OnClickListene
 
     }
 
+    @Override
+    public void retryPageLoad() {
+
+    }
 }

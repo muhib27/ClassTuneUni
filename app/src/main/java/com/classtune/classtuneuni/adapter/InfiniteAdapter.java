@@ -50,7 +50,8 @@ public class InfiniteAdapter extends PagerAdapter {
 
         LayoutInflater inflater = LayoutInflater.from(activity);
        // String imageUrl = Media.getImageUrl(myObject.getObjectId(), images.get(position).getImageId());
-        ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.object_details_image, container, false);
+//        ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.object_details_image, container, false);
+        ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.fragment_teacher_assi_details_view, container, false);
         TextView pagerImage = layout.findViewById(R.id.text);
         //Media.setImageFromUrl(pagerImage, imageUrl);//call to GlideApp or Picasso to load the image into the ImageView
         container.addView(layout);

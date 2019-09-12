@@ -9,9 +9,9 @@ public class StMsgData {
     @SerializedName("course_discussion")
     @Expose
     private List<StCourseDiscussion> courseDiscussion = null;
-    @SerializedName("page")
+    @SerializedName("total_page")
     @Expose
-    private String page;
+    private Integer total_page;
 
     public List<StCourseDiscussion> getCourseDiscussion() {
         return courseDiscussion;
@@ -21,11 +21,11 @@ public class StMsgData {
         this.courseDiscussion = courseDiscussion;
     }
 
-    public String getPage() {
-        return page;
+    public Integer getTotal_page() {
+        return total_page;
     }
 
-    public void setPage(String page) {
-        this.page = page;
+    public void setTotal_page(Integer total_page) {
+        this.total_page = total_page;
     }
 }

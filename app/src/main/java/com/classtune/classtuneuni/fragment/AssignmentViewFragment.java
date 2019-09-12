@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -38,10 +39,12 @@ public class AssignmentViewFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         pager = (ViewPager) view.findViewById(R.id.viewpager);
-        pager.setOffscreenPageLimit(1);
-        pager.setAdapter(new InfiniteAdapter(getActivity(),image));
+        pager.setAdapter(new MyPagerAdapter(getChildFragmentManager()));
+
+       // pager = (ViewPager) view.findViewById(R.id.viewpager);
+       // pager.setOffscreenPageLimit(1);
+       // pager.setAdapter(new InfiniteAdapter(getActivity(),image));
 //        PagerAdapter adapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
 ////            int[] colours = new int[]{Color.CYAN, Color.GRAY, Color.MAGENTA, Color.LTGRAY, Color.GREEN, Color.WHITE,
 ////                    Color.YELLOW};
@@ -69,5 +72,31 @@ public class AssignmentViewFragment extends Fragment {
 //        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
 //        viewPager.setAdapter(wrappedAdapter);
 
+    }
+
+    private class MyPagerAdapter extends FragmentPagerAdapter {
+
+        public MyPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int pos) {
+            switch (pos) {
+//                case 0:
+//                    return TeacAssiDetailsViewFragment.newInstance(String.valueOf(pos));
+//                case 1:
+//                    return TeacAssiDetailsViewFragment.newInstance(String.valueOf(pos));
+//                case 2:
+//                    return TeacAssiDetailsViewFragment.newInstance(String.valueOf(pos));
+                default:
+                    return TeacAssiDetailsViewFragment.newInstance(String.valueOf(pos));
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return 3;
+        }
     }
 }
