@@ -27,6 +27,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/my_custom_medium_font"
                 android:gravity="left"
+
                 android:text="Francine Bradley"
                 android:textColor="@color/ashTextColor"
                 android:textSize="@dimen/size_15sp"

@@ -62,6 +62,17 @@ public class AssiDetailsViewFragment extends Fragment  implements View.OnClickLi
         // Required empty public constructor
     }
 
+    public static AssiDetailsViewFragment newInstance(String text) {
+
+        AssiDetailsViewFragment f = new AssiDetailsViewFragment();
+        Bundle b = new Bundle();
+        b.putString("text", text);
+        //    b.putInt("img", image);
+
+        f.setArguments(b);
+
+        return f;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

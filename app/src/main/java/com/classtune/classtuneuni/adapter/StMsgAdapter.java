@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -45,9 +46,12 @@ public class StMsgAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     protected ItemListener mListener;
     private static final int HERO = 2;
     private static final int ITEM = 0;
+    private static final int LOADING = 10;
 
     private static String PREVIOUS_ID = "";
     private static  String CURRENT_ID = "";
+
+    private static String NEXT_ID = "";
 
     private boolean isLoadingAdded = false;
     private boolean retryPageLoad = false;
@@ -80,6 +84,10 @@ public class StMsgAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 View viewHero = inflater.inflate(R.layout.layout_item_own, parent, false);
                 viewHolder = new HeroVH(viewHero);
                 break;
+            case LOADING:
+                View viewLoading = inflater.inflate(R.layout.item_progress, parent, false);
+                viewHolder = new LoadingVH(viewLoading);
+                break;
         }
         return viewHolder;
     }
@@ -91,10 +99,14 @@ public class StMsgAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
             case ITEM:
                 final MovieVH itemHolder = (MovieVH) viewHolder;
-                if(position<=0)
-                    PREVIOUS_ID = result.getSenderId();
+//                if(position>=mValues.size()-2)
+//                    NEXT_ID = result.getSenderId();
+//                else
+//                    NEXT_ID = mValues.get(position+1).getSenderId();
+                if(position< mValues.size()-1)
+                    NEXT_ID = mValues.get(position+1).getSenderId();
                 else
-                    PREVIOUS_ID = mValues.get(position-1).getSenderId();
+                    NEXT_ID = result.getSenderId();
                 CURRENT_ID = result.getSenderId();
                 itemHolder.title.setText(result.getContent());
                 itemHolder.name.setText(result.getSenderName());
@@ -129,90 +141,33 @@ public class StMsgAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     itemHolder.img.setVisibility(View.GONE);
                 }
 
-                if(position>0 && PREVIOUS_ID.equals(CURRENT_ID)) {
+                if(NEXT_ID != null && NEXT_ID.equals(CURRENT_ID)&& position != (mValues.size() -1)) {
                     itemHolder.pic.setVisibility(View.INVISIBLE);
                     itemHolder.name.setVisibility(View.GONE);
                 }
-
-
-//                String str = "";
-//                if (AppSharedPreference.getUserType().equals("3")) {
-//                    str = result.getAssignment().getCreatedAt();
-//
-//                    String parts[] = str.split(" ");
-//
-//                    itemHolder.assignedDate.setText(AppUtility.getDateString(parts[0], AppUtility.DATE_FORMAT_APP, AppUtility.DATE_FORMAT_SERVER));
-//                    if (result.getAssignment().getDueDate() != null)
-//                        itemHolder.dueDate.setText(AppUtility.getDateString(result.getAssignment().getDueDate(), AppUtility.DATE_FORMAT_APP, AppUtility.DATE_FORMAT_SERVER));
-//                    if (result.getAssignment().getCourseCode() != null)
-//                        itemHolder.subject.setText(result.getAssignment().getCourseCode());
-//                    if (result.getAssignment().getSectionName() != null)
-//                        itemHolder.section.setText(result.getAssignment().getSectionName());
-//                    if (result.getSubmission() != null && result.getSubmission()== 0) {
-//                        itemHolder.imgLl.setVisibility(View.VISIBLE);
-//                        itemHolder.numLl.setVisibility(View.GONE);
-//                        if (result.getMark() != null)
-//                            itemHolder.img.setImageDrawable(mContext.getResources().getDrawable(R.drawable.not_examined));
-//                        else
-//                            itemHolder.img.setImageDrawable(mContext.getResources().getDrawable(R.drawable.not_submited));
-//                    } else {
-//                        itemHolder.present.setText("" + result.getSubmission());
-//                        if (result.getMark() != null)
-//                            itemHolder.total.setText("" + result.getMark());
-//                    }
-//
-//                    itemHolder.cardView.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-//                            Fragment fragment = new AssignmentDetailsFragment();
-//                            gotoFragment(fragment, "assignmentDetailsFragment", result.getAssignment().getId());
-//
-////                        if (mListener != null) {
-////                            mListener.onItemClick(result, position);
-////                        }
-//                        }
-//                    });
-//                } else {
-//                    str = result.getAssignment().getAssignDate();
-//
-//                    String parts[] = str.split(" ");
-//
-//                    itemHolder.assignedDate.setText(AppUtility.getDateString(parts[0], AppUtility.DATE_FORMAT_APP, AppUtility.DATE_FORMAT_SERVER));
-//                    if (result.getAssignment().getDueDate() != null)
-//                        itemHolder.dueDate.setText(AppUtility.getDateString(result.getAssignment().getDueDate(), AppUtility.DATE_FORMAT_APP, AppUtility.DATE_FORMAT_SERVER));
-//                    if (result.getAssignment().getCourseCode() != null)
-//                        itemHolder.subject.setText(result.getAssignment().getCourseCode());
-//                    if (result.getAssignment().getSectionName() != null)
-//                        itemHolder.section.setText(result.getAssignment().getSectionName());
-//                    if (result.getSubmissions() != null)
-//                        itemHolder.present.setText("" + result.getSubmissions());
-//                    if (result.getStudents() != null)
-//                        itemHolder.total.setText("" + result.getStudents());
-//                    itemHolder.cardView.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-//                            Fragment fragment = new TeacherStudentListFragment();
-//                            gotoFragment(fragment, "teacherStudentListFragment", result.getAssignment().getId());
-//
-////                        if (mListener != null) {
-////                            mListener.onItemClick(result, position);
-////                        }
-//                        }
-//                    });
-//                }
+                else {
+                    itemHolder.pic.setVisibility(View.VISIBLE);
+                }
 
 
                 break;
             case HERO:
                 final HeroVH heroHolder = (HeroVH) viewHolder;
-                if(position<=0)
-                    PREVIOUS_ID = result.getSenderId();
+//                if(position >= mValues.size()-2)
+//                    NEXT_ID = mValues.get(position + 1).getSenderId();
+//                else
+                if(position< mValues.size()-1)
+                    NEXT_ID = mValues.get(position+1).getSenderId();
                 else
-                    PREVIOUS_ID = mValues.get(position-1).getSenderId();
+                    NEXT_ID = result.getSenderId();
+
                 CURRENT_ID = result.getSenderId();
                 heroHolder.title.setText(result.getContent());
-                if(position>0 && PREVIOUS_ID.equals(CURRENT_ID))
+                if(NEXT_ID != null && NEXT_ID.equals(CURRENT_ID) && position != (mValues.size() -1)) {
                     heroHolder.pic.setVisibility(View.INVISIBLE);
+                }
+                else
+                    heroHolder.pic.setVisibility(View.VISIBLE);
 
                 if(result.getThumbnail()!=null)
                 {
@@ -246,6 +201,24 @@ public class StMsgAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 }
 
                 break;
+
+            case LOADING:
+                LoadingVH loadingVH = (LoadingVH) viewHolder;
+
+                if (retryPageLoad) {
+                    loadingVH.mErrorLayout.setVisibility(View.VISIBLE);
+                    loadingVH.mProgressBar.setVisibility(View.GONE);
+
+                    loadingVH.mErrorTxt.setText(
+                            errorMsg != null ?
+                                    errorMsg :
+                                    mContext.getString(R.string.error_msg_unknown));
+
+                } else {
+                    loadingVH.mErrorLayout.setVisibility(View.GONE);
+                    loadingVH.mProgressBar.setVisibility(View.VISIBLE);
+                }
+                break;
         }
     }
 
@@ -264,10 +237,14 @@ public class StMsgAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 //        if (position == 0) {
 //            return HERO;
 //        } else
-        if (mValues.get(position).getSenderId().equals(AppSharedPreference.getId()))
-            return HERO;
-        else
-            return ITEM;
+        if (position == mValues.size() - 1 && isLoadingAdded)
+            return LOADING;
+        else {
+            if (mValues.get(position).getSenderId().equals(AppSharedPreference.getId()))
+                return HERO;
+            else
+                return ITEM;
+        }
     }
 
     public interface ItemListener {
@@ -323,6 +300,45 @@ public class StMsgAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             img = itemView.findViewById(R.id.img);
             pic = itemView.findViewById(R.id.pic);
         }
+    }
+
+    protected class LoadingVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private ProgressBar mProgressBar;
+        private ImageButton mRetryBtn;
+        private TextView mErrorTxt;
+        private LinearLayout mErrorLayout;
+
+        public LoadingVH(View itemView) {
+            super(itemView);
+
+            mProgressBar = (ProgressBar) itemView.findViewById(R.id.loadmore_progress);
+            mRetryBtn = (ImageButton) itemView.findViewById(R.id.loadmore_retry);
+            mErrorTxt = (TextView) itemView.findViewById(R.id.loadmore_errortxt);
+            mErrorLayout = (LinearLayout) itemView.findViewById(R.id.loadmore_errorlayout);
+
+            mRetryBtn.setOnClickListener(this);
+            mErrorLayout.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.loadmore_retry:
+                case R.id.loadmore_errorlayout:
+
+                    showRetry(false, null);
+                    mCallback.retryPageLoad();
+
+                    break;
+            }
+        }
+    }
+
+    public void showRetry(boolean show, @Nullable String errorMsg) {
+        retryPageLoad = show;
+        notifyItemChanged(mValues.size() - 1);
+
+        if (errorMsg != null) this.errorMsg = errorMsg;
     }
 
     public void add(StCourseDiscussion r) {
