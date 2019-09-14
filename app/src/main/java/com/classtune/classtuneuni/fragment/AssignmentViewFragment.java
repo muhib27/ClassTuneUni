@@ -5,13 +5,17 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.adapter.InfiniteAdapter;
 import com.classtune.classtuneuni.adapter.PagerAdapter;
 
@@ -21,7 +25,7 @@ import com.classtune.classtuneuni.adapter.PagerAdapter;
 public class AssignmentViewFragment extends Fragment {
 
     private ViewPager pager;
-    private int[] image = {R.drawable.img,R.drawable.img2};
+    private int[] image = {R.drawable.img, R.drawable.img2};
 
     public AssignmentViewFragment() {
         // Required empty public constructor
@@ -39,9 +43,45 @@ public class AssignmentViewFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        pager = (ViewPager) view.findViewById(R.id.viewpager);
-        pager.setOffscreenPageLimit(1);
-        pager.setAdapter(new InfiniteAdapter(getActivity(),image));
+        //pager = (ViewPager) view.findViewById(R.id.viewpager);
+
+
+
+        ViewPager pager = view.findViewById(R.id.viewpager);
+        pager.setAdapter(new MyPagerAdapter(getActivity().getSupportFragmentManager()));
+    }
+
+    private class MyPagerAdapter extends FragmentPagerAdapter {
+
+        public MyPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public android.support.v4.app.Fragment getItem(int pos) {
+            switch (pos) {
+                case 0:
+//                Fragment fragment = new AssignmentPagerFragment();
+                //gotoFragment(fragment, "assignmentPagerFragment");
+                return fragment;
+
+
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return 3;
+        }
+    }
+
+
+
+
+
+
+    // pager.setOffscreenPageLimit(1);
+//        pager.setAdapter(new InfiniteAdapter(getActivity(),image));
 //        PagerAdapter adapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
 ////            int[] colours = new int[]{Color.CYAN, Color.GRAY, Color.MAGENTA, Color.LTGRAY, Color.GREEN, Color.WHITE,
 ////                    Color.YELLOW};
@@ -69,5 +109,17 @@ public class AssignmentViewFragment extends Fragment {
 //        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
 //        viewPager.setAdapter(wrappedAdapter);
 
+
+    }
+
+    private void gotoFragment(Fragment fragment, String tag) {
+        // load fragment
+//        Bundle bundle = new Bundle();
+//        bundle.putString("noticeId",noticeId);
+//        fragment.setArguments(bundle);
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.mainContainer, fragment, tag);
+        //transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

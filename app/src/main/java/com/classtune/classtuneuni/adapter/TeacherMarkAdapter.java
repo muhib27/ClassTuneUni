@@ -41,7 +41,7 @@ public class TeacherMarkAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         switch (viewType) {
             case ITEM:
-                View viewItem = inflater.inflate(R.layout.course_student_section_item_row, parent, false);
+                View viewItem = inflater.inflate(R.layout.student_mark_item_row, parent, false);
                 viewHolder = new MovieVH(viewItem);
                 break;
 

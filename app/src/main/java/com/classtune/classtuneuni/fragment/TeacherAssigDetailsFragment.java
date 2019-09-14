@@ -19,9 +19,11 @@ import android.widget.Toast;
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.adapter.AttachFromTeacherAdapter;
+import com.classtune.classtuneuni.adapter.TeacherMarkAdapter;
 import com.classtune.classtuneuni.assignment.AssinmentAttachment;
 import com.classtune.classtuneuni.assignment.TeacherAssignmentResponse;
 import com.classtune.classtuneuni.model.AssignmentModel;
+import com.classtune.classtuneuni.model.Student;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
 import com.classtune.classtuneuni.utils.AppUtility;
@@ -43,7 +45,7 @@ import retrofit2.Response;
  */
 public class TeacherAssigDetailsFragment extends Fragment implements View.OnClickListener {
 
-    AttachFromTeacherAdapter attachFromTeacherAdapter;
+    TeacherMarkAdapter teacherMarkAdapter;
 
     UIHelper uiHelper;
     String assignmentId = "";
@@ -52,7 +54,7 @@ public class TeacherAssigDetailsFragment extends Fragment implements View.OnClic
     String id = "";
     LinearLayoutManager linearLayoutManager;
     RecyclerView recyclerView;
-    private List<AssinmentAttachment> attachmentModelList;
+    private List<Student> studentList;
 
     public TeacherAssigDetailsFragment() {
         // Required empty public constructor
@@ -76,7 +78,7 @@ public class TeacherAssigDetailsFragment extends Fragment implements View.OnClic
         recyclerView = view.findViewById(R.id.recyclerView);
         description = view.findViewById(R.id.description);
 
-        attachmentModelList = new ArrayList<>();
+        studentList = new ArrayList<>();
         uiHelper = new UIHelper(getActivity());
         assignmentId = getArguments().getString("assignmentId");
         title = view.findViewById(R.id.title);
@@ -91,12 +93,12 @@ public class TeacherAssigDetailsFragment extends Fragment implements View.OnClic
         viewSubmission.setOnClickListener(this);
 
 
-        attachFromTeacherAdapter = new AttachFromTeacherAdapter(getActivity());
+        teacherMarkAdapter = new TeacherMarkAdapter(getActivity());
         linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(getResources()));
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(attachFromTeacherAdapter);
+        recyclerView.setAdapter(teacherMarkAdapter);
 
 
         callStAssignmentViewApi(assignmentId);
@@ -129,10 +131,10 @@ public class TeacherAssigDetailsFragment extends Fragment implements View.OnClic
                         TeacherAssignmentResponse teacherAssignmentResponse = value.body();
                         if (teacherAssignmentResponse.getStatus().getCode() == 200) {
                             populateData(teacherAssignmentResponse.getData().getAssignment().getAssignment(), teacherAssignmentResponse.getData().getAssignment().getSubmission(), teacherAssignmentResponse.getData().getAssignment().getMark());
-                            attachmentModelList = new ArrayList<>();
-                            attachmentModelList = teacherAssignmentResponse.getData().getAssignment().getAttachments();
+                            studentList = new ArrayList<>();
+                           // studentList = teacherAssignmentResponse.getData().getAssignment().getAttachments();
 
-                            attachFromTeacherAdapter.addAllData(attachmentModelList);
+                            teacherMarkAdapter.addAllData(studentList);
 
 
                         } else
