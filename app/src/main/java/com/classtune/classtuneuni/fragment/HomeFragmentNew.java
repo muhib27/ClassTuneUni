@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,8 +16,11 @@ import android.view.ViewGroup;
 
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.adapter.AssignmentAdapter;
+import com.classtune.classtuneuni.adapter.HomeResourceAdapter;
+import com.classtune.classtuneuni.adapter.ResourceAdapter;
 import com.classtune.classtuneuni.assignment.Assignment;
 import com.classtune.classtuneuni.utils.UIHelper;
+import com.classtune.classtuneuni.utils.VerticalSpaceItemDecoration;
 
 import java.util.List;
 
@@ -35,6 +40,10 @@ public class HomeFragmentNew extends Fragment {
     UIHelper uiHelper;
     AssignmentAdapter assignmentAdapter;
 
+    HomeResourceAdapter homeResourceAdapter;
+
+    GridLayoutManager manager;
+
 
     public HomeFragmentNew() {
         // Required empty public constructor
@@ -53,10 +62,20 @@ public class HomeFragmentNew extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         uiHelper = new UIHelper(getActivity());
-        
+
         rvNotice = view.findViewById(R.id.rvNotice);
         rvAssignmnet = view.findViewById(R.id.rvAssignment);
         rvResource = view.findViewById(R.id.rvResources);
+
+        homeResourceAdapter = new HomeResourceAdapter(getActivity());
+        rvResource.setAdapter(homeResourceAdapter);
+
+        rvResource.addItemDecoration(new VerticalSpaceItemDecoration(getResources()));
+//        recyclerView.setLayoutManager(linearLayoutManager);
+
+        manager = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
+        rvResource.setLayoutManager(manager);
+        rvResource.setItemAnimator(new DefaultItemAnimator());
 
     }
 }
