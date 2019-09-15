@@ -6,11 +6,18 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.adapter.AssignmentAdapter;
+import com.classtune.classtuneuni.assignment.Assignment;
+import com.classtune.classtuneuni.utils.UIHelper;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +28,12 @@ import com.classtune.classtuneuni.R;
  * create an instance of this fragment.
  */
 public class HomeFragmentNew extends Fragment {
+
+    RecyclerView rvNotice, rvAssignmnet, rvResource;
+    private List<Assignment> assignmentList;
+    LinearLayoutManager linearLayoutManager;
+    UIHelper uiHelper;
+    AssignmentAdapter assignmentAdapter;
 
 
     public HomeFragmentNew() {
@@ -38,5 +51,12 @@ public class HomeFragmentNew extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        uiHelper = new UIHelper(getActivity());
+        
+        rvNotice = view.findViewById(R.id.rvNotice);
+        rvAssignmnet = view.findViewById(R.id.rvAssignment);
+        rvResource = view.findViewById(R.id.rvResources);
+
     }
 }

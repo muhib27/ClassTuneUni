@@ -50,4 +50,5 @@
     <dimen name="activity_margin_half">8dp</dimen>
     <dimen name="size_55dp">55dp</dimen>
     <dimen name="size_17sp">17sp</dimen>
+    <dimen name="text_size_38_sp">38sp</dimen>
 </resources>
