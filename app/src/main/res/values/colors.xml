@@ -11,6 +11,9 @@
     <!--<color name="appColor">#90BE47</color>-->
     <color name="appColor">#D71921</color>
 
+    <color name="appColorTrans">#401db6ea</color>
+
+
 
     <color name="selected">#a8cf45</color>
     <color name="unselected">#ff8cae3b</color>
