@@ -16,33 +16,37 @@ import android.view.ViewGroup;
 
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.adapter.AssignmentAdapter;
+import com.classtune.classtuneuni.adapter.HomeAssignmentAdapter;
+import com.classtune.classtuneuni.adapter.HomeNoticeAdapter;
 import com.classtune.classtuneuni.adapter.HomeResourceAdapter;
+import com.classtune.classtuneuni.adapter.ItemAdapter;
 import com.classtune.classtuneuni.adapter.ResourceAdapter;
 import com.classtune.classtuneuni.assignment.Assignment;
+import com.classtune.classtuneuni.resource.Resource;
+import com.classtune.classtuneuni.response.Notice;
 import com.classtune.classtuneuni.utils.UIHelper;
 import com.classtune.classtuneuni.utils.VerticalSpaceItemDecoration;
 
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link HomeFragmentNew.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link HomeFragmentNew#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class HomeFragmentNew extends Fragment {
 
     RecyclerView rvNotice, rvAssignmnet, rvResource;
     private List<Assignment> assignmentList;
-    LinearLayoutManager linearLayoutManager;
+    LinearLayoutManager noticelinearLayoutManager, assignmentLayoutManager;
     UIHelper uiHelper;
     AssignmentAdapter assignmentAdapter;
 
+    HomeNoticeAdapter homeNoticeAdapter;
+
     HomeResourceAdapter homeResourceAdapter;
+    HomeAssignmentAdapter homeAssignmentAdapter;
 
     GridLayoutManager manager;
+    private List<Resource> resourceList;
+
 
 
     public HomeFragmentNew() {
@@ -67,15 +71,28 @@ public class HomeFragmentNew extends Fragment {
         rvAssignmnet = view.findViewById(R.id.rvAssignment);
         rvResource = view.findViewById(R.id.rvResources);
 
+        resourceList = new ArrayList<>();
+        List<Notice> noticeList;
+
+
+
         homeResourceAdapter = new HomeResourceAdapter(getActivity());
         rvResource.setAdapter(homeResourceAdapter);
-
         rvResource.addItemDecoration(new VerticalSpaceItemDecoration(getResources()));
-//        recyclerView.setLayoutManager(linearLayoutManager);
-
         manager = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
         rvResource.setLayoutManager(manager);
         rvResource.setItemAnimator(new DefaultItemAnimator());
+
+        noticelinearLayoutManager = new LinearLayoutManager(getActivity());
+        homeNoticeAdapter = new HomeNoticeAdapter(getActivity());
+        rvNotice.setAdapter(homeNoticeAdapter);
+        rvNotice.setLayoutManager(noticelinearLayoutManager);
+
+        assignmentLayoutManager = new LinearLayoutManager(getActivity());
+        homeAssignmentAdapter = new HomeAssignmentAdapter(getActivity());
+        rvNotice.setAdapter(homeAssignmentAdapter);
+        rvNotice.setLayoutManager(assignmentLayoutManager);
+        
 
     }
 }
