@@ -20,6 +20,7 @@ import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.assignment.AssinmentAttachment;
 import com.classtune.classtuneuni.model.CourseModel;
+import com.classtune.classtuneuni.response.NoticeInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ import java.util.List;
 
 public class HomeNoticeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<AssinmentAttachment> mValues;
+    private List<NoticeInfo> mValues;
     private Context mContext;
     protected ItemListener mListener;
     private static final int HERO = 2;
@@ -49,7 +50,7 @@ public class HomeNoticeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         switch (viewType) {
             case ITEM:
-                View viewItem = inflater.inflate(R.layout.attachment_list_item_row, parent, false);
+                View viewItem = inflater.inflate(R.layout.home_notice_item, parent, false);
                 viewHolder = new MovieVH(viewItem);
                 break;
 
@@ -64,28 +65,20 @@ public class HomeNoticeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
-        final AssinmentAttachment result = mValues.get(position);
+        final NoticeInfo result = mValues.get(position);
         switch (getItemViewType(position)) {
             case ITEM:
                 final MovieVH itemHolder = (MovieVH) viewHolder;
-                itemHolder.name.setText(result.getName());
+                itemHolder.name.setText(result.getTitle());
                 //itemHolder.download.setText(result.getUrl());
-                itemHolder.viewLl.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri
-                                .parse(result.getUrl())));
-//                        String url = "https://appharbor.com/assets/images/stackoverflow-logo.png";
-//                        Intent i = new Intent(Intent.ACTION_VIEW);
-//                        i.setData(Uri.parse(url));
-//                        mContext.startActivity(i);
-
-//                        dm = (DownloadManager) mContext.getSystemService(DOWNLOAD_SERVICE);
-//                        DownloadManager.Request request = new DownloadManager.Request(
-//                                Uri.parse(result.getUrl()));
-//                        enqueue = dm.enqueue(request);
-                    }
-                });
+//                itemHolder.viewLl.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri
+//                                .parse(result.getUrl())));
+//
+//                    }
+//                });
 
 
                 break;
@@ -146,13 +139,13 @@ public class HomeNoticeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         }
 
-    public void add(AssinmentAttachment r) {
+    public void add(NoticeInfo r) {
         mValues.add(r);
         notifyItemInserted(mValues.size() - 1);
     }
 
-    public void addAllData(List<AssinmentAttachment> moveResults) {
-        for (AssinmentAttachment result : moveResults) {
+    public void addAllData(List<NoticeInfo> moveResults) {
+        for (NoticeInfo result : moveResults) {
             add(result);
         }
     }

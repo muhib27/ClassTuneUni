@@ -17,6 +17,13 @@ public class NoticeInfo {
     @Expose
     private String createdAt;
 
+    public NoticeInfo() {
+    }
+
+    public NoticeInfo(String title) {
+        this.title = title;
+    }
+
     public String getId() {
         return id;
     }
