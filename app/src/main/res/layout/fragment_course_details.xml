@@ -172,6 +172,7 @@
                 android:background="@color/menu_divider" />
 
             <LinearLayout
+                android:id="@+id/shareLl"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
