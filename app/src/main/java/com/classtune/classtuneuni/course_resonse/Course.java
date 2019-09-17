@@ -21,6 +21,13 @@ public class Course {
     @Expose
     private Boolean courseOffered;
 
+    public Course() {
+    }
+
+    public Course(String name) {
+        this.name = name;
+    }
+
     public String getId() {
         return id;
     }

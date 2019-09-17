@@ -23,7 +23,6 @@ import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.assignment.Assignment;
 import com.classtune.classtuneuni.course_resonse.Course;
 import com.classtune.classtuneuni.fragment.AssignmentDetailsFragment;
-import com.classtune.classtuneuni.fragment.CourseDetailsFragment;
 import com.classtune.classtuneuni.fragment.TeacherStudentListFragment;
 import com.classtune.classtuneuni.model.AssignmentModel;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
@@ -34,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class StCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class RelatedCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<Course> mValues;
     private Context mContext;
@@ -49,7 +48,7 @@ public class StCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private String errorMsg;
 
-    public StCourseAdapter(Context context, PaginationAdapterCallback mCallback) {
+    public RelatedCourseAdapter(Context context, PaginationAdapterCallback mCallback) {
         mValues = new ArrayList<>();
         mContext = context;
         this.mCallback = mCallback;
@@ -64,7 +63,7 @@ public class StCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         switch (viewType) {
             case ITEM:
-                View viewItem = inflater.inflate(R.layout.student_course_item_row, parent, false);
+                View viewItem = inflater.inflate(R.layout.related_course_item_row, parent, false);
                 viewHolder = new MovieVH(viewItem);
                 break;
 
@@ -83,7 +82,7 @@ public class StCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             case ITEM:
                 final MovieVH itemHolder = (MovieVH) viewHolder;
                 if(result.getName()!=null)
-                itemHolder.name.setText(result.getName());
+                itemHolder.courseName.setText(result.getName());
 
 //                String str = "";
 //                if (AppSharedPreference.getUserType().equals("3")) {
@@ -111,17 +110,17 @@ public class StCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 //                            itemHolder.total.setText("" + result.getMark());
 //                    }
 //
-                    itemHolder.cardView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Fragment fragment = new CourseDetailsFragment();
-                            gotoFragment(fragment, "courseDetailsFragment", "1");
-
-//                        if (mListener != null) {
-//                            mListener.onItemClick(result, position);
+//                    itemHolder.cardView.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//                            Fragment fragment = new AssignmentDetailsFragment();
+//                            gotoFragment(fragment, "assignmentDetailsFragment", result.getAssignment().getId());
+//
+////                        if (mListener != null) {
+////                            mListener.onItemClick(result, position);
+////                        }
 //                        }
-                        }
-                    });
+//                    });
 //                } else {
 //                    str = result.getAssignment().getAssignDate();
 //
@@ -199,7 +198,7 @@ public class StCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
     protected class MovieVH extends RecyclerView.ViewHolder {
-        private TextView name;
+        private TextView courseName;
         private TextView assignedDate;
         private TextView dueDate; // displays "year | language"
         private ImageView img;
@@ -212,7 +211,7 @@ public class StCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public MovieVH(View itemView) {
             super(itemView);
 
-            name = itemView.findViewById(R.id.name);
+            courseName = itemView.findViewById(R.id.courseName);
 //            assignedDate = itemView.findViewById(R.id.assignedDate);
 //            dueDate = itemView.findViewById(R.id.dueDate);
 //            subject = itemView.findViewById(R.id.subject);
@@ -221,7 +220,7 @@ public class StCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 //            total = itemView.findViewById(R.id.total);
 //            img = itemView.findViewById(R.id.img);
 ////            assignedDate = itemView.findViewById(R.id.assignedDate);
-            cardView = itemView.findViewById(R.id.cardView);
+//            cardView = itemView.findViewById(R.id.cardView);
 //            imgLl = itemView.findViewById(R.id.imgLl);
 //            numLl = itemView.findViewById(R.id.numLl);
 
@@ -332,10 +331,10 @@ public class StCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return mValues.get(position);
     }
 
-    private void gotoFragment(Fragment fragment, String tag, String courseId) {
+    private void gotoFragment(Fragment fragment, String tag, String assignmentId) {
         // load fragment
         Bundle bundle = new Bundle();
-        bundle.putString("courseId", courseId);
+        bundle.putString("assignmentId", assignmentId);
         fragment.setArguments(bundle);
         FragmentTransaction transaction = ((MainActivity) mContext).getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.mainContainer, fragment, tag);

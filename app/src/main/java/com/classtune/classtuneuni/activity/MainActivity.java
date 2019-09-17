@@ -32,6 +32,7 @@ import com.classtune.classtuneuni.fragment.HomeFragment;
 import com.classtune.classtuneuni.fragment.MorePageFragment;
 import com.classtune.classtuneuni.fragment.NoticeListFragment;
 import com.classtune.classtuneuni.fragment.ResourseFragment;
+import com.classtune.classtuneuni.fragment.StudentCourseListFragment;
 import com.classtune.classtuneuni.response.StCourseSection;
 import com.classtune.classtuneuni.response.StSectionListResponse;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
@@ -211,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
                     fragment = new HomeFragment();
                     loadFragment(fragment, "homeFragment", true);
 
-                } else if (tabId == R.id.assistant) {
+                } else if (tabId == R.id.course) {
 
                     int backStackCount = getSupportFragmentManager().getBackStackEntryCount();
                     if(backStackCount>1)
@@ -222,8 +223,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
 
-                    fragment = new AssignmentFragment();
-                    loadFragment(fragment, "assignmentFragment", false);
+                    fragment = new StudentCourseListFragment();
+                    loadFragment(fragment, "studentCourseListFragment", false);
 
                 } else if (tabId == R.id.news) {
 
@@ -282,10 +283,10 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new HomeFragment();
                         loadFragment(fragment, "homeFragment", true);
                     }
-                    else  if(st.contains("assignment"))
+                    else  if(st.contains("course"))
                     {
-                        fragment = new AssignmentFragment();
-                        loadFragment(fragment, "assignmentFragment", true);
+                        fragment = new StudentCourseListFragment();
+                        loadFragment(fragment, "studentCourseListFragment", true);
                     }
                     else  if(st.contains("resource"))
                     {

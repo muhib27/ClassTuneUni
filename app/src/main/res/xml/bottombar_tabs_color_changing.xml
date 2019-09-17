@@ -6,9 +6,9 @@
         title="Home"
         />
     <tab
-        id="@+id/assistant"
+        id="@+id/course"
         icon="@drawable/open_book"
-        title="Assignment"
+        title="Course"
         />
     <tab
         id="@+id/news"

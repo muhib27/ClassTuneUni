@@ -14,8 +14,8 @@ public class TabMessage {
             case R.id.home:
                 message += "home";
                 break;
-            case R.id.assistant:
-                message += "assignment";
+            case R.id.course:
+                message += "course";
                 break;
             case R.id.news:
                 message += "resource";

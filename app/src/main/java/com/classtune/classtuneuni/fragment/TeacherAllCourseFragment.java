@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.classtune.classtuneuni.R;
-import com.classtune.classtuneuni.adapter.AssignmentAdapter;
+import com.classtune.classtuneuni.adapter.RelatedCourseAdapter;
 import com.classtune.classtuneuni.adapter.StCourseAdapter;
 import com.classtune.classtuneuni.assignment.Assignment;
 import com.classtune.classtuneuni.course_resonse.Course;
@@ -27,14 +27,14 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class StudentCourseListFragment extends Fragment implements View.OnClickListener, PaginationAdapterCallback {
+public class TeacherAllCourseFragment extends Fragment implements View.OnClickListener, PaginationAdapterCallback {
     RecyclerView recyclerView;
     private List<Course> courseList;
     LinearLayoutManager linearLayoutManager;
     UIHelper uiHelper;
     StCourseAdapter stCourseAdapter;
 
-    public StudentCourseListFragment() {
+    public TeacherAllCourseFragment() {
         // Required empty public constructor
     }
 
@@ -43,7 +43,7 @@ public class StudentCourseListFragment extends Fragment implements View.OnClickL
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_student_course_list, container, false);
+        return inflater.inflate(R.layout.fragment_teacher_all_course, container, false);
     }
 
     @Override

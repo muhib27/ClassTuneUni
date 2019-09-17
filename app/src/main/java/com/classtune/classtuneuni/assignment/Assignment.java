@@ -29,6 +29,10 @@ public class Assignment {
     @Expose
     private List<AssinmentAttachment> attachments = null;
 
+    public Assignment() {
+    }
+
+
 
     public Integer getStudents() {
         return students;
