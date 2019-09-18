@@ -49,6 +49,7 @@ public class ExamInfoModel {
     private String participants;
 
 
+
     public String getExamId() {
         return examId;
     }
@@ -152,4 +153,6 @@ public class ExamInfoModel {
     public void setAssessmentName(String assessmentName) {
         this.assessmentName = assessmentName;
     }
+
+
 }

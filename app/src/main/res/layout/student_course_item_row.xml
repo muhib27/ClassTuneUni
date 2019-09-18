@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:elevation="3dp"
-    android:padding="@dimen/size_10dp"
     android:layout_marginTop="@dimen/size_5dp"
     android:layout_marginBottom="@dimen/size_5dp"
     android:layout_marginStart="@dimen/size_10dp"
@@ -28,6 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <RelativeLayout
+                    android:layout_marginStart="@dimen/size_10dp"
                     android:layout_weight=".9"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content">
@@ -35,7 +35,7 @@
                         android:scaleType="centerCrop"
                         android:src="@drawable/news_poster"
                         android:layout_width="match_parent"
-                        android:layout_height="100dp" />
+                        android:layout_height="110dp" />
                     <TextView
                         android:layout_marginTop="@dimen/size_3dp"
                         android:textStyle="bold"
@@ -105,12 +105,13 @@
 
                     </LinearLayout>
                     <TextView
+                        android:paddingTop="@dimen/size_5dp"
                         android:layout_marginEnd="@dimen/size_10dp"
                         android:maxLines="2"
                         android:layout_marginTop="@dimen/size_5dp"
                         android:textColor="@color/ashTextColor"
                         android:textSize="@dimen/text_size_10_sp"
-                        android:text="Advence Software Engineering"
+                        android:text="Advance Software Engineering"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
@@ -120,6 +121,8 @@
 
             </LinearLayout>
             <View
+                android:layout_marginTop="-5dp"
+                android:layout_marginStart="@dimen/size_10dp"
                 android:layout_marginEnd="@dimen/size_10dp"
                 android:background="@color/menu_divider"
                 android:layout_width="match_parent"
@@ -244,6 +247,9 @@
 
         </LinearLayout>
         <ImageView
+            android:id="@+id/newCourse"
+            android:layout_marginEnd="-8dp"
+            android:layout_marginTop="-8dp"
             android:src="@drawable/new_icon"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"

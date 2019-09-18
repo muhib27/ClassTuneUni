@@ -27,6 +27,14 @@ public class Notices {
     @Expose
     private String updatedAt;
 
+    @SerializedName("course_name")
+    @Expose
+    private String courseName;
+    @SerializedName("course_code")
+    @Expose
+    private String courseCode;
+
+
     public String getId() {
         return id;
     }

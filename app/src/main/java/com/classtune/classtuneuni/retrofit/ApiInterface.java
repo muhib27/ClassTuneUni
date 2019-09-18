@@ -86,7 +86,7 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST(URLHelper.URL_REGISTER)
 //    Observable<Response<List<LoginResponseModel>>> userLogin(@Field("username") String userId, @Field("password") String password);
-    Observable<Response<RegisTrationResponse>> studentRegistration(@Field("email") String userId, @Field("password") String password, @Field("confirm_password") String confirm_password, @Field("name") String name, @Field("user_type") String user_type, @Field("student_id") String student_id, @Field("fcm_id") String fcm_id);
+    Observable<Response<RegisTrationResponse>> studentRegistration(@Field("email") String userId, @Field("password") String password, @Field("confirm_password") String confirm_password, @Field("name") String name, @Field("user_type") String user_type, @Field("student_id") String student_id, @Field("fcm_id") String fcm_id, @Field("phone") String phone);
 
 
     @FormUrlEncoded
@@ -245,9 +245,13 @@ public interface ApiInterface {
     @POST(URLHelper.STUDENT_SEND_MESSAGE)
     Observable<Response<StSendMsgResponse>> stSentPhot(@Part MultipartBody.Part attachment_file_name, @Part("course_offer_section_id") RequestBody course_offer_section_id ,@Part("api_key") RequestBody api_key);
 
+//    @FormUrlEncoded
+//    @POST(URLHelper.STUDENT_HOME)
+//    Observable<Response<StHomeRespons>> getStHome(@Field("api_key") String api_key, @Field("page") int page);
+
     @FormUrlEncoded
     @POST(URLHelper.STUDENT_HOME)
-    Observable<Response<StHomeRespons>> getStHome(@Field("api_key") String api_key, @Field("page") int page);
+    Observable<Response<StHomeRespons>> getStHome(@Field("api_key") String api_key);
 
     @FormUrlEncoded
     @POST(URLHelper.STUDENT_HOME_HEADER)

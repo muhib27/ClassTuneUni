@@ -32,6 +32,17 @@ public class Resource {
     @Expose
     private String instructor;
 
+
+
+    @SerializedName("id")
+    @Expose
+    private String id;
+
+    @SerializedName("updated_at")
+    @Expose
+    private String updatedAt;
+
+
     public String getPageId() {
         return pageId;
     }
@@ -105,5 +116,21 @@ public class Resource {
     }
 
     public Resource() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -71,10 +72,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         AppSharedPreference.setUsingFirstTime(false);
         AppSharedPreference.setFirstTimeLogin(false);
+
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         toolbar.setLogo(R.drawable.toolbar_icon);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.left_arrow);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 
 //        fab_main = findViewById(R.id.fab);
 //        fab1_mail = findViewById(R.id.fab1);
@@ -623,4 +630,10 @@ public class MainActivity extends AppCompatActivity {
         return view;
     }
 
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 }

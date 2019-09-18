@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,12 +54,13 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class StudentProfileFragment extends Fragment implements StProfileInfoAdapter.ItemListener {
+public class StudentProfileFragment extends Fragment implements StProfileInfoAdapter.ItemListener, View.OnClickListener {
     RecyclerView recyclerView;
     private List<StCourseAssessment> stCourseAssessmentList;
     LinearLayoutManager linearLayoutManager;
     StProfileInfoAdapter stProfileInfoAdapter;
     UIHelper uiHelper;
+    ImageView editBtn;
     CircleImageView profileImg;
     private TextView name, studentId, email, currentCourse, totalCourse;
     public static final String BASE_URL= "http://uni.edoozz.com/";
@@ -89,6 +91,8 @@ public class StudentProfileFragment extends Fragment implements StProfileInfoAda
         stCourseAssessmentList = new ArrayList<>();
 
         profileImg = view.findViewById(R.id.profile_image);
+        editBtn = view.findViewById(R.id.editBtn);
+        editBtn.setOnClickListener(this);
         name = view.findViewById(R.id.name);
         studentId = view.findViewById(R.id.studentId);
         email = view.findViewById(R.id.email);
@@ -99,6 +103,8 @@ public class StudentProfileFragment extends Fragment implements StProfileInfoAda
         name.setText(AppSharedPreference.getUserName());
         email.setText(AppSharedPreference.getUserEmail());
         studentId.setText(AppSharedPreference.getUserId());
+
+        String url =BASE_URL + AppSharedPreference.getUserImage();
 
         Glide.with(getActivity())
                 .load(BASE_URL + AppSharedPreference.getUserImage())
@@ -228,5 +234,13 @@ public class StudentProfileFragment extends Fragment implements StProfileInfoAda
         transaction.replace(R.id.mainContainer, subjectResultFragment, "subjectResultFragment");
         //transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.editBtn:
+                break;
+        }
     }
 }

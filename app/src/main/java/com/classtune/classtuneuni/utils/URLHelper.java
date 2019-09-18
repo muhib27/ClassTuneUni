@@ -80,8 +80,10 @@ public class URLHelper {
 	public static final String STUDENT_COURSE_MESSAGE = "course_api/course_discussion";
 	public static final String STUDENT_SEND_MESSAGE = "course_api/send_message";
 
-	public static final String STUDENT_HOME = "dashboard_api/student_news_feed";
+	//public static final String STUDENT_HOME = "dashboard_api/student_news_feed";
 	public static final String STUDENT_HOME_HEADER= "dashboard_api/student_home_top";
+
+	public static final String STUDENT_HOME = "dashboard_api/student_home";
 
 
 

@@ -53,13 +53,13 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     Spinner spinner;
     Button continueBtn;
     Fragment fragment;
-    private EditText userName, userEmail, userPassword, userRePassword, studentId;
+    private EditText userName, userEmail, userPassword, userRePassword, studentId, phoneNo;
     private CheckBox agreeCb;
     TextView termCondition, uniName;
     UIHelper uiHelper;
     LinearLayout uniNameLl , stIdLl;
 
-    private String username = "", password = "", email = "", repassword = "", userType = "", uniCode = "", uniname = "", studentid = "";
+    private String username = "", password = "", email = "", repassword = "", userType = "", uniCode = "", uniname = "", studentid = "", phone = "";
 
 
     public RegistrationFragment() {
@@ -82,6 +82,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 //        spinner.setOnItemSelectedListener(new CustomOnItemSelectedListener());
 
         userName = view.findViewById(R.id.et_name);
+        phoneNo = view.findViewById(R.id.et_phone);
         userEmail = view.findViewById(R.id.et_email);
         userPassword = view.findViewById(R.id.et_password);
         userRePassword = view.findViewById(R.id.et_con_password);
@@ -189,6 +190,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     private void validateFieldAndCallLogIn() {
 
         boolean valid = true;
+        phone = phoneNo.getText().toString().trim();
         username = userName.getText().toString().trim();
         email = userEmail.getText().toString().trim();
         password = userPassword.getText().toString().trim();
@@ -280,7 +282,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 
         if(userType.equals("3"))
         {
-            callStRegistrationApi(username, email, password, repassword, studentid);
+            callStRegistrationApi(username, email, password, repassword, studentid, phone);
         }
         else {
             if (uniCode.isEmpty())
@@ -365,7 +367,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 
     }
 
-    private void callStRegistrationApi(final String name, final String email, final String password, final String repassword, final String studentId) {
+    private void callStRegistrationApi(final String name, final String email, final String password, final String repassword, final String studentId, String phone) {
 
         if (!NetworkConnection.getInstance().isNetworkAvailable()) {
             //Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
@@ -378,7 +380,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 
 
         String st = userType;
-        RetrofitApiClient.getApiInterface().studentRegistration(email, password, repassword, name, userType, studentId, AppSharedPreference.getFcm())
+        RetrofitApiClient.getApiInterface().studentRegistration(email, password, repassword, name, userType, studentId, AppSharedPreference.getFcm(), phone)
 
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

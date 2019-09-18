@@ -37,6 +37,8 @@
             android:padding="@dimen/size_20dp">
 
             <ImageView
+                android:padding="@dimen/size_5dp"
+                android:id="@+id/editBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"

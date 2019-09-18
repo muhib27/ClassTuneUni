@@ -119,4 +119,5 @@
     <string name="type_message">Type Message</string>
     <string name="tap_to_reload">Tap to reload</string>
     <string name="error_msg_unknown">An unexpected error occurred</string>
+    <string name="hint_phone">Enter Your Phone Number</string>
 </resources>
