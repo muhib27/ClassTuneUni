@@ -69,7 +69,7 @@ public class HomeNoticeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         switch (getItemViewType(position)) {
             case ITEM:
                 final MovieVH itemHolder = (MovieVH) viewHolder;
-                itemHolder.name.setText(result.getTitle());
+                itemHolder.title.setText(result.getTitle());
                 //itemHolder.download.setText(result.getUrl());
 //                itemHolder.viewLl.setOnClickListener(new View.OnClickListener() {
 //                    @Override
@@ -106,7 +106,7 @@ public class HomeNoticeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
 
         protected class MovieVH extends RecyclerView.ViewHolder {
-            private TextView name;
+            private TextView title;
             private TextView download;
             private TextView grade; // displays "year | language"
             private ImageView mPosterImg;
@@ -118,10 +118,10 @@ public class HomeNoticeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             public MovieVH(View itemView) {
                 super(itemView);
 
-                name = itemView.findViewById(R.id.name);
-                download = itemView.findViewById(R.id.download);
-
-                viewLl = itemView.findViewById(R.id.viewLl);
+                title = itemView.findViewById(R.id.title);
+//                download = itemView.findViewById(R.id.download);
+//
+//                viewLl = itemView.findViewById(R.id.viewLl);
 
             }
         }
@@ -135,7 +135,7 @@ public class HomeNoticeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             public HeroVH(View itemView) {
                 super(itemView);
-                title = itemView.findViewById(R.id.textView);
+                title = itemView.findViewById(R.id.title);
             }
         }
 

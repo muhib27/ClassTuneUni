@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
+import com.classtune.classtuneuni.assignment.Assignment;
 import com.classtune.classtuneuni.assignment.AssinmentAttachment;
 import com.classtune.classtuneuni.model.CourseModel;
 
@@ -27,7 +28,7 @@ import java.util.List;
 
 public class HomeAssignmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<AssinmentAttachment> mValues;
+    private List<Assignment> mValues;
     private Context mContext;
     protected ItemListener mListener;
     private static final int HERO = 2;
@@ -64,17 +65,17 @@ public class HomeAssignmentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
-        final AssinmentAttachment result = mValues.get(position);
+        final Assignment result = mValues.get(position);
         switch (getItemViewType(position)) {
             case ITEM:
                 final MovieVH itemHolder = (MovieVH) viewHolder;
-                itemHolder.name.setText(result.getName());
+                itemHolder.name.setText(result.getTitle());
                 //itemHolder.download.setText(result.getUrl());
                 itemHolder.viewLl.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri
-                                .parse(result.getUrl())));
+//                        mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri
+//                                .parse(result.getUrl())));
 //                        String url = "https://appharbor.com/assets/images/stackoverflow-logo.png";
 //                        Intent i = new Intent(Intent.ACTION_VIEW);
 //                        i.setData(Uri.parse(url));
@@ -146,13 +147,13 @@ public class HomeAssignmentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             }
         }
 
-    public void add(AssinmentAttachment r) {
+    public void add(Assignment r) {
         mValues.add(r);
         notifyItemInserted(mValues.size() - 1);
     }
 
-    public void addAllData(List<AssinmentAttachment> moveResults) {
-        for (AssinmentAttachment result : moveResults) {
+    public void addAllData(List<Assignment> moveResults) {
+        for (Assignment result : moveResults) {
             add(result);
         }
     }

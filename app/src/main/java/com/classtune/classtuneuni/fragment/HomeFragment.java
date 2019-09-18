@@ -27,6 +27,7 @@ import com.classtune.classtuneuni.adapter.HomeResourceAdapter;
 import com.classtune.classtuneuni.adapter.ItemAdapter;
 import com.classtune.classtuneuni.adapter.ResourceAdapter;
 import com.classtune.classtuneuni.assignment.Assignment;
+import com.classtune.classtuneuni.class_schedule.Routine;
 import com.classtune.classtuneuni.home.StHomeRespons;
 import com.classtune.classtuneuni.notice.Notices;
 import com.classtune.classtuneuni.profile.StProfileRsponse;
@@ -56,7 +57,7 @@ public class HomeFragment extends Fragment {
     private TextView nextSubject, nextClassTime, classInstructor, dayText, room;
     private TextView examDay, examDate, examMonthYear, examName, examTime, marks, examSubject;
 
-    private ImageView imageView;
+    private ImageView imageView, courseImg;
 
     RecyclerView rvNotice, rvAssignmnet, rvResource;
     private List<Assignment> assignmentList;
@@ -117,6 +118,8 @@ public class HomeFragment extends Fragment {
         examSubject = view.findViewById(R.id.examSubject);
 
         imageView = view.findViewById(R.id.newsPoster);
+        courseImg = view.findViewById(R.id.courseImg);
+
 
 
 
@@ -137,15 +140,30 @@ public class HomeFragment extends Fragment {
         rvResource.setLayoutManager(manager);
         rvResource.setItemAnimator(new DefaultItemAnimator());
 
-        noticelinearLayoutManager = new LinearLayoutManager(getActivity());
+//        noticelinearLayoutManager = new LinearLayoutManager(getActivity());
+//        homeNoticeAdapter = new HomeNoticeAdapter(getActivity());
+//        //rvNotice.setAdapter(homeNoticeAdapter);
+//       // rvNotice.setLayoutManager(noticelinearLayoutManager);
+//
+//        rvNotice.addItemDecoration(new VerticalSpaceItemDecoration(getResources()));
+//        rvNotice.setLayoutManager(noticelinearLayoutManager);
+//        rvNotice.setItemAnimator(new DefaultItemAnimator());
+//        rvNotice.setAdapter(homeNoticeAdapter);
+
+
+
         homeNoticeAdapter = new HomeNoticeAdapter(getActivity());
-        rvNotice.setAdapter(homeNoticeAdapter);
+        noticelinearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        rvNotice.addItemDecoration(new VerticalSpaceItemDecoration(getResources()));
         rvNotice.setLayoutManager(noticelinearLayoutManager);
+        rvNotice.setItemAnimator(new DefaultItemAnimator());
+        rvNotice.setAdapter(homeNoticeAdapter);
+
 
         assignmentLayoutManager = new LinearLayoutManager(getActivity());
         homeAssignmentAdapter = new HomeAssignmentAdapter(getActivity());
-        rvNotice.setAdapter(homeAssignmentAdapter);
-        rvNotice.setLayoutManager(assignmentLayoutManager);
+        rvAssignmnet.setLayoutManager(assignmentLayoutManager);
+        rvAssignmnet.setAdapter(homeAssignmentAdapter);
 
         callStudentHome();
         
@@ -181,8 +199,12 @@ public class HomeFragment extends Fragment {
                             //  stAddSection(stSectionListResponse.getData().getCourseSection());
 //                            stCourseAssessmentList = stProfileRsponse.getData().getCourseAssessment();
 //                            stProfileInfoAdapter.addAllData(stCourseAssessmentList);
+                            homeResourceAdapter.addAllData(stHomeRespons.getResources());
+                            homeNoticeAdapter.addAllData(stHomeRespons.getNotices());
+                            homeAssignmentAdapter.addAllData(stHomeRespons.getAssignments());
                             populateLatest(stHomeRespons.getResourceSingle());
                             populateLatestNotice(stHomeRespons.getNotice());
+                            populateNextClass(stHomeRespons.getNextClass());
 
                         } else
                             Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
@@ -203,6 +225,29 @@ public class HomeFragment extends Fragment {
                 });
 
 
+    }
+
+    private void populateNextClass(Routine nextClass) {
+        if(nextClass.getThumbnail() !=null && !nextClass.getThumbnail().isEmpty())
+            // if(resourceSi)
+            Glide.with(this)
+                    .load(nextClass.getThumbnail())
+                    .apply(new RequestOptions()
+                            .placeholder(R.drawable.demo_img)
+                            .fitCenter())
+                    .into(courseImg);
+
+        if(nextClass.getName() !=null)
+            nextSubject.setText(nextClass.getName());
+
+        if(nextClass.getRoom() !=null)
+            chapter.setText("" + nextClass.getRoom());
+//
+//        if(resourceSingle.getCourseName() !=null)
+//            subCode.setText(resourceSingle.getCourseName());
+//
+//        if(resourceSingle.getInstructor() !=null)
+//            author.setText(resourceSingle.getInstructor());
     }
 
     private void populateLatestNotice(List<Notices> notice) {

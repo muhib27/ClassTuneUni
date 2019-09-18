@@ -9,6 +9,7 @@ import com.classtune.classtuneuni.model.ExamInfoModel;
 import com.classtune.classtuneuni.notice.Notices;
 import com.classtune.classtuneuni.resource.Resource;
 import com.classtune.classtuneuni.response.Notice;
+import com.classtune.classtuneuni.response.NoticeInfo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -32,7 +33,7 @@ public class StHomeRespons {
     private String weekday;
     @SerializedName("notices")
     @Expose
-    private List<Notices> notices = null;
+    private List<NoticeInfo> notices = null;
     @SerializedName("resources")
     @Expose
     private List<Resource> resources = null;
@@ -83,11 +84,11 @@ public class StHomeRespons {
         this.weekday = weekday;
     }
 
-    public List<Notices> getNotices() {
+    public List<NoticeInfo> getNotices() {
         return notices;
     }
 
-    public void setNotices(List<Notices> notices) {
+    public void setNotices(List<NoticeInfo> notices) {
         this.notices = notices;
     }
 

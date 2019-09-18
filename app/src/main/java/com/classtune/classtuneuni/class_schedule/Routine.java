@@ -47,16 +47,16 @@ public class Routine {
     private String image;
     @SerializedName("short_details")
     @Expose
-    private Object shortDetails;
+    private String shortDetails;
     @SerializedName("pre_req")
     @Expose
-    private Object preReq;
+    private String preReq;
     @SerializedName("thumbnail")
     @Expose
-    private Object thumbnail;
+    private String thumbnail;
     @SerializedName("details")
     @Expose
-    private Object details;
+    private String details;
     @SerializedName("visibility")
     @Expose
     private String visibility;
@@ -178,35 +178,35 @@ public class Routine {
         this.image = image;
     }
 
-    public Object getShortDetails() {
+    public String getShortDetails() {
         return shortDetails;
     }
 
-    public void setShortDetails(Object shortDetails) {
+    public void setShortDetails(String shortDetails) {
         this.shortDetails = shortDetails;
     }
 
-    public Object getPreReq() {
+    public String getPreReq() {
         return preReq;
     }
 
-    public void setPreReq(Object preReq) {
+    public void setPreReq(String preReq) {
         this.preReq = preReq;
     }
 
-    public Object getThumbnail() {
+    public String getThumbnail() {
         return thumbnail;
     }
 
-    public void setThumbnail(Object thumbnail) {
+    public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
     }
 
-    public Object getDetails() {
+    public String getDetails() {
         return details;
     }
 
-    public void setDetails(Object details) {
+    public void setDetails(String details) {
         this.details = details;
     }
 
