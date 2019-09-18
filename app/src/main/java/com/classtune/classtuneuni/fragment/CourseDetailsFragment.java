@@ -233,6 +233,7 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
             }
         });
 
+
         et6.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
