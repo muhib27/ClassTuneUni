@@ -144,6 +144,7 @@
                         android:textSize="@dimen/size_20sp"
                         android:textStyle="bold" />
 
+
                     <Button
                         android:paddingStart="@dimen/size_10dp"
                         android:paddingEnd="@dimen/size_10dp"
