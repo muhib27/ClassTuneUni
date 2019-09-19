@@ -29,6 +29,7 @@ import com.classtune.classtuneuni.adapter.ResourceAdapter;
 import com.classtune.classtuneuni.assignment.Assignment;
 import com.classtune.classtuneuni.class_schedule.Routine;
 import com.classtune.classtuneuni.home.StHomeRespons;
+import com.classtune.classtuneuni.model.ExamInfoModel;
 import com.classtune.classtuneuni.notice.Notices;
 import com.classtune.classtuneuni.profile.StProfileRsponse;
 import com.classtune.classtuneuni.resource.Resource;
@@ -56,6 +57,7 @@ public class HomeFragment extends Fragment {
     private TextView notice1Date, notice1Title, notice2Date, notice2Title;
     private TextView nextSubject, nextClassTime, classInstructor, dayText, room;
     private TextView examDay, examDate, examMonthYear, examName, examTime, marks, examSubject;
+    private View examDotView;
 
     private ImageView imageView, courseImg;
 
@@ -105,7 +107,7 @@ public class HomeFragment extends Fragment {
         notice2Title = view.findViewById(R.id.notice2Title);
 
         nextSubject = view.findViewById(R.id.next_subject);
-        nextClassTime = view.findViewById(R.id.nextClassTime);
+        nextClassTime = view.findViewById(R.id.next_time);
         classInstructor = view.findViewById(R.id.next_instructor);
         dayText = view.findViewById(R.id.dayText);
         room = view.findViewById(R.id.room);
@@ -114,7 +116,9 @@ public class HomeFragment extends Fragment {
         examDate = view.findViewById(R.id.upcomingExamDate);
         examMonthYear = view.findViewById(R.id.upcomingExamMY);
         examName = view.findViewById(R.id.examName);
+        marks = view.findViewById(R.id.marks);
         examTime = view.findViewById(R.id.examTime);
+        examDotView = view.findViewById(R.id.examDotView);
         examSubject = view.findViewById(R.id.examSubject);
 
         imageView = view.findViewById(R.id.newsPoster);
@@ -200,11 +204,12 @@ public class HomeFragment extends Fragment {
 //                            stCourseAssessmentList = stProfileRsponse.getData().getCourseAssessment();
 //                            stProfileInfoAdapter.addAllData(stCourseAssessmentList);
                             homeResourceAdapter.addAllData(stHomeRespons.getResources());
-                            homeNoticeAdapter.addAllData(stHomeRespons.getNotices());
-                            homeAssignmentAdapter.addAllData(stHomeRespons.getAssignments());
+                            homeNoticeAdapter.addAllData(stHomeRespons.getNotices(), stHomeRespons.getCurrentTime());
+                            homeAssignmentAdapter.addAllData(stHomeRespons.getAssignments(),  stHomeRespons.getCurrentTime());
                             populateLatest(stHomeRespons.getResourceSingle());
                             populateLatestNotice(stHomeRespons.getNotice());
-                            populateNextClass(stHomeRespons.getNextClass());
+                            populateNextClass(stHomeRespons.getNextClass(), stHomeRespons.getWeekday());
+                            populateNextExam(stHomeRespons.getExam(), stHomeRespons.getWeekday());
 
                         } else
                             Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
@@ -227,7 +232,39 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private void populateNextClass(Routine nextClass) {
+    private void populateNextExam(ExamInfoModel exam, String weekday) {
+        if(exam.getExamName()!=null)
+        examName.setText(exam.getExamName());
+        if(exam.getCourseName()!=null)
+            examSubject.setText(exam.getCourseName());
+        if(exam.getExamMark()!=null)
+            marks.setText("" + exam.getExamMark());
+
+        if(exam.getDayName()!=null)
+            examDay.setText(exam.getDayName());
+
+        if(exam.getExamDate() !=null && exam.getExamDate().contains("-"))
+        {
+            String[] parts = exam.getExamDate().split("-");
+            if(parts.length>=2)
+                examDate.setText(parts[2]);
+        }
+        if(exam.getExamDate() !=null && exam.getExamDate().contains("-"))
+            examMonthYear.setText(AppUtility.getDateString(exam.getExamDate(), AppUtility.DATE_FORMAT_APP_M_Y, AppUtility.DATE_FORMAT_SERVER));
+
+        if(exam.getStartTime()!=null && !exam.getStartTime().isEmpty()) {
+            examTime.setVisibility(View.VISIBLE);
+            examDotView.setVisibility(View.VISIBLE);
+            examTime.setText(exam.getStartTime());
+        }
+        else {
+            examTime.setVisibility(View.GONE);
+            examDotView.setVisibility(View.GONE);
+        }
+
+    }
+
+    private void populateNextClass(Routine nextClass, String weekday) {
         if(nextClass.getThumbnail() !=null && !nextClass.getThumbnail().isEmpty())
             // if(resourceSi)
             Glide.with(this)
@@ -241,13 +278,18 @@ public class HomeFragment extends Fragment {
             nextSubject.setText(nextClass.getName());
 
         if(nextClass.getRoom() !=null)
-            chapter.setText("" + nextClass.getRoom());
+            room.setText("" + nextClass.getRoom());
 //
-//        if(resourceSingle.getCourseName() !=null)
-//            subCode.setText(resourceSingle.getCourseName());
+        if(nextClass.getDay() !=null) {
+            if(nextClass.getDay().equals(weekday))
+            dayText.setText("Today");
+            else
+                dayText.setText(nextClass.getDay());
+        }
+        nextClassTime.setText(AppUtility.getDuration(nextClass.getEndTime().substring(0, 5), nextClass.getStartTime().substring(0, 5)));
 //
-//        if(resourceSingle.getInstructor() !=null)
-//            author.setText(resourceSingle.getInstructor());
+        if(nextClass.getInstructor() !=null)
+            classInstructor.setText(nextClass.getInstructor());
     }
 
     private void populateLatestNotice(List<Notices> notice) {
@@ -266,9 +308,9 @@ public class HomeFragment extends Fragment {
     }
 
     private void populateLatest(Resource resourceSingle) {
-        if(resourceSingle.getThumbnail() !=null && !resourceSingle.getThumbnail().isEmpty())
+        if(getActivity()!=null && resourceSingle.getThumbnail() !=null && !resourceSingle.getThumbnail().isEmpty())
        // if(resourceSi)
-        Glide.with(this)
+        Glide.with(getActivity())
                 .load(resourceSingle.getThumbnail())
                 .apply(new RequestOptions()
                         .placeholder(R.drawable.news_poster)
@@ -293,4 +335,6 @@ public class HomeFragment extends Fragment {
         }
 
     }
+
+
 }

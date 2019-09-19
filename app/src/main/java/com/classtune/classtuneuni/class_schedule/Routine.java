@@ -70,6 +70,10 @@ public class Routine {
     @Expose
     private String sName;
 
+    @SerializedName("instructor")
+    @Expose
+    private String instructor;
+
 
 
 
@@ -240,5 +244,13 @@ public class Routine {
 
     public void setsName(String sName) {
         this.sName = sName;
+    }
+
+    public String getInstructor() {
+        return instructor;
+    }
+
+    public void setInstructor(String instructor) {
+        this.instructor = instructor;
     }
 }

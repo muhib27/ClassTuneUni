@@ -18,18 +18,21 @@ import android.view.WindowManager;
 
 import com.classtune.classtuneuni.R;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class AppUtility {
 
 	public static final String DATE_FORMAT_SERVER = "yyyy-MM-dd";
 	public static final String DATE_FORMAT_APP = "dd MMM yyyy";
 	public static final String DATE_FORMAT_APP_ = "dd MMM, yyyy";
+	public static final String DATE_FORMAT_APP_M_Y = "MMM, yyyy";
 
 	public static final String DATE_FORMAT_D_M = "dd,MMM";
 	public static final String DATE_FORMAT_FACEBOOK = "MM/dd/yyyy";
@@ -359,4 +362,152 @@ public class AppUtility {
 	}
 
 
+	public static String getDayFromDate(String date){
+//		String input_date="01/08/2012";
+		String finalDay = "";
+		SimpleDateFormat format1=new SimpleDateFormat(DATE_FORMAT_SERVER);
+		Date dt1= null;
+		try {
+			dt1 = format1.parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		DateFormat format2=new SimpleDateFormat("EEEE");
+		finalDay = format2.format(dt1);
+		return finalDay;
+	}
+
+	public static String getTimeDifference(String current, String created){
+
+		String finalDay = "";
+
+		long millis = getDateFromString(current).getTime() - getDateFromString(created).getTime();
+
+		finalDay =getDurationBreakdown(millis);
+
+		return finalDay;
+	}
+
+	public static String getTimeDue(String due, String current){
+
+		String finalDay = "";
+
+		long millis = getDateFromStringYMD(due).getTime() - getDateFromStringYMD(current).getTime();
+
+		long diffInDays = TimeUnit.MILLISECONDS.toDays(millis);
+		if(diffInDays<=0)
+		{
+			finalDay = "Today";
+		}
+		else if(diffInDays == 1){
+			finalDay = "1 Day left";
+		}
+		else if(diffInDays>1)
+		{
+			finalDay = diffInDays + " Days left";
+		}
+
+
+		return finalDay;
+	}
+	public static Date getDateFromStringYMD(String dateSt){
+		Date date = null;
+		String dtStart = dateSt;
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			date = format.parse(dtStart);
+			System.out.println(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return date;
+	}
+	public static Date getDateFromString(String dateSt){
+		Date date = null;
+		String dtStart = dateSt;
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		try {
+			date = format.parse(dtStart);
+			System.out.println(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return date;
+	}
+	public static String getDurationBreakdown(long millis) {
+		if(millis<= 0)
+		{
+			return "0";
+		}
+		if(millis < 0) {
+			throw new IllegalArgumentException("Duration must be greater than zero!");
+
+		}
+
+		long days = TimeUnit.MILLISECONDS.toDays(millis);
+		millis -= TimeUnit.DAYS.toMillis(days);
+		long hours = TimeUnit.MILLISECONDS.toHours(millis);
+		millis -= TimeUnit.HOURS.toMillis(hours);
+		long minutes = TimeUnit.MILLISECONDS.toMinutes(millis);
+		millis -= TimeUnit.MINUTES.toMillis(minutes);
+		long seconds = TimeUnit.MILLISECONDS.toSeconds(millis);
+
+		StringBuilder sb = new StringBuilder(64);
+		if(days>0) {
+			sb.append(days);
+			if(days>1)
+			sb.append(" Days ");
+			else
+				sb.append(" Day ");
+			return sb.toString();
+
+		}
+		else if(hours>0) {
+			sb.append(hours);
+			if(hours>1)
+			sb.append(" Hours ");
+			else
+				sb.append(" Hour ");
+
+			return sb.toString();
+		}
+		else if(minutes>0) {
+			sb.append(minutes);
+			if(minutes>1)
+			sb.append(" Minutes ");
+			else
+				sb.append(" Minute ");
+			return sb.toString();
+		}
+		else if(seconds>0) {
+			sb.append(seconds);
+			if(seconds>1)
+			sb.append(" Seconds");
+			else
+				sb.append(" Second");
+			return sb.toString();
+		}
+
+		return(sb.toString());
+	}
+
+
+	public static String getDuration(String endTime, String startTime) {
+		String time = "";
+		time = getTime(startTime) +  " - " +getTime(endTime);
+		return time;
+	}
+	public static String getTime(String st){
+		String time = "";
+		if(st.length()>2) {
+
+			if (Integer.parseInt(st.substring(0, 2)) >= 12) {
+				time = st + "pm";
+			} else {
+				time = st + "am";
+			}
+
+		}
+		return time;
+	}
 }

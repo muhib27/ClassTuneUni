@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.assignment.AssinmentAttachment;
 import com.classtune.classtuneuni.model.CourseModel;
 import com.classtune.classtuneuni.response.NoticeInfo;
+import com.classtune.classtuneuni.utils.AppUtility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +35,7 @@ public class HomeNoticeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     protected ItemListener mListener;
     private static final int HERO = 2;
     private static final int ITEM = 0;
+    private String currentTime = "";
 
     public HomeNoticeAdapter(Context context) {
 //        mValues = values;
@@ -69,7 +72,25 @@ public class HomeNoticeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         switch (getItemViewType(position)) {
             case ITEM:
                 final MovieVH itemHolder = (MovieVH) viewHolder;
+                if(result.getTitle()!=null)
                 itemHolder.title.setText(result.getTitle());
+                if(result.getCreatedAt()!=null)
+                    itemHolder.timeBefore.setText(AppUtility.getTimeDifference(currentTime, result.getCreatedAt()) + "ago");
+                if(result.getCourseName()!=null)
+                    itemHolder.subject.setText(result.getCourseName());
+                if(position>= (mValues.size()-1))
+                    itemHolder.verticalLine.setVisibility(View.INVISIBLE);
+                else
+                    itemHolder.verticalLine.setVisibility(View.VISIBLE);
+
+                final int sdk = android.os.Build.VERSION.SDK_INT;
+                if(position==0) {
+                    if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                        itemHolder.dotView.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.filled_circle_app_color));
+                    } else {
+                        itemHolder.dotView.setBackground(ContextCompat.getDrawable(mContext, R.drawable.filled_circle_app_color));
+                    }
+                }
                 //itemHolder.download.setText(result.getUrl());
 //                itemHolder.viewLl.setOnClickListener(new View.OnClickListener() {
 //                    @Override
@@ -106,7 +127,7 @@ public class HomeNoticeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
 
         protected class MovieVH extends RecyclerView.ViewHolder {
-            private TextView title;
+            private TextView title, subject, timeBefore;
             private TextView download;
             private TextView grade; // displays "year | language"
             private ImageView mPosterImg;
@@ -114,11 +135,16 @@ public class HomeNoticeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             private TextView menuOption;
             private LinearLayout viewLl;
             CardView cardView;
+            View verticalLine, dotView;
 
             public MovieVH(View itemView) {
                 super(itemView);
 
                 title = itemView.findViewById(R.id.title);
+                dotView = itemView.findViewById(R.id.dotView);
+                subject = itemView.findViewById(R.id.subject);
+                timeBefore = itemView.findViewById(R.id.timeBefore);
+                verticalLine = itemView.findViewById(R.id.verticalLine);
 //                download = itemView.findViewById(R.id.download);
 //
 //                viewLl = itemView.findViewById(R.id.viewLl);
@@ -144,10 +170,11 @@ public class HomeNoticeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         notifyItemInserted(mValues.size() - 1);
     }
 
-    public void addAllData(List<NoticeInfo> moveResults) {
+    public void addAllData(List<NoticeInfo> moveResults, String currentTime) {
         for (NoticeInfo result : moveResults) {
             add(result);
         }
+        this.currentTime = currentTime;
     }
 
     private void gotoFragment(Fragment fragment, String tag, String courseId) {

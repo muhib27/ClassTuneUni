@@ -21,6 +21,7 @@ import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.assignment.Assignment;
 import com.classtune.classtuneuni.assignment.AssinmentAttachment;
 import com.classtune.classtuneuni.model.CourseModel;
+import com.classtune.classtuneuni.utils.AppUtility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,7 @@ public class HomeAssignmentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     protected ItemListener mListener;
     private static final int HERO = 2;
     private static final int ITEM = 0;
+    private String currentTime = "";
 
     public HomeAssignmentAdapter(Context context) {
 //        mValues = values;
@@ -50,7 +52,7 @@ public class HomeAssignmentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         switch (viewType) {
             case ITEM:
-                View viewItem = inflater.inflate(R.layout.attachment_list_item_row, parent, false);
+                View viewItem = inflater.inflate(R.layout.home_assignment_item, parent, false);
                 viewHolder = new MovieVH(viewItem);
                 break;
 
@@ -69,11 +71,25 @@ public class HomeAssignmentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         switch (getItemViewType(position)) {
             case ITEM:
                 final MovieVH itemHolder = (MovieVH) viewHolder;
-                itemHolder.name.setText(result.getTitle());
+                itemHolder.si.setText(position + ".");
+                if(result.getTitle()!=null)
+                itemHolder.title.setText(result.getTitle());
+                if(result.getCourseName()!=null)
+                    itemHolder.subject.setText(result.getCourseName());
+                if(result.getDueDate()!=null)
+                    itemHolder.date.setText(AppUtility.getDateString(result.getDueDate(), AppUtility.DATE_FORMAT_D_M, AppUtility.DATE_FORMAT_SERVER));
+                if(result.getDueDate()!=null ) {
+                    String[] parts = currentTime.split(" ");
+                    itemHolder.daysLeft.setText(AppUtility.getTimeDue(result.getDueDate(), parts[0]));
+                }
+                if(result.getDue())
+                    itemHolder.dueAssignment.setVisibility(View.VISIBLE);
+                else
+                    itemHolder.dueAssignment.setVisibility(View.INVISIBLE);
                 //itemHolder.download.setText(result.getUrl());
-                itemHolder.viewLl.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
+//                itemHolder.viewLl.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
 //                        mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri
 //                                .parse(result.getUrl())));
 //                        String url = "https://appharbor.com/assets/images/stackoverflow-logo.png";
@@ -85,8 +101,8 @@ public class HomeAssignmentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 //                        DownloadManager.Request request = new DownloadManager.Request(
 //                                Uri.parse(result.getUrl()));
 //                        enqueue = dm.enqueue(request);
-                    }
-                });
+//                    }
+//                });
 
 
                 break;
@@ -114,22 +130,29 @@ public class HomeAssignmentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
 
         protected class MovieVH extends RecyclerView.ViewHolder {
-            private TextView name;
-            private TextView download;
+            private TextView title, subject, instructor, date, daysLeft;
+            private TextView si;
             private TextView grade; // displays "year | language"
             private ImageView mPosterImg;
             private ProgressBar mProgress;
             private TextView menuOption;
             private LinearLayout viewLl;
+            private View dueAssignment;
             CardView cardView;
 
             public MovieVH(View itemView) {
                 super(itemView);
 
-                name = itemView.findViewById(R.id.name);
-                download = itemView.findViewById(R.id.download);
-
-                viewLl = itemView.findViewById(R.id.viewLl);
+                title = itemView.findViewById(R.id.title);
+                subject = itemView.findViewById(R.id.subject);
+               // instructor = itemView.findViewById(R.id.instructor);
+                date = itemView.findViewById(R.id.date);
+                daysLeft = itemView.findViewById(R.id.dayLeft);
+                si = itemView.findViewById(R.id.si);
+                dueAssignment = itemView.findViewById(R.id.dueAssignment);
+//                download = itemView.findViewById(R.id.download);
+//
+//                viewLl = itemView.findViewById(R.id.viewLl);
 
             }
         }
@@ -152,10 +175,11 @@ public class HomeAssignmentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         notifyItemInserted(mValues.size() - 1);
     }
 
-    public void addAllData(List<Assignment> moveResults) {
+    public void addAllData(List<Assignment> moveResults, String currentTime) {
         for (Assignment result : moveResults) {
             add(result);
         }
+        this.currentTime = currentTime;
     }
 
     private void gotoFragment(Fragment fragment, String tag, String courseId) {

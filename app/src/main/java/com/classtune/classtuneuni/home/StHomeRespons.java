@@ -31,6 +31,10 @@ public class StHomeRespons {
     @SerializedName("weekday")
     @Expose
     private String weekday;
+    @SerializedName("current_time")
+    @Expose
+    private String CurrentTime;
+
     @SerializedName("notices")
     @Expose
     private List<NoticeInfo> notices = null;
@@ -114,5 +118,13 @@ public class StHomeRespons {
 
     public void setAssignments(List<Assignment> assignments) {
         this.assignments = assignments;
+    }
+
+    public String getCurrentTime() {
+        return CurrentTime;
+    }
+
+    public void setCurrentTime(String currentTime) {
+        CurrentTime = currentTime;
     }
 }

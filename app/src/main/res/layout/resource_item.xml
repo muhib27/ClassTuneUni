@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/size_5dp"
-    card_view:cardCornerRadius="@dimen/size_5dp"
-    >
+    card_view:cardCornerRadius="0dp">
 
     <RelativeLayout
         android:id="@+id/relativeLayout"

@@ -55,4 +55,9 @@
     <dimen name="size_8dp">8dp</dimen>
     <dimen name="size_6dp">6dp</dimen>
     <dimen name="text_size_32sp">32sp</dimen>
+    <dimen name="size_14dp">14dp</dimen>
+    <dimen name="size_25dp">25dp</dimen>
+    <dimen name="size_42dp">42dp</dimen>
+    <dimen name="size_52dp">52dp</dimen>
+    <dimen name="size_120dp">120dp</dimen>
 </resources>

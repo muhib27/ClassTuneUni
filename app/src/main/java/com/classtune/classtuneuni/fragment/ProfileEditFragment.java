@@ -36,7 +36,6 @@ import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
 import com.classtune.classtuneuni.utils.NetworkConnection;
 import com.classtune.classtuneuni.utils.UIHelper;
-import com.hbb20.CountryCodePicker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +49,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RegistrationFragment extends Fragment implements View.OnClickListener {
+public class ProfileEditFragment extends Fragment implements View.OnClickListener {
     Spinner spinner;
     Button continueBtn;
     Fragment fragment;
@@ -59,12 +58,11 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     TextView termCondition, uniName;
     UIHelper uiHelper;
     LinearLayout uniNameLl , stIdLl;
-    CountryCodePicker ccp;
 
     private String username = "", password = "", email = "", repassword = "", userType = "", uniCode = "", uniname = "", studentid = "", phone = "";
 
 
-    public RegistrationFragment() {
+    public ProfileEditFragment() {
         // Required empty public constructor
     }
 
@@ -72,7 +70,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.registration_layout, container, false);
+        return inflater.inflate(R.layout.profile_edit_layout, container, false);
     }
 
     @Override
@@ -88,7 +86,6 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
         userEmail = view.findViewById(R.id.et_email);
         userPassword = view.findViewById(R.id.et_password);
         userRePassword = view.findViewById(R.id.et_con_password);
-        ccp = view.findViewById(R.id.ccp);
 
 
 

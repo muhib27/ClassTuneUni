@@ -65,7 +65,7 @@ public class HomeResourceAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         switch (viewType) {
             case ITEM:
-                View viewItem = inflater.inflate(R.layout.resource_item, parent, false);
+                View viewItem = inflater.inflate(R.layout.home_resource_item, parent, false);
                 viewHolder = new MovieVH(viewItem);
                 break;
 
@@ -81,8 +81,10 @@ public class HomeResourceAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 final MovieVH itemHolder = (MovieVH) viewHolder;
                 if(result.getChapterTitle()!=null)
                 itemHolder.title.setText(result.getTitle());
+
                 if(result.getCourseName()!=null)
-                itemHolder.subject.setText(result.getCourseName());
+                    itemHolder.subCode.setText(result.getCourseName());
+
                 if(result.getCreatedAt()!=null) {
                     String str = result.getCreatedAt();
                     String parts[] = str.split(" ");
@@ -160,7 +162,7 @@ public class HomeResourceAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     protected class MovieVH extends RecyclerView.ViewHolder {
         private TextView title;
-        private TextView subject;
+        private TextView  chapter, subCode, author;
         private TextView date; // displays "year | language"
         private ImageView imageView;
         private ProgressBar mProgress;
@@ -172,7 +174,11 @@ public class HomeResourceAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             super(itemView);
 
             title = itemView.findViewById(R.id.title);
-            subject = itemView.findViewById(R.id.subject);
+           // chapter = itemView.findViewById(R.id.chapter);
+            subCode = itemView.findViewById(R.id.subCode);
+           // author = itemView.findViewById(R.id.authorName);
+
+           // subject = itemView.findViewById(R.id.subject);
             date = itemView.findViewById(R.id.date);
             imageView = itemView.findViewById(R.id.imageView);
             cardView = itemView.findViewById(R.id.cardView);

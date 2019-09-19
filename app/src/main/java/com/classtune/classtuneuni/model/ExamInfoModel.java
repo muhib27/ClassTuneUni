@@ -48,6 +48,13 @@ public class ExamInfoModel {
     @Expose
     private String participants;
 
+    @SerializedName("day_name")
+    @Expose
+    private String dayName;
+    @SerializedName("start_time")
+    @Expose
+    private String startTime;
+
 
 
     public String getExamId() {
@@ -154,5 +161,19 @@ public class ExamInfoModel {
         this.assessmentName = assessmentName;
     }
 
+    public String getDayName() {
+        return dayName;
+    }
 
+    public void setDayName(String dayName) {
+        this.dayName = dayName;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
 }

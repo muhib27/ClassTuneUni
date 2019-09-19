@@ -17,6 +17,10 @@ public class NoticeInfo {
     @Expose
     private String createdAt;
 
+    @SerializedName("course_name")
+    @Expose
+    private String CourseName;
+
     public NoticeInfo() {
     }
 
@@ -54,5 +58,13 @@ public class NoticeInfo {
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getCourseName() {
+        return CourseName;
+    }
+
+    public void setCourseName(String courseName) {
+        CourseName = courseName;
     }
 }

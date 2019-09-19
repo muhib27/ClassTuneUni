@@ -29,7 +29,7 @@
             <ImageView
                 android:id="@+id/newsPoster"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="220dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/news_poster"
                 android:transitionName="img" />
@@ -186,7 +186,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
-
                 <TextView
                     android:id="@+id/notice2Date"
                     android:layout_width="wrap_content"
@@ -376,6 +375,7 @@
             android:elevation="@dimen/size_5dp">
 
             <RelativeLayout
+                android:paddingBottom="@dimen/size_10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -395,38 +395,38 @@
                         android:textColor="@color/black"
                         android:textSize="@dimen/size_16sp" />
 
-                    <LinearLayout
-                        android:id="@+id/tab"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:orientation="horizontal">
+                    <!--<LinearLayout-->
+                        <!--android:id="@+id/tab"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_alignParentEnd="true"-->
+                        <!--android:orientation="horizontal">-->
 
-                        <TextView
-                            android:id="@+id/content"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@color/appColor"
-                            android:gravity="center"
-                            android:paddingStart="@dimen/size_30dp"
-                            android:paddingTop="@dimen/size_10dp"
-                            android:paddingEnd="@dimen/size_30dp"
-                            android:paddingBottom="@dimen/size_10dp"
-                            android:text="Due"
-                            android:textColor="@color/white"
-                            android:textSize="17sp" />
+                        <!--<TextView-->
+                            <!--android:id="@+id/content"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:background="@color/appColor"-->
+                            <!--android:gravity="center"-->
+                            <!--android:paddingStart="@dimen/size_30dp"-->
+                            <!--android:paddingTop="@dimen/size_10dp"-->
+                            <!--android:paddingEnd="@dimen/size_30dp"-->
+                            <!--android:paddingBottom="@dimen/size_10dp"-->
+                            <!--android:text="Due"-->
+                            <!--android:textColor="@color/white"-->
+                            <!--android:textSize="17sp" />-->
 
-                        <TextView
-                            android:id="@+id/attachment"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@color/menu_divider"
-                            android:gravity="center"
-                            android:padding="@dimen/size_10dp"
-                            android:text="Submitted"
-                            android:textSize="17sp" />
+                        <!--<TextView-->
+                            <!--android:id="@+id/attachment"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:background="@color/menu_divider"-->
+                            <!--android:gravity="center"-->
+                            <!--android:padding="@dimen/size_10dp"-->
+                            <!--android:text="Submitted"-->
+                            <!--android:textSize="17sp" />-->
 
-                    </LinearLayout>
+                    <!--</LinearLayout>-->
 
                 </RelativeLayout>
 
@@ -528,6 +528,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/resources_title"
                     android:background="@null"
+                    android:layout_marginTop="@dimen/size_5dp"
                     android:scrollbars="vertical"
                     app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior" />
 
@@ -603,7 +604,7 @@
                                 android:id="@+id/upcomingExamDay"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentStart="true"
+                                android:layout_gravity="center_horizontal"
                                 android:text="Monday"
                                 android:textColor="@color/ashTextColor"
                                 android:textSize="@dimen/text_size_10_sp" />
@@ -612,8 +613,9 @@
                                 android:id="@+id/upcomingExamDate"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentStart="true"
+                                android:layout_gravity="center_horizontal"
                                 android:text="16"
+                                android:textStyle="bold"
                                 android:textColor="@color/appColor"
                                 android:textSize="@dimen/text_size_38_sp" />
 
@@ -643,7 +645,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginTop="@dimen/size_20dp"
+                            android:layout_marginTop="@dimen/size_10dp"
                             android:text="Mid Term"
                             android:textColor="@color/ashTextColor"
                             android:textSize="@dimen/text_size_14_sp" />
@@ -664,11 +666,12 @@
                                 android:textStyle="normal" />
 
                             <View
+                                android:id="@+id/examDotView"
                                 android:layout_width="@dimen/size_10dp"
                                 android:layout_height="@dimen/size_10dp"
                                 android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="@dimen/size_20dp"
-                                android:layout_marginRight="@dimen/size_20dp"
+                                android:layout_marginLeft="@dimen/size_10dp"
+                                android:layout_marginRight="@dimen/size_10dp"
                                 android:background="@drawable/filled_circle_ash" />
 
                             <TextView
@@ -720,11 +723,12 @@
             android:elevation="@dimen/size_5dp">
 
             <RelativeLayout
-                android:paddingBottom="@dimen/size_30dp"
+                android:paddingBottom="@dimen/size_10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <RelativeLayout
+                    android:paddingBottom="@dimen/size_10dp"
                     android:paddingStart="@dimen/size_10dp"
                     android:id="@+id/notice_title"
                     android:layout_width="match_parent"
@@ -747,12 +751,19 @@
                         android:src="@drawable/right_fill_arrow" />
 
                 </RelativeLayout>
+                <View
+                    android:layout_marginBottom="@dimen/size_10dp"
+                    android:id="@+id/notice_devider"
+                    android:layout_below="@+id/notice_title"
+                    android:background="@color/menu_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rvNotice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/notice_title"
+                    android:layout_below="@+id/notice_devider"
                     android:background="@null"
                     android:scrollbars="vertical"
                     app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior" />
