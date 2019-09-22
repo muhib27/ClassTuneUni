@@ -44,6 +44,8 @@ public class URLHelper {
 	public static final String URL_OFFER_COURSE = "course_api/add_course_offer";
 	public static final String ADD_SECTION ="course_api/add_section" ;
 	public static final String SECTION_LIST = "course_api/sections";
+	public static final String ALL_COURSE_LIST = "course_api/all_course";
+	public static final String COURSE_VIEW = "course_api/view_course";
 
 
 	public static final String ASSIGNMENT_LIST = "assignment_api/assignment_list";

@@ -21,18 +21,30 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.adapter.RelatedCourseAdapter;
 import com.classtune.classtuneuni.adapter.StCourseAdapter;
 import com.classtune.classtuneuni.course_resonse.Course;
+import com.classtune.classtuneuni.course_resonse.CourseDetailsResponse;
+import com.classtune.classtuneuni.exam.ExamPolicyResponse;
+import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
+import com.classtune.classtuneuni.utils.AppSharedPreference;
+import com.classtune.classtuneuni.utils.NetworkConnection;
 import com.classtune.classtuneuni.utils.PaginationAdapterCallback;
 import com.classtune.classtuneuni.utils.UIHelper;
 import com.classtune.classtuneuni.utils.VerticalSpaceItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,6 +57,8 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
 //    LinearLayoutManager linearLayoutManager;
     UIHelper uiHelper;
     RelatedCourseAdapter relatedCourseAdapter;
+
+    String courseId = "";
 
     String contentSt = "কেন্দ্রীয় ব্যাংকে রক্ষিত বৈদেশিক মুদ্রার মজুত বা রিজার্ভ চুরির ক্ষেত্র প্রস্তুত করে রেখেছিল বাংলাদেশ ব্যাংক নিজেই। নিরাপত্তাব্যবস্থা ছিল অরক্ষিত, সংশ্লিষ্ট কর্মকর্তারা ছিলেন দায়িত্বহীন। আর চূড়ান্ত সর্বনাশ ঘটানো হয় সুইফট সার্ভারের সঙ্গে স্থানীয় নেটওয়ার্ক জুড়ে দিয়ে। এর ছয় মাসের মধ্যেই গোপন সংকেত বা পাসওয়ার্ড জেনে নিয়ে চুরি হয় ৮ কোটি ১০ লাখ ১ হাজার ৬২৩ মার্কিন ডলার (বাংলাদেশি মুদ্রায় ৮১০ কোটি টাকা)। \n" +
             "\n" +
@@ -71,6 +85,8 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
         ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        if(getArguments().getString("courseId")!=null)
+        courseId = getArguments().getString("courseId");
         uiHelper = new UIHelper(getActivity());
 
         recyclerView = view.findViewById(R.id.recyclerView);
@@ -97,8 +113,11 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(relatedCourseAdapter);
 
-        relatedCourseAdapter.addAllData(courseList);
-        populateData();
+        //relatedCourseAdapter.addAllData(courseList);
+        //populateData();
+        if(courseId != null){
+            callCourseDetailsApi();
+        }
     }
 
     @Override
@@ -310,5 +329,61 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
         transaction.replace(R.id.mainContainer, fragment, tag);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    private void callCourseDetailsApi() {
+
+
+        if (!NetworkConnection.getInstance().isNetworkAvailable()) {
+            Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        uiHelper.showLoadingDialog("Please wait...");
+
+        // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
+        RetrofitApiClient.getApiInterfaceWithId().getCourseView(AppSharedPreference.getApiKey(), courseId)
+
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<CourseDetailsResponse>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Response<CourseDetailsResponse> value) {
+                        uiHelper.dismissLoadingDialog();
+
+                        CourseDetailsResponse courseDetailsResponse = value.body();
+                       // examPolicyAdapter.clear();
+                        if (courseDetailsResponse.getStatus().getCode() == 200) {
+                           // policyList = examPolicyResponse.getData().getPolicies();
+
+                            //examPolicyAdapter.addAllData(policyList, false);
+                            //examPolicyAdapter.disableEditing();
+
+//                            Log.v("tt", noticeList.toString());
+                            //  Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                        } else {
+                           // Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        uiHelper.dismissLoadingDialog();
+                    }
+
+                    @Override
+                    public void onComplete() {
+//                        progressDialog.dismiss();
+                        uiHelper.dismissLoadingDialog();
+                    }
+                });
+
+
     }
 }

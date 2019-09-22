@@ -59,6 +59,8 @@ dependencies {
     implementation 'com.hbb20:ccp:2.2.3'
     //https://stackoverflow.com/questions/53451036/how-to-create-a-dropdown-list-of-country-codes-for-phone-authentication
 //    implementation 'com.github.MdFarhanRaja:SearchableSpinner:2.0'
+    implementation 'com.github.mancj:MaterialSearchBar:0.8.1'
+//    https://github.com/mancj/MaterialSearchBar
 
 }
 apply plugin: 'com.google.gms.google-services'

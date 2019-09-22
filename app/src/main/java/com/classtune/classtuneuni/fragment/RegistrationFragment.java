@@ -61,7 +61,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     LinearLayout uniNameLl , stIdLl;
     CountryCodePicker ccp;
 
-    private String username = "", password = "", email = "", repassword = "", userType = "", uniCode = "", uniname = "", studentid = "", phone = "";
+    private String username = "", password = "", email = "", repassword = "", userType = "", uniCode = "", uniname = "", studentid = "", phone = "", countryCode = "";
 
 
     public RegistrationFragment() {
@@ -89,6 +89,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
         userPassword = view.findViewById(R.id.et_password);
         userRePassword = view.findViewById(R.id.et_con_password);
         ccp = view.findViewById(R.id.ccp);
+
 
 
 
@@ -198,6 +199,8 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
         email = userEmail.getText().toString().trim();
         password = userPassword.getText().toString().trim();
         repassword = userRePassword.getText().toString().trim();
+
+        countryCode = ccp.getSelectedCountryCode();
 
 
         if (TextUtils.isEmpty(username)) {

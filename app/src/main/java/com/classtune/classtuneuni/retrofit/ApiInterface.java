@@ -9,6 +9,7 @@ import com.classtune.classtuneuni.attendance.StudentAttendanceResponse;
 import com.classtune.classtuneuni.attendance.StudentListAttenResponse;
 import com.classtune.classtuneuni.class_schedule.StClsScheduleResponse;
 import com.classtune.classtuneuni.course_resonse.CorsSecStudentResponse;
+import com.classtune.classtuneuni.course_resonse.CourseDetailsResponse;
 import com.classtune.classtuneuni.course_resonse.CourseListResponse;
 import com.classtune.classtuneuni.course_resonse.CourseOfferSectionResponse;
 import com.classtune.classtuneuni.course_resonse.OfferedCourseResponse;
@@ -293,8 +294,13 @@ public interface ApiInterface {
     @POST(URLHelper.STUDENT_ATTENDANCE_REPORT)
     Observable<Response<AttendanceReportResponse>> getStudentReport(@Field("api_key") String api_key, @Field("course_offer_section_id") String course_offer_section_id);
 
+    @FormUrlEncoded
+    @POST(URLHelper.ALL_COURSE_LIST)
+    Observable<Response<CourseListResponse>> getAllCourseList(@Field("api_key") String api_key, @Field("page") int page, @Field("key") String key);
 
-
+    @FormUrlEncoded
+    @POST(URLHelper.COURSE_VIEW)
+    Observable<Response<CourseDetailsResponse>> getCourseView(@Field("api_key") String api_key, @Field("id") String id);
 
 }
 

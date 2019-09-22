@@ -7,12 +7,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.StudentCourseListFragment">
     <LinearLayout
+        android:layout_margin="@dimen/size_3dp"
+        android:background="@drawable/square_border_app_color"
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="wrap_content">
+        <com.mancj.materialsearchbar.MaterialSearchBar
+            style="@style/MaterialSearchBarLight"
+            app:mt_speechMode="false"
+            app:mt_hint="Course Code/Name, instructor, enroll code"
+            app:mt_maxSuggestionsCount="10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/searchBar" />
 
     </LinearLayout>
 
     <RelativeLayout
+        android:layout_marginTop="@dimen/size_3dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

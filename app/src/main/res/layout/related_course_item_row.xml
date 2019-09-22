@@ -10,12 +10,12 @@
     card_view:cardCornerRadius="0dp">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="128dp"
+            android:layout_width="match_parent"
             android:layout_height="73dp"
             android:scaleType="centerCrop"
             android:src="@drawable/news_poster" />

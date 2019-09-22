@@ -119,7 +119,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener
 
         topDate = view.findViewById(R.id.topDate);
         topTitle = view.findViewById(R.id.topTitle);
-        chapter = view.findViewById(R.id.chapter);
+//        chapter = view.findViewById(R.id.chapter);
         subCode = view.findViewById(R.id.subCode);
         author = view.findViewById(R.id.authorName);
 
@@ -259,8 +259,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener
         examName.setText(exam.getExamName());
         if(exam.getCourseName()!=null)
             examSubject.setText(exam.getCourseName());
-        if(exam.getExamMark()!=null)
-            marks.setText("" + exam.getExamMark());
+        if(exam.getExamMark()!=null) {
+            String mark = "";
+            if(exam.getExamMark().contains("."))
+            {
+                String[] marks = exam.getExamMark().split("\\.");
+                if(marks.length>0)
+                mark = marks[0];
+            }
+            else
+                mark = exam.getExamMark();
+            marks.setText("" + mark);
+        }
 
         if(exam.getDayName()!=null)
             examDay.setText(exam.getDayName());
@@ -287,14 +297,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener
     }
 
     private void populateNextClass(Routine nextClass, String weekday) {
-        if(nextClass.getThumbnail() !=null && !nextClass.getThumbnail().isEmpty())
-            // if(resourceSi)
-            Glide.with(this)
-                    .load(nextClass.getThumbnail())
-                    .apply(new RequestOptions()
-                            .placeholder(R.drawable.demo_img)
-                            .fitCenter())
-                    .into(courseImg);
+        if(getActivity()!=null) {
+            if (nextClass.getThumbnail() != null && !nextClass.getThumbnail().isEmpty())
+                // if(resourceSi)
+                Glide.with(getActivity())
+                        .load(nextClass.getThumbnail())
+                        .apply(new RequestOptions()
+                                .placeholder(R.drawable.demo_img)
+                                .fitCenter())
+                        .into(courseImg);
+        }
 
         if(nextClass.getName() !=null)
             nextSubject.setText(nextClass.getName());
@@ -342,8 +354,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener
         if(resourceSingle.getTitle() !=null)
         topTitle.setText(resourceSingle.getTitle());
 
-        if(resourceSingle.getChapterTitle() !=null)
-        chapter.setText(resourceSingle.getChapterTitle());
+//        if(resourceSingle.getChapterTitle() !=null)
+//        chapter.setText(resourceSingle.getChapterTitle());
 
         if(resourceSingle.getCourseName() !=null)
         subCode.setText(resourceSingle.getCourseName());

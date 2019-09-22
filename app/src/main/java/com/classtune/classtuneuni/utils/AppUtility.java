@@ -35,6 +35,7 @@ public class AppUtility {
 	public static final String DATE_FORMAT_APP_M_Y = "MMM, yyyy";
 
 	public static final String DATE_FORMAT_D_M = "dd,MMM";
+	public static final String DATE_FORMAT_d_m = "dd MMM";
 	public static final String DATE_FORMAT_FACEBOOK = "MM/dd/yyyy";
 
 	private static String[] suffix = new String[] { "", "k", "m", "b", "t" };
@@ -395,21 +396,63 @@ public class AppUtility {
 		long millis = getDateFromStringYMD(due).getTime() - getDateFromStringYMD(current).getTime();
 
 		long diffInDays = TimeUnit.MILLISECONDS.toDays(millis);
-		if(diffInDays<=0)
+
+
+//		if(diffInDays>=30)
+//		{
+//			long m = diffInDays/30;
+//			if(m == 1)
+//				finalDay = m + " Month";
+//			else
+//				finalDay = m + " Months";
+//		}
+		if(diffInDays>1)
 		{
-			finalDay = "Today";
+			finalDay = diffInDays + " Days left";
 		}
 		else if(diffInDays == 1){
 			finalDay = "1 Day left";
 		}
-		else if(diffInDays>1)
+		else if(diffInDays<=0)
 		{
-			finalDay = diffInDays + " Days left";
+			finalDay = "Today";
 		}
 
 
 		return finalDay;
 	}
+
+	public static String getCourseDurtion(String due, String current){
+
+		String finalDay = "";
+
+		long millis = getDateFromStringYMD(due).getTime() - getDateFromStringYMD(current).getTime();
+
+		long diffInDays = TimeUnit.MILLISECONDS.toDays(millis);
+
+		if(diffInDays>=30)
+		{
+			long m = diffInDays/30;
+			if(m == 1)
+				finalDay = m + " Month";
+			else
+				finalDay = m + " Months";
+		}
+		else if(diffInDays<30){
+			if (diffInDays < 0) {
+				diffInDays = diffInDays * (-1);
+			}
+			if(diffInDays <= 1) {
+
+				finalDay = diffInDays + " Day";
+			}
+			else
+				finalDay = diffInDays + " Days";
+		}
+
+		return finalDay;
+	}
+
 	public static Date getDateFromStringYMD(String dateSt){
 		Date date = null;
 		String dtStart = dateSt;

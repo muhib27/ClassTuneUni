@@ -18,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.assignment.Assignment;
@@ -82,8 +84,36 @@ public class StCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         switch (getItemViewType(position)) {
             case ITEM:
                 final MovieVH itemHolder = (MovieVH) viewHolder;
-                if(result.getName()!=null)
-                itemHolder.name.setText(result.getName());
+                if(result.getCourseName()!=null)
+                itemHolder.name.setText(result.getCourseName());
+                if(result.getInstructor()!=null)
+                    itemHolder.instructor.setText(result.getInstructor());
+                if(result.getShortDetails()!=null)
+                    itemHolder.shortDescription.setText(result.getShortDetails());
+                if(result.getStartDate()!=null)
+                    itemHolder.startDate.setText(AppUtility.getDateString(result.getStartDate(), AppUtility.DATE_FORMAT_d_m, AppUtility.DATE_FORMAT_SERVER));
+                if(result.getStartDate()!=null && result.getEndDate() !=null)
+                    itemHolder.courseDuration.setText(AppUtility.getCourseDurtion(result.getEndDate(), result.getStartDate()));
+                if(result.getInterested()!=null)
+                    itemHolder.interested.setText(result.getInterested());
+                if(result.getEnrolledStudents()!=null)
+                    itemHolder.enrolled.setText(result.getEnrolledStudents());
+                if(result.getNewCourse()!=null && result.getNewCourse().equals("1"))
+                {
+                    itemHolder.newCourse.setVisibility(View.VISIBLE);
+                }
+                else {
+                    itemHolder.newCourse.setVisibility(View.GONE);
+                }
+
+                if(mContext!=null && result.getThumbnail() !=null && !result.getThumbnail().isEmpty())
+                    // if(resourceSi)
+                    Glide.with(mContext)
+                            .load(result.getThumbnail())
+                            .apply(new RequestOptions()
+                                    .placeholder(R.drawable.news_poster)
+                                    .fitCenter())
+                            .into(itemHolder.courseImg);
 
 //                String str = "";
 //                if (AppSharedPreference.getUserType().equals("3")) {
@@ -115,7 +145,7 @@ public class StCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         @Override
                         public void onClick(View view) {
                             Fragment fragment = new CourseDetailsFragment();
-                            gotoFragment(fragment, "courseDetailsFragment", "1");
+                            gotoFragment(fragment, "courseDetailsFragment", result.getId());
 
 //                        if (mListener != null) {
 //                            mListener.onItemClick(result, position);
@@ -202,7 +232,7 @@ public class StCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         private TextView name, courseDuration;
         private TextView instructor, shortDescription;
         private TextView startDate; // displays "year | language"
-        private ImageView courseImg;
+        private ImageView courseImg, newCourse;
         private ProgressBar mProgress;
         private TextView interested, enrolled, present, total;
         private FrameLayout itemLayout;
@@ -215,6 +245,7 @@ public class StCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             name = itemView.findViewById(R.id.name);
             courseDuration = itemView.findViewById(R.id.courseDuration);
             courseImg = itemView.findViewById(R.id.courseImg);
+            newCourse = itemView.findViewById(R.id.newCourse);
             instructor = itemView.findViewById(R.id.instructor);
             startDate = itemView.findViewById(R.id.startDate);
             shortDescription = itemView.findViewById(R.id.shortDescription);
