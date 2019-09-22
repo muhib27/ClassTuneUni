@@ -18,10 +18,13 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.assignment.Assignment;
 import com.classtune.classtuneuni.course_resonse.Course;
+import com.classtune.classtuneuni.course_resonse.RelatedCourse;
 import com.classtune.classtuneuni.fragment.AssignmentDetailsFragment;
 import com.classtune.classtuneuni.fragment.TeacherStudentListFragment;
 import com.classtune.classtuneuni.model.AssignmentModel;
@@ -35,7 +38,7 @@ import java.util.List;
 
 public class RelatedCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Course> mValues;
+    private List<RelatedCourse> mValues;
     private Context mContext;
     protected ItemListener mListener;
     private static final int LOADING = 2;
@@ -77,78 +80,23 @@ public class RelatedCourseAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
-        final Course result = mValues.get(position);
+        final RelatedCourse result = mValues.get(position);
         switch (getItemViewType(position)) {
             case ITEM:
                 final MovieVH itemHolder = (MovieVH) viewHolder;
                 if(result.getName()!=null)
                 itemHolder.courseName.setText(result.getName());
+//                if(result.get()!=null)
+//                    itemHolder.courseName.setText(result.getName());
 
-//                String str = "";
-//                if (AppSharedPreference.getUserType().equals("3")) {
-//                    str = result.getAssignment().getCreatedAt();
-//
-//                    String parts[] = str.split(" ");
-//
-//                    itemHolder.assignedDate.setText(AppUtility.getDateString(parts[0], AppUtility.DATE_FORMAT_APP, AppUtility.DATE_FORMAT_SERVER));
-//                    if (result.getAssignment().getDueDate() != null)
-//                        itemHolder.dueDate.setText(AppUtility.getDateString(result.getAssignment().getDueDate(), AppUtility.DATE_FORMAT_APP, AppUtility.DATE_FORMAT_SERVER));
-//                    if (result.getAssignment().getCourseCode() != null)
-//                        itemHolder.subject.setText(result.getAssignment().getCourseCode());
-//                    if (result.getAssignment().getSectionName() != null)
-//                        itemHolder.section.setText(result.getAssignment().getSectionName());
-//                    if (result.getSubmission() != null && result.getSubmission()== 0) {
-//                        itemHolder.imgLl.setVisibility(View.VISIBLE);
-//                        itemHolder.numLl.setVisibility(View.GONE);
-//                        if (result.getMark() != null)
-//                            itemHolder.img.setImageDrawable(mContext.getResources().getDrawable(R.drawable.not_examined));
-//                        else
-//                            itemHolder.img.setImageDrawable(mContext.getResources().getDrawable(R.drawable.not_submited));
-//                    } else {
-//                        itemHolder.present.setText("" + result.getSubmission());
-//                        if (result.getMark() != null)
-//                            itemHolder.total.setText("" + result.getMark());
-//                    }
-//
-//                    itemHolder.cardView.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-//                            Fragment fragment = new AssignmentDetailsFragment();
-//                            gotoFragment(fragment, "assignmentDetailsFragment", result.getAssignment().getId());
-//
-////                        if (mListener != null) {
-////                            mListener.onItemClick(result, position);
-////                        }
-//                        }
-//                    });
-//                } else {
-//                    str = result.getAssignment().getAssignDate();
-//
-//                    String parts[] = str.split(" ");
-//
-//                    itemHolder.assignedDate.setText(AppUtility.getDateString(parts[0], AppUtility.DATE_FORMAT_APP, AppUtility.DATE_FORMAT_SERVER));
-//                    if (result.getAssignment().getDueDate() != null)
-//                        itemHolder.dueDate.setText(AppUtility.getDateString(result.getAssignment().getDueDate(), AppUtility.DATE_FORMAT_APP, AppUtility.DATE_FORMAT_SERVER));
-//                    if (result.getAssignment().getCourseCode() != null)
-//                        itemHolder.subject.setText(result.getAssignment().getCourseCode());
-//                    if (result.getAssignment().getSectionName() != null)
-//                        itemHolder.section.setText(result.getAssignment().getSectionName());
-//                    if (result.getSubmissions() != null)
-//                        itemHolder.present.setText("" + result.getSubmissions());
-//                    if (result.getStudents() != null)
-//                        itemHolder.total.setText("" + result.getStudents());
-//                    itemHolder.cardView.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-//                            Fragment fragment = new TeacherStudentListFragment();
-//                            gotoFragment(fragment, "teacherStudentListFragment", result.getAssignment().getId());
-//
-////                        if (mListener != null) {
-////                            mListener.onItemClick(result, position);
-////                        }
-//                        }
-//                    });
-//                }
+                if(mContext!=null && result.getThumbnail() !=null && !result.getThumbnail().isEmpty())
+                    // if(resourceSi)
+                    Glide.with(mContext)
+                            .load(result.getThumbnail())
+                            .apply(new RequestOptions()
+                                    .placeholder(R.drawable.news_poster)
+                                    .fitCenter())
+                            .into(itemHolder.courseImg);
 
 
 
@@ -199,9 +147,9 @@ public class RelatedCourseAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     protected class MovieVH extends RecyclerView.ViewHolder {
         private TextView courseName;
-        private TextView assignedDate;
-        private TextView dueDate; // displays "year | language"
-        private ImageView img;
+        private TextView instructor;
+        private View view; // displays "year | language"
+        private ImageView courseImg;
         private ProgressBar mProgress;
         private TextView subject, section, present, total;
         private FrameLayout itemLayout;
@@ -212,9 +160,9 @@ public class RelatedCourseAdapter extends RecyclerView.Adapter<RecyclerView.View
             super(itemView);
 
             courseName = itemView.findViewById(R.id.courseName);
-//            assignedDate = itemView.findViewById(R.id.assignedDate);
-//            dueDate = itemView.findViewById(R.id.dueDate);
-//            subject = itemView.findViewById(R.id.subject);
+            instructor = itemView.findViewById(R.id.instructor);
+            courseImg = itemView.findViewById(R.id.courseImg);
+            view = itemView.findViewById(R.id.view);
 //            section = itemView.findViewById(R.id.section);
 //            present = itemView.findViewById(R.id.present);
 //            total = itemView.findViewById(R.id.total);
@@ -279,18 +227,18 @@ public class RelatedCourseAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
-    public void add(Course r) {
+    public void add(RelatedCourse r) {
         mValues.add(r);
         notifyItemInserted(mValues.size() - 1);
     }
 
-    public void addAllData(List<Course> moveResults) {
-        for (Course result : moveResults) {
+    public void addAllData(List<RelatedCourse> moveResults) {
+        for (RelatedCourse result : moveResults) {
             add(result);
         }
     }
 
-    public void remove(Course r) {
+    public void remove(RelatedCourse r) {
         int position = mValues.indexOf(r);
         if (position > -1) {
             mValues.remove(position);
@@ -312,14 +260,14 @@ public class RelatedCourseAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     public void addLoadingFooter() {
         isLoadingAdded = true;
-        add(new Course());
+        add(new RelatedCourse());
     }
 
     public void removeLoadingFooter() {
         isLoadingAdded = false;
 
         int position = mValues.size() - 1;
-        Course result = getItem(position);
+        RelatedCourse result = getItem(position);
 
         if (result != null) {
             mValues.remove(position);
@@ -327,7 +275,7 @@ public class RelatedCourseAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
-    public Course getItem(int position) {
+    public RelatedCourse getItem(int position) {
         return mValues.get(position);
     }
 

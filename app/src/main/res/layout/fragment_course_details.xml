@@ -20,6 +20,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
+                android:id="@+id/courseImg"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:scaleType="fitXY"
@@ -243,6 +244,7 @@
                         android:textSize="@dimen/text_size_11_sp" />
 
                     <TextView
+                        android:id="@+id/instructor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Md. Rahim"
@@ -263,6 +265,7 @@
                 android:gravity="center">
 
                 <TextView
+                    android:id="@+id/totalCourse"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/size_5dp"
@@ -311,6 +314,7 @@
                         android:src="@drawable/student_l" />
 
                     <TextView
+                        android:id="@+id/enrolled"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/size_8dp"
@@ -361,6 +365,7 @@
                         android:src="@drawable/resource_l" />
 
                     <TextView
+                        android:id="@+id/resources"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/size_8dp"
@@ -411,6 +416,7 @@
                         android:textSize="@dimen/text_size_11_sp" />
 
                     <TextView
+                        android:id="@+id/prerequisite"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Undergraduate/Graduate"

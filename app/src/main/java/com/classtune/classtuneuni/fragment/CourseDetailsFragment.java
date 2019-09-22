@@ -20,18 +20,24 @@ import android.view.Window;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.adapter.RelatedCourseAdapter;
 import com.classtune.classtuneuni.adapter.StCourseAdapter;
 import com.classtune.classtuneuni.course_resonse.Course;
 import com.classtune.classtuneuni.course_resonse.CourseDetailsResponse;
+import com.classtune.classtuneuni.course_resonse.RelatedCourse;
 import com.classtune.classtuneuni.exam.ExamPolicyResponse;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
+import com.classtune.classtuneuni.utils.AppUtility;
 import com.classtune.classtuneuni.utils.NetworkConnection;
 import com.classtune.classtuneuni.utils.PaginationAdapterCallback;
 import com.classtune.classtuneuni.utils.UIHelper;
@@ -40,6 +46,7 @@ import com.classtune.classtuneuni.utils.VerticalSpaceItemDecoration;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -53,10 +60,13 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
     private LinearLayout allCourseLayout, shareLl;
     private Button enrollNow;
     RecyclerView recyclerView;
-    private List<Course> courseList;
-//    LinearLayoutManager linearLayoutManager;
+    private List<RelatedCourse> relatedCourseList;
+    //    LinearLayoutManager linearLayoutManager;
     UIHelper uiHelper;
     RelatedCourseAdapter relatedCourseAdapter;
+    private TextView courseNmae, duration, shortDescription, lastDate, instructor, totalCourse, enrolled, resources, prerequisite;
+    private ImageView courseImg;
+    private CircleImageView profile_image;
 
     String courseId = "";
 
@@ -67,6 +77,7 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
     private WebView webView;
 
     LinearLayoutManager layoutManager;
+
     public CourseDetailsFragment() {
         // Required empty public constructor
     }
@@ -85,9 +96,23 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
         ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        if(getArguments().getString("courseId")!=null)
-        courseId = getArguments().getString("courseId");
+        if (getArguments().getString("courseId") != null)
+            courseId = getArguments().getString("courseId");
         uiHelper = new UIHelper(getActivity());
+
+        courseNmae = view.findViewById(R.id.courseNmae);
+        duration = view.findViewById(R.id.duration);
+        shortDescription = view.findViewById(R.id.shortDescription);
+        lastDate = view.findViewById(R.id.lastDate);
+        instructor = view.findViewById(R.id.instructor);
+        totalCourse = view.findViewById(R.id.totalCourse);
+        enrolled = view.findViewById(R.id.enrolled);
+        resources = view.findViewById(R.id.resources);
+        prerequisite = view.findViewById(R.id.prerequisite);
+
+        courseImg = view.findViewById(R.id.courseImg);
+        profile_image = view.findViewById(R.id.profile_image);
+
 
         recyclerView = view.findViewById(R.id.recyclerView);
         webView = view.findViewById(R.id.webView);
@@ -100,11 +125,11 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
         enrollNow = view.findViewById(R.id.enrollNow);
         enrollNow.setOnClickListener(this);
 
-        courseList = new ArrayList<>();
+        relatedCourseList = new ArrayList<>();
 
-        courseList.add(new Course("Title"));
-        courseList.add(new Course("Title"));
-        courseList.add(new Course("Title"));
+//        courseList.add(new Course("Title"));
+//        courseList.add(new Course("Title"));
+//        courseList.add(new Course("Title"));
 
         relatedCourseAdapter = new RelatedCourseAdapter(getActivity(), this);
         layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
@@ -115,14 +140,14 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
 
         //relatedCourseAdapter.addAllData(courseList);
         //populateData();
-        if(courseId != null){
+        if (courseId != null) {
             callCourseDetailsApi();
         }
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.allCourseLayout:
                 Fragment fragment = new TeacherAllCourseFragment();
                 gotoFragment(fragment, "teacherAllCourseFragment", "1");
@@ -166,7 +191,7 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // add a condition to check length here - you can give here length according to your requirement to go to next EditTexts.
-                if(et1.getText().toString().trim().length() >0){
+                if (et1.getText().toString().trim().length() > 0) {
                     et1.clearFocus();
                     et2.requestFocus();
                 }
@@ -186,7 +211,7 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // add a condition to check length here - you can give here length according to your requirement to go to next EditTexts.
-                if(et2.getText().toString().trim().length() >0){
+                if (et2.getText().toString().trim().length() > 0) {
                     et2.clearFocus();
                     et3.requestFocus();
                 }
@@ -206,7 +231,7 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // add a condition to check length here - you can give here length according to your requirement to go to next EditTexts.
-                if(et3.getText().toString().trim().length() >0){
+                if (et3.getText().toString().trim().length() > 0) {
                     et3.clearFocus();
                     et4.requestFocus();
                 }
@@ -226,7 +251,7 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // add a condition to check length here - you can give here length according to your requirement to go to next EditTexts.
-                if(et4.getText().toString().trim().length() >0){
+                if (et4.getText().toString().trim().length() > 0) {
                     et4.clearFocus();
                     et5.requestFocus();
                 }
@@ -246,7 +271,7 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // add a condition to check length here - you can give here length according to your requirement to go to next EditTexts.
-                if(et5.getText().toString().trim().length() >0){
+                if (et5.getText().toString().trim().length() > 0) {
                     et5.clearFocus();
                     et6.requestFocus();
                 }
@@ -268,7 +293,7 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // add a condition to check length here - you can give here length according to your requirement to go to next EditTexts.
-                if(et6.getText().toString().trim().length() >0){
+                if (et6.getText().toString().trim().length() > 0) {
                     et6.clearFocus();
                     //et6.requestFocus();
                 }
@@ -280,7 +305,7 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
             @Override
             public void onClick(View view) {
 
-                    dialog.dismiss();
+                dialog.dismiss();
 
             }
         });
@@ -356,17 +381,18 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
                         uiHelper.dismissLoadingDialog();
 
                         CourseDetailsResponse courseDetailsResponse = value.body();
-                       // examPolicyAdapter.clear();
+                        // examPolicyAdapter.clear();
                         if (courseDetailsResponse.getStatus().getCode() == 200) {
-                           // policyList = examPolicyResponse.getData().getPolicies();
+                            relatedCourseList = courseDetailsResponse.getData().getRelatedCourses();
+                            populateCourseData(courseDetailsResponse.getData().getCourse(), courseDetailsResponse.getData().getTotalCourses(), courseDetailsResponse.getData().getEnrolledStudents());
 
-                            //examPolicyAdapter.addAllData(policyList, false);
+                            relatedCourseAdapter.addAllData(courseDetailsResponse.getData().getRelatedCourses());
                             //examPolicyAdapter.disableEditing();
 
 //                            Log.v("tt", noticeList.toString());
                             //  Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
                         } else {
-                           // Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                            // Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -384,6 +410,44 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
                     }
                 });
 
+
+    }
+
+    private void populateCourseData(Course course, Integer totalCourses, String enrolledStudents) {
+        if (course.getCourseName() != null)
+            courseNmae.setText(course.getCourseName());
+        if (course.getStartDate() != null && course.getEndDate() != null)
+            duration.setText(AppUtility.getDateString(course.getStartDate(), AppUtility.DATE_FORMAT_APP_, AppUtility.DATE_FORMAT_SERVER) + " - " + AppUtility.getDateString(course.getEndDate(), AppUtility.DATE_FORMAT_APP_, AppUtility.DATE_FORMAT_SERVER));
+        if (course.getEnrollDate() != null) {
+            String[] parts = course.getEnrollDate().split(" ");
+            if (parts.length > 0)
+                lastDate.setText(AppUtility.getDateString(parts[0], AppUtility.DATE_FORMAT_APP_, AppUtility.DATE_FORMAT_SERVER));
+        }
+        if (course.getShortDetails() != null)
+            shortDescription.setText(course.getShortDetails());
+        if (course.getInstructor() != null)
+            instructor.setText(course.getInstructor());
+        if (course.getPrereq() != null)
+            prerequisite.setText(course.getPrereq());
+        totalCourse.setText(""+ totalCourses);
+        enrolled.setText(enrolledStudents);
+
+        if(getActivity()!=null && course.getImage() !=null && !course.getImage().isEmpty())
+            // if(resourceSi)
+            Glide.with(getActivity())
+                    .load(course.getImage())
+                    .apply(new RequestOptions()
+                            .placeholder(R.drawable.news_poster)
+                            .fitCenter())
+                    .into(courseImg);
+        if(getActivity()!=null && course.getThumbnail() !=null && !course.getThumbnail().isEmpty())
+            // if(resourceSi)
+            Glide.with(getActivity())
+                    .load(course.getThumbnail())
+                    .apply(new RequestOptions()
+                            .placeholder(R.drawable.news_poster)
+                            .fitCenter())
+                    .into(profile_image);
 
     }
 }
