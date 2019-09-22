@@ -32,11 +32,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content">
                     <ImageView
+                        android:id="@+id/courseImg"
                         android:scaleType="centerCrop"
                         android:src="@drawable/news_poster"
                         android:layout_width="match_parent"
                         android:layout_height="110dp" />
                     <TextView
+                        android:id="@+id/courseDuration"
                         android:layout_marginTop="@dimen/size_3dp"
                         android:textStyle="bold"
                         android:background="@drawable/scrim"
@@ -69,7 +71,7 @@
                         android:layout_height="wrap_content">
 
                         <TextView
-                            android:id="@+id/chapter"
+                            android:id="@+id/instructor"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Md. Rahim"
@@ -95,7 +97,7 @@
                             android:textStyle="normal" />
 
                         <TextView
-                            android:id="@+id/authorName"
+                            android:id="@+id/startDate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="17 July"
@@ -105,6 +107,7 @@
 
                     </LinearLayout>
                     <TextView
+                        android:id="@+id/shortDescription"
                         android:paddingTop="@dimen/size_5dp"
                         android:layout_marginEnd="@dimen/size_10dp"
                         android:maxLines="2"
@@ -153,6 +156,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                             <TextView
+                                android:id="@+id/interested"
                                 android:paddingStart="@dimen/size_5dp"
                                 android:text="35"
                                 android:textSize="@dimen/text_size_12_sp"
@@ -191,6 +195,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                             <TextView
+                                android:id="@+id/enrolled"
                                 android:paddingStart="@dimen/size_5dp"
                                 android:text="35"
                                 android:textSize="@dimen/text_size_12_sp"
@@ -210,6 +215,7 @@
 
                     </LinearLayout>
                     <LinearLayout
+                        android:id="@+id/shareLl"
                         android:layout_marginEnd="@dimen/size_20dp"
                         android:layout_alignParentEnd="true"
                         android:paddingStart="@dimen/size_3dp"

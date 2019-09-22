@@ -88,17 +88,18 @@
                 android:orientation="horizontal"
                 android:padding="10dp">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/ic_telephone" />
+                <!--<ImageView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:adjustViewBounds="true"-->
+                    <!--android:src="@drawable/ic_telephone" />-->
                 <com.hbb20.CountryCodePicker
-                    android:tooltipText="+88"
+                    app:ccp_textColor="@android:color/holo_orange_dark"
                     android:id="@+id/ccp"
-                    android:layout_width="@dimen/size_30dp"
+                    app:ccp_defaultNameCode="jp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
                 <EditText

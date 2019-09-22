@@ -199,30 +199,32 @@ public class StCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
     protected class MovieVH extends RecyclerView.ViewHolder {
-        private TextView name;
-        private TextView assignedDate;
-        private TextView dueDate; // displays "year | language"
-        private ImageView img;
+        private TextView name, courseDuration;
+        private TextView instructor, shortDescription;
+        private TextView startDate; // displays "year | language"
+        private ImageView courseImg;
         private ProgressBar mProgress;
-        private TextView subject, section, present, total;
+        private TextView interested, enrolled, present, total;
         private FrameLayout itemLayout;
         CardView cardView;
-        LinearLayout numLl, imgLl;
+        LinearLayout numLl, shareLl;
 
         public MovieVH(View itemView) {
             super(itemView);
 
             name = itemView.findViewById(R.id.name);
-//            assignedDate = itemView.findViewById(R.id.assignedDate);
-//            dueDate = itemView.findViewById(R.id.dueDate);
-//            subject = itemView.findViewById(R.id.subject);
-//            section = itemView.findViewById(R.id.section);
-//            present = itemView.findViewById(R.id.present);
+            courseDuration = itemView.findViewById(R.id.courseDuration);
+            courseImg = itemView.findViewById(R.id.courseImg);
+            instructor = itemView.findViewById(R.id.instructor);
+            startDate = itemView.findViewById(R.id.startDate);
+            shortDescription = itemView.findViewById(R.id.shortDescription);
+            interested = itemView.findViewById(R.id.interested);
+            enrolled = itemView.findViewById(R.id.enrolled);
 //            total = itemView.findViewById(R.id.total);
 //            img = itemView.findViewById(R.id.img);
 ////            assignedDate = itemView.findViewById(R.id.assignedDate);
             cardView = itemView.findViewById(R.id.cardView);
-//            imgLl = itemView.findViewById(R.id.imgLl);
+            shareLl = itemView.findViewById(R.id.shareLl);
 //            numLl = itemView.findViewById(R.id.numLl);
 
         }

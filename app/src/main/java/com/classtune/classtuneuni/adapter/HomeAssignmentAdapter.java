@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.classtune.classtuneuni.R;
@@ -71,7 +72,7 @@ public class HomeAssignmentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         switch (getItemViewType(position)) {
             case ITEM:
                 final MovieVH itemHolder = (MovieVH) viewHolder;
-                itemHolder.si.setText(position + ".");
+                itemHolder.si.setText((position + 1) + ".");
                 if(result.getTitle()!=null)
                 itemHolder.title.setText(result.getTitle());
                 if(result.getCourseName()!=null)
@@ -86,6 +87,13 @@ public class HomeAssignmentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     itemHolder.dueAssignment.setVisibility(View.VISIBLE);
                 else
                     itemHolder.dueAssignment.setVisibility(View.INVISIBLE);
+
+                itemHolder.assignmentLl.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
                 //itemHolder.download.setText(result.getUrl());
 //                itemHolder.viewLl.setOnClickListener(new View.OnClickListener() {
 //                    @Override
@@ -137,6 +145,7 @@ public class HomeAssignmentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             private ProgressBar mProgress;
             private TextView menuOption;
             private LinearLayout viewLl;
+            private RelativeLayout assignmentLl;
             private View dueAssignment;
             CardView cardView;
 
@@ -150,6 +159,7 @@ public class HomeAssignmentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 daysLeft = itemView.findViewById(R.id.dayLeft);
                 si = itemView.findViewById(R.id.si);
                 dueAssignment = itemView.findViewById(R.id.dueAssignment);
+                assignmentLl = itemView.findViewById(R.id.assignmentLl);
 //                download = itemView.findViewById(R.id.download);
 //
 //                viewLl = itemView.findViewById(R.id.viewLl);

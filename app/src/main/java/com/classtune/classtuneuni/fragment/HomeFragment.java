@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,7 +53,8 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnClickListener
+{
 
     private TextView topDate, topTitle, chapter, subCode, author;
     private TextView notice1Date, notice1Title, notice2Date, notice2Title;
@@ -74,7 +77,11 @@ public class HomeFragment extends Fragment {
 
     GridLayoutManager manager;
     private List<Resource> resourceList;
+    private ImageView classSchedudle, resources, notices;
+    CardView nextClass, upcomingExam;
 
+
+    RelativeLayout latestResource;
 
 
     public HomeFragment() {
@@ -94,6 +101,21 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         uiHelper = new UIHelper(getActivity());
+
+        latestResource = view.findViewById(R.id.latestResource);
+        latestResource.setOnClickListener(this);
+//        classSchedudle = view.findViewById(R.id.classSchedudle);
+//        classSchedudle.setOnClickListener(this);
+        resources = view.findViewById(R.id.resourceList);
+        resources.setOnClickListener(this);
+        nextClass = view.findViewById(R.id.nextClass);
+        nextClass.setOnClickListener(this);
+        upcomingExam = view.findViewById(R.id.upcomingExam);
+        upcomingExam.setOnClickListener(this);
+        notices = view.findViewById(R.id.notices);
+        notices.setOnClickListener(this);
+
+
 
         topDate = view.findViewById(R.id.topDate);
         topTitle = view.findViewById(R.id.topTitle);
@@ -337,4 +359,21 @@ public class HomeFragment extends Fragment {
     }
 
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.latestResource:
+                break;
+            case R.id.classSchedudle:
+                break;
+            case R.id.resourceList:
+                break;
+            case R.id.nextClass:
+                break;
+            case R.id.upcomingExam:
+                break;
+            case R.id.notices:
+                break;
+        }
+    }
 }

@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -92,14 +93,14 @@ public class HomeNoticeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     }
                 }
                 //itemHolder.download.setText(result.getUrl());
-//                itemHolder.viewLl.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
+                itemHolder.noticeLl.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 //                        mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri
 //                                .parse(result.getUrl())));
-//
-//                    }
-//                });
+
+                    }
+                });
 
 
                 break;
@@ -135,6 +136,7 @@ public class HomeNoticeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             private TextView menuOption;
             private LinearLayout viewLl;
             CardView cardView;
+            private FrameLayout noticeLl;
             View verticalLine, dotView;
 
             public MovieVH(View itemView) {
@@ -145,6 +147,8 @@ public class HomeNoticeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 subject = itemView.findViewById(R.id.subject);
                 timeBefore = itemView.findViewById(R.id.timeBefore);
                 verticalLine = itemView.findViewById(R.id.verticalLine);
+                noticeLl = itemView.findViewById(R.id.noticeLl);
+
 //                download = itemView.findViewById(R.id.download);
 //
 //                viewLl = itemView.findViewById(R.id.viewLl);

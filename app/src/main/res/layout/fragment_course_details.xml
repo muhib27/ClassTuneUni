@@ -39,6 +39,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/courseNmae"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/size_40dp"
@@ -64,6 +65,7 @@
                         android:textSize="@dimen/text_size_11_sp" />
 
                     <TextView
+                        android:id="@+id/duration"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/size_10dp"
@@ -77,6 +79,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/shortDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/size_10dp"
@@ -120,6 +123,7 @@
                         android:textSize="@dimen/text_size_11_sp" />
 
                     <TextView
+                        android:id="@+id/lastDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/size_10dp"
@@ -160,6 +164,7 @@
                 android:padding="@dimen/size_15dp">
 
                 <ImageView
+                    android:id="@+id/interested"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/interested_t" />
