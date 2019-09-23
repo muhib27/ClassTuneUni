@@ -40,6 +40,7 @@ import com.classtune.classtuneuni.utils.AppSharedPreference;
 import com.classtune.classtuneuni.utils.NetworkConnection;
 import com.classtune.classtuneuni.utils.UIHelper;
 import com.classtune.classtuneuni.utils.VerticalSpaceItemDecoration;
+import com.google.gson.JsonElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -159,6 +160,7 @@ public class StudentProfileFragment extends Fragment implements StProfileInfoAda
                     public void onNext(Response<StProfileRsponse> value) {
                         uiHelper.dismissLoadingDialog();
 
+                        //if(value.code() == 200){
                         StProfileRsponse stProfileRsponse = value.body();
                         if (stProfileRsponse.getStatus().getCode() == 200) {
                           //  stAddSection(stSectionListResponse.getData().getCourseSection());

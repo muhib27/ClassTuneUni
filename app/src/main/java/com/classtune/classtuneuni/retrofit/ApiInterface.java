@@ -240,6 +240,8 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST(URLHelper.STUDENT_PROFILE)
     Observable<Response<StProfileRsponse>> getStProfile(@Field("api_key") String api_key);
+    //Observable<Response<JsonElement>> getStProfile(@Field("api_key") String api_key);
+
 
     @FormUrlEncoded
     @POST(URLHelper.STUDENT_COURSE_MESSAGE)

@@ -414,8 +414,8 @@ public class ProfileEditFragment extends Fragment implements View.OnClickListene
 
                         if (value.code() == 200) {
                             // Toast.makeText(getActivity(), "Image Upload Success", Toast.LENGTH_SHORT).show();
-                            fragment = new SuccessFragment();
-                            gotoFragment(fragment, "successFragment");
+//                            fragment = new SuccessFragment();
+//                            gotoFragment(fragment, "successFragment");
                         } else
                             Toast.makeText(getActivity(), "Image Upload failed", Toast.LENGTH_SHORT).show();
                     }

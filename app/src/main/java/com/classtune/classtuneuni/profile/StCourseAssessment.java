@@ -3,7 +3,15 @@ package com.classtune.classtuneuni.profile;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class StCourseAssessment {
+
+
+//    @SerializedName("obtained")
+//    @Expose
+//    private List<StObtained> obtained = null;
+
     @SerializedName("course_name")
     @Expose
     private String courseName;
@@ -13,9 +21,9 @@ public class StCourseAssessment {
     @SerializedName("attendance")
     @Expose
     private Integer attendance;
-    @SerializedName("obtained")
-    @Expose
-    private StObtained obtained;
+//    @SerializedName("obtained")
+//    @Expose
+//    private StObtained obtained;
 
     public String getCourseName() {
         return courseName;
@@ -33,13 +41,13 @@ public class StCourseAssessment {
         this.courseCode = courseCode;
     }
 
-    public StObtained getObtained() {
-        return obtained;
-    }
-
-    public void setObtained(StObtained obtained) {
-        this.obtained = obtained;
-    }
+//    public List<StObtained> getObtained() {
+//        return obtained;
+//    }
+//
+//    public void setObtained(List<StObtained> obtained) {
+//        this.obtained = obtained;
+//    }
 
     public Integer getAttendance() {
         return attendance;
