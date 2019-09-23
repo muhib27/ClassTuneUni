@@ -32,6 +32,7 @@ import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.adapter.RelatedCourseAdapter;
 import com.classtune.classtuneuni.adapter.StCourseAdapter;
 import com.classtune.classtuneuni.course_resonse.Course;
+import com.classtune.classtuneuni.course_resonse.CourseDate;
 import com.classtune.classtuneuni.course_resonse.CourseDetailsResponse;
 import com.classtune.classtuneuni.course_resonse.RelatedCourse;
 import com.classtune.classtuneuni.exam.ExamPolicyResponse;
@@ -65,8 +66,9 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
     UIHelper uiHelper;
     RelatedCourseAdapter relatedCourseAdapter;
     private TextView courseNmae, duration, shortDescription, lastDate, instructor, totalCourse, enrolled, resources, prerequisite;
-    private ImageView courseImg;
+    private ImageView courseImg, interested, newCourse;
     private CircleImageView profile_image;
+    private String id = "";
 
     String courseId = "";
 
@@ -110,8 +112,12 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
         resources = view.findViewById(R.id.resources);
         prerequisite = view.findViewById(R.id.prerequisite);
 
+        interested = view.findViewById(R.id.interested);
+        interested.setOnClickListener(this);
+
         courseImg = view.findViewById(R.id.courseImg);
         profile_image = view.findViewById(R.id.profile_image);
+        newCourse = view.findViewById(R.id.newCourse);
 
 
         recyclerView = view.findViewById(R.id.recyclerView);
@@ -149,14 +155,19 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.allCourseLayout:
-                Fragment fragment = new TeacherAllCourseFragment();
-                gotoFragment(fragment, "teacherAllCourseFragment", "1");
+                if(id!=null && !id.isEmpty()) {
+                    Fragment fragment = new TeacherAllCourseFragment();
+                    gotoFragment(fragment, "teacherAllCourseFragment", id);
+                }
                 break;
             case R.id.shareLl:
                 shareCourse();
                 break;
             case R.id.enrollNow:
                 enrollDialog();
+                break;
+            case R.id.interested:
+                requestDialog();
                 break;
         }
     }
@@ -345,10 +356,10 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
 //            subCode.setText(titleSt);
     }
 
-    private void gotoFragment(Fragment fragment, String tag, String courseId) {
+    private void gotoFragment(Fragment fragment, String tag, String id) {
         // load fragment
         Bundle bundle = new Bundle();
-        bundle.putString("courseId", courseId);
+        bundle.putString("id", id);
         fragment.setArguments(bundle);
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.mainContainer, fragment, tag);
@@ -384,8 +395,9 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
                         // examPolicyAdapter.clear();
                         if (courseDetailsResponse.getStatus().getCode() == 200) {
                             relatedCourseList = courseDetailsResponse.getData().getRelatedCourses();
-                            populateCourseData(courseDetailsResponse.getData().getCourse(), courseDetailsResponse.getData().getTotalCourses(), courseDetailsResponse.getData().getEnrolledStudents());
-
+                            populateCourseData(courseDetailsResponse.getData());
+                            if(courseDetailsResponse.getData().getCourse().getInstructorId()!=null)
+                                id = courseDetailsResponse.getData().getCourse().getInstructorId();
                             relatedCourseAdapter.addAllData(courseDetailsResponse.getData().getRelatedCourses());
                             //examPolicyAdapter.disableEditing();
 
@@ -413,41 +425,81 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
 
     }
 
-    private void populateCourseData(Course course, Integer totalCourses, String enrolledStudents) {
-        if (course.getCourseName() != null)
-            courseNmae.setText(course.getCourseName());
-        if (course.getStartDate() != null && course.getEndDate() != null)
-            duration.setText(AppUtility.getDateString(course.getStartDate(), AppUtility.DATE_FORMAT_APP_, AppUtility.DATE_FORMAT_SERVER) + " - " + AppUtility.getDateString(course.getEndDate(), AppUtility.DATE_FORMAT_APP_, AppUtility.DATE_FORMAT_SERVER));
-        if (course.getEnrollDate() != null) {
-            String[] parts = course.getEnrollDate().split(" ");
+    private void populateCourseData(CourseDate data) {
+        if (data.getCourse().getCourseName() != null)
+            courseNmae.setText(data.getCourse().getCourseName());
+        if (data.getCourse().getStartDate() != null && data.getCourse().getEndDate() != null)
+            duration.setText(AppUtility.getDateString(data.getCourse().getStartDate(), AppUtility.DATE_FORMAT_APP_, AppUtility.DATE_FORMAT_SERVER) + " - " + AppUtility.getDateString(data.getCourse().getEndDate(), AppUtility.DATE_FORMAT_APP_, AppUtility.DATE_FORMAT_SERVER));
+        if (data.getCourse().getEnrollDate() != null) {
+            String[] parts = data.getCourse().getEnrollDate().split(" ");
             if (parts.length > 0)
                 lastDate.setText(AppUtility.getDateString(parts[0], AppUtility.DATE_FORMAT_APP_, AppUtility.DATE_FORMAT_SERVER));
         }
-        if (course.getShortDetails() != null)
-            shortDescription.setText(course.getShortDetails());
-        if (course.getInstructor() != null)
-            instructor.setText(course.getInstructor());
-        if (course.getPrereq() != null)
-            prerequisite.setText(course.getPrereq());
-        totalCourse.setText(""+ totalCourses);
-        enrolled.setText(enrolledStudents);
+        if (data.getCourse().getShortDetails() != null)
+            shortDescription.setText(data.getCourse().getShortDetails());
+        if (data.getCourse().getInstructor() != null)
+            instructor.setText(data.getCourse().getInstructor());
+        if (data.getCourse().getPrereq() != null)
+            prerequisite.setText(data.getCourse().getPrereq());
+        totalCourse.setText(""+ data.getTotalCourses());
+        enrolled.setText(data.getEnrolledStudents());
 
-        if(getActivity()!=null && course.getImage() !=null && !course.getImage().isEmpty())
+        if(getActivity()!=null && data.getCourse().getImage() !=null && !data.getCourse().getImage().isEmpty())
             // if(resourceSi)
             Glide.with(getActivity())
-                    .load(course.getImage())
+                    .load(data.getCourse().getImage())
                     .apply(new RequestOptions()
                             .placeholder(R.drawable.news_poster)
                             .fitCenter())
                     .into(courseImg);
-        if(getActivity()!=null && course.getThumbnail() !=null && !course.getThumbnail().isEmpty())
+        if(getActivity()!=null && data.getCourse().getInstructorImage() !=null && !data.getCourse().getInstructorImage().isEmpty())
             // if(resourceSi)
             Glide.with(getActivity())
-                    .load(course.getThumbnail())
+                    .load(data.getCourse().getInstructorImage())
                     .apply(new RequestOptions()
                             .placeholder(R.drawable.news_poster)
                             .fitCenter())
                     .into(profile_image);
 
+        if (data.getCourse().getDetails() != null)
+            webView.loadData(data.getCourse().getDetails().toString(), "text/html; charset=utf-8", "UTF-8");
+        if (data.getTotalResources() != null)
+        resources.setText(""+data.getTotalResources());
+        if(data.getNewCourse()!=null && data.getNewCourse().equals("1"))
+        {
+            newCourse.setVisibility(View.VISIBLE);
+        }
+        else
+            newCourse.setVisibility(View.GONE);
+    }
+
+
+    private void requestDialog() {
+
+
+        final Dialog dialog = new Dialog(getActivity(), R.style.Theme_Dialog);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.interested_dialog_view);
+
+        Button create = dialog.findViewById(R.id.create);
+        create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                dialog.dismiss();
+
+            }
+        });
+        Button cancel = dialog.findViewById(R.id.cancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 }

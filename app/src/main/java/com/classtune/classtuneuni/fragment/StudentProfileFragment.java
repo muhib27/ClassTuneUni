@@ -166,8 +166,9 @@ public class StudentProfileFragment extends Fragment implements StProfileInfoAda
                             stProfileInfoAdapter.addAllData(stCourseAssessmentList);
                             populateData(stProfileRsponse.getData());
 
-                        } else
-                            Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        } else {
+                            //Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
@@ -224,14 +225,14 @@ public class StudentProfileFragment extends Fragment implements StProfileInfoAda
     @Override
     public void onItemClick(ProfileCourseModel item, int pos) {
         // Toast.makeText(getActivity(), " " + pos, Toast.LENGTH_LONG).show();
-        loadFragment();
+        //loadFragment();
     }
 
-    private void loadFragment() {
+    private void gotoFragment(Fragment fragment, String tag) {
         // load fragment
-        SubjectResultFragment subjectResultFragment = new SubjectResultFragment();
+
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.mainContainer, subjectResultFragment, "subjectResultFragment");
+        transaction.replace(R.id.mainContainer, fragment, tag);
         //transaction.addToBackStack(null);
         transaction.commit();
     }
@@ -240,6 +241,8 @@ public class StudentProfileFragment extends Fragment implements StProfileInfoAda
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.editBtn:
+                Fragment fragment = new ProfileEditFragment();
+                gotoFragment(fragment, "profileEditFragment");
                 break;
         }
     }

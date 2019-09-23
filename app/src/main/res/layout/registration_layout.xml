@@ -99,7 +99,6 @@
                 <com.hbb20.CountryCodePicker
                     app:ccp_textSize="@dimen/text_size_12_sp"
                     android:id="@+id/ccp"
-                    app:ccp_defaultNameCode="BD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -211,6 +210,7 @@
                 android:padding="10dp">
 
                 <ImageView
+                    android:id="@+id/uniImg"
                     android:layout_width="25dp"
                     android:layout_height="22dp"
                     android:layout_gravity="center"

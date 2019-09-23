@@ -76,7 +76,9 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST(URLHelper.GET_UNIVERSITY)
-    Observable<Response<UniversityModel>> getUniversity(@Field("fcm_id") String fcm_id, @Field("search") String search);
+    Observable<Response<UniversityModel>> getUniversity(@Field("search") String search);
+
+//    Observable<Response<UniversityModel>> getUniversity(@Field("fcm_id") String fcm_id, @Field("search") String search);
 
 
     @FormUrlEncoded
@@ -87,7 +89,12 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST(URLHelper.URL_REGISTER)
 //    Observable<Response<List<LoginResponseModel>>> userLogin(@Field("username") String userId, @Field("password") String password);
-    Observable<Response<RegisTrationResponse>> studentRegistration(@Field("email") String userId, @Field("password") String password, @Field("confirm_password") String confirm_password, @Field("name") String name, @Field("user_type") String user_type, @Field("student_id") String student_id, @Field("fcm_id") String fcm_id, @Field("phone") String phone);
+    Observable<Response<RegisTrationResponse>> studentRegistrationName(@Field("email") String userId, @Field("password") String password, @Field("confirm_password") String confirm_password, @Field("name") String name, @Field("user_type") String user_type, @Field("student_id") String student_id, @Field("fcm_id") String fcm_id, @Field("mobile") String mobile,  @Field("university_name") String university_name);
+
+    @FormUrlEncoded
+    @POST(URLHelper.URL_REGISTER)
+//    Observable<Response<List<LoginResponseModel>>> userLogin(@Field("username") String userId, @Field("password") String password);
+    Observable<Response<RegisTrationResponse>> studentRegistration(@Field("email") String userId, @Field("password") String password, @Field("confirm_password") String confirm_password, @Field("name") String name, @Field("user_type") String user_type, @Field("student_id") String student_id, @Field("fcm_id") String fcm_id, @Field("mobile") String mobile,  @Field("university_id") String university_id);
 
 
     @FormUrlEncoded
@@ -302,6 +309,14 @@ public interface ApiInterface {
     @POST(URLHelper.COURSE_VIEW)
     Observable<Response<CourseDetailsResponse>> getCourseView(@Field("api_key") String api_key, @Field("id") String id);
 
+    @FormUrlEncoded
+    @POST(URLHelper.SINGLE_TEACHER_ALL_COURSE_LIST)
+    Observable<Response<CourseListResponse>> getSingleTeacherAllCourseList(@Field("api_key") String api_key, @Field("page") int page, @Field("instructor_id") String instructor_id);
+
+    @Multipart
+    @POST(URLHelper.UPDATE_USER)
+        //Observable<Response<JsonElement>> getTaskAssign(@Body RequestBody file);
+    Observable<Response<JsonElement>> userEditProfile(@Part MultipartBody.Part attachment_file_name, @Part("api_key") RequestBody api_key, @Part("name") RequestBody name,@Part("student_id") RequestBody student_id,@Part("mobile") RequestBody mobile,@Part("api_key") RequestBody password );
 }
 
 

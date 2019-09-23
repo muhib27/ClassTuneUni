@@ -33,12 +33,29 @@ public class CourseDate {
     @SerializedName("share_url")
     @Expose
     private String shareUrl;
+    @SerializedName("interested_message")
+    @Expose
+    private String interestedMessage;
+    @SerializedName("allready_enrolled")
+    @Expose
+    private String allreadyEnrolled;
+    @SerializedName("total_resources")
+    @Expose
+    private Integer totalResources;
     @SerializedName("total_courses")
     @Expose
     private Integer totalCourses;
     @SerializedName("related_courses")
     @Expose
     private List<RelatedCourse> relatedCourses = null;
+
+    @SerializedName("instructor")
+    @Expose
+    private Instructor instructor;
+
+    @SerializedName("current_date")
+    @Expose
+    private String currentDate;
 
     public List<Course> getCourses() {
         return courses;
@@ -126,5 +143,45 @@ public class CourseDate {
 
     public void setRelatedCourses(List<RelatedCourse> relatedCourses) {
         this.relatedCourses = relatedCourses;
+    }
+
+    public Instructor getInstructor() {
+        return instructor;
+    }
+
+    public void setInstructor(Instructor instructor) {
+        this.instructor = instructor;
+    }
+
+    public String getCurrentDate() {
+        return currentDate;
+    }
+
+    public void setCurrentDate(String currentDate) {
+        this.currentDate = currentDate;
+    }
+
+    public String getInterestedMessage() {
+        return interestedMessage;
+    }
+
+    public void setInterestedMessage(String interestedMessage) {
+        this.interestedMessage = interestedMessage;
+    }
+
+    public String getAllreadyEnrolled() {
+        return allreadyEnrolled;
+    }
+
+    public void setAllreadyEnrolled(String allreadyEnrolled) {
+        this.allreadyEnrolled = allreadyEnrolled;
+    }
+
+    public Integer getTotalResources() {
+        return totalResources;
+    }
+
+    public void setTotalResources(Integer totalResources) {
+        this.totalResources = totalResources;
     }
 }

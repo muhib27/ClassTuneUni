@@ -8,7 +8,7 @@ public class URLHelper {
 
 
 
-    public URLHelper() {
+	public URLHelper() {
 	}
 	//public static final String BASE_URL= "http://192.168.3.43/";
 	public static final String BASE_URL= "http://uni.edoozz.com/";
@@ -22,9 +22,10 @@ public class URLHelper {
 	public final static String GET_MENU = "users/get_menu";
 	public final static String GET_LOGOUT = "users/logout";
 
-	public final static String GET_UNIVERSITY = "users/seacrh_univeristy";
+	public final static String GET_UNIVERSITY = "users/search_university";
 	public static final String URL_REGISTER = "users/register";
 	public static final String ADD_PHOTO = "users/add_photo";
+	public static final String UPDATE_USER = "users/update";
 
 	public static final String TEACHER_NOTICE_LIST = "notice_api/notice_list";
 	public static final String TEACHER_NOTICE_TYPE = "notice_api/offered_sections";
@@ -46,6 +47,7 @@ public class URLHelper {
 	public static final String SECTION_LIST = "course_api/sections";
 	public static final String ALL_COURSE_LIST = "course_api/all_course";
 	public static final String COURSE_VIEW = "course_api/view_course";
+	public static final String SINGLE_TEACHER_ALL_COURSE_LIST = "course_api/all_course";
 
 
 	public static final String ASSIGNMENT_LIST = "assignment_api/assignment_list";

@@ -20,8 +20,8 @@ public class TabMessage {
             case R.id.news:
                 message += "resource";
                 break;
-            case R.id.quiz:
-                message += "notice";
+            case R.id.result:
+                message += "result";
                 break;
             case R.id.forum:
                 message += "more";

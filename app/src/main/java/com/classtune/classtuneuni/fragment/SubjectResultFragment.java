@@ -159,6 +159,7 @@ public class SubjectResultFragment extends Fragment implements SubjectResultAdap
                         uiHelper.dismissLoadingDialog();
 
                         StCourseResultResponse stCourseResultResponse = value.body();
+                        subjectResultAdapter.clear();
                         if (stCourseResultResponse.getStatus().getCode() == 200) {
 //
                             resultList = stCourseResultResponse.getData().getAssessments();

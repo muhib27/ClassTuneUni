@@ -269,13 +269,13 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
 
         if(rememberMe){
             AppSharedPreference.clearData();
-            AppSharedPreference.setUserNameAndPassword("",email,"","", true, "", "", "", "");
+            AppSharedPreference.setUserNameAndPassword("",email,"","", true, "", "", "", "","");
             AppSharedPreference.setFcm(fcm);
 
         }
         else {
             AppSharedPreference.clearData();
-            AppSharedPreference.setUserNameAndPassword("","","","", false, "", "", "", "");
+            AppSharedPreference.setUserNameAndPassword("","","","", false, "", "", "", "", "");
             AppSharedPreference.setFcm(fcm);
         }
 

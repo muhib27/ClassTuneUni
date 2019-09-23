@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.assignment.Assignment;
-import com.classtune.classtuneuni.model.ComResult;
 import com.classtune.classtuneuni.model.SubjectResultModel;
 
 import java.util.ArrayList;
@@ -131,5 +130,27 @@ public class SubjectResultAdapter extends RecyclerView.Adapter<RecyclerView.View
         for (SubjectResultModel result : moveResults) {
             add(result);
         }
+    }
+
+    public void remove(SubjectResultModel r) {
+        int position = mValues.indexOf(r);
+        if (position > -1) {
+            mValues.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public void clear() {
+       // isLoadingAdded = false;
+        while (getItemCount() > 0) {
+            remove(getItem(0));
+        }
+    }
+    public SubjectResultModel getItem(int position) {
+        return mValues.get(position);
+    }
+
+    public boolean isEmpty() {
+        return getItemCount() == 0;
     }
     }

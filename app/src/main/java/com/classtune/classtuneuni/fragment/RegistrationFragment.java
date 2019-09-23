@@ -21,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -60,8 +61,9 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     UIHelper uiHelper;
     LinearLayout uniNameLl , stIdLl;
     CountryCodePicker ccp;
+    private ImageView uniImg;
 
-    private String username = "", password = "", email = "", repassword = "", userType = "", uniCode = "", uniname = "", studentid = "", phone = "", countryCode = "";
+    private String username = "", password = "", email = "", repassword = "", userType = "", uniCode = "", uniname = "", studentid = "", phone = "", countryCode = "", totalPhone = "";
 
 
     public RegistrationFragment() {
@@ -88,23 +90,27 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
         userEmail = view.findViewById(R.id.et_email);
         userPassword = view.findViewById(R.id.et_password);
         userRePassword = view.findViewById(R.id.et_con_password);
+        uniImg = view.findViewById(R.id.uniImg);
+
+        uniImg.setOnClickListener(this);
         ccp = view.findViewById(R.id.ccp);
-
-
+        //ccp.setCountryForPhoneCode(376);
 
 
         studentId = view.findViewById(R.id.studentId);
 
         stIdLl = view.findViewById(R.id.stIdLl);
 
+        uniName = view.findViewById(R.id.et_uni_name);
+        uniName.setOnClickListener(this);
         uniNameLl = view.findViewById(R.id.uniName);
-        uniNameLl = view.findViewById(R.id.uniName);
-        uniNameLl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDialog();
-            }
-        });
+        uniNameLl.setOnClickListener(this);
+//        uniNameLl.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                showDialog();
+//            }
+//        });
 
 //        uniName.addTextChangedListener(new TextWatcher() {
 //
@@ -137,10 +143,10 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
         if(userType.equals("3"))
         {
             stIdLl.setVisibility(View.VISIBLE);
-            uniNameLl.setVisibility(View.GONE);
+            // uniNameLl.setVisibility(View.GONE);
         }
         else {
-            uniNameLl.setVisibility(View.VISIBLE);
+            // uniNameLl.setVisibility(View.VISIBLE);
             stIdLl.setVisibility(View.GONE);
         }
     }
@@ -148,6 +154,12 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.et_uni_name:
+            case R.id.uniName:
+            case R.id.uniImg:
+                showDialog();
+                break;
+
             case R.id.continueBtn:
                 validateFieldAndCallLogIn();
 
@@ -201,6 +213,16 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
         repassword = userRePassword.getText().toString().trim();
 
         countryCode = ccp.getSelectedCountryCode();
+        if (phone.length() > 0) {
+            if (countryCode.equals("880")) {
+                String s = phone.substring(0, 1);
+                if (s.equals("0"))
+                    totalPhone = countryCode + "-" +phone.substring(1, phone.length());
+                else
+                    totalPhone = countryCode + "-" + phone;
+            } else
+                totalPhone = countryCode + "-" + phone;
+        }
 
 
         if (TextUtils.isEmpty(username)) {
@@ -288,7 +310,10 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 
         if(userType.equals("3"))
         {
-            callStRegistrationApi(username, email, password, repassword, studentid, phone);
+            if (uniCode.isEmpty())
+                callStRegistrationApiName(username, email, password, repassword, studentid, totalPhone, uniname);
+            else
+                callStRegistrationApi(username, email, password, repassword, studentid, totalPhone, uniCode);
         }
         else {
             if (uniCode.isEmpty())
@@ -335,7 +360,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
                         if (regisTrationResponse.getStatus().getCode() != null && regisTrationResponse.getStatus().getCode() == 200) {
                             //    passwordChangeDialog();
 
-                            AppSharedPreference.setUserNameAndPassword(regisTrationResponse.getData().getUserData().getId(), email, password, regisTrationResponse.getData().getApiKey(), false, regisTrationResponse.getData().getUserData().getUserType(), regisTrationResponse.getData().getUserData().getImage(), regisTrationResponse.getData().getUserData().getName(), regisTrationResponse.getData().getUserData().getStudentId());
+                            AppSharedPreference.setUserNameAndPassword(regisTrationResponse.getData().getUserData().getId(), email, password, regisTrationResponse.getData().getApiKey(), false, regisTrationResponse.getData().getUserData().getUserType(), regisTrationResponse.getData().getUserData().getImage(), regisTrationResponse.getData().getUserData().getName(), regisTrationResponse.getData().getUserData().getStudentId(), regisTrationResponse.getData().getUserData().getMobile());
                             fragment = new UploadProfilePicFragment();
                             gotoFragment(fragment, "uploadProfilePicFragment");
                         } else
@@ -373,7 +398,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 
     }
 
-    private void callStRegistrationApi(final String name, final String email, final String password, final String repassword, final String studentId, String phone) {
+    private void callStRegistrationApi(final String name, final String email, final String password, final String repassword, final String studentId, String phone, String uniCode) {
 
         if (!NetworkConnection.getInstance().isNetworkAvailable()) {
             //Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
@@ -386,7 +411,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 
 
         String st = userType;
-        RetrofitApiClient.getApiInterface().studentRegistration(email, password, repassword, name, userType, studentId, AppSharedPreference.getFcm(), phone)
+        RetrofitApiClient.getApiInterface().studentRegistration(email, password, repassword, name, userType, studentId, AppSharedPreference.getFcm(), phone, uniCode)
 
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -409,7 +434,80 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
                         if (regisTrationResponse.getStatus().getCode() != null && regisTrationResponse.getStatus().getCode() == 200) {
                             //    passwordChangeDialog();
 
-                            AppSharedPreference.setUserNameAndPassword(regisTrationResponse.getData().getUserData().getId(), email, password, regisTrationResponse.getData().getApiKey(), false, regisTrationResponse.getData().getUserData().getUserType(), regisTrationResponse.getData().getUserData().getImage(), regisTrationResponse.getData().getUserData().getName(), regisTrationResponse.getData().getUserData().getStudentId());
+                            AppSharedPreference.setUserNameAndPassword(regisTrationResponse.getData().getUserData().getId(), email, password, regisTrationResponse.getData().getApiKey(), false, regisTrationResponse.getData().getUserData().getUserType(), regisTrationResponse.getData().getUserData().getImage(), regisTrationResponse.getData().getUserData().getName(), regisTrationResponse.getData().getUserData().getStudentId(), regisTrationResponse.getData().getUserData().getMobile());
+                            fragment = new UploadProfilePicFragment();
+                            gotoFragment(fragment, "uploadProfilePicFragment");
+                        } else
+                            uiHelper.dismissLoadingDialog();
+//                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                            startActivity(intent);
+//                            finish();
+
+//                        } else {
+//
+//                            Toast.makeText(getApplicationContext(), wrapper.getStatus().getMsg(), Toast.LENGTH_SHORT).show();
+//                        }
+                    }
+
+
+                    @Override
+                    public void onError(Throwable e) {
+//                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                        startActivity(intent);
+//                        finish();
+//                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                        startActivity(intent);
+//                        finish();
+//                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+//                        uiHelper.dismissLoadingDialog();
+                    }
+
+                    @Override
+                    public void onComplete() {
+//                        progressDialog.dismiss();
+//                        uiHelper.dismissLoadingDialog();
+                    }
+                });
+
+
+    }
+    private void callStRegistrationApiName(final String name, final String email, final String password, final String repassword, final String studentId, String phone, String uniname) {
+
+        if (!NetworkConnection.getInstance().isNetworkAvailable()) {
+            //Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        uiHelper.showLoadingDialog("Authenticating...");
+//        HashMap params = new HashMap();
+//        params.put("username", username);
+//        params.put("password", password);
+
+
+        String st = userType;
+        RetrofitApiClient.getApiInterface().studentRegistrationName(email, password, repassword, name, userType, studentId, AppSharedPreference.getFcm(), phone, uniname)
+
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<RegisTrationResponse>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Response<RegisTrationResponse> value) {
+                        uiHelper.dismissLoadingDialog();
+                        RegisTrationResponse regisTrationResponse = value.body();
+
+
+//                        Log.e("login", "onResponse: "+value.body());
+//                        Wrapper wrapper = GsonParser.getInstance().parseServerResponse2(
+//                                value.body());
+
+                        if (regisTrationResponse.getStatus().getCode() != null && regisTrationResponse.getStatus().getCode() == 200) {
+                            //    passwordChangeDialog();
+
+                            AppSharedPreference.setUserNameAndPassword(regisTrationResponse.getData().getUserData().getId(), email, password, regisTrationResponse.getData().getApiKey(), false, regisTrationResponse.getData().getUserData().getUserType(), regisTrationResponse.getData().getUserData().getImage(), regisTrationResponse.getData().getUserData().getName(), regisTrationResponse.getData().getUserData().getStudentId(), regisTrationResponse.getData().getUserData().getMobile());
                             fragment = new UploadProfilePicFragment();
                             gotoFragment(fragment, "uploadProfilePicFragment");
                         } else
@@ -480,7 +578,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 
                         if (regisTrationResponse.getStatus().getCode() != null && regisTrationResponse.getStatus().getCode() == 200) {
                             //    passwordChangeDialog();
-                            AppSharedPreference.setUserNameAndPassword(regisTrationResponse.getData().getUserData().getId(), email, password, regisTrationResponse.getData().getApiKey(), false, regisTrationResponse.getData().getUserData().getUserType(), regisTrationResponse.getData().getUserData().getImage(), regisTrationResponse.getData().getUserData().getName(),  regisTrationResponse.getData().getUserData().getStudentId());
+                            AppSharedPreference.setUserNameAndPassword(regisTrationResponse.getData().getUserData().getId(), email, password, regisTrationResponse.getData().getApiKey(), false, regisTrationResponse.getData().getUserData().getUserType(), regisTrationResponse.getData().getUserData().getImage(), regisTrationResponse.getData().getUserData().getName(),  regisTrationResponse.getData().getUserData().getStudentId(), regisTrationResponse.getData().getUserData().getMobile());
 
                             fragment = new UploadProfilePicFragment();
                             gotoFragment(fragment, "uploadProfilePicFragment");
@@ -542,7 +640,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
             uiHelper.showLoadingDialog("Authenticating...");
 
 
-        RetrofitApiClient.getApiInterface().getUniversity(AppSharedPreference.getFcm(), text)
+        RetrofitApiClient.getApiInterface().getUniversity(text)
 
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -563,14 +661,14 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 //                        Wrapper wrapper = GsonParser.getInstance().parseServerResponse2(
 //                                value.body());
 //
-                        if (universityModel.getCode() != null && universityModel.getCode() == 200) {
+                        if (universityModel.getStatus().getCode() != null && universityModel.getStatus().getCode() == 200) {
                             universityModelList = universityModel.getData();
                             listAdapter = new ListAdapter(getActivity(), R.layout.university_list, universityModelList);
                             lv.setAdapter(listAdapter);
                             listAdapter.notifyDataSetChanged();
 //                            listAdapter.notifyDataSetChanged();
 
-                        } else if (universityModel.getCode() != null && universityModel.getCode() == 204) {
+                        } else if (universityModel.getStatus().getCode() != null && universityModel.getStatus().getCode() == 204) {
                             universityModelList = new ArrayList<>();
                             listAdapter = new ListAdapter(getActivity(), R.layout.university_list, universityModelList);
                             lv.setAdapter(listAdapter);

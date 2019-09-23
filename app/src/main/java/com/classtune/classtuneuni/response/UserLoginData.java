@@ -22,6 +22,9 @@ public class UserLoginData {
     @SerializedName("student_id")
     @Expose
     private String studentId;
+    @SerializedName("mobile")
+    @Expose
+    private String mobile;
 
     public String getId() {
         return id;
@@ -69,5 +72,13 @@ public class UserLoginData {
 
     public void setStudentId(String studentId) {
         this.studentId = studentId;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 }

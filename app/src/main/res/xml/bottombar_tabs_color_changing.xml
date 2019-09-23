@@ -7,7 +7,7 @@
         />
     <tab
         id="@+id/course"
-        icon="@drawable/open_book"
+        icon="@drawable/course"
         title="Course"
         />
     <tab
@@ -16,9 +16,9 @@
         title="Resource"
          />
     <tab
-        id="@+id/quiz"
-        icon="@drawable/notice"
-        title="Notice"
+        id="@+id/result"
+        icon="@drawable/result_bottom"
+        title="Result"
         />
     <tab
         id="@+id/forum"

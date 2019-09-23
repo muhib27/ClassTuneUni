@@ -254,13 +254,19 @@
                 android:orientation="horizontal"
                 android:padding="10dp">
 
-                <ImageView
+                <!--<ImageView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:adjustViewBounds="true"-->
+                    <!--android:src="@drawable/ic_telephone" />-->
+                <com.hbb20.CountryCodePicker
+                    app:ccp_textSize="@dimen/text_size_12_sp"
+                    android:id="@+id/ccp"
+                    app:ccp_defaultNameCode="BD"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/ic_telephone" />
+                    android:layout_height="wrap_content"/>
 
                 <EditText
                     android:id="@+id/et_phone"
@@ -277,6 +283,75 @@
                     android:textColorHint="@color/ashTextColor"
                     android:textSize="@dimen/size_15sp" />
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/size_20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="@dimen/size_20dp"
+                android:background="@drawable/input_field_background"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/password" />
+
+                <EditText
+                    android:id="@+id/et_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="@string/hint_password"
+                    android:imeOptions="actionDone"
+                    android:includeFontPadding="true"
+                    android:inputType="textPassword"
+                    android:padding="10dp"
+                    android:singleLine="true"
+                    android:textColor="@color/appColor"
+                    android:textColorHint="@color/ashTextColor"
+                    android:textSize="@dimen/size_15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/size_20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="@dimen/size_20dp"
+                android:background="@drawable/input_field_background"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/password" />
+
+                <EditText
+                    android:id="@+id/et_con_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="@string/hint_con_password"
+                    android:imeOptions="actionDone"
+                    android:includeFontPadding="true"
+                    android:inputType="textPassword"
+                    android:padding="10dp"
+                    android:singleLine="true"
+                    android:textColor="@color/appColor"
+                    android:textColorHint="@color/ashTextColor"
+                    android:textSize="@dimen/size_15sp" />
+            </LinearLayout>
 
 
 
@@ -284,7 +359,7 @@
 
 
             <Button
-                android:id="@+id/continueBtn"
+                android:id="@+id/save"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/size_20dp"

@@ -243,4 +243,12 @@ public class Course {
     public void setInstructorId(String instructorId) {
         this.instructorId = instructorId;
     }
+
+    public String getInstructorImage() {
+        return instructorImage;
+    }
+
+    public void setInstructorImage(String instructorImage) {
+        this.instructorImage = instructorImage;
+    }
 }

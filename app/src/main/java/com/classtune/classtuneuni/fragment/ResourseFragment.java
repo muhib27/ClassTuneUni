@@ -142,8 +142,8 @@ public class ResourseFragment extends Fragment {
                         uiHelper.dismissLoadingDialog();
 
                         ResourceResponse resourceResponse = value.body();
+                        resourceAdapter.clear();
                         if (resourceResponse.getStatus().getCode() == 200) {
-                            resourceAdapter.clear();
 //
                             resourceList = resourceResponse.getData().getCourseMaterials();
 //
@@ -151,8 +151,9 @@ public class ResourseFragment extends Fragment {
                             resourceAdapter.addAllData(resourceList);
 //                            Log.v("tt", noticeList.toString());
                             //  Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
-                        } else
-                            Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        } else {
+                            //Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override

@@ -120,4 +120,6 @@
     <string name="tap_to_reload">Tap to reload</string>
     <string name="error_msg_unknown">An unexpected error occurred</string>
     <string name="hint_phone">Enter Your Phone Number</string>
+    <string name="assignment">Assignment</string>
+    <string name="password_week">Password length should greater than five</string>
 </resources>

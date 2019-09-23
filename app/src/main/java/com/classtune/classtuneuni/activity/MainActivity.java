@@ -34,6 +34,7 @@ import com.classtune.classtuneuni.fragment.MorePageFragment;
 import com.classtune.classtuneuni.fragment.NoticeListFragment;
 import com.classtune.classtuneuni.fragment.ResourseFragment;
 import com.classtune.classtuneuni.fragment.StudentCourseListFragment;
+import com.classtune.classtuneuni.fragment.SubjectResultFragment;
 import com.classtune.classtuneuni.response.StCourseSection;
 import com.classtune.classtuneuni.response.StSectionListResponse;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
@@ -245,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     fragment = new ResourseFragment();
                     loadFragment(fragment, "resourseFragment" , true);
-                } else if (tabId == R.id.quiz) {
+                } else if (tabId == R.id.result) {
 
                     int backStackCount = getSupportFragmentManager().getBackStackEntryCount();
                     if(backStackCount>1)
@@ -255,8 +256,8 @@ public class MainActivity extends AppCompatActivity {
                             backStackCount--;
                         }
                     }
-                    fragment = new NoticeListFragment();
-                    loadFragment(fragment, "noticeListFragment", true);
+                    fragment = new SubjectResultFragment();
+                    loadFragment(fragment, "subjectResultFragment", true);
                 } else if (tabId == R.id.forum) {
 
                     int backStackCount = getSupportFragmentManager().getBackStackEntryCount();
@@ -301,10 +302,10 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new ResourseFragment();
                         loadFragment(fragment, "resourseFragment", true);
                     }
-                    else  if(st.contains("notice"))
+                    else  if(st.contains("result"))
                     {
-                        fragment = new NoticeListFragment();
-                        loadFragment(fragment, "noticeListFragment", true);
+                        fragment = new SubjectResultFragment();
+                        loadFragment(fragment, "subjectResultFragment", true);
                     }
                     else  if(st.contains("more"))
                     {

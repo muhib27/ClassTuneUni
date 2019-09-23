@@ -21,6 +21,7 @@ public class AppSharedPreference {
     private static final String keyIsFirsLogin = "isFirstLogin";
     private static final String keyUserName = "username";
     private static final String keyUserEmail = "useremail";
+    private static final String keyUserPhone = "phone";
     private static final String keyUserPassword = "userpassword";
     private static final String keyApiKey = "api_key";
     private static final String keyRememberMe = "rememberMe";
@@ -98,14 +99,15 @@ public class AppSharedPreference {
 //        user.setImage(pref.getString(AppConstant.USER_IMAGE, ""));
         return user;
     }
-
-    public static void setUserNameAndPassword(String id, String email, String password, String api_key, boolean rememberMe, String userType, String image, String name, String userId) {
+    //String phoneNo
+    public static void setUserNameAndPassword(String id, String email, String password, String api_key, boolean rememberMe, String userType, String image, String name, String userId, String mobile) {
         final SharedPreferences pref = getSharedPreferences();
         final SharedPreferences.Editor editor = pref.edit();
 
         editor.putString(keyId, id);
         editor.putString(keyUserId, userId);
         editor.putString(keyUserEmail, email);
+        editor.putString(keyUserPhone, mobile);
         editor.putString(keyUserName, name);
         editor.putString(keyUserPassword, password);
         editor.putString(keyUserImg, image);
@@ -163,6 +165,11 @@ public class AppSharedPreference {
     public static String getUserEmail() {
         final SharedPreferences pref = getSharedPreferences();
         return pref.getString(keyUserEmail, "");
+    }
+
+    public static String getUserPhone() {
+        final SharedPreferences pref = getSharedPreferences();
+        return pref.getString(keyUserPhone, "");
     }
 
     public static boolean getRememberMe() {

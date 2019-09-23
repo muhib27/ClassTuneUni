@@ -7,42 +7,15 @@ public class RelatedCourse {
     @SerializedName("id")
     @Expose
     private String id;
-    @SerializedName("name")
+    @SerializedName("course_name")
     @Expose
-    private String name;
-    @SerializedName("course_code")
+    private String courseName;
+    @SerializedName("cover_image")
     @Expose
-    private String courseCode;
-    @SerializedName("credit_point")
+    private String coverImage;
+    @SerializedName("instructor")
     @Expose
-    private String creditPoint;
-    @SerializedName("owner_id")
-    @Expose
-    private String ownerId;
-    @SerializedName("image")
-    @Expose
-    private String image;
-    @SerializedName("short_details")
-    @Expose
-    private String shortDetails;
-    @SerializedName("pre_req")
-    @Expose
-    private String preReq;
-    @SerializedName("thumbnail")
-    @Expose
-    private String thumbnail;
-    @SerializedName("details")
-    @Expose
-    private Object details;
-    @SerializedName("visibility")
-    @Expose
-    private String visibility;
-    @SerializedName("created_at")
-    @Expose
-    private String createdAt;
-    @SerializedName("updated_at")
-    @Expose
-    private String updatedAt;
+    private String instructor;
 
     public String getId() {
         return id;
@@ -52,99 +25,27 @@ public class RelatedCourse {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getCourseName() {
+        return courseName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 
-    public String getCourseCode() {
-        return courseCode;
+    public String getCoverImage() {
+        return coverImage;
     }
 
-    public void setCourseCode(String courseCode) {
-        this.courseCode = courseCode;
+    public void setCoverImage(String coverImage) {
+        this.coverImage = coverImage;
     }
 
-    public String getCreditPoint() {
-        return creditPoint;
+    public String getInstructor() {
+        return instructor;
     }
 
-    public void setCreditPoint(String creditPoint) {
-        this.creditPoint = creditPoint;
-    }
-
-    public String getOwnerId() {
-        return ownerId;
-    }
-
-    public void setOwnerId(String ownerId) {
-        this.ownerId = ownerId;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getShortDetails() {
-        return shortDetails;
-    }
-
-    public void setShortDetails(String shortDetails) {
-        this.shortDetails = shortDetails;
-    }
-
-    public String getPreReq() {
-        return preReq;
-    }
-
-    public void setPreReq(String preReq) {
-        this.preReq = preReq;
-    }
-
-    public String getThumbnail() {
-        return thumbnail;
-    }
-
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
-    }
-
-    public Object getDetails() {
-        return details;
-    }
-
-    public void setDetails(Object details) {
-        this.details = details;
-    }
-
-    public String getVisibility() {
-        return visibility;
-    }
-
-    public void setVisibility(String visibility) {
-        this.visibility = visibility;
-    }
-
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setInstructor(String instructor) {
+        this.instructor = instructor;
     }
 }

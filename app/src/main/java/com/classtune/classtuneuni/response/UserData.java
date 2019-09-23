@@ -14,6 +14,9 @@ public class UserData {
     @SerializedName("email")
     @Expose
     private String email;
+    @SerializedName("mobile")
+    @Expose
+    private String mobile;
     @SerializedName("image")
     @Expose
     private String image;
@@ -71,5 +74,13 @@ public class UserData {
 
     public void setStudentId(String studentId) {
         this.studentId = studentId;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 }
