@@ -417,6 +417,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener
             case R.id.nextClass:
                 break;
             case R.id.upcomingExam:
+                fragment = new ExamListFragment();
+                bundle = new Bundle();
+                gotoFragment(fragment, "examListFragment", bundle);
                 break;
             case R.id.notices:
                 fragment = new NoticeListFragment();

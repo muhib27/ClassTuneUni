@@ -203,6 +203,7 @@ public class ExamListFragment extends Fragment implements ExamListAdapter.ItemLi
                         uiHelper.dismissLoadingDialog();
 
                         ExamResponse examResponse = value.body();
+                        examListAdapter.clear();
                         if (examResponse.getStatus().getCode() == 200) {
 //
                             examList = examResponse.getData().getExams();
