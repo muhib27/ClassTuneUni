@@ -9,22 +9,26 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.adapter.PagerAdapter;
+import com.classtune.classtuneuni.assignment.AssignmentSection;
 import com.classtune.classtuneuni.attendance.StAttendanceData;
 import com.classtune.classtuneuni.attendance.StudentAttendanceResponse;
 import com.classtune.classtuneuni.course_resonse.CorsSecStudentResponse;
+import com.classtune.classtuneuni.response.StCourseSection;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
-import com.classtune.classtuneuni.utils.MyValueFormatter;
+//import com.classtune.classtuneuni.utils.MyValueFormatter;
 import com.classtune.classtuneuni.utils.NetworkConnection;
 import com.classtune.classtuneuni.utils.UIHelper;
 import com.github.mikephil.charting.charts.BarChart;
@@ -35,6 +39,7 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
@@ -44,6 +49,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
+
+import static com.classtune.classtuneuni.activity.MainActivity.GlobalCourseId;
+import static com.classtune.classtuneuni.activity.MainActivity.GlobalOfferedCourseSectionId;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -78,7 +86,7 @@ public class StudentAttendanceFragment extends Fragment {
         parcentage = view.findViewById(R.id.parcentage);
 
         chart = view.findViewById(R.id.chart1);
-        chart.getDescription().setEnabled(false);
+       // chart.getDescription().setEnabled(false);
 
 //        BarData data = new BarData(getXAxisValues(), getDataSet());
 //        chart.setData(data);
@@ -88,54 +96,76 @@ public class StudentAttendanceFragment extends Fragment {
 //        //chart.getLegend().setEnabled(false);
 //
 //        // Hide the desc value of each bar on top
-//        chart.getXAxis().setEnabled(false);
-//
-//        YAxis rightYAxis = chart.getAxisRight();
-//        rightYAxis.setEnabled(false);
-//
-//        chart.animateXY(2000, 2000);
-//        chart.invalidate();
-
-
-
-        callStAttendance("19");
-
-    }
-
-
-    private void setData(int present, int absent, int totalClass) {
-        ArrayList<BarEntry> yVal = new ArrayList<>();
-//        for(int i = 0; i< count; i++){
-//            float value = (float)(Math.random()*100);
-//            yVal.add(new BarEntry(i, (int)value));
-//        }
-
-        BarEntry v1e1 = new BarEntry(2, present);
-        yVal.add(v1e1);
-
-        BarEntry v1e2 = new BarEntry(3, absent);
-        yVal.add(v1e2);
-
-
-
-        BarDataSet set = new BarDataSet(yVal, "Data set");
-        set.setColors(ColorTemplate.MATERIAL_COLORS);
-        set.setDrawValues(true);
-
-        BarData data = new BarData(set);
-
-
-//        chart.getXAxis().setEnabled(false);
-      chart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+       // chart.getXAxis().setEnabled(false);
 
         YAxis rightYAxis = chart.getAxisRight();
         rightYAxis.setEnabled(false);
-        rightYAxis.setDrawGridLines(false);
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setEnabled(false);
 
-        chart.setData(data);
+        chart.animateXY(2000, 2000);
         chart.invalidate();
-        chart.animateY(500);
+        ((MainActivity)getActivity()).mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String s) {
+                int pos = ((MainActivity)getActivity()).mTabHost.getCurrentTab();
+                if(AppSharedPreference.getUserType().equals("3"))
+                {
+                    StCourseSection ss = AppSharedPreference.getStUserTab(s, pos);
+                    GlobalCourseId = ss.getCourseCode();
+                    GlobalOfferedCourseSectionId = ss.getCourseOfferSectionId();
+                    callStAttendance(GlobalOfferedCourseSectionId);
+
+                }
+                else {
+                    AssignmentSection ss = AppSharedPreference.getUserTab(s, pos);
+                    GlobalCourseId = ss.getCourseId();
+                    GlobalOfferedCourseSectionId = ss.getOfferedSectionId();
+                   // callResourceListApi(GlobalOfferedCourseSectionId);
+                }
+            }
+        });
+
+
+
+        callStAttendance(GlobalOfferedCourseSectionId);
+
     }
+
+
+//    private void setData(int present, int absent, int totalClass) {
+//        ArrayList<BarEntry> yVal = new ArrayList<>();
+////        for(int i = 0; i< count; i++){
+////            float value = (float)(Math.random()*100);
+////            yVal.add(new BarEntry(i, (int)value));
+////        }
+//
+//        BarEntry v1e1 = new BarEntry(2, present);
+//        yVal.add(v1e1);
+//
+//        BarEntry v1e2 = new BarEntry(3, absent);
+//        yVal.add(v1e2);
+//
+//
+//
+//        BarDataSet set = new BarDataSet(yVal, "Data set");
+//        set.setColors(ColorTemplate.MATERIAL_COLORS);
+//        set.setDrawValues(true);
+//
+//        BarData data = new BarData(set);
+//
+//
+////        chart.getXAxis().setEnabled(false);
+//      chart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+//
+//        YAxis rightYAxis = chart.getAxisRight();
+//        rightYAxis.setEnabled(false);
+//        rightYAxis.setDrawGridLines(false);
+//
+//        chart.setData(data);
+//        chart.invalidate();
+//        chart.animateY(500);
+//    }
 
 
     private void callStAttendance(String courseId) {
@@ -195,8 +225,68 @@ public class StudentAttendanceFragment extends Fragment {
         if(data.getPercentage()!=null)
             parcentage.setText("" + data.getPercentage() + "%" );
 
-        setData(data.getPresent(), data.getAbsent(), data.getTotalClass());
-        chart.setFitBars(true);
+        //setData(data.getPresent(), data.getAbsent(), data.getTotalClass());
+        //chart.setFitBars(true);
+        showChart(data.getPresent(), data.getAbsent(), data.getTotalClass());
+    }
+
+
+
+    private void showChart(int present, int absent, int totalClass)
+    {
+        BarData data = new BarData(getXAxisValues(), getDataSet(present, absent, totalClass));
+        chart.setData(data);
+        chart.animateXY(2000, 2000);
+        chart.setDescription("");
+
+
+
+        chart.invalidate();
+    }
+
+    private ArrayList<IBarDataSet> getDataSet(int present, int absent, int totalClass) {
+        ArrayList<IBarDataSet> dataSets = null;
+      //  Log.e("DDD_DATA", ""+data.getMark());
+        ArrayList<BarEntry> valueSet1 = new ArrayList<>();
+        BarEntry v1e1 = new BarEntry(present, 0); // present
+        valueSet1.add(v1e1);
+
+        ArrayList<BarEntry> valueSet2 = new ArrayList<>();
+        BarEntry v2e1 = new BarEntry(absent, 1); //absent
+        valueSet2.add(v2e1);
+
+//        ArrayList<BarEntry> valueSet3 = new ArrayList<>();
+//        BarEntry v3e1 = new BarEntry(Float.parseFloat(getDecimalFormatNumber(data.getMaxMark())), 2); // highest mark
+//        valueSet3.add(v3e1);
+
+        BarDataSet barDataSet1 = new BarDataSet(valueSet1, getString(R.string.present));
+        barDataSet1.setColor(Color.rgb(0, 155, 0));
+
+        BarDataSet barDataSet2 = new BarDataSet(valueSet2, getString(R.string.absent));
+        barDataSet2.setColor(Color.rgb(155, 0, 0));
+
+//        BarDataSet barDataSet3 = new BarDataSet(valueSet3, getString(R.string.title));
+//        barDataSet3.setColor(Color.rgb(0, 0, 155));
+
+        barDataSet1.setBarSpacePercent(-50f);
+        barDataSet2.setBarSpacePercent(-50f);
+//        barDataSet3.setBarSpacePercent(-50f);
+
+        dataSets = new ArrayList<>();
+        dataSets.add(barDataSet1);
+        dataSets.add(barDataSet2);
+//        dataSets.add(barDataSet3);
+
+
+        return dataSets;
+    }
+
+    private ArrayList<String> getXAxisValues() {
+        ArrayList<String> xAxis = new ArrayList<>();
+        xAxis.add("1");
+        xAxis.add("2");
+//        xAxis.add("3");
+        return xAxis;
     }
 
 //    private void setChart(){
@@ -258,32 +348,32 @@ public class StudentAttendanceFragment extends Fragment {
 //    }
 
 
-    private ArrayList<BarDataSet> getDataSet() {
-        ArrayList<BarDataSet> dataSets = null;
-
-        ArrayList<BarEntry> valueSet1 = new ArrayList<>();
-        BarEntry v1e1 = new BarEntry(96.000f, 0); // Jan
-        valueSet1.add(v1e1);
-        BarEntry v1e2 = new BarEntry(82.000f, 1); // Feb
-        valueSet1.add(v1e2);
-        BarEntry v1e3 = new BarEntry(88.000f, 2); // Mar
-        valueSet1.add(v1e3);
-        BarEntry v1e4 = new BarEntry(52.000f, 3); // Apr
-        valueSet1.add(v1e4);
-
-        BarDataSet barDataSet1 = new BarDataSet(valueSet1, "Availability of Drugs/Supplies");
-        //Chnaging the color
-        barDataSet1.setColor(Color.rgb(0, 169, 157));
-        //barDataSet1.setBarSpacePercent(30f);
-
-
-        // Hide the value on each bar
-        /*barDataSet1.setDrawValues(false);*/
-
-        dataSets = new ArrayList<>();
-        dataSets.add(barDataSet1);
-        return dataSets;
-    }
+//    private ArrayList<BarDataSet> getDataSet() {
+//        ArrayList<BarDataSet> dataSets = null;
+//
+//        ArrayList<BarEntry> valueSet1 = new ArrayList<>();
+//        BarEntry v1e1 = new BarEntry(96.000f, 0); // Jan
+//        valueSet1.add(v1e1);
+//        BarEntry v1e2 = new BarEntry(82.000f, 1); // Feb
+//        valueSet1.add(v1e2);
+//        BarEntry v1e3 = new BarEntry(88.000f, 2); // Mar
+//        valueSet1.add(v1e3);
+//        BarEntry v1e4 = new BarEntry(52.000f, 3); // Apr
+//        valueSet1.add(v1e4);
+//
+//        BarDataSet barDataSet1 = new BarDataSet(valueSet1, "Availability of Drugs/Supplies");
+//        //Chnaging the color
+//        barDataSet1.setColor(Color.rgb(0, 169, 157));
+//        //barDataSet1.setBarSpacePercent(30f);
+//
+//
+//        // Hide the value on each bar
+//        /*barDataSet1.setDrawValues(false);*/
+//
+//        dataSets = new ArrayList<>();
+//        dataSets.add(barDataSet1);
+//        return dataSets;
+//    }
 //
 //    private ArrayList<String> getXAxisValues() {
 //        ArrayList<String> yAxis = new ArrayList<>();

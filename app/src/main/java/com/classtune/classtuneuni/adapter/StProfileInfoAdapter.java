@@ -71,8 +71,8 @@ public class StProfileInfoAdapter extends RecyclerView.Adapter<RecyclerView.View
                 itemHolder.subject.setText(result.getCourseCode());
                 if(result.getAttendance()!=null)
                 itemHolder.attendance.setText(""+result.getAttendance());
-//                if(result.getObtained().getGrade()!=null)
-//                itemHolder.grade.setText(result.getObtained().getGrade());
+                if(result.getObtained()!=null && result.getObtained().getGrade()!=null)
+                itemHolder.grade.setText(result.getObtained().getGrade());
 //                itemHolder.cell.setOnClickListener(new View.OnClickListener() {
 //                    @Override
 //                    public void onClick(View view) {

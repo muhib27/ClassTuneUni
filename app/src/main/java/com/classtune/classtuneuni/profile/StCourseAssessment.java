@@ -21,9 +21,9 @@ public class StCourseAssessment {
     @SerializedName("attendance")
     @Expose
     private Integer attendance;
-//    @SerializedName("obtained")
-//    @Expose
-//    private StObtained obtained;
+    @SerializedName("obtained")
+    @Expose
+    private StObtained obtained;
 
     public String getCourseName() {
         return courseName;
@@ -48,6 +48,15 @@ public class StCourseAssessment {
 //    public void setObtained(List<StObtained> obtained) {
 //        this.obtained = obtained;
 //    }
+
+
+    public StObtained getObtained() {
+        return obtained;
+    }
+
+    public void setObtained(StObtained obtained) {
+        this.obtained = obtained;
+    }
 
     public Integer getAttendance() {
         return attendance;

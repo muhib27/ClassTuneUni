@@ -28,6 +28,7 @@ public class AppSharedPreference {
     private static final String keyUDID = "udid";
     private static final String keyFCMId = "fcm_id";
     private static final String keyUserType = "userType";
+    private static final String keyTabSt = "tab_st";
 
     private static SharedPreferences getSharedPreferences() {
         return MyApplication.getContext().getSharedPreferences(keyModelTestPrefs, 0);
@@ -248,5 +249,18 @@ public class AppSharedPreference {
 //        user.setId(pref.getString(AppConstant.USER_ID, ""));
 //        user.setImage(pref.getString(AppConstant.USER_IMAGE, ""));
         return assignmentSection;
+    }
+
+    public static void setStTabString(String st_tab_string) {
+        final SharedPreferences pref = getSharedPreferences();
+        final SharedPreferences.Editor editor = pref.edit();
+
+        editor.putString(keyTabSt, st_tab_string);
+        editor.apply();
+    }
+
+    public static String getStTabString() {
+        final SharedPreferences pref = getSharedPreferences();
+        return pref.getString(keyTabSt, "");
     }
 }

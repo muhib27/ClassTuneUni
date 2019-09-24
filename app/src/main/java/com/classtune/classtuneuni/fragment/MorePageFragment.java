@@ -123,7 +123,7 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
         rl_8 = view.findViewById(R.id.rl_8);
         rl_8.setOnClickListener(this);
 
-        String s = BASE_URL + AppSharedPreference.getUserImage();
+      //  String s = BASE_URL + AppSharedPreference.getUserImage();
 
         Glide.with(getActivity())
                 .load(BASE_URL + AppSharedPreference.getUserImage())

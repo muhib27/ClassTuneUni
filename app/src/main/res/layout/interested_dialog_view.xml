@@ -26,6 +26,9 @@
 
 
                 <TextView
+                    android:padding="@dimen/size_10dp"
+                    android:id="@+id/message"
+                    android:gravity="center_horizontal"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_14_sp"
                     android:layout_width="wrap_content"
@@ -42,7 +45,7 @@
                     <Button
                         android:id="@+id/cancel"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/size_40dp"
                         android:layout_alignParentStart="true"
                         android:layout_gravity="center"
                         android:layout_marginStart="@dimen/size_20dp"
@@ -54,7 +57,7 @@
                         android:text="Cancel"
                         android:textAllCaps="false"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/size_20sp"
+                        android:textSize="@dimen/text_size_14_sp"
                         android:textStyle="bold" />
 
 
@@ -63,7 +66,7 @@
                         android:paddingEnd="@dimen/size_10dp"
                         android:id="@+id/create"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="40dp"
                         android:layout_alignParentEnd="true"
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/size_20dp"
@@ -73,7 +76,7 @@
                         android:text="Send Request"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/size_20sp"
+                        android:textSize="@dimen/text_size_14_sp"
                         android:textStyle="bold" />
                 </RelativeLayout>
             </LinearLayout>

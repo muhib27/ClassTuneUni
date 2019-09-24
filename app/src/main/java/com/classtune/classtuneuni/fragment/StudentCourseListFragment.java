@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.adapter.StCourseAdapter;
 import com.classtune.classtuneuni.course_resonse.Course;
 import com.classtune.classtuneuni.course_resonse.CourseListResponse;
@@ -69,6 +70,9 @@ public class StudentCourseListFragment extends Fragment implements View.OnClickL
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        if(((MainActivity)getActivity()).tabRl.getVisibility() == View.VISIBLE)
+            ((MainActivity)getActivity()).tabRl.setVisibility(View.GONE);
         uiHelper = new UIHelper(getActivity());
 
         searchBar = view.findViewById(R.id.searchBar);

@@ -30,12 +30,12 @@ import com.bumptech.glide.request.RequestOptions;
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.adapter.RelatedCourseAdapter;
-import com.classtune.classtuneuni.adapter.StCourseAdapter;
-import com.classtune.classtuneuni.course_resonse.Course;
+import com.classtune.classtuneuni.assignment.Status;
 import com.classtune.classtuneuni.course_resonse.CourseDate;
 import com.classtune.classtuneuni.course_resonse.CourseDetailsResponse;
 import com.classtune.classtuneuni.course_resonse.RelatedCourse;
-import com.classtune.classtuneuni.exam.ExamPolicyResponse;
+import com.classtune.classtuneuni.enroll.StEnrollResponse;
+import com.classtune.classtuneuni.model.CommonStatus;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
 import com.classtune.classtuneuni.utils.AppUtility;
@@ -70,6 +70,11 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
     private CircleImageView profile_image;
     private String id = "";
 
+    private String LINK_SHARE = "";
+    private String REQUEST_MESSAGE = "";
+    private Fragment fragment;
+    private LinearLayout resourseLl;
+
     String courseId = "";
 
     String contentSt = "কেন্দ্রীয় ব্যাংকে রক্ষিত বৈদেশিক মুদ্রার মজুত বা রিজার্ভ চুরির ক্ষেত্র প্রস্তুত করে রেখেছিল বাংলাদেশ ব্যাংক নিজেই। নিরাপত্তাব্যবস্থা ছিল অরক্ষিত, সংশ্লিষ্ট কর্মকর্তারা ছিলেন দায়িত্বহীন। আর চূড়ান্ত সর্বনাশ ঘটানো হয় সুইফট সার্ভারের সঙ্গে স্থানীয় নেটওয়ার্ক জুড়ে দিয়ে। এর ছয় মাসের মধ্যেই গোপন সংকেত বা পাসওয়ার্ড জেনে নিয়ে চুরি হয় ৮ কোটি ১০ লাখ ১ হাজার ৬২৩ মার্কিন ডলার (বাংলাদেশি মুদ্রায় ৮১০ কোটি টাকা)। \n" +
@@ -101,7 +106,8 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
         if (getArguments().getString("courseId") != null)
             courseId = getArguments().getString("courseId");
         uiHelper = new UIHelper(getActivity());
-
+        resourseLl = view.findViewById(R.id.resourseLl);
+        resourseLl.setOnClickListener(this);
         courseNmae = view.findViewById(R.id.courseNmae);
         duration = view.findViewById(R.id.duration);
         shortDescription = view.findViewById(R.id.shortDescription);
@@ -161,14 +167,25 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
                 }
                 break;
             case R.id.shareLl:
-                shareCourse();
+                if (LINK_SHARE != null && !LINK_SHARE.isEmpty())
+                    shareCourse();
                 break;
             case R.id.enrollNow:
-                enrollDialog();
+                if (enrollNow.getText().toString().equals("Enroll Now"))
+                    enrollDialog();
+                else if(enrollNow.getText().toString().equals("Browse")){
+                    fragment = new ResourseFragment();
+                    goToFragment(fragment, "resourseFragment" , true);
+                }
                 break;
             case R.id.interested:
                 requestDialog();
                 break;
+            case R.id.resourseLl:
+                fragment = new ResourseFragment();
+                goToFragment(fragment, "resourseFragment" , true);
+                break;
+
         }
     }
 
@@ -315,7 +332,21 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                String stCode = "";
+                if (!et1.getText().toString().trim().isEmpty())
+                    stCode = stCode + et1.getText().toString().trim();
+                if (!et2.getText().toString().trim().isEmpty())
+                    stCode = stCode + et2.getText().toString().trim();
+                if (!et3.getText().toString().trim().isEmpty())
+                    stCode = stCode + et3.getText().toString().trim();
+                if (!et4.getText().toString().trim().isEmpty())
+                    stCode = stCode + et4.getText().toString().trim();
+                if (!et5.getText().toString().trim().isEmpty())
+                    stCode = stCode + et5.getText().toString().trim();
+                if (!et6.getText().toString().trim().isEmpty())
+                    stCode = stCode + et6.getText().toString().trim();
+                if (stCode.length() >= 6)
+                    callStNEnroll(stCode);
                 dialog.dismiss();
 
             }
@@ -337,7 +368,7 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
         shareIntent.setType("text/plain");
 //        shareIntent.putExtra(Intent.EXTRA_SUBJECT, movieResults.get(position).getTitle().getRendered());
 //        shareIntent.putExtra(Intent.EXTRA_TITLE, movieResults.get(position).getTitle().getRendered());
-//        shareIntent.putExtra(Intent.EXTRA_TEXT, movieResults.get(position).getLink());
+        shareIntent.putExtra(Intent.EXTRA_TEXT, LINK_SHARE);
         getActivity().startActivity(Intent.createChooser(shareIntent, "Share link using"));
 
     }
@@ -426,6 +457,10 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
     }
 
     private void populateCourseData(CourseDate data) {
+        if (data.getShareUrl() != null)
+            LINK_SHARE = data.getShareUrl();
+        if (data.getInterestedMessage() != null)
+            REQUEST_MESSAGE = data.getInterestedMessage();
         if (data.getCourse().getCourseName() != null)
             courseNmae.setText(data.getCourse().getCourseName());
         if (data.getCourse().getStartDate() != null && data.getCourse().getEndDate() != null)
@@ -471,11 +506,20 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
         }
         else
             newCourse.setVisibility(View.GONE);
+
+        if (data.getAllreadyEnrolled() != null && data.getAllreadyEnrolled().equals("1")) {
+            // interested.
+            enrollNow.setText("Browse");
+            interested.setImageDrawable(getResources().getDrawable(R.drawable.requested));
+            interested.setClickable(false);
+        } else if (data.getInterested() == 1) {
+            interested.setImageDrawable(getResources().getDrawable(R.drawable.requested));
+            interested.setClickable(false);
+        }
     }
 
 
     private void requestDialog() {
-
 
         final Dialog dialog = new Dialog(getActivity(), R.style.Theme_Dialog);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -483,12 +527,16 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.interested_dialog_view);
 
+        TextView message = dialog.findViewById(R.id.message);
+        if (!REQUEST_MESSAGE.isEmpty())
+            message.setText(REQUEST_MESSAGE);
         Button create = dialog.findViewById(R.id.create);
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 dialog.dismiss();
+                callRequestApi();
 
             }
         });
@@ -502,4 +550,120 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
 
         dialog.show();
     }
+
+    private void callRequestApi() {
+
+
+        if (!NetworkConnection.getInstance().isNetworkAvailable()) {
+            Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        uiHelper.showLoadingDialog("Please wait...");
+
+        // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
+        RetrofitApiClient.getApiInterfaceWithId().getCourseRequest(AppSharedPreference.getApiKey(), courseId)
+
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<Status>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Response<Status> value) {
+                        uiHelper.dismissLoadingDialog();
+
+                        Status status = value.body();
+                        // examPolicyAdapter.clear();
+                        if (status.getStatus().getCode() == 200) {
+                            interested.setImageDrawable(getResources().getDrawable(R.drawable.requested));
+                            interested.setClickable(false);
+                            //examPolicyAdapter.disableEditing();
+
+//                            Log.v("tt", noticeList.toString());
+                            //  Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                        } else {
+                            // Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        uiHelper.dismissLoadingDialog();
+                    }
+
+                    @Override
+                    public void onComplete() {
+//                        progressDialog.dismiss();
+                        uiHelper.dismissLoadingDialog();
+                    }
+                });
+
+
+    }
+
+    private void callStNEnroll(String code) {
+
+        if (!NetworkConnection.getInstance().isNetworkAvailable()) {
+            Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!uiHelper.isDialogActive())
+            uiHelper.showLoadingDialog("Please wait...");
+
+        // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
+        RetrofitApiClient.getApiInterfaceWithId().getStEnroll(AppSharedPreference.getApiKey(), code)
+
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<StEnrollResponse>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Response<StEnrollResponse> value) {
+                        uiHelper.dismissLoadingDialog();
+
+                        StEnrollResponse stEnrollResponse = value.body();
+                        if (stEnrollResponse.getStatus().getCode() == 200) {
+                            enrollNow.setText("Browse");
+//                            fragment = new EnrollSuccessFragment();
+//                            gotoNextFragment(fragment, "enrollSuccessFragment", stEnrollResponse.getData());
+//                            populateData(noticeDetailsResponse.getData());
+
+                            //  Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                        } else {
+                           // Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        uiHelper.dismissLoadingDialog();
+                    }
+
+                    @Override
+                    public void onComplete() {
+//                        progressDialog.dismiss();
+                        uiHelper.dismissLoadingDialog();
+                    }
+                });
+    }
+
+    private void goToFragment(Fragment fragment, String tag, boolean backstack) {
+        // load fragment
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.mainContainer, fragment, tag);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
 }

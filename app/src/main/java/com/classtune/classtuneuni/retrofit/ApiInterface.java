@@ -3,6 +3,7 @@ package com.classtune.classtuneuni.retrofit;
 
 import com.classtune.classtuneuni.assignment.AssignmentSectionResponse;
 import com.classtune.classtuneuni.assignment.AssignmentSubmitedListResponse;
+import com.classtune.classtuneuni.assignment.Status;
 import com.classtune.classtuneuni.assignment.TeacherAssignmentResponse;
 import com.classtune.classtuneuni.attendance.AttendanceReportResponse;
 import com.classtune.classtuneuni.attendance.StudentAttendanceResponse;
@@ -209,6 +210,11 @@ public interface ApiInterface {
     Observable<Response<StClsScheduleResponse>> getStClassSchedule(@Field("api_key") String api_key, @Field("course_offer_section_id") String course_offer_section_id);
 
     @FormUrlEncoded
+    @POST(URLHelper.STUDENT_ALL_CLASS_SCHEDULE)
+    Observable<Response<StClsScheduleResponse>> getStAllClassSchedule(@Field("api_key") String api_key);
+
+
+    @FormUrlEncoded
     @POST(URLHelper.STUDENT_SECTION_LIST)
     Observable<Response<StSectionListResponse>> getStSectionList(@Field("api_key") String api_key);
 
@@ -314,6 +320,10 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST(URLHelper.SINGLE_TEACHER_ALL_COURSE_LIST)
     Observable<Response<CourseListResponse>> getSingleTeacherAllCourseList(@Field("api_key") String api_key, @Field("page") int page, @Field("instructor_id") String instructor_id);
+
+    @FormUrlEncoded
+    @POST(URLHelper.COURSE_REQUEST)
+    Observable<Response<Status>> getCourseRequest(@Field("api_key") String api_key, @Field("id") String id);
 
     @Multipart
     @POST(URLHelper.UPDATE_USER)

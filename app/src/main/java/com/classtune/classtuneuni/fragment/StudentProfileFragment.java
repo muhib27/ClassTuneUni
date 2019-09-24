@@ -105,7 +105,7 @@ public class StudentProfileFragment extends Fragment implements StProfileInfoAda
         email.setText(AppSharedPreference.getUserEmail());
         studentId.setText(AppSharedPreference.getUserId());
 
-        String url =BASE_URL + AppSharedPreference.getUserImage();
+        //String url =BASE_URL + AppSharedPreference.getUserImage();
 
         Glide.with(getActivity())
                 .load(BASE_URL + AppSharedPreference.getUserImage())

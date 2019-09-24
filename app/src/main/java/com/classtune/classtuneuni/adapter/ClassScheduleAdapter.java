@@ -14,9 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.classtune.classtuneuni.R;
-import com.classtune.classtuneuni.assignment.Assignment;
 import com.classtune.classtuneuni.class_schedule.Routine;
-import com.classtune.classtuneuni.home.StHomeFeed;
 import com.classtune.classtuneuni.model.ClassScheduleModel;
 import com.classtune.classtuneuni.utils.AppUtility;
 
@@ -34,6 +32,7 @@ public class ClassScheduleAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     private boolean isLoadingAdded = false;
     private boolean retryPageLoad = false;
+    private String tab = "";
 
     public ClassScheduleAdapter(Context context) {
         mValues = new ArrayList<>();
@@ -75,12 +74,27 @@ public class ClassScheduleAdapter extends RecyclerView.Adapter<RecyclerView.View
                 if(routine.getMonth() != null && routine.getYear() !=null)
                 itemHolder.monthYear.setText(AppUtility.getMonth(routine.getMonth()) + ", " + routine.getYear() );
 
+                if(tab.equals("All")) {
+                    itemHolder.courseName.setVisibility(View.VISIBLE);
+                    if(routine.getName()!=null)
+                    itemHolder.courseName.setText(routine.getName());
+                }
+                else {
+                    itemHolder.courseName.setVisibility(View.INVISIBLE);
+                }
+
                 if(position == 0)
                 {
                     itemHolder.ll.setBackgroundColor(mContext.getResources().getColor(R.color.appColor));
                     itemHolder.day.setTextColor(mContext.getResources().getColor(R.color.white));
                     itemHolder.date.setTextColor(mContext.getResources().getColor(R.color.white));
                     itemHolder.monthYear.setTextColor(mContext.getResources().getColor(R.color.white));
+                }
+                else {
+                    itemHolder.ll.setBackgroundColor(mContext.getResources().getColor(R.color.white));
+                    itemHolder.day.setTextColor(mContext.getResources().getColor(R.color.appColor));
+                    itemHolder.date.setTextColor(mContext.getResources().getColor(R.color.appColor));
+                    itemHolder.monthYear.setTextColor(mContext.getResources().getColor(R.color.appColor));
                 }
 //                itemHolder.scheduleCell.setOnClickListener(new View.OnClickListener() {
 //                    @Override
@@ -143,7 +157,7 @@ public class ClassScheduleAdapter extends RecyclerView.Adapter<RecyclerView.View
     protected class MovieVH extends RecyclerView.ViewHolder {
         private TextView room;
         private TextView day, date, time;
-        private TextView monthYear; // displays "year | language"
+        private TextView monthYear, courseName; // displays "year | language"
         private ImageView mPosterImg;
         private ProgressBar mProgress;
         LinearLayout ll;
@@ -159,6 +173,7 @@ public class ClassScheduleAdapter extends RecyclerView.Adapter<RecyclerView.View
             room = itemView.findViewById(R.id.room);
             scheduleCell = itemView.findViewById(R.id.scheduleCell);
             ll = itemView.findViewById(R.id.ll);
+            courseName = itemView.findViewById(R.id.courseName);
 
         }
     }
@@ -167,10 +182,11 @@ public class ClassScheduleAdapter extends RecyclerView.Adapter<RecyclerView.View
         notifyItemInserted(mValues.size() - 1);
     }
 
-    public void addAllData(List<Routine> moveResults) {
+    public void addAllData(List<Routine> moveResults, String all) {
         for (Routine result : moveResults) {
             add(result);
         }
+        tab = all;
     }
 
     public void remove(Routine r) {

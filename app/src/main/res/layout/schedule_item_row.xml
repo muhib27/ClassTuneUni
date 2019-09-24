@@ -19,16 +19,17 @@
             android:padding="@dimen/size_10dp"
             android:id="@+id/ll"
             android:layout_alignParentStart="true"
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
+                android:layout_gravity="center_horizontal"
                 android:id="@+id/day"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/size_20dp"
-                android:paddingRight="@dimen/size_20dp"
+                android:paddingLeft="@dimen/size_10dp"
+                android:paddingRight="@dimen/size_10dp"
                 android:text="Monday"
                 android:textColor="@color/appColor"
                 android:textSize="@dimen/text_size_12_sp" />
@@ -70,7 +71,8 @@
             android:orientation="horizontal">
 
             <TextView
-                android:padding="@dimen/size_5dp"
+                android:paddingStart="@dimen/size_5dp"
+                android:paddingEnd="@dimen/size_5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -78,12 +80,13 @@
                 android:textColor="@color/appColor" />
 
             <TextView
+                android:gravity="center"
                 android:id="@+id/room"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginEnd="@dimen/size_20dp"
-                android:text="3"
+                android:text=""
                 android:textStyle="bold"
                 android:textSize="@dimen/text_size_12_sp" />/>
         </LinearLayout>
@@ -95,17 +98,26 @@
             android:layout_marginTop="@dimen/size_30dp"
             android:layout_toEndOf="@+id/ll"
             android:gravity="left"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:layout_marginEnd="@dimen/size_20dp"
+                android:layout_marginEnd="@dimen/size_10dp"
                 android:padding="@dimen/size_10dp"
                 android:text="10:30am - 12:00pm"
-                android:textSize="@dimen/text_size_23_sp" />
+                android:textSize="@dimen/text_size_22_sp" />
+            <TextView
+                android:visibility="invisible"
+                android:id="@+id/courseName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:paddingStart="@dimen/size_10dp"
+                android:text=""
+                android:textSize="@dimen/text_size_12_sp" />
 
         </LinearLayout>
     </RelativeLayout>
