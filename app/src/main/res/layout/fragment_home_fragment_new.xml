@@ -154,6 +154,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/notice1Ll"
                 android:layout_marginEnd="@dimen/size_5dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -181,6 +182,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/notice2Ll"
                 android:layout_marginStart="@dimen/size_5dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

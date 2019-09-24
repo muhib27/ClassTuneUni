@@ -161,6 +161,7 @@ public class SubjectResultFragment extends Fragment implements SubjectResultAdap
                         StCourseResultResponse stCourseResultResponse = value.body();
                         subjectResultAdapter.clear();
                         if (stCourseResultResponse.getStatus().getCode() == 200) {
+                            totalSt = 0;
 //
                             resultList = stCourseResultResponse.getData().getAssessments();
                             if(resultList!=null)

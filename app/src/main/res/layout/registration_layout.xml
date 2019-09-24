@@ -99,6 +99,7 @@
                 <com.hbb20.CountryCodePicker
                     app:ccp_textSize="@dimen/text_size_12_sp"
                     android:id="@+id/ccp"
+                    app:ccp_defaultNameCode="BD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 

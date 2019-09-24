@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -15,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -63,7 +65,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener
     private TextView examDay, examDate, examMonthYear, examName, examTime, marks, examSubject;
     private View examDotView;
 
-    private ImageView imageView, courseImg;
+    private LinearLayout notice1Ll, notice2Ll;
+
+    private ImageView imageView, courseImg, assignments;
 
     RecyclerView rvNotice, rvAssignmnet, rvResource;
     private List<Assignment> assignmentList;
@@ -118,7 +122,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener
         notices = view.findViewById(R.id.notices);
         notices.setOnClickListener(this);
 
-
+        assignments = view.findViewById(R.id.assignments);
+        assignments.setOnClickListener(this);
 
         topDate = view.findViewById(R.id.topDate);
         topTitle = view.findViewById(R.id.topTitle);
@@ -130,6 +135,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener
         notice2Date = view.findViewById(R.id.notice2Date);
         notice1Title = view.findViewById(R.id.notice1Title);
         notice2Title = view.findViewById(R.id.notice2Title);
+
+        notice1Ll = view.findViewById(R.id.notice1Ll);
+        notice1Ll.setOnClickListener(this);
+        notice2Ll = view.findViewById(R.id.notice2Ll);
+        notice2Ll.setOnClickListener(this);
+
 
         nextSubject = view.findViewById(R.id.next_subject);
         nextClassTime = view.findViewById(R.id.next_time);
@@ -329,12 +340,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener
             classInstructor.setText(nextClass.getInstructor());
     }
 
+    private String n1 = "", n2="";
+
     private void populateLatestNotice(List<Notices> notice) {
         if(notice.get(0).getCreatedAt()!= null && notice.get(0).getCreatedAt().contains(" ")) {
+            n1 = notice.get(0).getId();
             String[] parts = notice.get(0).getCreatedAt().split(" ");
             notice1Date.setText(AppUtility.getDateString(parts[0], AppUtility.DATE_FORMAT_APP_, AppUtility.DATE_FORMAT_SERVER));
         }
         if(notice.get(1).getCreatedAt()!= null && notice.get(1).getCreatedAt().contains(" ")) {
+            n2 = notice.get(1).getId();
             String[] parts = notice.get(1).getCreatedAt().split(" ");
             notice2Date.setText(AppUtility.getDateString(parts[0], AppUtility.DATE_FORMAT_APP_, AppUtility.DATE_FORMAT_SERVER));
         }
@@ -344,7 +359,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener
             notice2Title.setText(notice.get(1).getTitle());
     }
 
+    private Resource Topresource;
     private void populateLatest(Resource resourceSingle) {
+        Topresource = resourceSingle;
         if(getActivity()!=null && resourceSingle.getThumbnail() !=null && !resourceSingle.getThumbnail().isEmpty())
        // if(resourceSi)
         Glide.with(getActivity())
@@ -373,22 +390,65 @@ public class HomeFragment extends Fragment implements View.OnClickListener
 
     }
 
+    Fragment fragment;
+    Bundle bundle;
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.latestResource:
+                fragment =new ResourceViewFragment();
+                bundle = new Bundle();
+                bundle.putString("title", Topresource.getChapterTitle());
+                bundle.putString("subCode", Topresource.getCourseName());
+                bundle.putString("content", Topresource.getContent());
+                gotoFragment(fragment, "resourceViewFragment", bundle);
                 break;
             case R.id.classSchedudle:
+                fragment = new ClassScheduleFragment();
+                bundle = new Bundle();
+                gotoFragment(fragment, "classScheduleFragment", bundle);
                 break;
             case R.id.resourceList:
+                fragment = new ResourseFragment();
+                bundle = new Bundle();
+                gotoFragment(fragment, "resourseFragment" , bundle);
                 break;
             case R.id.nextClass:
                 break;
             case R.id.upcomingExam:
                 break;
             case R.id.notices:
+                fragment = new NoticeListFragment();
+                bundle = new Bundle();
+                gotoFragment(fragment, "noticeListFragment" , bundle);
+                break;
+            case R.id.assignments:
+                fragment = new AssignmentFragment();
+                bundle = new Bundle();
+                gotoFragment(fragment, "assignmentFragment", bundle);
+                break;
+            case R.id.notice1Ll:
+                fragment = new TeacherNoticeDetails();
+                bundle = new Bundle();
+                bundle.putString("noticeId",n1);
+                gotoFragment(fragment, "teacherNoticeDetails", bundle);
+                break;
+            case R.id.notice2Ll:
+                fragment = new TeacherNoticeDetails();
+                bundle = new Bundle();
+                bundle.putString("noticeId",n1);
+                gotoFragment(fragment, "teacherNoticeDetails", bundle);
                 break;
         }
+    }
+
+    private void gotoFragment(Fragment fragment, String tag, Bundle bundle) {
+        // load fragment
+        fragment.setArguments(bundle);
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.mainContainer, fragment, tag);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

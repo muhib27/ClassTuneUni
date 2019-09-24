@@ -123,4 +123,5 @@
     <string name="assignment">Assignment</string>
     <string name="password_week">Password length should greater than five</string>
     <string name="absent">Absent</string>
+    <string name="notice">Notice</string>
 </resources>

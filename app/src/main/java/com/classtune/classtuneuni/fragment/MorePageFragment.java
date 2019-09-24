@@ -51,7 +51,7 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
     //private TextView name, studentId;
     Fragment fragment;
     UIHelper uiHelper;
-    RelativeLayout rl_8,  rl_2, rl_3, rl_4, result, rl_6, rl_7;
+    RelativeLayout rl_8,  rl_2, rl_3, rl_4, notice, rl_6, rl_7;
     LinearLayout rl_1;
 
     ImageView iv1, iv2, iv3, iv4, iv5, iv6, iv7, iv8;
@@ -111,8 +111,8 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
         rl_4 = view.findViewById(R.id.rl_4);
         rl_4.setOnClickListener(this);
 
-        result = view.findViewById(R.id.result);
-        result.setOnClickListener(this);
+        notice = view.findViewById(R.id.notice);
+        notice.setOnClickListener(this);
 
         rl_6 = view.findViewById(R.id.rl_6);
         rl_6.setOnClickListener(this);
@@ -193,9 +193,9 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
                 fragment = new ExamListFragment();
                 gotoFragment(fragment, "examListFragment");
                 break;
-            case R.id.result:
-                fragment = new SubjectResultFragment();
-                gotoFragment(fragment, "subjectResultFragment");
+            case R.id.notice:
+                fragment = new NoticeListFragment();
+                gotoFragment(fragment, "noticeListFragment");
                 break;
             case R.id.rl_6:
                 if(AppSharedPreference.getUserType().equals("3"))

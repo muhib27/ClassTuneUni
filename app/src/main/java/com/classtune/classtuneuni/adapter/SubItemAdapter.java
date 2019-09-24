@@ -56,6 +56,12 @@ public class SubItemAdapter extends RecyclerView.Adapter<SubItemAdapter.SubItemV
         {
             courseName = courseName + subItem.getCourses().get(l)  + " ";
         }
+
+        if(i>= (subItemList.size()-1))
+            subItemViewHolder.verticalLine.setVisibility(View.INVISIBLE);
+        else
+            subItemViewHolder.verticalLine.setVisibility(View.VISIBLE);
+
         subItemViewHolder.title.setText(courseName);
         subItemViewHolder.description.setText(subItem.getNotice().getTitle());
         subItemViewHolder.time.setText(getTime(subItem.getNotice().getCreatedAt().substring(11, 16)));
@@ -78,6 +84,7 @@ public class SubItemAdapter extends RecyclerView.Adapter<SubItemAdapter.SubItemV
         TextView title, time;
         TextView description;
         LinearLayout rl;
+        View verticalLine;
 
         SubItemViewHolder(View itemView) {
             super(itemView);
@@ -85,6 +92,7 @@ public class SubItemAdapter extends RecyclerView.Adapter<SubItemAdapter.SubItemV
             time = itemView.findViewById(R.id.time);
             description = itemView.findViewById(R.id.description);
             rl = itemView.findViewById(R.id.rl);
+            verticalLine = itemView.findViewById(R.id.verticalLine);
 
         }
     }

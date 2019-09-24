@@ -135,6 +135,14 @@ public class ProfileEditFragment extends Fragment implements View.OnClickListene
         userEmail.setText(AppSharedPreference.getUserEmail());
         studentId.setText(AppSharedPreference.getUserId());
 
+        String p = AppSharedPreference.getUserPhone();
+        if(!p.isEmpty() && p.contains("-"))
+        {
+            String[] parts = p.split("\\-");
+            phoneNo.setText(parts[1]);
+            ccp.setCountryForPhoneCode(Integer.parseInt(parts[0]));
+        }
+
         if(getActivity()!=null)
         Glide.with(getActivity())
                 .load(BASE_URL + AppSharedPreference.getUserImage())
