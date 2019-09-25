@@ -111,7 +111,7 @@ public class MyApplication extends Application {
                     .setColor(Color.WHITE)
                     .setContentTitle(subject)
                     .setContentText(message)
-                    .setOngoing(true)
+                    .setOngoing(false)
                     //.setSound(true)
                     .setAutoCancel(true).setWhen(when)
                     .setContentIntent(pendingNotifyIntent)
