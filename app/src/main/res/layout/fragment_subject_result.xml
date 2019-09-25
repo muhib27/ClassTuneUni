@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_grade_obtained"
                 android:gravity="center"
-                android:text="A"
+                android:text=""
                 android:textColor="@color/appColor"
                 android:textSize="@dimen/text_size_48_sp"
                 android:textStyle="bold" />
@@ -61,11 +61,11 @@
                     android:id="@+id/subject"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="1.5"
                     android:fontFamily="@font/my_custom_bold_font"
                     android:gravity="center"
                     android:padding="@dimen/size_10dp"
-                    android:text="Course"
+                    android:text="Category"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size_16_sp"
                     android:textStyle="bold" />
@@ -113,6 +113,7 @@
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
+                android:paddingStart="@dimen/size_5dp"
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

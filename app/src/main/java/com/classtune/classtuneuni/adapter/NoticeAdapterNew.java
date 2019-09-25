@@ -1,49 +1,53 @@
 package com.classtune.classtuneuni.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.assignment.Assignment;
-import com.classtune.classtuneuni.assignment.AssinmentAttachment;
-import com.classtune.classtuneuni.fragment.AssignmentDetailsFragment;
-import com.classtune.classtuneuni.fragment.AssignmentViewFragment;
+import com.classtune.classtuneuni.fragment.TeacherNoticeDetails;
 import com.classtune.classtuneuni.model.CourseModel;
+import com.classtune.classtuneuni.response.Notice;
+import com.classtune.classtuneuni.response.NoticeInfo;
 import com.classtune.classtuneuni.utils.AppUtility;
+import com.classtune.classtuneuni.utils.PaginationAdapterCallback;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class HomeAssignmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class NoticeAdapterNew extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Assignment> mValues;
+    private List<Notice> mValues;
     private Context mContext;
     protected ItemListener mListener;
     private static final int HERO = 2;
     private static final int ITEM = 0;
     private String currentTime = "";
+    private boolean isLoadingAdded = false;
+    private boolean retryPageLoad = false;
+    private PaginationAdapterCallback mCallback;
 
-    public HomeAssignmentAdapter(Context context) {
+    public NoticeAdapterNew(Context context,  PaginationAdapterCallback mCallback) {
 //        mValues = values;
         mContext = context;
         mValues = new ArrayList<>();
+        this.mCallback = mCallback;
     }
 
 
@@ -56,7 +60,7 @@ public class HomeAssignmentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         switch (viewType) {
             case ITEM:
-                View viewItem = inflater.inflate(R.layout.home_assignment_item, parent, false);
+                View viewItem = inflater.inflate(R.layout.home_notice_item, parent, false);
                 viewHolder = new MovieVH(viewItem);
                 break;
 
@@ -71,50 +75,40 @@ public class HomeAssignmentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
-        final Assignment result = mValues.get(position);
+        final Notice result = mValues.get(position);
         switch (getItemViewType(position)) {
             case ITEM:
                 final MovieVH itemHolder = (MovieVH) viewHolder;
-                itemHolder.si.setText((position + 1) + ".");
-                if(result.getTitle()!=null)
-                itemHolder.title.setText(result.getTitle());
-                if(result.getCourseName()!=null)
-                    itemHolder.subject.setText(result.getCourseName());
-                if(result.getDueDate()!=null)
-                    itemHolder.date.setText(AppUtility.getDateString(result.getDueDate(), AppUtility.DATE_FORMAT_D_M, AppUtility.DATE_FORMAT_SERVER));
-                if(result.getDueDate()!=null ) {
-                    String[] parts = currentTime.split(" ");
-                    itemHolder.daysLeft.setText(AppUtility.getTimeDue(result.getDueDate(), parts[0]));
-                }
-                if(result.getDue())
-                    itemHolder.dueAssignment.setVisibility(View.VISIBLE);
+                if(result.getNotice().getTitle()!=null)
+                itemHolder.title.setText(result.getNotice().getTitle());
+                if(result.getNotice().getCreatedAt()!=null)
+                    itemHolder.timeBefore.setText(AppUtility.getTimeDifference(currentTime, result.getNotice().getCreatedAt()) + "ago");
+                if(result.getNotice().getCourseName()!=null)
+                    itemHolder.subject.setText(result.getNotice().getCourseName());
+                if(position>= (mValues.size()-1))
+                    itemHolder.verticalLine.setVisibility(View.INVISIBLE);
                 else
-                    itemHolder.dueAssignment.setVisibility(View.INVISIBLE);
+                    itemHolder.verticalLine.setVisibility(View.VISIBLE);
 
-                itemHolder.assignmentLl.setOnClickListener(new View.OnClickListener() {
+                final int sdk = android.os.Build.VERSION.SDK_INT;
+                if(position==0) {
+                    if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                        itemHolder.dotView.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.filled_circle_app_color));
+                    } else {
+                        itemHolder.dotView.setBackground(ContextCompat.getDrawable(mContext, R.drawable.filled_circle_app_color));
+                    }
+                }
+                //itemHolder.download.setText(result.getUrl());
+                itemHolder.noticeLl.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Fragment fragment = new AssignmentDetailsFragment();
-                        gotoFragment(fragment, "assignmentDetailsFragment", result.getId());
-                    }
-                });
-                //itemHolder.download.setText(result.getUrl());
-//                itemHolder.viewLl.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
 //                        mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri
 //                                .parse(result.getUrl())));
-//                        String url = "https://appharbor.com/assets/images/stackoverflow-logo.png";
-//                        Intent i = new Intent(Intent.ACTION_VIEW);
-//                        i.setData(Uri.parse(url));
-//                        mContext.startActivity(i);
+                        Fragment fragment = new TeacherNoticeDetails();
+                        gotoFragment(fragment, "teacherNoticeDetails", result.getNotice().getId());
 
-//                        dm = (DownloadManager) mContext.getSystemService(DOWNLOAD_SERVICE);
-//                        DownloadManager.Request request = new DownloadManager.Request(
-//                                Uri.parse(result.getUrl()));
-//                        enqueue = dm.enqueue(request);
-//                    }
-//                });
+                    }
+                });
 
 
                 break;
@@ -142,28 +136,27 @@ public class HomeAssignmentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
 
         protected class MovieVH extends RecyclerView.ViewHolder {
-            private TextView title, subject, instructor, date, daysLeft;
-            private TextView si;
+            private TextView title, subject, timeBefore;
+            private TextView download;
             private TextView grade; // displays "year | language"
             private ImageView mPosterImg;
             private ProgressBar mProgress;
             private TextView menuOption;
             private LinearLayout viewLl;
-            private RelativeLayout assignmentLl;
-            private View dueAssignment;
             CardView cardView;
+            private FrameLayout noticeLl;
+            View verticalLine, dotView;
 
             public MovieVH(View itemView) {
                 super(itemView);
 
                 title = itemView.findViewById(R.id.title);
+                dotView = itemView.findViewById(R.id.dotView);
                 subject = itemView.findViewById(R.id.subject);
-               // instructor = itemView.findViewById(R.id.instructor);
-                date = itemView.findViewById(R.id.date);
-                daysLeft = itemView.findViewById(R.id.dayLeft);
-                si = itemView.findViewById(R.id.si);
-                dueAssignment = itemView.findViewById(R.id.dueAssignment);
-                assignmentLl = itemView.findViewById(R.id.assignmentLl);
+                timeBefore = itemView.findViewById(R.id.timeBefore);
+                verticalLine = itemView.findViewById(R.id.verticalLine);
+                noticeLl = itemView.findViewById(R.id.noticeLl);
+
 //                download = itemView.findViewById(R.id.download);
 //
 //                viewLl = itemView.findViewById(R.id.viewLl);
@@ -180,28 +173,70 @@ public class HomeAssignmentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
             public HeroVH(View itemView) {
                 super(itemView);
-                title = itemView.findViewById(R.id.textView);
+                title = itemView.findViewById(R.id.title);
             }
         }
 
-    public void add(Assignment r) {
+    public void add(Notice r) {
         mValues.add(r);
         notifyItemInserted(mValues.size() - 1);
     }
 
-    public void addAllData(List<Assignment> moveResults, String currentTime) {
-        for (Assignment result : moveResults) {
+    public void addAllData(List<Notice> moveResults, String currentTime) {
+        for (Notice result : moveResults) {
             add(result);
         }
         this.currentTime = currentTime;
     }
 
-    private void gotoFragment(Fragment fragment, String tag, String assignmentId) {
+    public void remove(Notice r) {
+        int position = mValues.indexOf(r);
+        if (position > -1) {
+            mValues.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public void clear() {
+        isLoadingAdded = false;
+        while (getItemCount() > 0) {
+            remove(getItem(0));
+        }
+    }
+
+    public boolean isEmpty() {
+        return getItemCount() == 0;
+    }
+
+
+    public void addLoadingFooter() {
+        isLoadingAdded = true;
+        add(new Notice());
+    }
+
+    public void removeLoadingFooter() {
+        isLoadingAdded = false;
+
+        int position = mValues.size() - 1;
+        Notice result = getItem(position);
+
+        if (result != null) {
+            mValues.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public Notice getItem(int position) {
+        return mValues.get(position);
+    }
+
+
+    private void gotoFragment(Fragment fragment, String tag, String noticeId) {
         // load fragment
         Bundle bundle = new Bundle();
-        bundle.putString("assignmentId", assignmentId);
+        bundle.putString("noticeId",noticeId);
         fragment.setArguments(bundle);
-        FragmentTransaction transaction = ((MainActivity) mContext).getSupportFragmentManager().beginTransaction();
+        FragmentTransaction transaction = ((MainActivity)mContext).getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.mainContainer, fragment, tag);
         transaction.addToBackStack(null);
         transaction.commit();

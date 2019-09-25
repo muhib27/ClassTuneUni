@@ -56,7 +56,7 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getName();
-    BottomBar bottomBar;
+    public BottomBar bottomBar;
     TabLayout tabLayout;
     Fragment fragment;
     public TabHost mTabHost;
@@ -193,8 +193,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(@IdRes int tabId) {
 //                Fragment fragment;
-                EnrollStartFragment enrollStartFragment = (EnrollStartFragment) getSupportFragmentManager().findFragmentByTag("enrollStartFragment");
-                if(enrollStartFragment != null && enrollStartFragment.isVisible())
+                StudentCourseListFragment studentCourseListFragment = (StudentCourseListFragment) getSupportFragmentManager().findFragmentByTag("studentCourseListFragment");
+                if(studentCourseListFragment != null && studentCourseListFragment.isVisible())
                     return;
                 // messageView.setText(TabMessage.get(tabId, false));
                 if (tabId == R.id.home) {
@@ -389,7 +389,7 @@ public class MainActivity extends AppCompatActivity {
 //            super.onBackPressed();
 
     }
-    MenuItem item;
+    public MenuItem item;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -558,11 +558,12 @@ public class MainActivity extends AppCompatActivity {
                         } else if(stSectionListResponse!= null && stSectionListResponse.getStatus().getCode() == 204)
                         {
 
-                            fragment = new EnrollStartFragment();
-                            loadFragment(fragment, "enrollStartFragment", true);
+                            fragment = new StudentCourseListFragment();
+                            loadFragment(fragment, "studentCourseListFragment", true);
                         }
-                        else
-                            Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
+                        else {
+                          //  Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override

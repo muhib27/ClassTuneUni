@@ -74,6 +74,7 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
     private String REQUEST_MESSAGE = "";
     private Fragment fragment;
     private LinearLayout resourseLl;
+    public static final String BASE_URL= "http://uni.edoozz.com/";
 
     String courseId = "";
 
@@ -490,7 +491,7 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
         if(getActivity()!=null && data.getCourse().getInstructorImage() !=null && !data.getCourse().getInstructorImage().isEmpty())
             // if(resourceSi)
             Glide.with(getActivity())
-                    .load(data.getCourse().getInstructorImage())
+                    .load(BASE_URL + data.getCourse().getInstructorImage())
                     .apply(new RequestOptions()
                             .placeholder(R.drawable.news_poster)
                             .fitCenter())

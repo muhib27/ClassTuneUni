@@ -54,12 +54,16 @@ public class NoticeData {
     @SerializedName("notices")
     @Expose
     private List<Notice> notices = null;
-    @SerializedName("total_pages")
+    @SerializedName("total_page")
     @Expose
     private Integer totalPages;
     @SerializedName("next_page")
     @Expose
     private Integer nextPage;
+    @SerializedName("date_time")
+    @Expose
+    private String currentTime;
+
 
     public List<Notice> getNotices() {
         return notices;
@@ -83,5 +87,13 @@ public class NoticeData {
 
     public void setNextPage(Integer nextPage) {
         this.nextPage = nextPage;
+    }
+
+    public String getCurrentTime() {
+        return currentTime;
+    }
+
+    public void setCurrentTime(String currentTime) {
+        this.currentTime = currentTime;
     }
 }

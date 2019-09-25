@@ -3,6 +3,7 @@ package com.classtune.classtuneuni.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.assignment.AssinmentAttachment;
+import com.classtune.classtuneuni.fragment.TeacherNoticeDetails;
 import com.classtune.classtuneuni.model.CourseModel;
 import com.classtune.classtuneuni.response.NoticeInfo;
 import com.classtune.classtuneuni.utils.AppUtility;
@@ -98,6 +100,8 @@ public class HomeNoticeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     public void onClick(View view) {
 //                        mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri
 //                                .parse(result.getUrl())));
+                        Fragment fragment = new TeacherNoticeDetails();
+                        gotoFragment(fragment, "teacherNoticeDetails", result.getId());
 
                     }
                 });
@@ -181,10 +185,12 @@ public class HomeNoticeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         this.currentTime = currentTime;
     }
 
-    private void gotoFragment(Fragment fragment, String tag, String courseId) {
+    private void gotoFragment(Fragment fragment, String tag, String noticeId) {
         // load fragment
-
-        FragmentTransaction transaction = ((MainActivity) mContext).getSupportFragmentManager().beginTransaction();
+        Bundle bundle = new Bundle();
+        bundle.putString("noticeId",noticeId);
+        fragment.setArguments(bundle);
+        FragmentTransaction transaction = ((MainActivity)mContext).getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.mainContainer, fragment, tag);
         transaction.addToBackStack(null);
         transaction.commit();

@@ -21,11 +21,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/size_10dp">
+                android:orientation="vertical">
 
 
                 <TextView
+                    android:layout_marginTop="@dimen/size_20dp"
                     android:padding="@dimen/size_10dp"
                     android:id="@+id/message"
                     android:gravity="center_horizontal"
@@ -35,25 +35,20 @@
                     android:layout_height="wrap_content" />
 
 
-
-
-
-                <RelativeLayout
+                <LinearLayout
+                    android:layout_marginTop="@dimen/size_20dp"
+                    android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <Button
+                        android:gravity="center"
                         android:id="@+id/cancel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/size_40dp"
-                        android:layout_alignParentStart="true"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/size_45dp"
                         android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/size_20dp"
-                        android:layout_marginTop="@dimen/size_20dp"
                         android:background="@drawable/app_ash_button_bg"
-                        android:padding="@dimen/size_5dp"
-                        android:paddingStart="@dimen/size_10dp"
-                        android:paddingEnd="@dimen/size_10dp"
                         android:text="Cancel"
                         android:textAllCaps="false"
                         android:textColor="@color/black"
@@ -62,23 +57,19 @@
 
 
                     <Button
-                        android:paddingStart="@dimen/size_10dp"
-                        android:paddingEnd="@dimen/size_10dp"
+                        android:gravity="center"
                         android:id="@+id/create"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_alignParentEnd="true"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="45dp"
                         android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/size_20dp"
-                        android:layout_marginEnd="@dimen/size_20dp"
                         android:background="@drawable/app_button_bg"
-                        android:padding="@dimen/size_5dp"
                         android:text="Send Request"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_14_sp"
                         android:textStyle="bold" />
-                </RelativeLayout>
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
         <!--<android.support.design.widget.FloatingActionButton-->

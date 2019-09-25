@@ -75,8 +75,20 @@ public class ExamListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     itemHolder.praticipantText.setVisibility(View.INVISIBLE);
                     if(examInfoModel.getObtainedMark()!=null)
                         itemHolder.marks.setText(examInfoModel.getObtainedMark());
-                    if(examInfoModel.getExamMark()!=null)
-                        itemHolder.total.setText(examInfoModel.getExamMark());
+//                    if(examInfoModel.getExamMark()!=null)
+//                        itemHolder.total.setText(examInfoModel.getExamMark());
+                    if(examInfoModel.getExamMark()!=null) {
+                        String mark = "";
+                        if(examInfoModel.getExamMark().contains("."))
+                        {
+                            String[] marks = examInfoModel.getExamMark().split("\\.");
+                            if(marks.length>0)
+                                mark = marks[0];
+                        }
+                        else
+                            mark = examInfoModel.getExamMark();
+                        itemHolder.total.setText("" + mark);
+                    }
                     if(examInfoModel.getInstructor()!=null)
                     itemHolder.name.setText(examInfoModel.getInstructor());
                 }

@@ -195,7 +195,7 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST(URLHelper.STUDENT_NOTICE_LIST)
-    Observable<Response<NoticeResonse>> getStudentNitceList(@Field("api_key") String api_key);
+    Observable<Response<NoticeResonse>> getStudentNitceList(@Field("api_key") String api_key, @Field("page") int page);
 
     @FormUrlEncoded
     @POST(URLHelper.STUDENT_NOTICE_DETAILS)

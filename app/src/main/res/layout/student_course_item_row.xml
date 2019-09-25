@@ -38,6 +38,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="110dp" />
                     <TextView
+                        android:textSize="@dimen/text_size_10_sp"
                         android:paddingStart="@dimen/size_3dp"
                         android:paddingEnd="@dimen/size_3dp"
                         android:id="@+id/courseDuration"

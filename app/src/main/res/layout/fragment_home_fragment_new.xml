@@ -29,7 +29,7 @@
                 android:id="@+id/newsPoster"
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:src="@drawable/news_poster"
                 android:transitionName="img" />
             <!--<View-->
@@ -46,7 +46,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
+                    android:layout_height="85dp"
                     android:layout_marginTop="@dimen/size_10dp"
                     android:alpha=".9"
                     android:background="@drawable/scrim"
@@ -75,7 +75,7 @@
                     android:id="@+id/topTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/size_20dp"
+                    android:layout_marginTop="25dp"
                     android:fontFamily="@font/my_custom_font"
                     android:gravity="left"
                     android:maxLines="2"
@@ -393,7 +393,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_marginStart="@dimen/size_10dp"
-                        android:layout_marginTop="@dimen/size_10dp"
+
                         android:text="Assignment"
                         android:textColor="@color/black"
                         android:textSize="@dimen/size_16sp" />

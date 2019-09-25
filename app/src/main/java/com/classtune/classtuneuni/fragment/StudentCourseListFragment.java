@@ -9,6 +9,8 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -70,6 +72,7 @@ public class StudentCourseListFragment extends Fragment implements View.OnClickL
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setHasOptionsMenu(true);
 
         if(((MainActivity)getActivity()).tabRl.getVisibility() == View.VISIBLE)
             ((MainActivity)getActivity()).tabRl.setVisibility(View.GONE);
@@ -389,5 +392,41 @@ public class StudentCourseListFragment extends Fragment implements View.OnClickL
     @Override
     public void onButtonClicked(int buttonCode) {
 
+    }
+
+    public MenuItem item;
+
+    //    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        // Do something that differs the Activity's menu here
+//        super.onCreateOptionsMenu(menu, inflater);
+//        item = menu.findItem(R.id.chat);
+//    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//
+//            case R.id.chat:
+//                if(AppSharedPreference.getStTabString().isEmpty())
+//                    item.setEnabled(false);
+//                else
+//                    item.setEnabled(true);
+//                return false;
+//
+//
+//            default:
+//                break;
+//        }
+//
+//        return false;
+//    }
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+//        if (AppSharedPreference.getStTabString().isEmpty())
+//            menu.getItem(R.id.chat).setEnabled(false);
+//        else
+//            menu.getItem(R.id.chat).setEnabled(true);
+//            menu.getItem(item_index).setEnabled(false);
+//        return true;
     }
 }

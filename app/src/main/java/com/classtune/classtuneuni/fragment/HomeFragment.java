@@ -39,6 +39,7 @@ import com.classtune.classtuneuni.notice.Notices;
 import com.classtune.classtuneuni.profile.StProfileRsponse;
 import com.classtune.classtuneuni.resource.Resource;
 import com.classtune.classtuneuni.response.Notice;
+import com.classtune.classtuneuni.response.StSectionListResponse;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
 import com.classtune.classtuneuni.utils.AppUtility;
@@ -106,13 +107,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener
         super.onViewCreated(view, savedInstanceState);
         if(((MainActivity)getActivity()).tabRl.getVisibility() == View.VISIBLE)
             ((MainActivity)getActivity()).tabRl.setVisibility(View.GONE);
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         uiHelper = new UIHelper(getActivity());
 
         latestResource = view.findViewById(R.id.latestResource);
         latestResource.setOnClickListener(this);
-//        classSchedudle = view.findViewById(R.id.classSchedudle);
-//        classSchedudle.setOnClickListener(this);
+        classSchedudle = view.findViewById(R.id.classSchedudle);
+        classSchedudle.setOnClickListener(this);
         resources = view.findViewById(R.id.resourceList);
         resources.setOnClickListener(this);
         nextClass = view.findViewById(R.id.nextClass);
@@ -205,8 +208,80 @@ public class HomeFragment extends Fragment implements View.OnClickListener
         rvAssignmnet.setLayoutManager(assignmentLayoutManager);
         rvAssignmnet.setAdapter(homeAssignmentAdapter);
 
-        callStudentHome();
+        String tabs = AppSharedPreference.getStTabString();
+//        if (AppSharedPreference.getUserType().equals("3")) {
+//            callStudentSectionListApi();
+//        } else {
+//
+//            //callOfferedSectionListApi();
+//        }
+        if(!tabs.isEmpty()) {
+            ((MainActivity)getActivity()).bottomBar.selectTabAtPosition(0);
+            //((MainActivity)getActivity()).item.setEnabled(true);
+            callStudentHome();
+        }
+        else {
+            ((MainActivity)getActivity()).bottomBar.selectTabAtPosition(1);
+           // ((MainActivity)getActivity()).item.setEnabled(false);
+            fragment = new StudentCourseListFragment();
+            loadFragment(fragment, "studentCourseListFragment", true);
+        }
         
+
+    }
+
+    public void callStudentSectionListApi() {
+
+
+        if (!NetworkConnection.getInstance().isNetworkAvailable()) {
+            Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        uiHelper.showLoadingDialog("Please wait...");
+
+        RetrofitApiClient.getApiInterfaceWithId().getStSectionList(AppSharedPreference.getApiKey())
+
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<StSectionListResponse>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Response<StSectionListResponse> value) {
+                        uiHelper.dismissLoadingDialog();
+
+                        StSectionListResponse stSectionListResponse = value.body();
+                        if (stSectionListResponse!= null && stSectionListResponse.getStatus().getCode() == 200) {
+                            //stAddSection(stSectionListResponse.getData().getCourseSection());
+                            callStudentHome();
+                        } else if(stSectionListResponse!= null && stSectionListResponse.getStatus().getCode() == 204)
+                        {
+
+                            fragment = new StudentCourseListFragment();
+                            loadFragment(fragment, "studentCourseListFragment", true);
+                        }
+                        else {
+                            //  Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        uiHelper.dismissLoadingDialog();
+                    }
+
+                    @Override
+                    public void onComplete() {
+//                        progressDialog.dismiss();
+                        uiHelper.dismissLoadingDialog();
+                    }
+                });
+
 
     }
 
@@ -452,6 +527,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.mainContainer, fragment, tag);
         transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    private void loadFragment(Fragment fragment, String tag, boolean backstack) {
+        // load fragment
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.mainContainer, fragment, tag);
+        if(!backstack)
+            transaction.addToBackStack(null);
         transaction.commit();
     }
 }

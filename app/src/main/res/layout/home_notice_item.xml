@@ -36,15 +36,16 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
+                    android:maxLines="2"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_13_sp"
+                    android:textSize="@dimen/size_15sp"
                     android:layout_marginStart="@dimen/size_10dp"
                     android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/title" />
             </LinearLayout>
-            <LinearLayout
+            <RelativeLayout
                 android:layout_marginBottom="@dimen/size_10dp"
                 android:layout_marginTop="@dimen/size_5dp"
                 android:layout_height="wrap_content"
@@ -60,27 +61,29 @@
                     android:layout_height="wrap_content"
                     android:text="subject"
                     android:textColor="@color/ash_b5"
-                    android:textSize="@dimen/text_size_10_sp"
+                    android:textSize="@dimen/text_size_12_sp"
                     android:textStyle="normal" />
 
-                <View
-                    android:layout_width="@dimen/size_10dp"
-                    android:layout_height="@dimen/size_10dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/size_10dp"
-                    android:layout_marginRight="@dimen/size_10dp"
-                    android:background="@drawable/filled_circle_ash71" />
+                <!--<View-->
+                    <!--android:layout_width="@dimen/size_10dp"-->
+                    <!--android:layout_height="@dimen/size_10dp"-->
+                    <!--android:layout_gravity="center_vertical"-->
+                    <!--android:layout_marginLeft="@dimen/size_10dp"-->
+                    <!--android:layout_marginRight="@dimen/size_10dp"-->
+                    <!--android:background="@drawable/filled_circle_ash71" />-->
 
                 <TextView
+                    android:paddingEnd="@dimen/size_10dp"
+                    android:layout_alignParentEnd="true"
                     android:id="@+id/timeBefore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="A"
                     android:textColor="@color/ash_b5"
                     android:textSize="@dimen/text_size_10_sp"
-                    android:textStyle="bold" />
+                    android:textStyle="normal" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
     </RelativeLayout>
 

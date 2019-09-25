@@ -1,6 +1,7 @@
 package com.classtune.classtuneuni.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -375,4 +376,14 @@ public class StCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
+//    private void shareCourse() {
+//        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+//        shareIntent.setType("text/plain");
+////        shareIntent.putExtra(Intent.EXTRA_SUBJECT, movieResults.get(position).getTitle().getRendered());
+////        shareIntent.putExtra(Intent.EXTRA_TITLE, movieResults.get(position).getTitle().getRendered());
+//        shareIntent.putExtra(Intent.EXTRA_TEXT, LINK_SHARE);
+//        getActivity().startActivity(Intent.createChooser(shareIntent, "Share link using"));
+//
+//    }
 }

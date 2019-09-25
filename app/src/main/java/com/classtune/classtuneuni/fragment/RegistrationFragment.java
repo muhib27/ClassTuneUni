@@ -24,6 +24,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,7 +52,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RegistrationFragment extends Fragment implements View.OnClickListener {
+public class RegistrationFragment extends Fragment implements View.OnClickListener, SearchView.OnQueryTextListener {
     Spinner spinner;
     Button continueBtn;
     Fragment fragment;
@@ -172,6 +173,8 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
                 break;
         }
     }
+
+
 
 
     public class CustomOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
@@ -627,6 +630,8 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
         }, 1000);
     }
 
+
+
     Handler handler = new Handler();
 
 
@@ -636,8 +641,8 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
             //Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (!uiHelper.isDialogActive())
-            uiHelper.showLoadingDialog("Authenticating...");
+//        if (!uiHelper.isDialogActive())
+//            uiHelper.showLoadingDialog("Authenticating...");
 
 
         RetrofitApiClient.getApiInterface().getUniversity(text)
@@ -652,7 +657,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 
                     @Override
                     public void onNext(Response<UniversityModel> value) {
-                        uiHelper.dismissLoadingDialog();
+                      //  uiHelper.dismissLoadingDialog();
                         UniversityModel universityModel = value.body();
 
 
@@ -692,13 +697,13 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
                     public void onError(Throwable e) {
 
 //                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                        uiHelper.dismissLoadingDialog();
+                      //  uiHelper.dismissLoadingDialog();
                     }
 
                     @Override
                     public void onComplete() {
 //                        progressDialog.dismiss();
-                        uiHelper.dismissLoadingDialog();
+                     //   uiHelper.dismissLoadingDialog();
                     }
                 });
 
@@ -727,28 +732,29 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
         listAdapter = new ListAdapter(getActivity(), R.layout.university_list, universityModelList);
         lv.setAdapter(listAdapter);
 
-        final EditText editText = dialog.findViewById(R.id.editText);
+        final SearchView searchView = dialog.findViewById(R.id.searchView);
+        searchView.setOnQueryTextListener(this);
 
-        editText.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
-
-                if (cs != null && cs.toString().trim().length() >= 3)
-                    // field2.setText("");
-                    searchApiCall(cs.toString().trim());
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-                // Toast.makeText(getApplicationContext(),"before text change",Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void afterTextChanged(Editable arg0) {
-                // Toast.makeText(getApplicationContext(),"after text change",Toast.LENGTH_LONG).show();
-            }
-        });
+//        editText.addTextChangedListener(new TextWatcher() {
+//
+//            @Override
+//            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+//
+//                if (cs != null && cs.toString().trim().length() >= 3)
+//                    // field2.setText("");
+//                    searchApiCall(cs.toString().trim());
+//            }
+//
+//            @Override
+//            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+//                // Toast.makeText(getApplicationContext(),"before text change",Toast.LENGTH_LONG).show();
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable arg0) {
+//                // Toast.makeText(getApplicationContext(),"after text change",Toast.LENGTH_LONG).show();
+//            }
+//        });
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -766,8 +772,8 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (editText.getText() != null && editText.getText().toString().trim().length() > 0) {
-                    uniname = editText.getText().toString();
+                if (searchView.getQuery() != null && searchView.getQuery().toString().trim().length() > 0) {
+                    uniname = searchView.getQuery().toString();
                     uniName.setText(uniname);
                 }
                 dialog.dismiss();
@@ -786,6 +792,18 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 
     }
 
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+                if (s != null && s.toString().trim().length() >= 3)
+                    // field2.setText("");
+                    searchApiCall(s.toString().trim());
+        return false;
+    }
     private void gotoFragment(Fragment fragment, String tag) {
         // load fragment
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();

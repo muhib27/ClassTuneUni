@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.adapter.ItemAdapter;
 import com.classtune.classtuneuni.adapter.MultiSelectionSpinner;
+import com.classtune.classtuneuni.adapter.NoticeAdapterNew;
 import com.classtune.classtuneuni.model.Item;
 import com.classtune.classtuneuni.response.Notice;
 import com.classtune.classtuneuni.response.NoticeInfo;
@@ -33,7 +35,10 @@ import com.classtune.classtuneuni.response.Section;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
 import com.classtune.classtuneuni.utils.NetworkConnection;
+import com.classtune.classtuneuni.utils.PaginationAdapterCallback;
+import com.classtune.classtuneuni.utils.PaginationScrollListener;
 import com.classtune.classtuneuni.utils.UIHelper;
+import com.classtune.classtuneuni.utils.VerticalSpaceItemDecoration;
 import com.google.gson.JsonElement;
 
 import java.util.ArrayList;
@@ -45,18 +50,30 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
+import static com.classtune.classtuneuni.activity.MainActivity.GlobalOfferedCourseSectionId;
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NoticeListFragment extends Fragment implements View.OnClickListener {
+public class NoticeListFragment extends Fragment implements View.OnClickListener, PaginationAdapterCallback {
 
     UIHelper uiHelper;
     ItemAdapter itemAdapter;
     FloatingActionButton fabAdd;
     List<Section> noticeOfferResponseList;
     List<Notice> noticeList;
+    LinearLayoutManager layoutManager;
 
     List<NoticeInfo> noticeInfoList;
+
+    NoticeAdapterNew noticeAdapterNew;
+
+    private static final int PAGE_START = 0;
+    boolean f = false;
+    private boolean isLoading = false;
+    private boolean isLastPage = false;
+    private int TOTAL_PAGES;
+    private int currentPage = PAGE_START;
 
 
     List<Item> itemList;
@@ -88,17 +105,45 @@ public class NoticeListFragment extends Fragment implements View.OnClickListener
 
 
         RecyclerView rvItem = view.findViewById(R.id.rv_item);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        itemAdapter = new ItemAdapter(getActivity());
-        rvItem.setAdapter(itemAdapter);
+       // LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+//        itemAdapter = new ItemAdapter(getActivity());
+        noticeAdapterNew = new NoticeAdapterNew(getActivity(),this);
+        layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         rvItem.setLayoutManager(layoutManager);
+        rvItem.addItemDecoration(new VerticalSpaceItemDecoration(getResources()));
+        rvItem.setItemAnimator(new DefaultItemAnimator());
+        rvItem.addOnScrollListener(new PaginationScrollListener(layoutManager) {
+            @Override
+            protected void loadMoreItems() {
+                isLoading = true;
+                currentPage += 1;
+                callStudentNoticeListNextApi();
+               // callStAssignmentListNextApi(GlobalOfferedCourseSectionId);
+            }
+
+            @Override
+            public int getTotalPageCount() {
+                return TOTAL_PAGES;
+            }
+
+            @Override
+            public boolean isLastPage() {
+                return isLastPage;
+            }
+
+            @Override
+            public boolean isLoading() {
+                return isLoading;
+            }
+        });
+        rvItem.setAdapter(noticeAdapterNew);
 
         if (AppSharedPreference.getUserType().equals("3")) {
             fabAdd.hide();
             callStudentNoticeListApi();
         } else {
             fabAdd.show();
-            callNoticeListApi();
+            //callNoticeListApi();
         }
     }
 
@@ -124,7 +169,73 @@ public class NoticeListFragment extends Fragment implements View.OnClickListener
     }
 
 
-    private void callNoticeListApi() {
+//    private void callNoticeListApi() {
+//
+//
+//        if (!NetworkConnection.getInstance().isNetworkAvailable()) {
+//            Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//        uiHelper.showLoadingDialog("Please wait...");
+//
+//        // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
+//        RetrofitApiClient.getApiInterfaceWithId().getTeacherNitceList(AppSharedPreference.getApiKey())
+//
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Observer<Response<NoticeResonse>>() {
+//                    @Override
+//                    public void onSubscribe(Disposable d) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onNext(Response<NoticeResonse> value) {
+//                        uiHelper.dismissLoadingDialog();
+//
+//                        NoticeResonse noticeResonse = value.body();
+//                        if (noticeResonse.getStatus().getCode() == 200) {
+//
+//                            noticeList = noticeResonse.getData().getNotices();
+//
+//
+//                            List<String> dateList = new ArrayList<>();
+//                            for (int r = 0; r < noticeList.size(); r++) {
+//                                String sub = noticeList.get(r).getNotice().getCreatedAt().substring(0, 10);
+//                                if (!dateList.contains(sub))
+//                                    dateList.add(sub);
+//                            }
+//
+//                            itemList = buildItemList(noticeList, dateList);
+////                            String ss = jsonObject
+////                            Log.v("noticeResponseModel", value.message());
+////                            List<Notice> noticeList = noticeResonse.getData().getNotice();
+////                            Collections.reverse(noticeList);
+//                            itemAdapter.addAllData(itemList);
+////                            Log.v("tt", noticeList.toString());
+//                           // Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+//                        } else
+//                            Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//
+//                        Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+//                        uiHelper.dismissLoadingDialog();
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+////                        progressDialog.dismiss();
+//                        uiHelper.dismissLoadingDialog();
+//                    }
+//                });
+//
+//
+//    }
+
+    private void callStudentNoticeListApi() {
 
 
         if (!NetworkConnection.getInstance().isNetworkAvailable()) {
@@ -134,7 +245,7 @@ public class NoticeListFragment extends Fragment implements View.OnClickListener
         uiHelper.showLoadingDialog("Please wait...");
 
         // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
-        RetrofitApiClient.getApiInterfaceWithId().getTeacherNitceList(AppSharedPreference.getApiKey())
+        RetrofitApiClient.getApiInterfaceWithId().getStudentNitceList(AppSharedPreference.getApiKey(), 0)
 
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -149,34 +260,41 @@ public class NoticeListFragment extends Fragment implements View.OnClickListener
                         uiHelper.dismissLoadingDialog();
 
                         NoticeResonse noticeResonse = value.body();
+                        noticeAdapterNew.clear();
                         if (noticeResonse.getStatus().getCode() == 200) {
 
-                            noticeList = noticeResonse.getData().getNotices();
-
-
-                            List<String> dateList = new ArrayList<>();
-                            for (int r = 0; r < noticeList.size(); r++) {
-                                String sub = noticeList.get(r).getNotice().getCreatedAt().substring(0, 10);
-                                if (!dateList.contains(sub))
-                                    dateList.add(sub);
-                            }
-
-                            itemList = buildItemList(noticeList, dateList);
+//                            noticeList = noticeResonse.getData().getNotices();
+//
+//
+//                            List<String> dateList = new ArrayList<>();
+//                            for (int r = 0; r < noticeList.size(); r++) {
+//                                String sub = noticeList.get(r).getNotice().getCreatedAt().substring(0, 10);
+//                                if (!dateList.contains(sub))
+//                                    dateList.add(sub);
+//                            }
+//
+//                            itemList = buildItemList(noticeList, dateList);
 //                            String ss = jsonObject
 //                            Log.v("noticeResponseModel", value.message());
 //                            List<Notice> noticeList = noticeResonse.getData().getNotice();
 //                            Collections.reverse(noticeList);
-                            itemAdapter.addAllData(itemList);
+                            noticeAdapterNew.addAllData(noticeResonse.getData().getNotices(), noticeResonse.getData().getCurrentTime());
+                            TOTAL_PAGES = noticeResonse.getData().getTotalPages();
+
+                            if (currentPage <  (TOTAL_PAGES - 1)) noticeAdapterNew.addLoadingFooter();
+                            else isLastPage = true;
 //                            Log.v("tt", noticeList.toString());
-                           // Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
-                        } else
-                            Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                            // Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                        } else {
+                            noticeAdapterNew.clear();
+                            //Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
-                        Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        noticeAdapterNew.clear();
+                        //Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
                         uiHelper.dismissLoadingDialog();
                     }
 
@@ -190,7 +308,7 @@ public class NoticeListFragment extends Fragment implements View.OnClickListener
 
     }
 
-    private void callStudentNoticeListApi() {
+    private void callStudentNoticeListNextApi() {
 
 
         if (!NetworkConnection.getInstance().isNetworkAvailable()) {
@@ -200,7 +318,7 @@ public class NoticeListFragment extends Fragment implements View.OnClickListener
         uiHelper.showLoadingDialog("Please wait...");
 
         // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
-        RetrofitApiClient.getApiInterfaceWithId().getStudentNitceList(AppSharedPreference.getApiKey())
+        RetrofitApiClient.getApiInterfaceWithId().getStudentNitceList(AppSharedPreference.getApiKey(), currentPage)
 
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -215,34 +333,41 @@ public class NoticeListFragment extends Fragment implements View.OnClickListener
                         uiHelper.dismissLoadingDialog();
 
                         NoticeResonse noticeResonse = value.body();
+                        noticeAdapterNew.clear();
                         if (noticeResonse.getStatus().getCode() == 200) {
 
-                            noticeList = noticeResonse.getData().getNotices();
-
-
-                            List<String> dateList = new ArrayList<>();
-                            for (int r = 0; r < noticeList.size(); r++) {
-                                String sub = noticeList.get(r).getNotice().getCreatedAt().substring(0, 10);
-                                if (!dateList.contains(sub))
-                                    dateList.add(sub);
-                            }
-
-                            itemList = buildItemList(noticeList, dateList);
+                            noticeAdapterNew.removeLoadingFooter();
+                            isLoading = false;
+//                            noticeList = noticeResonse.getData().getNotices();
+//
+//
+//                            List<String> dateList = new ArrayList<>();
+//                            for (int r = 0; r < noticeList.size(); r++) {
+//                                String sub = noticeList.get(r).getNotice().getCreatedAt().substring(0, 10);
+//                                if (!dateList.contains(sub))
+//                                    dateList.add(sub);
+//                            }
+//
+//                            itemList = buildItemList(noticeList, dateList);
 //                            String ss = jsonObject
 //                            Log.v("noticeResponseModel", value.message());
 //                            List<Notice> noticeList = noticeResonse.getData().getNotice();
 //                            Collections.reverse(noticeList);
-                            itemAdapter.addAllData(itemList);
+                            noticeAdapterNew.addAllData(noticeResonse.getData().getNotices(),noticeResonse.getData().getCurrentTime() );
+                            if (currentPage < (TOTAL_PAGES - 1)) noticeAdapterNew.addLoadingFooter();
+                            else isLastPage = true;
 //                            Log.v("tt", noticeList.toString());
                             // Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
-                        } else
-                            Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        } else {
+                            noticeAdapterNew.clear();
+                            //Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
-                        Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        noticeAdapterNew.clear();
+                        //Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
                         uiHelper.dismissLoadingDialog();
                     }
 
@@ -521,6 +646,11 @@ public class NoticeListFragment extends Fragment implements View.OnClickListener
     }
 
     String noticeId = "";
+
+    @Override
+    public void retryPageLoad() {
+
+    }
 
     public class CustomOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
 

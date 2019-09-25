@@ -132,9 +132,11 @@ public class ExamListFragment extends Fragment implements ExamListAdapter.ItemLi
         recyclerView.setAdapter(examListAdapter);
 
         if(AppSharedPreference.getUserType().equals("3")) {
+            fabMenu.setVisibility(View.INVISIBLE);
             callStExamListApi(GlobalOfferedCourseSectionId);
         }
         else {
+            fabMenu.setVisibility(View.VISIBLE);
             subCode = ((MainActivity)getActivity()).mTabHost.getCurrentTabTag();
             callTeacherExamListApi(GlobalOfferedCourseSectionId);
         }

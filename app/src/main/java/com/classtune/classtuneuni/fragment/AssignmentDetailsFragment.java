@@ -74,6 +74,8 @@ public class AssignmentDetailsFragment extends Fragment implements View.OnClickL
 
         if(((MainActivity)getActivity()).tabRl.getVisibility() == View.VISIBLE)
             ((MainActivity)getActivity()).tabRl.setVisibility(View.GONE);
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         recyclerView = view.findViewById(R.id.recyclerView);
         description = view.findViewById(R.id.description);

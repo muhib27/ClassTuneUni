@@ -106,6 +106,7 @@ public class SubjectResultFragment extends Fragment implements SubjectResultAdap
                     StCourseSection ss = AppSharedPreference.getStUserTab(s, pos);
                     GlobalCourseId = ss.getCourseCode();
                     GlobalOfferedCourseSectionId = ss.getCourseOfferSectionId();
+                    clearfield();
                     callSubjectResultApi(GlobalOfferedCourseSectionId);
 
                 }
@@ -159,6 +160,7 @@ public class SubjectResultFragment extends Fragment implements SubjectResultAdap
                         uiHelper.dismissLoadingDialog();
 
                         StCourseResultResponse stCourseResultResponse = value.body();
+                        clearfield();
                         subjectResultAdapter.clear();
                         if (stCourseResultResponse.getStatus().getCode() == 200) {
                             totalSt = 0;
@@ -172,14 +174,16 @@ public class SubjectResultFragment extends Fragment implements SubjectResultAdap
                             subjectResultAdapter.addAllData(resultList);
 //                            Log.v("tt", noticeList.toString());
                             //  Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
-                        } else
-                            Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        } else {
+                            subjectResultAdapter.clear();
+                           // Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
-                        Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        subjectResultAdapter.clear();
+                       // Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
                         uiHelper.dismissLoadingDialog();
                     }
 
@@ -194,11 +198,18 @@ public class SubjectResultFragment extends Fragment implements SubjectResultAdap
     }
 
     private void populateData(CourseResultData data, int totalSt) {
-        if(data.getGrade().getGrade()!=null)
+        if(data.getGrade()!=null && data.getGrade().getGrade()!=null)
             grade.setText(data.getGrade().getGrade());
 
         if(data.getTotalMarks()!=null)
             totalObtained.setText("" + data.getTotalMarks());
         hundred.setText(""+ totalSt + "%");
+    }
+
+
+    private void clearfield(){
+        grade.setText("");
+        totalObtained.setText("");
+        hundred.setText("");
     }
 }

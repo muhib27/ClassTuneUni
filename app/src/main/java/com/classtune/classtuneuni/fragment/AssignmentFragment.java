@@ -318,14 +318,16 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.It
                             else isLastPage = true;
 //                            Log.v("tt", noticeList.toString());
                             //  Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
-                        } else
-                            Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        } else {
+                            assignmentAdapter.clear();
+                           // Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
-                        Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        assignmentAdapter.clear();
+                       // Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
                         uiHelper.dismissLoadingDialog();
                     }
 

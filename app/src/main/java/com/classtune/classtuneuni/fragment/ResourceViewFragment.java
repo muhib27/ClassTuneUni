@@ -43,6 +43,8 @@ public class ResourceViewFragment extends Fragment {
 
         if(((MainActivity)getActivity()).tabRl.getVisibility() == View.VISIBLE)
         ((MainActivity)getActivity()).tabRl.setVisibility(View.GONE);
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         if (getArguments().getString("title") != null)
             titleSt = getArguments().getString("title");

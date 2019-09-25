@@ -11,6 +11,9 @@ public class StClsScheduleResponse {
     @SerializedName("data")
     @Expose
     private StClScheduleData data;
+    @SerializedName("weekday")
+    @Expose
+    private String weekday;
 
     public CommonStatus getStatus() {
         return status;
@@ -26,5 +29,13 @@ public class StClsScheduleResponse {
 
     public void setData(StClScheduleData data) {
         this.data = data;
+    }
+
+    public String getWeekday() {
+        return weekday;
+    }
+
+    public void setWeekday(String weekday) {
+        this.weekday = weekday;
     }
 }

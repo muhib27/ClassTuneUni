@@ -72,4 +72,7 @@
         <item name="fab_colorPressed">#F2AB00</item>
         <item name="fab_colorRipple">#D99200</item>
     </style>
+    <style name="SearchViewStyle" parent="AppTheme">
+        <item name="android:editTextColor">@color/black</item>
+    </style>
 </resources>

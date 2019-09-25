@@ -33,6 +33,7 @@ public class ClassScheduleAdapter extends RecyclerView.Adapter<RecyclerView.View
     private boolean isLoadingAdded = false;
     private boolean retryPageLoad = false;
     private String tab = "";
+    private String weekday = "";
 
     public ClassScheduleAdapter(Context context) {
         mValues = new ArrayList<>();
@@ -83,7 +84,7 @@ public class ClassScheduleAdapter extends RecyclerView.Adapter<RecyclerView.View
                     itemHolder.courseName.setVisibility(View.INVISIBLE);
                 }
 
-                if(position == 0)
+                if((!weekday.isEmpty() && routine.getDay().equals(weekday)) || (routine.getDay().equalsIgnoreCase("Today")))
                 {
                     itemHolder.ll.setBackgroundColor(mContext.getResources().getColor(R.color.appColor));
                     itemHolder.day.setTextColor(mContext.getResources().getColor(R.color.white));
@@ -182,11 +183,13 @@ public class ClassScheduleAdapter extends RecyclerView.Adapter<RecyclerView.View
         notifyItemInserted(mValues.size() - 1);
     }
 
-    public void addAllData(List<Routine> moveResults, String all) {
+    public void addAllData(List<Routine> moveResults, String all, String weekday) {
         for (Routine result : moveResults) {
             add(result);
         }
         tab = all;
+        if(weekday!=null)
+        this.weekday = weekday;
     }
 
     public void remove(Routine r) {

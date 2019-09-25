@@ -248,22 +248,22 @@ public class StudentAttendanceFragment extends Fragment {
         ArrayList<IBarDataSet> dataSets = null;
       //  Log.e("DDD_DATA", ""+data.getMark());
         ArrayList<BarEntry> valueSet1 = new ArrayList<>();
-        BarEntry v1e1 = new BarEntry(present, 0); // present
+        BarEntry v1e1 = new BarEntry(totalClass, 0); // totalClass
         valueSet1.add(v1e1);
 
         ArrayList<BarEntry> valueSet2 = new ArrayList<>();
-        BarEntry v2e1 = new BarEntry(absent, 1); //absent
+        BarEntry v2e1 = new BarEntry(present, 1); //present
         valueSet2.add(v2e1);
 
 //        ArrayList<BarEntry> valueSet3 = new ArrayList<>();
 //        BarEntry v3e1 = new BarEntry(Float.parseFloat(getDecimalFormatNumber(data.getMaxMark())), 2); // highest mark
 //        valueSet3.add(v3e1);
 
-        BarDataSet barDataSet1 = new BarDataSet(valueSet1, getString(R.string.present));
-        barDataSet1.setColor(Color.rgb(0, 155, 0));
+        BarDataSet barDataSet1 = new BarDataSet(valueSet1, getString(R.string.total_class));
+        barDataSet1.setColor(getResources().getColor(R.color.total_class));
 
-        BarDataSet barDataSet2 = new BarDataSet(valueSet2, getString(R.string.absent));
-        barDataSet2.setColor(Color.rgb(155, 0, 0));
+        BarDataSet barDataSet2 = new BarDataSet(valueSet2, getString(R.string.present));
+        barDataSet2.setColor(getResources().getColor(R.color.appColor));
 
 //        BarDataSet barDataSet3 = new BarDataSet(valueSet3, getString(R.string.title));
 //        barDataSet3.setColor(Color.rgb(0, 0, 155));

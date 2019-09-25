@@ -212,7 +212,7 @@ public class ClassScheduleFragment extends Fragment implements ClassScheduleAdap
                         if (stClsScheduleResponse.getStatus().getCode() == 200) {
                             //populateData(studentAttendanceResponse.getData());
                             //scheduleList = new ArrayList<>();
-                            classScheduleAdapter.addAllData(stClsScheduleResponse.getData().getRoutine(), "");
+                            classScheduleAdapter.addAllData(stClsScheduleResponse.getData().getRoutine(), "", "");
 
                             //Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
                         } else {
@@ -264,7 +264,7 @@ public class ClassScheduleFragment extends Fragment implements ClassScheduleAdap
                         if (stClsScheduleResponse.getStatus().getCode() == 200) {
                             //populateData(studentAttendanceResponse.getData());
                             //scheduleList = new ArrayList<>();
-                            classScheduleAdapter.addAllData(stClsScheduleResponse.getData().getRoutine(), "All");
+                            classScheduleAdapter.addAllData(stClsScheduleResponse.getData().getRoutine(), "All", stClsScheduleResponse.getWeekday());
 
                             //Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
                         } else {

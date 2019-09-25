@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "473229565765",
-    "firebase_url": "https://classtune-plus.firebaseio.com",
-    "project_id": "classtune-plus",
-    "storage_bucket": "classtune-plus.appspot.com"
+    "project_number": "780429047410",
+    "firebase_url": "https://edoozz-5768c.firebaseio.com",
+    "project_id": "edoozz-5768c",
+    "storage_bucket": "edoozz-5768c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:473229565765:android:68fb31394a920ecb",
+        "mobilesdk_app_id": "1:780429047410:android:4e5229ead4736bb66b74eb",
         "android_client_info": {
           "package_name": "com.classtune.classtuneuni"
         }
       },
       "oauth_client": [
         {
-          "client_id": "473229565765-vssikrrig0ll3iqklgh6cnroffsp24rk.apps.googleusercontent.com",
+          "client_id": "780429047410-4s5tvt4lgulc461gj3kgo0f0mfulnefp.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCgs0WZRQB4TJyxw49La5ywWamSzfpxVL8"
+          "current_key": "AIzaSyCwGV0ec8IJ-edJ_RhgwCMW9M-c-n2_y34"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "473229565765-vssikrrig0ll3iqklgh6cnroffsp24rk.apps.googleusercontent.com",
+              "client_id": "780429047410-4s5tvt4lgulc461gj3kgo0f0mfulnefp.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

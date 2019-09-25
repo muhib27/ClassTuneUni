@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.adapter.AttachmentAdapter;
 import com.classtune.classtuneuni.adapter.CourseListAdapter;
 import com.classtune.classtuneuni.assignment.AssinmentAttachment;
@@ -84,6 +85,10 @@ public class AssiDetailsViewFragment extends Fragment  implements View.OnClickLi
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if(((MainActivity)getActivity()).tabRl.getVisibility() == View.VISIBLE)
+            ((MainActivity)getActivity()).tabRl.setVisibility(View.GONE);
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         uiHelper = new UIHelper(getActivity());
         recyclerView = view.findViewById(R.id.recyclerView);

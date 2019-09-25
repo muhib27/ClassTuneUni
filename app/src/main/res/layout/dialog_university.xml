@@ -2,9 +2,9 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center"
-    android:background="@color/white"
-    android:paddingBottom="@dimen/size_20dp">
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,78 +12,130 @@
         android:background="@color/white"
         android:gravity="center"
         android:orientation="vertical">
-
+        <!--<com.mancj.materialsearchbar.MaterialSearchBar-->
+            <!--style="@style/MaterialSearchBarLight"-->
+            <!--app:mt_speechMode="false"-->
+            <!--app:mt_hint="Course Code/Name, instructor, enroll code"-->
+            <!--app:mt_maxSuggestionsCount="10"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/searchBar" />-->
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <EditText
-                android:hint="University Name"
-                android:backgroundTint="@color/appColor"
-                android:padding="@dimen/size_10dp"
-                android:textColor="@color/appColor"
-                android:id="@+id/editText"
-                android:layout_width="wrap_content"
+
+            <!--<SearchView-->
+                <!--android:hint="University Name"-->
+                <!--android:backgroundTint="@color/appColor"-->
+                <!--android:padding="@dimen/size_10dp"-->
+                <!--android:textColor="@color/appColor"-->
+                <!--android:id="@+id/editText"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentStart="true"-->
+                <!--android:layout_alignParentLeft="true"-->
+                <!--android:layout_alignParentTop="true"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:inputType="text" />-->
+            <SearchView
+                android:theme="@style/SearchViewStyle"
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
+                android:queryHint="Search University"
+                android:iconifiedByDefault="false"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:inputType="text" />
+                />
 
             <ListView
                 android:id="@+id/listView"
                 android:layout_width="wrap_content"
-                android:layout_height="200dp"
-                android:layout_below="@+id/editText"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/searchView"
                 android:layout_alignParentStart="true" />
         </RelativeLayout>
 
-        <RelativeLayout
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+
+            <!--<Button-->
+                <!--android:id="@+id/cancel"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentStart="true"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_marginStart="@dimen/size_20dp"-->
+                <!--android:layout_marginTop="@dimen/size_20dp"-->
+                <!--android:background="@drawable/app_button_bg"-->
+                <!--android:paddingLeft="@dimen/size_20dp"-->
+                <!--android:paddingTop="@dimen/size_5dp"-->
+                <!--android:paddingRight="@dimen/size_20dp"-->
+                <!--android:paddingBottom="@dimen/size_5dp"-->
+                <!--android:text="Cancel"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:textSize="@dimen/size_20sp"-->
+                <!--android:textStyle="normal" />-->
+
+            <!--<Button-->
+                <!--android:id="@+id/ok"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_marginTop="@dimen/size_20dp"-->
+                <!--android:layout_marginEnd="@dimen/size_20dp"-->
+                <!--android:background="@drawable/app_button_bg"-->
+                <!--android:paddingLeft="@dimen/size_20dp"-->
+                <!--android:paddingTop="@dimen/size_5dp"-->
+                <!--android:paddingRight="@dimen/size_20dp"-->
+                <!--android:paddingBottom="@dimen/size_5dp"-->
+                <!--android:text="Ok"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:textSize="@dimen/size_20sp"-->
+                <!--android:textStyle="normal" />-->
+
+        <!--</RelativeLayout>-->
+        <LinearLayout
+            android:layout_marginTop="@dimen/size_20dp"
+            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <Button
+                android:gravity="center"
                 android:id="@+id/cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/size_45dp"
                 android:layout_gravity="center"
-                android:layout_marginStart="@dimen/size_20dp"
-                android:layout_marginTop="@dimen/size_20dp"
-                android:background="@drawable/app_button_bg"
-                android:paddingLeft="@dimen/size_20dp"
-                android:paddingTop="@dimen/size_5dp"
-                android:paddingRight="@dimen/size_20dp"
-                android:paddingBottom="@dimen/size_5dp"
+                android:background="@drawable/app_ash_button_bg"
                 android:text="Cancel"
                 android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="@dimen/size_20sp"
-                android:textStyle="normal" />
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_14_sp"
+                android:textStyle="bold" />
+
 
             <Button
+                android:gravity="center"
                 android:id="@+id/ok"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/size_20dp"
-                android:layout_marginEnd="@dimen/size_20dp"
                 android:background="@drawable/app_button_bg"
-                android:paddingLeft="@dimen/size_20dp"
-                android:paddingTop="@dimen/size_5dp"
-                android:paddingRight="@dimen/size_20dp"
-                android:paddingBottom="@dimen/size_5dp"
                 android:text="Ok"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="@dimen/size_20sp"
-                android:textStyle="normal" />
-
-        </RelativeLayout>
+                android:textSize="@dimen/text_size_14_sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
 
     </LinearLayout>
