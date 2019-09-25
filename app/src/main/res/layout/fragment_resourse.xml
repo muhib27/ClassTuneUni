@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     <com.mancj.materialsearchbar.MaterialSearchBar
-        android:layout_weight="2"
+        android:layout_weight="1.5"
         style="@style/MaterialSearchBarLight"
         app:mt_speechMode="false"
         app:mt_hint="Course Code/Name, instructor, enroll code"
@@ -30,6 +30,7 @@
         <com.jaredrummler.materialspinner.MaterialSpinner
             android:id="@+id/spinner"
             android:layout_width="0dp"
+            android:textSize="@dimen/text_size_10_sp"
             android:layout_weight="1"
             android:layout_height="wrap_content"/>
 
