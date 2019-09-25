@@ -4,6 +4,7 @@ package com.classtune.classtuneuni.fcm;
 import android.util.Log;
 
 
+import com.classtune.classtuneuni.utils.MyApplication;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -28,8 +29,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
        // message.getData().get("order_id");
 
         //setAlarm();
-//        if(message.getData().get("subject")!=null)
-//        MyApplication.sendMyNotification(message.getData().get("subject"),message.getData().get("message"), message.getData().get("target_type"), message.getData().get("target_id"), message.getData().get("target_view"));
+        if(message.getData().get("subject")!=null)
+        MyApplication.sendMyNotification(message.getData().get("subject"),message.getData().get("message"), message.getData().get("target_type"), message.getData().get("target_id"), message.getData().get("target_view"));
 
     }
 

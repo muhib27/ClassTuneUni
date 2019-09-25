@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     public TabHost mTabHost;
     public RelativeLayout tabRl;
     UIHelper uiHelper;
+    private boolean enter = false;
 
 
     public static String GlobalCourseId = "";
@@ -143,12 +144,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         uiHelper = new UIHelper(this);
-        if (AppSharedPreference.getUserType().equals("3")) {
-            callStudentSectionListApi();
-        } else {
-
-            callOfferedSectionListApi();
-        }
+//        if (AppSharedPreference.getUserType().equals("3")) {
+//            callStudentSectionListApi();
+//        } else {
+//
+//            callOfferedSectionListApi();
+//        }
 
         mTabHost = (TabHost)findViewById(android.R.id.tabhost);
 
@@ -194,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
             public void onTabSelected(@IdRes int tabId) {
 //                Fragment fragment;
                 StudentCourseListFragment studentCourseListFragment = (StudentCourseListFragment) getSupportFragmentManager().findFragmentByTag("studentCourseListFragment");
-                if(studentCourseListFragment != null && studentCourseListFragment.isVisible())
+                if(AppSharedPreference.getStTabString().isEmpty() && studentCourseListFragment != null && studentCourseListFragment.isVisible())
                     return;
                 // messageView.setText(TabMessage.get(tabId, false));
                 if (tabId == R.id.home) {
@@ -217,8 +218,18 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
 
-                    fragment = new HomeFragment();
-                    loadFragment(fragment, "homeFragment", true);
+                    if(enter) {
+                        fragment = new HomeFragment();
+                        loadFragment(fragment, "homeFragment", true);
+                    }
+                    else {
+                        if (AppSharedPreference.getUserType().equals("3")) {
+                            callStudentSectionListApi();
+                        } else {
+
+                            callOfferedSectionListApi();
+                        }
+                    }
 
                 } else if (tabId == R.id.course) {
 
@@ -554,6 +565,9 @@ public class MainActivity extends AppCompatActivity {
                         StSectionListResponse stSectionListResponse = value.body();
                         if (stSectionListResponse!= null && stSectionListResponse.getStatus().getCode() == 200) {
                             stAddSection(stSectionListResponse.getData().getCourseSection());
+                            enter = true;
+                            fragment = new HomeFragment();
+                            loadFragment(fragment, "homeFragment", true);
 
                         } else if(stSectionListResponse!= null && stSectionListResponse.getStatus().getCode() == 204)
                         {

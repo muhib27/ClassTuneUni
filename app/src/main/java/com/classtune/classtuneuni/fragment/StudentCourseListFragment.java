@@ -74,8 +74,8 @@ public class StudentCourseListFragment extends Fragment implements View.OnClickL
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
 
-        if(((MainActivity)getActivity()).tabRl.getVisibility() == View.VISIBLE)
-            ((MainActivity)getActivity()).tabRl.setVisibility(View.GONE);
+        if (((MainActivity) getActivity()).tabRl.getVisibility() == View.VISIBLE)
+            ((MainActivity) getActivity()).tabRl.setVisibility(View.GONE);
         uiHelper = new UIHelper(getActivity());
 
         searchBar = view.findViewById(R.id.searchBar);
@@ -90,7 +90,7 @@ public class StudentCourseListFragment extends Fragment implements View.OnClickL
 //        courseList.add(new Course("Title"));
 
         stCourseAdapter = new StCourseAdapter(getActivity(), this);
-        linearLayoutManager =  new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(getResources()));
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -376,8 +376,7 @@ public class StudentCourseListFragment extends Fragment implements View.OnClickL
     @Override
     public void onSearchStateChanged(boolean enabled) {
         String s = enabled ? "enabled" : "disabled";
-        if(s.equals("disabled"))
-        {
+        if (s.equals("disabled")) {
             searchKey = "";
             callAllCourseListApi();
         }
@@ -420,13 +419,22 @@ public class StudentCourseListFragment extends Fragment implements View.OnClickL
 //
 //        return false;
 //    }
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
+//    @Override
+//    public void onPrepareOptionsMenu(Menu menu) {
 //        if (AppSharedPreference.getStTabString().isEmpty())
 //            menu.getItem(R.id.chat).setEnabled(false);
 //        else
 //            menu.getItem(R.id.chat).setEnabled(true);
-//            menu.getItem(item_index).setEnabled(false);
-//        return true;
+//
+//        //return true;
+//    }
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        if (AppSharedPreference.getStTabString().isEmpty())
+            menu.findItem(R.id.chat).setEnabled(false);
+        else
+            menu.findItem(R.id.chat).setEnabled(true);
+        super.onPrepareOptionsMenu(menu);
     }
+
 }
