@@ -5,17 +5,18 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.ResourseFragment">
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="horizontal"
         android:id="@+id/rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     <com.mancj.materialsearchbar.MaterialSearchBar
-        android:layout_alignParentStart="true"
+        android:layout_weight="2"
         style="@style/MaterialSearchBarLight"
         app:mt_speechMode="false"
         app:mt_hint="Course Code/Name, instructor, enroll code"
         app:mt_maxSuggestionsCount="10"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_toStartOf="@+id/img"
         android:id="@+id/searchBar" />
@@ -26,7 +27,13 @@
             <!--android:layout_alignParentEnd="true"-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content" />-->
-    </RelativeLayout>
+        <com.jaredrummler.materialspinner.MaterialSpinner
+            android:id="@+id/spinner"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:layout_below="@+id/rl"

@@ -62,5 +62,8 @@ dependencies {
     implementation 'com.github.mancj:MaterialSearchBar:0.8.1'
 //    https://github.com/mancj/MaterialSearchBar
 
+    implementation 'com.jaredrummler:material-spinner:1.3.1'
+    //https://github.com/jaredrummler/MaterialSpinner
+
 }
 apply plugin: 'com.google.gms.google-services'
