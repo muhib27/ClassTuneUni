@@ -150,7 +150,7 @@ public class ResourseFragment extends Fragment {
 //            GlobalCourseId = ss.getCourseCode();
 //            GlobalOfferedCourseSectionId = ss.getCourseOfferSectionId();
 //        }
-        callResourceListApi(GlobalOfferedCourseSectionId);
+        callResourceListApi("");
 
     }
 
