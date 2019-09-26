@@ -35,6 +35,7 @@ import com.classtune.classtuneuni.fragment.NoticeListFragment;
 import com.classtune.classtuneuni.fragment.ResourseFragment;
 import com.classtune.classtuneuni.fragment.StudentCourseListFragment;
 import com.classtune.classtuneuni.fragment.SubjectResultFragment;
+import com.classtune.classtuneuni.fragment.TeacherNoticeDetails;
 import com.classtune.classtuneuni.response.StCourseSection;
 import com.classtune.classtuneuni.response.StSectionListResponse;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
@@ -83,6 +84,21 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.left_arrow);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+//                "notice" => 1,//st
+//                "exam_schedule" => 2,
+//                "exam_report" => 3,
+//                "final_exam_report" => 4,
+//                "assignment" => 5,/st
+//                "assignment_submited" => 6,
+//                "assignment_mark" => 7,/st
+//                "resource_material" => 8,
+//                "feedback_submitted" => 9,
+//                "attendance" => 10,
+//                "requested_for_resubmission" => 11,
+//                "resubmission_accepted" => 12,
+//                "interest" => 13,
+//                "invitation" => 14
 
 
 //        fab_main = findViewById(R.id.fab);
@@ -188,12 +204,50 @@ public class MainActivity extends AppCompatActivity {
 
         bottomBar = (BottomBar) findViewById(R.id.bottomBar);
 
+        final Bundle extras = getIntent().getExtras();
+
+        Bundle bundle;
+        String orderId = "";
+//        gotoPigeonholeFragment();
+        if (extras != null && !extras.isEmpty()) {
+
+            String type = "";
+            String id = "";
+            if (extras.getString("target_type") != null)
+                type = extras.getString("target_type");
+            if (extras.getString("target_id") != null)
+                id = extras.getString("target_id");
+
+            if (type.equals("3")) {
+                //gotoNoticeDetailsFragment(id);
+            } else if (type.equals("1")) {
+                fragment = new TeacherNoticeDetails();
+                bundle = new Bundle();
+                bundle.putString("noticeId",id);
+                gotoFragment(fragment, "teacherNoticeDetails", bundle);
+            } else if (type.equals("2")) {
+               // gotoCMSubmitTaskDetailsFragment(id);
+            } else if (type.equals("4")) {
+                //gotoReadingPackageFragmentNotify(id);
+                Fragment fragment = new AssignmentDetailsFragment();
+                bundle = new Bundle();
+                bundle.putString("assignmentId", id);
+                fragment.setArguments(bundle);
+                gotoFragment(fragment, "assignmentDetailsFragment", bundle);
+            }
+            else if (type.equals("5") || type.equals("7")) {
+                //gotoReadingPackageFragmentNotify(id);
+            }
+        }
+
 //        fragment = new HomeFragment();
 //        loadFragment(fragment);
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(@IdRes int tabId) {
 //                Fragment fragment;
+                if(extras != null)
+                    return;
                 StudentCourseListFragment studentCourseListFragment = (StudentCourseListFragment) getSupportFragmentManager().findFragmentByTag("studentCourseListFragment");
                 if(AppSharedPreference.getStTabString().isEmpty() && studentCourseListFragment != null && studentCourseListFragment.isVisible())
                     return;
@@ -660,5 +714,14 @@ public class MainActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    private void gotoFragment(Fragment fragment, String tag, Bundle bundle) {
+        // load fragment
+        fragment.setArguments(bundle);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.mainContainer, fragment, tag);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

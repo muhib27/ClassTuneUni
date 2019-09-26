@@ -93,9 +93,9 @@ public class ClassScheduleAdapter extends RecyclerView.Adapter<RecyclerView.View
                 }
                 else {
                     itemHolder.ll.setBackgroundColor(mContext.getResources().getColor(R.color.white));
-                    itemHolder.day.setTextColor(mContext.getResources().getColor(R.color.appColor));
-                    itemHolder.date.setTextColor(mContext.getResources().getColor(R.color.appColor));
-                    itemHolder.monthYear.setTextColor(mContext.getResources().getColor(R.color.appColor));
+                    itemHolder.day.setTextColor(mContext.getResources().getColor(R.color.ash_b5));
+                    itemHolder.date.setTextColor(mContext.getResources().getColor(R.color.ash_b5));
+                    itemHolder.monthYear.setTextColor(mContext.getResources().getColor(R.color.ash_b5));
                 }
 //                itemHolder.scheduleCell.setOnClickListener(new View.OnClickListener() {
 //                    @Override

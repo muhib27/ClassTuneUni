@@ -6,6 +6,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.ResourseFragment">
     <LinearLayout
+        android:elevation="@dimen/size_3dp"
+        android:layout_marginEnd="@dimen/size_5dp"
+        android:layout_marginStart="@dimen/size_5dp"
         android:orientation="horizontal"
         android:id="@+id/rl"
         android:layout_width="match_parent"
@@ -14,12 +17,17 @@
         android:layout_weight="1.5"
         style="@style/MaterialSearchBarLight"
         app:mt_speechMode="false"
+        app:mt_placeholder="Search"
         app:mt_hint="Course Code/Name, instructor, enroll code"
         app:mt_maxSuggestionsCount="10"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_toStartOf="@+id/img"
         android:id="@+id/searchBar" />
+        <View
+            android:background="@color/menu_divider"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"/>
         <!--<ImageView-->
             <!--android:layout_centerVertical="true"-->
             <!--android:id="@+id/img"-->

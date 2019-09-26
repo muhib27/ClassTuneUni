@@ -101,9 +101,11 @@ public class ResourceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
                         Fragment fragment =new ResourceViewFragment();
                         Bundle bundle = new Bundle();
-                        bundle.putString("title", result.getChapterTitle());
-                        bundle.putString("subCode", result.getCourseName());
+                        bundle.putString("title", result.getTitle());
+                        bundle.putString("course_name", result.getCourseName());
+                        bundle.putString("chapter", result.getChapterTitle());
                         bundle.putString("content", result.getContent());
+                        bundle.putString("thumbnail", result.getThumbnail());
                         gotoFragment(fragment, "resourceViewFragment", bundle);
                     }
                 });

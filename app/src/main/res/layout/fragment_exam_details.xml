@@ -1,167 +1,244 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".fragment.ExamDetailsFragment">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <LinearLayout
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/size_20dp">
-
-        <Button
-            android:id="@+id/back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="@dimen/size_10dp"
-            android:background="@drawable/selected"
-            android:paddingTop="@dimen/size_5dp"
-            android:paddingBottom="@dimen/size_5dp"
-            android:text="@string/back"
-            android:elevation="3dp"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="@dimen/size_20sp" />
-
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/size_40dp"
-        android:fontFamily="@font/robotobold"
-        android:maxLines="2"
-        android:padding="@dimen/size_10dp"
-        android:text="Class Test 2"
-        android:textColor="@color/black"
-        android:textSize="@dimen/text_size_28_sp"
-        android:textStyle="bold" />
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_marginTop="@dimen/size_20dp"
-            android:id="@+id/basicInfo"
-            android:layout_alignParentStart="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/size_10dp"
-                android:padding="@dimen/size_10dp">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Md. Rohim"
-                        android:textSize="@dimen/text_size_12_sp" />
-
-                    <View
-                        android:layout_width="@dimen/size_12dp"
-                        android:layout_height="@dimen/size_12dp"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="@dimen/size_20dp"
-                        android:layout_marginRight="@dimen/size_20dp"
-                        android:background="@drawable/filled_circle" />
-
-                    <TextView
-                        android:id="@+id/text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="CSE 101"
-                        android:textColor="#90BE47"
-                        android:textSize="@dimen/text_size_12_sp" />
-
-                </LinearLayout>
-
-
-            </RelativeLayout>
-
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="@dimen/size_10dp"
-                android:layout_marginTop="@dimen/size_10dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/examDateText"
-                    android:textSize="@dimen/text_size_10_sp" />
-
-                <TextView
-                    android:id="@+id/assignedDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/size_10dp"
-                    android:text="22 Julu, 2019"
-                    android:textColor="@color/appColor"
-                    android:textSize="@dimen/text_size_10_sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-
-        </LinearLayout>
+        android:orientation="vertical">
 
         <android.support.v7.widget.CardView
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/cardView"
-            android:layout_width="wrap_content"
+            android:id="@+id/upcomingExam"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            card_view:cardElevation="4dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="@dimen/size_20dp"
-            card_view:cardUseCompatPadding="true">
+            android:layout_below="@+id/resources"
+            android:layout_marginStart="@dimen/size_10dp"
+            android:layout_marginTop="@dimen/size_20dp"
+            android:layout_marginEnd="@dimen/size_10dp"
+            android:elevation="@dimen/size_5dp">
 
-            <LinearLayout
-                android:layout_margin="@dimen/size_10dp"
-                android:orientation="vertical"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:paddingRight="@dimen/size_20dp"
-                    android:paddingLeft="@dimen/size_20dp"
-                    android:textSize="@dimen/text_size_25_sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2.5"/>
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/size_10dp">
 
-                <View
-                    android:paddingRight="@dimen/size_10dp"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:background="#B5B5B5"
+                <!--<RelativeLayout-->
+                <!--android:paddingStart="@dimen/size_10dp"-->
+                <!--android:id="@+id/exam_title"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="@dimen/size_10dp">-->
+
+                <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentStart="true"-->
+                <!--android:text="Upcoming Exam"-->
+                <!--android:textColor="@color/black"-->
+                <!--android:textSize="@dimen/size_16sp" />-->
+
+                <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:paddingEnd="@dimen/size_10dp"-->
+                <!--android:src="@drawable/right_fill_arrow" />-->
+
+                <!--</RelativeLayout>-->
+
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
-                <TextView
-                    android:paddingRight="@dimen/size_20dp"
-                    android:paddingLeft="@dimen/size_20dp"
-                    android:textSize="@dimen/text_size_25_sp"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10"/>
-            </LinearLayout>
+                    android:layout_below="@+id/exam_title">
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/examDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/size_10dp"
+                        android:layout_marginTop="@dimen/size_10dp"
+                        android:layout_marginEnd="@dimen/size_10dp"
+                        android:elevation="@dimen/size_5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="#F2F2F2"
+                            android:orientation="vertical"
+                            android:paddingStart="@dimen/size_20dp"
+                            android:paddingTop="@dimen/size_10dp"
+                            android:paddingEnd="@dimen/size_20dp"
+                            android:paddingBottom="@dimen/size_10dp">
+
+                            <TextView
+                                android:id="@+id/upcomingExamDay"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:text="Monday"
+                                android:textColor="@color/ashTextColor"
+                                android:textSize="@dimen/text_size_10_sp" />
+
+                            <TextView
+                                android:id="@+id/upcomingExamDate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:text="16"
+                                android:textColor="@color/appColor"
+                                android:textSize="@dimen/text_size_38_sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/upcomingExamMY"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:text="June, 2019"
+                                android:textColor="@color/ashTextColor"
+                                android:textSize="@dimen/text_size_10_sp" />
+
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/size_15dp"
+                        android:layout_toEndOf="@+id/examDate"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/examName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/size_10dp"
+                            android:padding="@dimen/size_3dp"
+                            android:text="Mid Term"
+                            android:textColor="@color/ashTextColor"
+                            android:textSize="@dimen/text_size_14_sp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/size_3dp">
+
+                            <TextView
+                                android:id="@+id/examTime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="11:00am"
+                                android:textColor="@color/appColor"
+                                android:textSize="@dimen/size_16sp"
+                                android:textStyle="bold" />
+
+                            <View
+                                android:id="@+id/examDotView"
+                                android:layout_width="@dimen/size_10dp"
+                                android:layout_height="@dimen/size_10dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="@dimen/size_10dp"
+                                android:layout_marginRight="@dimen/size_10dp"
+                                android:background="@drawable/filled_circle_ash" />
+
+                            <TextView
+                                android:id="@+id/marks"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingEnd="@dimen/size_5dp"
+                                android:text="20"
+                                android:textColor="@color/appColor"
+                                android:textSize="@dimen/size_16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="bottom"
+                                android:text="Marks"
+                                android:textColor="@color/ashTextColor"
+                                android:textSize="@dimen/text_size_9_sp"
+                                android:textStyle="normal" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/examSubject"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/next_time"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/size_3dp"
+                            android:padding="@dimen/size_3dp"
+                            android:text="Advence Software Engineering"
+                            android:textColor="@color/ashTextColor"
+                            android:textSize="@dimen/text_size_12_sp" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
         </android.support.v7.widget.CardView>
-    </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_grade_obtained"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="@dimen/size_20dp"
+            android:text="You Obtained"
+            android:textSize="@dimen/text_size_22_sp" />
+
+        <TextView
+            android:id="@+id/obtainedMarks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_grade_obtained"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/appColor"
+            android:textSize="@dimen/text_size_48_sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/grade_tv"
+            android:layout_marginTop="@dimen/size_20dp"
+            android:gravity="center"
+            android:text="Graph"
+            android:textColor="@color/ashTextColor"
+            android:textSize="@dimen/size_20sp" />
+
+        <TextView
+            android:id="@+id/breakdown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/grade_tv"
+            android:gravity="center"
+            android:padding="@dimen/size_10dp"
+            android:text="Result Overview"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_14_sp" />
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/chart1"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_below="@+id/summary"
+            android:layout_marginTop="@dimen/size_50dp" />
 
 
-
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>

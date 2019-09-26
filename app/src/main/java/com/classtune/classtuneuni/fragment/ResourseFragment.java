@@ -55,6 +55,11 @@ public class ResourseFragment extends Fragment {
     public ResourseFragment() {
         // Required empty public constructor
     }
+//    String[] tabName;
+//    String[] tabId;
+    List<String> tabName;
+    List<String> tabId;
+
 
 
     @Override
@@ -67,14 +72,37 @@ public class ResourseFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        tabName = new ArrayList<>();
+        tabId = new ArrayList<>();
+        tabName.add("All");
+        tabId.add("");
+//        tabName = new String[];
+//        tabName[0]= "All";
+//        tabId[0]= "";
 
-        ((MainActivity)getActivity()).tabRl.setVisibility(View.VISIBLE);
+        if(!AppSharedPreference.getStTabString().isEmpty())
+        {
+            String[] parts = AppSharedPreference.getStTabString().split("\\|");
+            for(int i=0; i< parts.length;i++){
+                String[] subParts = parts[i].split("/");
+//                tabName[i+1] = subParts[0];
+//                tabId [i+1] = subParts[2];
+                tabName.add(subParts[0]);
+                tabId.add(subParts[2]);
+
+            }
+        }
+
+        if(((MainActivity)getActivity()).tabRl.getVisibility() == View.VISIBLE)
+        ((MainActivity)getActivity()).tabRl.setVisibility(View.GONE);
         MaterialSpinner spinner = (MaterialSpinner) view.findViewById(R.id.spinner);
-        spinner.setItems("Ice Cream Sandwich", "Jelly Bean", "KitKat", "Lollipop", "Marshmallow");
+        spinner.setItems(tabName);
         spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 //Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
+                callResourceListApi(tabId.get(position));
+
             }
         });
 

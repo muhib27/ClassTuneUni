@@ -85,7 +85,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener
     private List<Resource> resourceList;
     private ImageView classSchedudle, resources, notices;
     CardView nextClass, upcomingExam;
-
+    View bg;
 
     RelativeLayout latestResource;
 
@@ -112,6 +112,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener
 
         uiHelper = new UIHelper(getActivity());
 
+        bg = view.findViewById(R.id.bg);
         latestResource = view.findViewById(R.id.latestResource);
         latestResource.setOnClickListener(this);
         classSchedudle = view.findViewById(R.id.classSchedudle);
@@ -218,6 +219,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener
         if(!tabs.isEmpty()) {
             ((MainActivity)getActivity()).bottomBar.selectTabAtPosition(0);
             //((MainActivity)getActivity()).item.setEnabled(true);
+            bg.setVisibility(View.VISIBLE);
             callStudentHome();
         }
         else {
@@ -344,6 +346,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener
     }
 
     private void populateNextExam(ExamInfoModel exam, String weekday) {
+        bg.setVisibility(View.GONE);
         if(exam.getExamName()!=null)
         examName.setText(exam.getExamName());
         if(exam.getCourseName()!=null)

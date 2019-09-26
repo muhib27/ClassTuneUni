@@ -12,6 +12,9 @@ public class LoginApiModel {
     @SerializedName("data")
     @Expose
     private ApiKeyModel data;
+    @SerializedName("course_count")
+    @Expose
+    private Integer courseCount;
 
     public CommonStatus getStatus() {
         return status;
@@ -29,4 +32,11 @@ public class LoginApiModel {
         this.data = data;
     }
 
+    public Integer getCourseCount() {
+        return courseCount;
+    }
+
+    public void setCourseCount(Integer courseCount) {
+        this.courseCount = courseCount;
+    }
 }

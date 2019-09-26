@@ -76,22 +76,22 @@ public class MyApplication extends Application {
         String topActivityRun = foregroundTaskInfo.topActivity.toString();
         String name = foregroundTaskPackageName + "/" + topActivityRun;
 
-        if (topActivityRun.equals("ComponentInfo{com.classtune.classtuneuni/com.classtune.classtuneuni.activity.MainActivity}"))
-//            HomeFragment.openDialog();
-        {
-
-
-            final Intent intent = new Intent("target_url_token");
-            final LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(MyApplication.getInstance());
-            intent.putExtra("subject", subject);
-            intent.putExtra("message", message);
-            intent.putExtra("target_type", type);
-            intent.putExtra("target_id", id);
-            intent.putExtra("target_view", target);
-            broadcastManager.sendBroadcast(intent);
-
-
-        } else {
+//        if (topActivityRun.equals("ComponentInfo{com.classtune.classtuneuni/com.classtune.classtuneuni.activity.MainActivity}"))
+////            HomeFragment.openDialog();
+//        {
+//
+//
+//            final Intent intent = new Intent("target_url_token");
+//            final LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(MyApplication.getInstance());
+//            intent.putExtra("subject", subject);
+//            intent.putExtra("message", message);
+//            intent.putExtra("target_type", type);
+//            intent.putExtra("target_id", id);
+//            intent.putExtra("target_view", target);
+//            broadcastManager.sendBroadcast(intent);
+//
+//
+//        } else {
 
             long when = System.currentTimeMillis();
             NotificationManager notificationManager = (NotificationManager) mInstance
@@ -119,7 +119,7 @@ public class MyApplication extends Application {
 
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                 int importance = NotificationManager.IMPORTANCE_HIGH;
-                NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "NDC", importance);
+                NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "edoozz", importance);
                 notificationChannel.enableLights(true);
                 notificationChannel.setLightColor(Color.WHITE);
                 notificationChannel.enableVibration(true);
@@ -130,7 +130,7 @@ public class MyApplication extends Application {
             }
 
             notificationManager.notify(0, mNotifyBuilder.build());
-        }
+       // }
 
     }
 

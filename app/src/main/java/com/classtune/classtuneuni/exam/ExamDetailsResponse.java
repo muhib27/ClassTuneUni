@@ -1,22 +1,16 @@
-package com.classtune.classtuneuni.response;
-
+package com.classtune.classtuneuni.exam;
 
 import com.classtune.classtuneuni.model.CommonStatus;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class RegisTrationResponse {
-
+public class ExamDetailsResponse {
     @SerializedName("status")
     @Expose
     private CommonStatus status;
-
     @SerializedName("data")
     @Expose
-    private RegData data;
-    @SerializedName("course_count")
-    @Expose
-    private Integer courseCount;
+    private ExamDetailsData data;
 
     public CommonStatus getStatus() {
         return status;
@@ -26,19 +20,11 @@ public class RegisTrationResponse {
         this.status = status;
     }
 
-    public RegData getData() {
+    public ExamDetailsData getData() {
         return data;
     }
 
-    public void setData(RegData data) {
+    public void setData(ExamDetailsData data) {
         this.data = data;
-    }
-
-    public Integer getCourseCount() {
-        return courseCount;
-    }
-
-    public void setCourseCount(Integer courseCount) {
-        this.courseCount = courseCount;
     }
 }

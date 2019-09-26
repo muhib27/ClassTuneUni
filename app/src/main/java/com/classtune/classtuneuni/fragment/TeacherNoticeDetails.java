@@ -23,10 +23,12 @@ import com.classtune.classtuneuni.notice.NoticcCourseSection;
 import com.classtune.classtuneuni.notice.NoticeDetails;
 import com.classtune.classtuneuni.notice.NoticeDetailsResponse;
 import com.classtune.classtuneuni.response.CourseSection;
+import com.classtune.classtuneuni.response.NoticeInfo;
 import com.classtune.classtuneuni.response.NoticeOfferResponse;
 import com.classtune.classtuneuni.response.Section;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
+import com.classtune.classtuneuni.utils.AppUtility;
 import com.classtune.classtuneuni.utils.NetworkConnection;
 import com.classtune.classtuneuni.utils.UIHelper;
 import com.google.gson.JsonElement;
@@ -72,6 +74,8 @@ public class TeacherNoticeDetails extends Fragment implements View.OnClickListen
 
         if(((MainActivity) Objects.requireNonNull(getActivity())).tabRl.getVisibility() == View.VISIBLE)
             ((MainActivity)getActivity()).tabRl.setVisibility(View.GONE);
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         noticeId = getArguments().getString("noticeId");
         uiHelper = new UIHelper(getActivity());
@@ -84,11 +88,11 @@ public class TeacherNoticeDetails extends Fragment implements View.OnClickListen
         date = view.findViewById(R.id.date);
         description = view.findViewById(R.id.description);
 
-        back = view.findViewById(R.id.back);
+//        back = view.findViewById(R.id.back);
         edit = view.findViewById(R.id.edit);
         delete = view.findViewById(R.id.delete);
-
-        back.setOnClickListener(this);
+//
+//        back.setOnClickListener(this);
         edit.setOnClickListener(this);
         delete.setOnClickListener(this);
 
@@ -180,11 +184,12 @@ public class TeacherNoticeDetails extends Fragment implements View.OnClickListen
 
                         NoticeDetailsResponse noticeDetailsResponse = value.body();
                         if (noticeDetailsResponse.getStatus().getCode() == 200) {
-                            populateData(noticeDetailsResponse.getData());
+                            populateStudentData(noticeDetailsResponse.getData().getSingleNotice());
 
-                            Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
-                        } else
-                            Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                        } else {
+                          //  Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
@@ -209,6 +214,22 @@ public class TeacherNoticeDetails extends Fragment implements View.OnClickListen
         date.setText(data.getNotices().getCreatedAt());
         description.setText(data.getNotices().getDescriptions());
       //  description.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
+
+    }
+    private void populateStudentData(NoticeInfo singleNotice) {
+//        noticeSectionList = data.getCourseSection();
+//        getCourseSection(data.getCourseSection());
+        title.setText(singleNotice.getTitle());
+        if(singleNotice.getCreatedAt()!= null && singleNotice.getCreatedAt().contains(" "))
+        {
+            String[] parts = singleNotice.getCreatedAt().split(" ");
+            if(parts.length>0)
+            date.setText(AppUtility.getDateString(parts[0], AppUtility.DATE_FORMAT_APP, AppUtility.DATE_FORMAT_SERVER));
+        }
+        description.setText(singleNotice.getDescriptions());
+        course.setText(singleNotice.getCourseName());
+        section.setText(singleNotice.getInstructor());
+        //  description.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
 
     }
 

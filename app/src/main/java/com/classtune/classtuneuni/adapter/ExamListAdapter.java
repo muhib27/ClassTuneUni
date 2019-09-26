@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
+import com.classtune.classtuneuni.fragment.ExamDetailsFragment;
 import com.classtune.classtuneuni.fragment.TeacherResultEntryFragment;
 import com.classtune.classtuneuni.home.StHomeFeed;
 import com.classtune.classtuneuni.model.ExamInfoModel;
@@ -113,6 +114,8 @@ public class ExamListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     public void onClick(View view) {
 //                        if (mListener != null) {
 //                            mListener.onItemClick(examInfoModel, position);
+
+
 //                        }
                         if(AppSharedPreference.getUserType().equals("2"))
                         {
@@ -125,6 +128,12 @@ public class ExamListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                             bundle.putString("participant", examInfoModel.getParticipants());
                             bundle.putString("total", examInfoModel.getTotalStudents());
                             gotoFragment(fragment, "reacherResultEntryFragment", bundle);
+                        }
+                        else {
+                            Fragment fragment = new ExamDetailsFragment();
+                            Bundle bundle = new Bundle();
+                            bundle.putString("id", examInfoModel.getExamId());
+                            gotoFragment(fragment, "examDetailsFragment", bundle);
                         }
                         }
                     });

@@ -15,6 +15,7 @@ import com.classtune.classtuneuni.course_resonse.CourseListResponse;
 import com.classtune.classtuneuni.course_resonse.CourseOfferSectionResponse;
 import com.classtune.classtuneuni.course_resonse.OfferedCourseResponse;
 import com.classtune.classtuneuni.enroll.StEnrollResponse;
+import com.classtune.classtuneuni.exam.ExamDetailsResponse;
 import com.classtune.classtuneuni.exam.ExamPolicyResponse;
 import com.classtune.classtuneuni.exam.ExamResponse;
 import com.classtune.classtuneuni.home.StHomeHeaderRespons;
@@ -329,6 +330,12 @@ public interface ApiInterface {
     @POST(URLHelper.UPDATE_USER)
         //Observable<Response<JsonElement>> getTaskAssign(@Body RequestBody file);
     Observable<Response<JsonElement>> userEditProfile(@Part MultipartBody.Part attachment_file_name, @Part("api_key") RequestBody api_key, @Part("name") RequestBody name,@Part("student_id") RequestBody student_id,@Part("mobile") RequestBody mobile,@Part("api_key") RequestBody password );
+
+    @FormUrlEncoded
+    @POST(URLHelper.EXAM_DETAILS)
+    Observable<Response<ExamDetailsResponse>> getStudentExamDetails(@Field("api_key") String api_key, @Field("course_offer_section_id") String course_offer_section_id);
+
+
 }
 
 
