@@ -59,6 +59,7 @@ import static com.classtune.classtuneuni.activity.MainActivity.GlobalOfferedCour
 public class StudentAttendanceFragment extends Fragment {
 
     UIHelper uiHelper;
+    int pos = 0;
     private TextView total, present, parcentage;
     String courseOfferSectionId = "";
     public StudentAttendanceFragment() {
@@ -128,14 +129,23 @@ public class StudentAttendanceFragment extends Fragment {
         });
 
 
-        if (getArguments().getString("id") != null)
+        if (getArguments() !=null && getArguments().getString("id") != null)
             courseOfferSectionId = getArguments().getString("id");
         if(courseOfferSectionId.isEmpty()) {
             callStAttendance(GlobalOfferedCourseSectionId);
         }
         else {
-
-        } callStAttendance(courseOfferSectionId);
+            for(int i=0; i<((MainActivity)getActivity()).mTabHost.getTabWidget().getTabCount(); i++)
+            {
+                String s = ((MainActivity)getActivity()).mTabHost.getTabWidget().getChildTabViewAt(i).getTag().toString();
+                if(courseOfferSectionId.equals(((MainActivity)getActivity()).mTabHost.getTabWidget().getChildTabViewAt(i).getTag())) {
+                    pos = i;
+                    break;
+                }
+            }
+            ((MainActivity)getActivity()).mTabHost.setCurrentTab(pos);
+            callStAttendance(courseOfferSectionId);
+        }
 
     }
 

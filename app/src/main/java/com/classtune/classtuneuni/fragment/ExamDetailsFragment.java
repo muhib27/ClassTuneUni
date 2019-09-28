@@ -68,7 +68,7 @@ public class ExamDetailsFragment extends Fragment {
         ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        if (getArguments().getString("id") != null)
+        if (getArguments() !=null && getArguments().getString("id") != null)
             id = getArguments().getString("id");
         uiHelper = new UIHelper(getActivity());
         examDay = view.findViewById(R.id.upcomingExamDay);

@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
 //                "assignment_mark" => 7,/st
 //                "resource_material" => 8,//st
 //                "feedback_submitted" => 9,
-//                "attendance" => 10,
+//                "attendance" => 10,//st
 //                "requested_for_resubmission" => 11,
 //                "resubmission_accepted" => 12,
 //                "interest" => 13,
@@ -735,7 +735,7 @@ public class MainActivity extends AppCompatActivity {
         TextView tvsmall = (TextView) view.findViewById(R.id.tabsTextSmall);
         tvsmall.setText(text1);
         tvsmall.setTag(stCourseSection.getCourseOfferSectionId());
-        view.setTag(stCourseSection.getCourseCode());
+        view.setTag(stCourseSection.getCourseOfferSectionId());
         return view;
     }
 

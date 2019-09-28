@@ -58,6 +58,7 @@ public class SubjectResultFragment extends Fragment implements SubjectResultAdap
     private TextView grade, totalObtained, hundred;
     int totalSt;
     String courseOfferSectionId = "";
+    int pos = 0;
 
     public SubjectResultFragment() {
         // Required empty public constructor
@@ -78,7 +79,7 @@ public class SubjectResultFragment extends Fragment implements SubjectResultAdap
 
         ((MainActivity)getActivity()).tabRl.setVisibility(View.VISIBLE);
 
-        if (getArguments().getString("id") != null)
+        if (getArguments()!=null && getArguments().getString("id") != null)
             courseOfferSectionId = getArguments().getString("id");
         uiHelper = new UIHelper(getActivity());
         recyclerView = view.findViewById(R.id.recyclerView);
@@ -88,6 +89,7 @@ public class SubjectResultFragment extends Fragment implements SubjectResultAdap
 
         resultList = new ArrayList<>();
 
+        //courseOfferSectionId = "67";
 
 
         subjectResultAdapter = new SubjectResultAdapter(getActivity());
@@ -101,6 +103,16 @@ public class SubjectResultFragment extends Fragment implements SubjectResultAdap
             callSubjectResultApi(GlobalOfferedCourseSectionId);
         }
         else {
+
+            for(int i=0; i<((MainActivity)getActivity()).mTabHost.getTabWidget().getTabCount(); i++)
+            {
+                String s = ((MainActivity)getActivity()).mTabHost.getTabWidget().getChildTabViewAt(i).getTag().toString();
+                if(courseOfferSectionId.equals(((MainActivity)getActivity()).mTabHost.getTabWidget().getChildTabViewAt(i).getTag())) {
+                    pos = i;
+                    break;
+                }
+            }
+            ((MainActivity)getActivity()).mTabHost.setCurrentTab(pos);
             callSubjectResultApi(courseOfferSectionId);
         }
 

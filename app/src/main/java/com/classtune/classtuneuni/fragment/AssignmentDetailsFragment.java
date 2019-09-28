@@ -80,7 +80,7 @@ public class AssignmentDetailsFragment extends Fragment implements View.OnClickL
 
         attachmentModelList = new ArrayList<>();
         uiHelper = new UIHelper(getActivity());
-        if (getArguments().getString("assignmentId") != null)
+        if (getArguments() !=null && getArguments().getString("assignmentId") != null)
             assignmentId = getArguments().getString("assignmentId");
         title = view.findViewById(R.id.title);
         instructor = view.findViewById(R.id.name);

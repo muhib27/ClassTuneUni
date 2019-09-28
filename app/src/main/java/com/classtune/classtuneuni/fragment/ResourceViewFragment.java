@@ -68,7 +68,7 @@ public class ResourceViewFragment extends Fragment {
         ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        if (getArguments().getString("id") != null) {
+        if (getArguments() !=null && getArguments().getString("id") != null) {
             resourceId = getArguments().getString("id");
             callResourceApi(resourceId);
         }

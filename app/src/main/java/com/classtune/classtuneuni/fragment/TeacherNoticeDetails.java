@@ -77,6 +77,7 @@ public class TeacherNoticeDetails extends Fragment implements View.OnClickListen
         ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        if(getArguments() !=null && getArguments().getString("noticeId") !=null  )
         noticeId = getArguments().getString("noticeId");
         uiHelper = new UIHelper(getActivity());
 
