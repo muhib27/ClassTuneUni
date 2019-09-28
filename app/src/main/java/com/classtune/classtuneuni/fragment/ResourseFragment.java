@@ -25,9 +25,12 @@ import com.classtune.classtuneuni.result.StCourseResultResponse;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
 import com.classtune.classtuneuni.utils.NetworkConnection;
+import com.classtune.classtuneuni.utils.PaginationAdapterCallback;
+import com.classtune.classtuneuni.utils.PaginationScrollListener;
 import com.classtune.classtuneuni.utils.UIHelper;
 import com.classtune.classtuneuni.utils.VerticalSpaceItemDecoration;
 import com.jaredrummler.materialspinner.MaterialSpinner;
+import com.mancj.materialsearchbar.MaterialSearchBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,11 +47,20 @@ import static com.classtune.classtuneuni.activity.MainActivity.GlobalOfferedCour
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ResourseFragment extends Fragment {
+public class ResourseFragment extends Fragment implements MaterialSearchBar.OnSearchActionListener, PaginationAdapterCallback {
 
     private RecyclerView recyclerView;
     ResourceAdapter resourceAdapter;
     GridLayoutManager manager;
+    MaterialSearchBar searchBar;
+    private static String searchKey = "";
+
+    private static final int PAGE_START = 0;
+    boolean f = false;
+    private boolean isLoading = false;
+    private boolean isLastPage = false;
+    private int TOTAL_PAGES;
+    private int currentPage = PAGE_START;
 
     UIHelper uiHelper;
     private List<Resource> resourceList;
@@ -72,6 +84,7 @@ public class ResourseFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        uiHelper = new UIHelper(getActivity());
         tabName = new ArrayList<>();
         tabId = new ArrayList<>();
         tabName.add("All");
@@ -87,7 +100,7 @@ public class ResourseFragment extends Fragment {
                 String[] subParts = parts[i].split("/");
 //                tabName[i+1] = subParts[0];
 //                tabId [i+1] = subParts[2];
-                tabName.add(subParts[0]);
+                tabName.add(subParts[3]);
                 tabId.add(subParts[2]);
 
             }
@@ -101,16 +114,17 @@ public class ResourseFragment extends Fragment {
 
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 //Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
-                callResourceListApi(tabId.get(position));
+                callResourceListApi(tabId.get(position), "");
 
             }
         });
 
         resourceList = new ArrayList<>();
-
+        searchBar = view.findViewById(R.id.searchBar);
+        searchBar.setOnSearchActionListener(this);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        resourceAdapter = new ResourceAdapter(getActivity());
-        recyclerView.setAdapter(resourceAdapter);
+        resourceAdapter = new ResourceAdapter(getActivity(), this);
+
 
         recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(getResources()));
 //        recyclerView.setLayoutManager(linearLayoutManager);
@@ -119,29 +133,57 @@ public class ResourseFragment extends Fragment {
         recyclerView.setLayoutManager(manager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        uiHelper = new UIHelper(getActivity());
-
-
-        ((MainActivity)getActivity()).mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+        recyclerView.addOnScrollListener(new PaginationScrollListener(manager) {
             @Override
-            public void onTabChanged(String s) {
-                int pos = ((MainActivity)getActivity()).mTabHost.getCurrentTab();
-                if(AppSharedPreference.getUserType().equals("3"))
-                {
-                    StCourseSection ss = AppSharedPreference.getStUserTab(s, pos);
-                    GlobalCourseId = ss.getCourseCode();
-                    GlobalOfferedCourseSectionId = ss.getCourseOfferSectionId();
-                    callResourceListApi(GlobalOfferedCourseSectionId);
+            protected void loadMoreItems() {
+                isLoading = true;
+                currentPage += 1;
+                if (searchKey.length() > 0)
+                    callResourceListNextApi("",searchKey);
+                else
+                    callResourceListNextApi(GlobalOfferedCourseSectionId,"");
+                //callStAssignmentListNextApi(GlobalOfferedCourseSectionId);
+            }
 
-                }
-                else {
-                    AssignmentSection ss = AppSharedPreference.getUserTab(s, pos);
-                    GlobalCourseId = ss.getCourseId();
-                    GlobalOfferedCourseSectionId = ss.getOfferedSectionId();
-                    callResourceListApi(GlobalOfferedCourseSectionId);
-                }
+            @Override
+            public int getTotalPageCount() {
+                return TOTAL_PAGES;
+            }
+
+            @Override
+            public boolean isLastPage() {
+                return isLastPage;
+            }
+
+            @Override
+            public boolean isLoading() {
+                return isLoading;
             }
         });
+        recyclerView.setAdapter(resourceAdapter);
+
+
+
+//        ((MainActivity)getActivity()).mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+//            @Override
+//            public void onTabChanged(String s) {
+//                int pos = ((MainActivity)getActivity()).mTabHost.getCurrentTab();
+//                if(AppSharedPreference.getUserType().equals("3"))
+//                {
+//                    StCourseSection ss = AppSharedPreference.getStUserTab(s, pos);
+//                    GlobalCourseId = ss.getCourseCode();
+//                    GlobalOfferedCourseSectionId = ss.getCourseOfferSectionId();
+//                    callResourceListApi(GlobalOfferedCourseSectionId, "");
+//
+//                }
+//                else {
+////                    AssignmentSection ss = AppSharedPreference.getUserTab(s, pos);
+////                    GlobalCourseId = ss.getCourseId();
+////                    GlobalOfferedCourseSectionId = ss.getOfferedSectionId();
+////                    callResourceListApi(GlobalOfferedCourseSectionId, "");
+//                }
+//            }
+//        });
 
 //        if(GlobalOfferedCourseSectionId.isEmpty())
 //        {
@@ -150,11 +192,11 @@ public class ResourseFragment extends Fragment {
 //            GlobalCourseId = ss.getCourseCode();
 //            GlobalOfferedCourseSectionId = ss.getCourseOfferSectionId();
 //        }
-        callResourceListApi("");
+        callResourceListApi("", "");
 
     }
 
-    private void callResourceListApi(String globalOfferedCourseSectionId) {
+    private void callResourceListApi(String globalOfferedCourseSectionId, String search) {
 
 
         if (!NetworkConnection.getInstance().isNetworkAvailable()) {
@@ -164,7 +206,7 @@ public class ResourseFragment extends Fragment {
         uiHelper.showLoadingDialog("Please wait...");
 
         // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
-        RetrofitApiClient.getApiInterfaceWithId().getSubjectResource(AppSharedPreference.getApiKey(), globalOfferedCourseSectionId, "0")
+        RetrofitApiClient.getApiInterfaceWithId().getSubjectResource(AppSharedPreference.getApiKey(), globalOfferedCourseSectionId, 0, search)
 
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -186,6 +228,10 @@ public class ResourseFragment extends Fragment {
 //
 
                             resourceAdapter.addAllData(resourceList);
+                            TOTAL_PAGES = resourceResponse.getData().getTotalPage();
+
+                            if (currentPage <  (TOTAL_PAGES - 1)) resourceAdapter.addLoadingFooter();
+                            else isLastPage = true;
 //                            Log.v("tt", noticeList.toString());
                             //  Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
                         } else {
@@ -207,6 +253,90 @@ public class ResourseFragment extends Fragment {
                     }
                 });
 
+
+    }
+
+    private void callResourceListNextApi(String globalOfferedCourseSectionId, String search) {
+
+
+        if (!NetworkConnection.getInstance().isNetworkAvailable()) {
+            Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        uiHelper.showLoadingDialog("Please wait...");
+
+        // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
+        RetrofitApiClient.getApiInterfaceWithId().getSubjectResource(AppSharedPreference.getApiKey(), globalOfferedCourseSectionId, currentPage, search)
+
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<ResourceResponse>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Response<ResourceResponse> value) {
+                        uiHelper.dismissLoadingDialog();
+
+                        ResourceResponse resourceResponse = value.body();
+                        resourceAdapter.clear();
+                        if (resourceResponse.getStatus().getCode() == 200) {
+//
+                            resourceAdapter.removeLoadingFooter();
+                            isLoading = false;
+                            resourceList = resourceResponse.getData().getCourseMaterials();
+//
+
+                            resourceAdapter.addAllData(resourceList);
+                            if (currentPage < (TOTAL_PAGES - 1)) resourceAdapter.addLoadingFooter();
+                            else isLastPage = true;
+//                            Log.v("tt", noticeList.toString());
+                            //  Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                        } else {
+                            //Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        uiHelper.dismissLoadingDialog();
+                    }
+
+                    @Override
+                    public void onComplete() {
+//                        progressDialog.dismiss();
+                        uiHelper.dismissLoadingDialog();
+                    }
+                });
+
+
+    }
+    @Override
+    public void onSearchStateChanged(boolean enabled) {
+        String s = enabled ? "enabled" : "disabled";
+        if (s.equals("disabled")) {
+            searchKey = "";
+            callResourceListApi("", "");
+        }
+    }
+
+    @Override
+    public void onSearchConfirmed(CharSequence text) {
+        searchKey = text.toString().trim();
+        callResourceListApi("",searchKey);
+    }
+
+    @Override
+    public void onButtonClicked(int buttonCode) {
+
+    }
+
+    @Override
+    public void retryPageLoad() {
 
     }
 }

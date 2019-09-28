@@ -12,6 +12,13 @@ public class ResourceData {
     @SerializedName("page")
     @Expose
     private String page;
+    @SerializedName("total_page")
+    @Expose
+    private int totalPage;
+
+    @SerializedName("course_material")
+    @Expose
+    private Resource courseMaterial;
 
 
     public List<Resource> getCourseMaterials() {
@@ -28,5 +35,21 @@ public class ResourceData {
 
     public void setPage(String page) {
         this.page = page;
+    }
+
+    public int getTotalPage() {
+        return totalPage;
+    }
+
+    public void setTotalPage(int totalPage) {
+        this.totalPage = totalPage;
+    }
+
+    public Resource getCourseMaterial() {
+        return courseMaterial;
+    }
+
+    public void setCourseMaterial(Resource courseMaterial) {
+        this.courseMaterial = courseMaterial;
     }
 }

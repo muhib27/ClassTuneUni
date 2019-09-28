@@ -126,4 +126,7 @@
     <string name="notice">Notice</string>
     <string name="total_class">Total Class</string>
     <string name="update">Update</string>
+    <string name="lowest">Lowest</string>
+    <string name="average">Average</string>
+    <string name="highest">Highest</string>
 </resources>

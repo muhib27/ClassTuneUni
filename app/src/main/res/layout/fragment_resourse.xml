@@ -18,11 +18,10 @@
         style="@style/MaterialSearchBarLight"
         app:mt_speechMode="false"
         app:mt_placeholder="Search"
-        app:mt_hint="Course Code/Name, instructor, enroll code"
+        app:mt_hint="Course Code/Name, instructor"
         app:mt_maxSuggestionsCount="10"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_toStartOf="@+id/img"
         android:id="@+id/searchBar" />
         <View
             android:background="@color/menu_divider"

@@ -57,6 +57,7 @@ public class SubjectResultFragment extends Fragment implements SubjectResultAdap
     UIHelper uiHelper;
     private TextView grade, totalObtained, hundred;
     int totalSt;
+    String courseOfferSectionId = "";
 
     public SubjectResultFragment() {
         // Required empty public constructor
@@ -77,7 +78,8 @@ public class SubjectResultFragment extends Fragment implements SubjectResultAdap
 
         ((MainActivity)getActivity()).tabRl.setVisibility(View.VISIBLE);
 
-
+        if (getArguments().getString("id") != null)
+            courseOfferSectionId = getArguments().getString("id");
         uiHelper = new UIHelper(getActivity());
         recyclerView = view.findViewById(R.id.recyclerView);
         grade = view.findViewById(R.id.grade_tv);
@@ -95,7 +97,12 @@ public class SubjectResultFragment extends Fragment implements SubjectResultAdap
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(subjectResultAdapter);
 
-        callSubjectResultApi(GlobalOfferedCourseSectionId);
+        if(courseOfferSectionId.isEmpty()) {
+            callSubjectResultApi(GlobalOfferedCourseSectionId);
+        }
+        else {
+            callSubjectResultApi(courseOfferSectionId);
+        }
 
         ((MainActivity)getActivity()).mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override

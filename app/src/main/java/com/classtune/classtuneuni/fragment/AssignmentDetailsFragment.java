@@ -19,8 +19,6 @@ import android.widget.Toast;
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.adapter.AttachFromTeacherAdapter;
-import com.classtune.classtuneuni.adapter.AttachmentAdapter;
-import com.classtune.classtuneuni.assignment.AssignmentSectionResponse;
 import com.classtune.classtuneuni.assignment.AssinmentAttachment;
 import com.classtune.classtuneuni.assignment.TeacherAssignmentResponse;
 import com.classtune.classtuneuni.model.AssignmentModel;
@@ -82,7 +80,8 @@ public class AssignmentDetailsFragment extends Fragment implements View.OnClickL
 
         attachmentModelList = new ArrayList<>();
         uiHelper = new UIHelper(getActivity());
-        assignmentId = getArguments().getString("assignmentId");
+        if (getArguments().getString("assignmentId") != null)
+            assignmentId = getArguments().getString("assignmentId");
         title = view.findViewById(R.id.title);
         instructor = view.findViewById(R.id.name);
         course = view.findViewById(R.id.course);

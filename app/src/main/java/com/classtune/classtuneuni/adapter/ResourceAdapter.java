@@ -56,9 +56,10 @@ public class ResourceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private String errorMsg;
 
-    public ResourceAdapter(Context context) {
+    public ResourceAdapter(Context context, PaginationAdapterCallback mCallback) {
         mValues = new ArrayList<>();
         mContext = context;
+        this.mCallback = mCallback;
     }
 
 

@@ -29,10 +29,13 @@ import com.classtune.classtuneuni.fragment.AssignmentFragment;
 import com.classtune.classtuneuni.fragment.ChatDetailsFragment;
 import com.classtune.classtuneuni.fragment.CombinedResultFragment;
 import com.classtune.classtuneuni.fragment.EnrollStartFragment;
+import com.classtune.classtuneuni.fragment.ExamDetailsFragment;
 import com.classtune.classtuneuni.fragment.HomeFragment;
 import com.classtune.classtuneuni.fragment.MorePageFragment;
 import com.classtune.classtuneuni.fragment.NoticeListFragment;
+import com.classtune.classtuneuni.fragment.ResourceViewFragment;
 import com.classtune.classtuneuni.fragment.ResourseFragment;
+import com.classtune.classtuneuni.fragment.StudentAttendanceFragment;
 import com.classtune.classtuneuni.fragment.StudentCourseListFragment;
 import com.classtune.classtuneuni.fragment.SubjectResultFragment;
 import com.classtune.classtuneuni.fragment.TeacherNoticeDetails;
@@ -87,12 +90,12 @@ public class MainActivity extends AppCompatActivity {
 
 //                "notice" => 1,//st
 //                "exam_schedule" => 2,
-//                "exam_report" => 3,
-//                "final_exam_report" => 4,
+//                "exam_report" => 3/st,
+//                "final_exam_report" => 4/st,
 //                "assignment" => 5,/st
 //                "assignment_submited" => 6,
 //                "assignment_mark" => 7,/st
-//                "resource_material" => 8,
+//                "resource_material" => 8,//st
 //                "feedback_submitted" => 9,
 //                "attendance" => 10,
 //                "requested_for_resubmission" => 11,
@@ -218,16 +221,38 @@ public class MainActivity extends AppCompatActivity {
             if (extras.getString("target_id") != null)
                 id = extras.getString("target_id");
 
-            if (type.equals("3")) {
-                //gotoNoticeDetailsFragment(id);
-            } else if (type.equals("1")) {
+             if (type.equals("1")) {
                 fragment = new TeacherNoticeDetails();
                 bundle = new Bundle();
                 bundle.putString("noticeId",id);
                 gotoFragment(fragment, "teacherNoticeDetails", bundle);
             } else if (type.equals("2")) {
                // gotoCMSubmitTaskDetailsFragment(id);
-            } else if (type.equals("4")) {
+            }
+            else if (type.equals("3")) {
+                //gotoReadingPackageFragmentNotify(id);
+                Fragment fragment = new ExamDetailsFragment();
+                bundle = new Bundle();
+                bundle.putString("id", id);
+                fragment.setArguments(bundle);
+                gotoFragment(fragment, "examDetailsFragment", bundle);
+            }else if (type.equals("4")) {
+                //gotoReadingPackageFragmentNotify(id);
+                Fragment fragment = new SubjectResultFragment();
+                bundle = new Bundle();
+                bundle.putString("id", id);
+                fragment.setArguments(bundle);
+                gotoFragment(fragment, "subjectResultFragment", bundle);
+            }
+            else if (type.equals("8")) {
+                //gotoReadingPackageFragmentNotify(id);
+                Fragment fragment = new ResourceViewFragment();
+                bundle = new Bundle();
+                bundle.putString("id", id);
+                fragment.setArguments(bundle);
+                gotoFragment(fragment, "resourceViewFragment", bundle);
+            }
+            else if (type.equals("5") || type.equals("7")) {
                 //gotoReadingPackageFragmentNotify(id);
                 Fragment fragment = new AssignmentDetailsFragment();
                 bundle = new Bundle();
@@ -235,9 +260,14 @@ public class MainActivity extends AppCompatActivity {
                 fragment.setArguments(bundle);
                 gotoFragment(fragment, "assignmentDetailsFragment", bundle);
             }
-            else if (type.equals("5") || type.equals("7")) {
-                //gotoReadingPackageFragmentNotify(id);
-            }
+             else if (type.equals("10")) {
+                 //gotoReadingPackageFragmentNotify(id);
+                 Fragment fragment = new StudentAttendanceFragment();
+                 bundle = new Bundle();
+                 bundle.putString("id", id);
+                 fragment.setArguments(bundle);
+                 gotoFragment(fragment, "studentAttendanceFragment", bundle);
+             }
         }
 
 //        fragment = new HomeFragment();
@@ -600,7 +630,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "No Connectivity", Toast.LENGTH_SHORT).show();
             return;
         }
-        uiHelper.showLoadingDialog("Please wait...");
+        //uiHelper.showLoadingDialog("Please wait...");
 
         RetrofitApiClient.getApiInterfaceWithId().getStSectionList(AppSharedPreference.getApiKey())
 
@@ -614,7 +644,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(Response<StSectionListResponse> value) {
-                        uiHelper.dismissLoadingDialog();
+                        //uiHelper.dismissLoadingDialog();
 
                         StSectionListResponse stSectionListResponse = value.body();
                         if (stSectionListResponse!= null && stSectionListResponse.getStatus().getCode() == 200) {
@@ -637,14 +667,14 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onError(Throwable e) {
 
-                        Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
-                        uiHelper.dismissLoadingDialog();
+                        //Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
+                        //uiHelper.dismissLoadingDialog();
                     }
 
                     @Override
                     public void onComplete() {
 //                        progressDialog.dismiss();
-                        uiHelper.dismissLoadingDialog();
+                       // uiHelper.dismissLoadingDialog();
                     }
                 });
 
@@ -673,7 +703,7 @@ public class MainActivity extends AppCompatActivity {
     private void stAddSection(List<StCourseSection> sections) {
         for (int i = 0; i < sections.size(); i++) {
             setupStTab(new TextView(this), sections.get(i));
-            ST_TAB_STRING = ST_TAB_STRING + sections.get(i).getCourseCode() + "/" + sections.get(i).getInstructor() + "/" + sections.get(i).getCourseOfferSectionId();
+            ST_TAB_STRING = ST_TAB_STRING + sections.get(i).getCourseCode() + "/" + sections.get(i).getInstructor() + "/" + sections.get(i).getCourseOfferSectionId()+ "/" + sections.get(i).getCourseName();
             if(i < (sections.size() -1))
                 ST_TAB_STRING = ST_TAB_STRING + "|";
             AppSharedPreference.setStUserTab(sections.get(i), i);

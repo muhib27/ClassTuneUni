@@ -144,7 +144,7 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
                 .into(pic);
 
         name.setText(AppSharedPreference.getUserName());
-        studentId.setText(AppSharedPreference.getUserId());
+        studentId.setText(AppSharedPreference.getUserEmail());
 
 
 

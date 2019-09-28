@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.multidex.MultiDex;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 
 import com.classtune.classtuneuni.R;
@@ -107,8 +108,8 @@ public class MyApplication extends Application {
 
 
             NotificationCompat.Builder mNotifyBuilder = new NotificationCompat.Builder(mInstance)
-                    .setSmallIcon(R.drawable.bell_icon)
-                    .setColor(Color.WHITE)
+                    .setSmallIcon(R.drawable.notification_icon)
+                    .setColor(ContextCompat.getColor(context, R.color.appColor))
                     .setContentTitle(subject)
                     .setContentText(message)
                     .setOngoing(false)

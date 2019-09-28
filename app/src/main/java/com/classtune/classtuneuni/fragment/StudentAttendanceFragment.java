@@ -60,6 +60,7 @@ public class StudentAttendanceFragment extends Fragment {
 
     UIHelper uiHelper;
     private TextView total, present, parcentage;
+    String courseOfferSectionId = "";
     public StudentAttendanceFragment() {
         // Required empty public constructor
     }
@@ -127,8 +128,14 @@ public class StudentAttendanceFragment extends Fragment {
         });
 
 
+        if (getArguments().getString("id") != null)
+            courseOfferSectionId = getArguments().getString("id");
+        if(courseOfferSectionId.isEmpty()) {
+            callStAttendance(GlobalOfferedCourseSectionId);
+        }
+        else {
 
-        callStAttendance(GlobalOfferedCourseSectionId);
+        } callStAttendance(courseOfferSectionId);
 
     }
 

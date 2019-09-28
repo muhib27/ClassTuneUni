@@ -78,7 +78,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
                 android:paddingEnd="@dimen/size_20dp"
-                android:src="@drawable/enroll_icon" />
+                android:src="@drawable/assignment_m" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -237,7 +237,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
                 android:paddingEnd="@dimen/size_20dp"
-                android:src="@drawable/result" />
+                android:src="@drawable/notice_m" />
 
             <LinearLayout
                 android:layout_width="wrap_content"

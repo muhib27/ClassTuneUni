@@ -242,7 +242,12 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST(URLHelper.STUDENT_COURSE_RESOURCE)
-    Observable<Response<ResourceResponse>> getSubjectResource(@Field("api_key") String api_key, @Field("course_offer_sections_id") String course_offer_section_id, @Field("page") String page);
+    Observable<Response<ResourceResponse>> getSubjectResource(@Field("api_key") String api_key, @Field("course_offer_sections_id") String course_offer_section_id, @Field("page") int page,  @Field("key") String searchKey);
+
+    @FormUrlEncoded
+    @POST(URLHelper.SINGLE_RESOURCE)
+    Observable<Response<ResourceResponse>> getResourceView(@Field("api_key") String api_key, @Field("id") String id);
+
 
     @FormUrlEncoded
     @POST(URLHelper.STUDENT_PROFILE)
@@ -333,7 +338,7 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST(URLHelper.EXAM_DETAILS)
-    Observable<Response<ExamDetailsResponse>> getStudentExamDetails(@Field("api_key") String api_key, @Field("course_offer_section_id") String course_offer_section_id);
+    Observable<Response<ExamDetailsResponse>> getStudentExamDetails(@Field("api_key") String api_key, @Field("id") String id);
 
 
 }

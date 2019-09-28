@@ -79,6 +79,8 @@ public class URLHelper {
 	public static final String STUDENT_SUBJECT_RESULT = "exam_api/student_course_result";
 
 	public static final String STUDENT_COURSE_RESOURCE = "course_api/course_materials";
+	public static final String SINGLE_RESOURCE = "course_api/course_material_single";
+
 
 
 	public static final String STUDENT_PROFILE = "exam_api/student_profile";
