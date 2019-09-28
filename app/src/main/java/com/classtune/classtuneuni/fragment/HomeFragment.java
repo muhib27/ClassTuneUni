@@ -97,11 +97,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        uiHelper = new UIHelper(getActivity());
+        callStudentHome();
 
     }
 
@@ -123,7 +126,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener
         ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        uiHelper = new UIHelper(getActivity());
+        //uiHelper = new UIHelper(getActivity());
 
         bg = view.findViewById(R.id.bg);
         latestResource = view.findViewById(R.id.latestResource);
@@ -233,7 +236,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener
             ((MainActivity)getActivity()).bottomBar.selectTabAtPosition(0);
             //((MainActivity)getActivity()).item.setEnabled(true);
             bg.setVisibility(View.VISIBLE);
-            callStudentHome();
+//            callStudentHome();
         }
         else {
             ((MainActivity)getActivity()).bottomBar.selectTabAtPosition(1);
