@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/bell"
+        android:id="@+id/notification"
         android:title=""
         android:icon="@drawable/notification"
         android:orderInCategory="100"

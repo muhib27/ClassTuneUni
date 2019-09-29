@@ -166,8 +166,8 @@ public class AssignmentDetailsFragment extends Fragment implements View.OnClickL
             description.setText(assignment.getDescription());
         if(assignment.getInstructor()!=null)
             instructor.setText(assignment.getInstructor());
-        if(assignment.getCourseCode()!=null)
-            course.setText(assignment.getCourseCode());
+        if(assignment.getCourseName()!=null)
+            course.setText(assignment.getCourseName());
         if(assignment.getAssignDate()!=null) {
             String str = assignment.getAssignDate();
             String parts[] = str.split(" ");

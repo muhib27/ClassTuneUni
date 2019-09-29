@@ -218,7 +218,10 @@ public class AssignmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 //        if (position == 0) {
 //            return HERO;
 //        } else
-        return ITEM;
+        if (position == mValues.size() - 1 && isLoadingAdded)
+            return LOADING;
+        else
+            return ITEM;
     }
 
     public interface ItemListener {

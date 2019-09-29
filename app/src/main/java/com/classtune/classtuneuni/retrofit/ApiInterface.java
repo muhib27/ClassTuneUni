@@ -27,6 +27,7 @@ import com.classtune.classtuneuni.model.LoginApiModel;
 import com.classtune.classtuneuni.model.UniversityModel;
 import com.classtune.classtuneuni.notice.NoticeDetailsResponse;
 import com.classtune.classtuneuni.notice.StNoticeResonse;
+import com.classtune.classtuneuni.notification.NotificationResponse;
 import com.classtune.classtuneuni.profile.StProfileRsponse;
 import com.classtune.classtuneuni.resource.ResourceResponse;
 import com.classtune.classtuneuni.response.NoticeOfferResponse;
@@ -340,7 +341,13 @@ public interface ApiInterface {
     @POST(URLHelper.EXAM_DETAILS)
     Observable<Response<ExamDetailsResponse>> getStudentExamDetails(@Field("api_key") String api_key, @Field("id") String id);
 
+    @FormUrlEncoded
+    @POST(URLHelper.STUDENT_NOTIFICATION_LIST)
+    Observable<Response<NotificationResponse>> getNotificationList(@Field("api_key") String api_key);
 
+    @FormUrlEncoded
+    @POST(URLHelper.STUDENT_NOTIFICATION_COUNT)
+    Observable<Response<NotificationResponse>> getNotificationCount(@Field("api_key") String api_key);
 }
 
 
