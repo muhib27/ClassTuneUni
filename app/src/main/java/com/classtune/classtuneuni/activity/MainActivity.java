@@ -6,6 +6,7 @@ import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -355,14 +356,16 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(fragment, "subjectResultFragment", true);
                 } else if (tabId == R.id.forum) {
 
-                    int backStackCount = getSupportFragmentManager().getBackStackEntryCount();
-                    if(backStackCount>1)
-                    {
-                        while (backStackCount>1) {
-                            getSupportFragmentManager().popBackStack();
-                            backStackCount--;
-                        }
-                    }
+//                    int backStackCount = getSupportFragmentManager().getBackStackEntryCount();
+//                    if(backStackCount>1)
+//                    {
+//                        while (backStackCount>1) {
+//                            getSupportFragmentManager().popBackStack();
+//                            backStackCount--;
+//                        }
+//                    }
+
+                    getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
                     fragment = new MorePageFragment();
                     loadFragment(fragment, "morePageFragment", false);

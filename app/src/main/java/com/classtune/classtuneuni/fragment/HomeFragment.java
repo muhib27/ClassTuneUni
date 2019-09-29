@@ -103,6 +103,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+//        Toast.makeText(getActivity(), "Toast", Toast.LENGTH_LONG).show();
         uiHelper = new UIHelper(getActivity());
         callStudentHome();
 
