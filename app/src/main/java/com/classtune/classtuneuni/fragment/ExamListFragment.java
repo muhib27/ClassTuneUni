@@ -70,6 +70,9 @@ public class ExamListFragment extends Fragment implements ExamListAdapter.ItemLi
     ExamListAdapter examListAdapter;
     UIHelper uiHelper;
     String subCode = "";
+    String courseOfferSectionId = "";
+    int pos = 0;
+
 
 
 
@@ -131,15 +134,42 @@ public class ExamListFragment extends Fragment implements ExamListAdapter.ItemLi
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(examListAdapter);
 
-        if(AppSharedPreference.getUserType().equals("3")) {
-            fabMenu.setVisibility(View.INVISIBLE);
-            callStExamListApi(GlobalOfferedCourseSectionId);
+        if (getArguments() !=null && getArguments().getString("id") != null)
+            courseOfferSectionId = getArguments().getString("id");
+        if(courseOfferSectionId.isEmpty()) {
+//            callStAttendance(GlobalOfferedCourseSectionId);
+            if(AppSharedPreference.getUserType().equals("3")) {
+                fabMenu.setVisibility(View.INVISIBLE);
+                callStExamListApi(GlobalOfferedCourseSectionId);
+            }
+            else {
+                fabMenu.setVisibility(View.VISIBLE);
+                subCode = ((MainActivity)getActivity()).mTabHost.getCurrentTabTag();
+                callTeacherExamListApi(GlobalOfferedCourseSectionId);
+            }
         }
         else {
-            fabMenu.setVisibility(View.VISIBLE);
-            subCode = ((MainActivity)getActivity()).mTabHost.getCurrentTabTag();
-            callTeacherExamListApi(GlobalOfferedCourseSectionId);
+            for(int i=0; i<((MainActivity)getActivity()).mTabHost.getTabWidget().getTabCount(); i++)
+            {
+                String s = ((MainActivity)getActivity()).mTabHost.getTabWidget().getChildTabViewAt(i).getTag().toString();
+                if(courseOfferSectionId.equals(((MainActivity)getActivity()).mTabHost.getTabWidget().getChildTabViewAt(i).getTag())) {
+                    pos = i;
+                    break;
+                }
+            }
+            ((MainActivity)getActivity()).mTabHost.setCurrentTab(pos);
+            if(AppSharedPreference.getUserType().equals("3")) {
+                fabMenu.setVisibility(View.INVISIBLE);
+                callStExamListApi(courseOfferSectionId);
+            }
+            else {
+                fabMenu.setVisibility(View.VISIBLE);
+                subCode = ((MainActivity)getActivity()).mTabHost.getCurrentTabTag();
+                callTeacherExamListApi(courseOfferSectionId);
+            }
         }
+
+
 
         ((MainActivity)getActivity()).mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override

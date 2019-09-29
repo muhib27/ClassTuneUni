@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/cell"
+    android:layout_marginStart="@dimen/size_10dp"
+    android:layout_marginEnd="@dimen/size_10dp"
     android:background="@color/white"
     android:layout_marginTop="@dimen/size_3dp"
     android:layout_width="match_parent"
+    android:gravity="center_vertical"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
@@ -31,6 +34,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_gravity="center_vertical"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -40,7 +44,7 @@
         <LinearLayout
             android:id="@+id/viewLl"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/section_cell_gradient_blue"
             android:gravity="center"

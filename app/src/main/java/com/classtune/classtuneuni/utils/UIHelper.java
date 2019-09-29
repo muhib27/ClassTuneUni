@@ -23,9 +23,17 @@ import android.widget.Toast;
 
 
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.notification.NotificationResponse;
+import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Response;
 
 public class UIHelper {
 
@@ -428,5 +436,59 @@ public class UIHelper {
         return "com.android.externalstorage.documents".equals(uri
                 .getAuthority());
     }
-    
+
+   public static String count = "";
+    public static String callNotificationCountApi() {
+
+
+
+        if (!NetworkConnection.getInstance().isNetworkAvailable()) {
+            //Toast.makeText(activity, "No Connectivity", Toast.LENGTH_SHORT).show();
+            return "";
+        }
+
+
+        // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
+        RetrofitApiClient.getApiInterfaceWithId().getNotificationCount(AppSharedPreference.getApiKey())
+
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<NotificationResponse>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Response<NotificationResponse> value) {
+
+
+                        NotificationResponse notificationResponse = value.body();
+
+                        if (notificationResponse.getStatus().getCode() == 200) {
+
+                        count = notificationResponse.getData().getCount();
+                        } else {
+
+                            //Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        //Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+//                        progressDialog.dismiss();
+
+                    }
+                });
+
+
+        return count;
+    }
 }

@@ -1,18 +1,21 @@
 package com.classtune.classtuneuni.fragment;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -29,14 +32,11 @@ import com.classtune.classtuneuni.adapter.AssignmentAdapter;
 import com.classtune.classtuneuni.adapter.HomeAssignmentAdapter;
 import com.classtune.classtuneuni.adapter.HomeNoticeAdapter;
 import com.classtune.classtuneuni.adapter.HomeResourceAdapter;
-import com.classtune.classtuneuni.adapter.ItemAdapter;
-import com.classtune.classtuneuni.adapter.ResourceAdapter;
 import com.classtune.classtuneuni.assignment.Assignment;
 import com.classtune.classtuneuni.class_schedule.Routine;
 import com.classtune.classtuneuni.home.StHomeRespons;
 import com.classtune.classtuneuni.model.ExamInfoModel;
 import com.classtune.classtuneuni.notice.Notices;
-import com.classtune.classtuneuni.profile.StProfileRsponse;
 import com.classtune.classtuneuni.resource.Resource;
 import com.classtune.classtuneuni.response.Notice;
 import com.classtune.classtuneuni.response.StSectionListResponse;
@@ -103,9 +103,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-//        Toast.makeText(getActivity(), "Toast", Toast.LENGTH_LONG).show();
-        uiHelper = new UIHelper(getActivity());
-        callStudentHome();
+//        uiHelper = new UIHelper(getActivity());
+//        callStudentHome();
 
     }
 
@@ -114,22 +113,25 @@ public class HomeFragment extends Fragment implements View.OnClickListener
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home_fragment_new, container, false);
-        bg = v.findViewById(R.id.bg);
-        bg.setVisibility(View.VISIBLE);
+//        bg = v.findViewById(R.id.bg);
+//        bg.setVisibility(View.VISIBLE);
         return v;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        setHasOptionsMenu(true);
+
         if(((MainActivity)getActivity()).tabRl.getVisibility() == View.VISIBLE)
             ((MainActivity)getActivity()).tabRl.setVisibility(View.GONE);
         ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        //uiHelper = new UIHelper(getActivity());
+        uiHelper = new UIHelper(getActivity());
 
-        bg = view.findViewById(R.id.bg);
+        // bg = view.findViewById(R.id.bg);
         latestResource = view.findViewById(R.id.latestResource);
         latestResource.setOnClickListener(this);
         classSchedudle = view.findViewById(R.id.classSchedudle);
@@ -236,8 +238,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener
         if(!tabs.isEmpty()) {
             ((MainActivity)getActivity()).bottomBar.selectTabAtPosition(0);
             //((MainActivity)getActivity()).item.setEnabled(true);
-            bg.setVisibility(View.VISIBLE);
-//            callStudentHome();
+            //  bg.setVisibility(View.VISIBLE);
+            callStudentHome();
         }
         else {
             ((MainActivity)getActivity()).bottomBar.selectTabAtPosition(1);
@@ -366,7 +368,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener
     }
 
     private void populateNextExam(ExamInfoModel exam, String weekday) {
-        bg.setVisibility(View.GONE);
+        //  bg.setVisibility(View.GONE);
         if(exam.getExamName()!=null)
         examName.setText(exam.getExamName());
         if(exam.getCourseName()!=null)
@@ -497,9 +499,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener
             case R.id.latestResource:
                 fragment =new ResourceViewFragment();
                 bundle = new Bundle();
-                bundle.putString("title", Topresource.getChapterTitle());
-                bundle.putString("subCode", Topresource.getCourseName());
+                bundle.putString("title", Topresource.getTitle());
+                bundle.putString("course_name", Topresource.getCourseName());
+                bundle.putString("chapter", Topresource.getChapterTitle());
                 bundle.putString("content", Topresource.getContent());
+                bundle.putString("thumbnail", Topresource.getThumbnail());
                 gotoFragment(fragment, "resourceViewFragment", bundle);
                 break;
             case R.id.classSchedudle:
@@ -561,4 +565,42 @@ public class HomeFragment extends Fragment implements View.OnClickListener
             transaction.addToBackStack(null);
         transaction.commit();
     }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // Do something that differs the Activity's menu here
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+//            case R.id.activity_menu_item:
+//                // Not implemented here
+//                return false;
+            case R.id.notification:
+                // Do Fragment menu item stuff here
+                return true;
+            default:
+                break;
+        }
+
+        return false;
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+//        if (AppSharedPreference.getStTabString().isEmpty())
+//            menu.findItem(R.id.chat).setEnabled(false);
+//        else
+//            menu.findItem(R.id.chat).setEnabled(true);
+        if (uiHelper.callNotificationCountApi().equals("0"))
+            menu.findItem(R.id.notification).setIcon(ContextCompat.getDrawable(getActivity(), R.drawable.notification));
+        else
+            menu.findItem(R.id.notification).setIcon(ContextCompat.getDrawable(getActivity(), R.drawable.bell_icon));
+        super.onPrepareOptionsMenu(menu);
+    }
+
+
 }

@@ -14,25 +14,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/assignment_cell_bg">
+        <TextView
+            android:id="@+id/examName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/robotobold"
+            android:maxLines="2"
+            android:padding="@dimen/size_10dp"
+            android:text="Class Test 2"
+            android:textColor="@color/black"
+            android:textSize="@dimen/size_20sp"
+            android:textStyle="normal" />
 
         <LinearLayout
+            android:layout_below="@id/examName"
             android:id="@+id/basicInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="@dimen/size_10dp">
 
-            <TextView
-                android:id="@+id/examName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/robotobold"
-                android:maxLines="2"
-                android:padding="@dimen/size_10dp"
-                android:text="Class Test 2"
-                android:textColor="@color/black"
-                android:textSize="@dimen/size_20sp"
-                android:textStyle="normal" />
 
             <LinearLayout
                 android:gravity="center_vertical"
@@ -95,8 +96,8 @@
         </LinearLayout>
 
         <RelativeLayout
-            android:layout_marginTop="@dimen/size_40dp"
-            android:layout_marginEnd="@dimen/size_20dp"
+            android:layout_below="@+id/examName"
+            android:layout_marginEnd="@dimen/size_10dp"
             android:layout_toEndOf="@+id/basicInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">

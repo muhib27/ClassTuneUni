@@ -7,8 +7,7 @@ public class URLHelper {
 
 
 
-
-    public URLHelper() {
+	public URLHelper() {
 	}
 	//public static final String BASE_URL= "http://192.168.3.43/";
 	public static final String BASE_URL= "http://uni.edoozz.com/";
@@ -92,6 +91,9 @@ public class URLHelper {
 	public static final String STUDENT_HOME_HEADER= "dashboard_api/student_home_top";
 
 	public static final String STUDENT_HOME = "dashboard_api/student_home";
+
+	public static final String STUDENT_NOTIFICATION_LIST = "notification_api/notification_list";
+	public static final String STUDENT_NOTIFICATION_COUNT = "notification_api/notification_count";
 
 
 
