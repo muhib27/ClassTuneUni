@@ -14,6 +14,8 @@ import com.classtune.classtuneuni.response.StCourseSection;
 public class AppSharedPreference {
     public static final String keyModelTestPrefs = "modelTestPrefs";
 
+    private static final String keyUserHome = "home";
+    private static final String keyUserActive = "is_active";
     private static final String keyUserImg = "img";
     private static final String keyId = "id";
     private static final String keyUserId = "userId";
@@ -120,17 +122,17 @@ public class AppSharedPreference {
     }
 
 
-    public static void setUDID(String udid) {
+    public static void setUserStatus(String status) {
         final SharedPreferences pref = getSharedPreferences();
         final SharedPreferences.Editor editor = pref.edit();
 
-        editor.putString(keyUDID, udid);
+        editor.putString(keyUserActive, status);
         editor.apply();
     }
 
-    public static String getUDID() {
+    public static String getUserStatus() {
         final SharedPreferences pref = getSharedPreferences();
-        return pref.getString(keyUDID, "");
+        return pref.getString(keyUserActive, "0");
     }
 
     public static void setFcm(String fcm_id) {
@@ -262,5 +264,17 @@ public class AppSharedPreference {
     public static String getStTabString() {
         final SharedPreferences pref = getSharedPreferences();
         return pref.getString(keyTabSt, "");
+    }
+
+    public static void setHomeData(String json) {
+        final SharedPreferences pref = getSharedPreferences();
+        final SharedPreferences.Editor editor = pref.edit();
+
+        editor.putString(keyUserHome, json);
+        editor.apply();
+    }
+    public static String getHomeData() {
+        final SharedPreferences pref = getSharedPreferences();
+        return pref.getString(keyUserHome, "");
     }
 }

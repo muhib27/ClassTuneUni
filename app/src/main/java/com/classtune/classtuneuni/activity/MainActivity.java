@@ -6,6 +6,7 @@ import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -286,10 +287,11 @@ public class MainActivity extends AppCompatActivity {
                 if(extras != null)
                     return;
                 StudentCourseListFragment studentCourseListFragment = (StudentCourseListFragment) getSupportFragmentManager().findFragmentByTag("studentCourseListFragment");
-                if(AppSharedPreference.getStTabString().isEmpty() && studentCourseListFragment != null && studentCourseListFragment.isVisible())
-                    return;
+
                 // messageView.setText(TabMessage.get(tabId, false));
                 if (tabId == R.id.home) {
+                    if(AppSharedPreference.getUserStatus().equals("0"))
+                        return;
 //                    HomeFragment homeFragment = (HomeFragment) getSupportFragmentManager().findFragmentByTag("homeFragment");
 //                    if(homeFragment != null && homeFragment.isVisible())
 //                        return;
@@ -337,7 +339,8 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(fragment, "studentCourseListFragment", true);
 
                 } else if (tabId == R.id.news) {
-
+                    if(AppSharedPreference.getUserStatus().equals("0"))
+                        return;
                     int backStackCount = getSupportFragmentManager().getBackStackEntryCount();
                     if(backStackCount>1)
                     {
@@ -349,6 +352,8 @@ public class MainActivity extends AppCompatActivity {
                     fragment = new ResourseFragment();
                     loadFragment(fragment, "resourseFragment" , true);
                 } else if (tabId == R.id.result) {
+                    if(AppSharedPreference.getUserStatus().equals("0"))
+                        return;
 
                     int backStackCount = getSupportFragmentManager().getBackStackEntryCount();
                     if(backStackCount>1)
@@ -362,15 +367,15 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(fragment, "subjectResultFragment", true);
                 } else if (tabId == R.id.forum) {
 
-                    int backStackCount = getSupportFragmentManager().getBackStackEntryCount();
-                    if(backStackCount>0)
-                    {
-                        while (backStackCount>0) {
-                            getSupportFragmentManager().popBackStack();
-                            backStackCount--;
-                        }
-                    }
-
+//                    int backStackCount = getSupportFragmentManager().getBackStackEntryCount();
+//                    if(backStackCount>0)
+//                    {
+//                        while (backStackCount>0) {
+//                            getSupportFragmentManager().popBackStack();
+//                            backStackCount--;
+//                        }
+//                    }
+                    getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                     fragment = new MorePageFragment();
                     loadFragment(fragment, "morePageFragment", false);
                     //  }
@@ -659,7 +664,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "No Connectivity", Toast.LENGTH_SHORT).show();
             return;
         }
-        //uiHelper.showLoadingDialog("Please wait...");
+        uiHelper.showLoadingDialog("Please wait...");
 
         RetrofitApiClient.getApiInterfaceWithId().getStSectionList(AppSharedPreference.getApiKey())
 
@@ -673,7 +678,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(Response<StSectionListResponse> value) {
-                        //uiHelper.dismissLoadingDialog();
+                       // uiHelper.dismissLoadingDialog();
 
                         StSectionListResponse stSectionListResponse = value.body();
                         if (stSectionListResponse!= null && stSectionListResponse.getStatus().getCode() == 200) {
@@ -703,7 +708,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete() {
 //                        progressDialog.dismiss();
-                       // uiHelper.dismissLoadingDialog();
+                        uiHelper.dismissLoadingDialog();
                     }
                 });
 

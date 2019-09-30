@@ -364,6 +364,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
                             //    passwordChangeDialog();
 
                             AppSharedPreference.setUserNameAndPassword(regisTrationResponse.getData().getUserData().getId(), email, password, regisTrationResponse.getData().getApiKey(), false, regisTrationResponse.getData().getUserData().getUserType(), regisTrationResponse.getData().getUserData().getImage(), regisTrationResponse.getData().getUserData().getName(), regisTrationResponse.getData().getUserData().getStudentId(), regisTrationResponse.getData().getUserData().getMobile());
+                            AppSharedPreference.setUserStatus(regisTrationResponse.getCourseCount());
                             fragment = new UploadProfilePicFragment();
                             gotoFragment(fragment, "uploadProfilePicFragment");
                         } else
@@ -438,6 +439,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
                             //    passwordChangeDialog();
 
                             AppSharedPreference.setUserNameAndPassword(regisTrationResponse.getData().getUserData().getId(), email, password, regisTrationResponse.getData().getApiKey(), false, regisTrationResponse.getData().getUserData().getUserType(), regisTrationResponse.getData().getUserData().getImage(), regisTrationResponse.getData().getUserData().getName(), regisTrationResponse.getData().getUserData().getStudentId(), regisTrationResponse.getData().getUserData().getMobile());
+                            AppSharedPreference.setUserStatus(regisTrationResponse.getCourseCount());
                             fragment = new UploadProfilePicFragment();
                             gotoFragment(fragment, "uploadProfilePicFragment");
                         } else
@@ -511,6 +513,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
                             //    passwordChangeDialog();
 
                             AppSharedPreference.setUserNameAndPassword(regisTrationResponse.getData().getUserData().getId(), email, password, regisTrationResponse.getData().getApiKey(), false, regisTrationResponse.getData().getUserData().getUserType(), regisTrationResponse.getData().getUserData().getImage(), regisTrationResponse.getData().getUserData().getName(), regisTrationResponse.getData().getUserData().getStudentId(), regisTrationResponse.getData().getUserData().getMobile());
+                            AppSharedPreference.setUserStatus(regisTrationResponse.getCourseCount());
                             fragment = new UploadProfilePicFragment();
                             gotoFragment(fragment, "uploadProfilePicFragment");
                         } else
@@ -582,7 +585,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
                         if (regisTrationResponse.getStatus().getCode() != null && regisTrationResponse.getStatus().getCode() == 200) {
                             //    passwordChangeDialog();
                             AppSharedPreference.setUserNameAndPassword(regisTrationResponse.getData().getUserData().getId(), email, password, regisTrationResponse.getData().getApiKey(), false, regisTrationResponse.getData().getUserData().getUserType(), regisTrationResponse.getData().getUserData().getImage(), regisTrationResponse.getData().getUserData().getName(),  regisTrationResponse.getData().getUserData().getStudentId(), regisTrationResponse.getData().getUserData().getMobile());
-
+                            AppSharedPreference.setUserStatus(regisTrationResponse.getCourseCount());
                             fragment = new UploadProfilePicFragment();
                             gotoFragment(fragment, "uploadProfilePicFragment");
                         } else

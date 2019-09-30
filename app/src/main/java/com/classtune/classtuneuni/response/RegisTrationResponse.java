@@ -16,7 +16,7 @@ public class RegisTrationResponse {
     private RegData data;
     @SerializedName("course_count")
     @Expose
-    private Integer courseCount;
+    private String courseCount;
 
     public CommonStatus getStatus() {
         return status;
@@ -34,11 +34,11 @@ public class RegisTrationResponse {
         this.data = data;
     }
 
-    public Integer getCourseCount() {
+    public String getCourseCount() {
         return courseCount;
     }
 
-    public void setCourseCount(Integer courseCount) {
+    public void setCourseCount(String courseCount) {
         this.courseCount = courseCount;
     }
 }

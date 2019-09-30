@@ -196,6 +196,28 @@ public class HomeAssignmentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         this.currentTime = currentTime;
     }
 
+    public void remove(Assignment r) {
+        int position = mValues.indexOf(r);
+        if (position > -1) {
+            mValues.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public void clear() {
+        //  isLoadingAdded = false;
+        while (getItemCount() > 0) {
+            remove(getItem(0));
+        }
+    }
+    public Assignment getItem(int position) {
+        return mValues.get(position);
+    }
+
+    public boolean isEmpty() {
+        return getItemCount() == 0;
+    }
+
     private void gotoFragment(Fragment fragment, String tag, String assignmentId) {
         // load fragment
         Bundle bundle = new Bundle();

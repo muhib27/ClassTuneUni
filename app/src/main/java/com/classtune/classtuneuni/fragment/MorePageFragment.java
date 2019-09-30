@@ -158,7 +158,10 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+        if(AppSharedPreference.getUserStatus().equals("0") && view.getId() != R.id.rl_8)
+            return;
         switch (view.getId()){
+
             case R.id.rl_1:
                 if (AppSharedPreference.getUserType().equals("3")) {
                     fragment = new StudentProfileFragment();
@@ -301,7 +304,7 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
         // load fragment
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.mainContainer, fragment, tag);
-        //transaction.addToBackStack(null);
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 }
