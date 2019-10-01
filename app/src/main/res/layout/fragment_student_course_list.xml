@@ -12,8 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <com.mancj.materialsearchbar.MaterialSearchBar
+            android:elevation="@dimen/size_3dp"
             style="@style/MaterialSearchBarLight"
             app:mt_speechMode="false"
+            app:mt_placeholder="Search"
             app:mt_hint="Course Code/Name, instructor, enroll code"
             app:mt_maxSuggestionsCount="10"
             android:layout_width="match_parent"

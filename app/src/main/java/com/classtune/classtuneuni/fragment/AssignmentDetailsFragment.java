@@ -9,9 +9,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,7 +49,8 @@ public class AssignmentDetailsFragment extends Fragment implements View.OnClickL
 
     UIHelper uiHelper;
     String assignmentId = "";
-    private TextView title, instructor, course, dueDate, assignDate, status, total, obtained, description;
+    private TextView title, instructor, course, dueDate, assignDate, status, total, obtained;
+    private WebView description;
     private Button viewSubmission;
     String id = "";
     LinearLayoutManager linearLayoutManager;
@@ -163,7 +166,15 @@ public class AssignmentDetailsFragment extends Fragment implements View.OnClickL
         if(assignment.getTitle()!=null)
             title.setText(assignment.getTitle());
         if(assignment.getDescription()!=null)
-            description.setText(assignment.getDescription());
+        {
+            String youtContentStr = String.valueOf(Html
+                    .fromHtml("<![CDATA[<body style=\"text-align:justify; \">"
+                            + assignment.getDescription()
+                            + "</body>]]>"));
+            description.loadDataWithBaseURL(null, "<style>figure{height: auto;width: 100% !important; padding:0px !important;margin:0px !important;} img{height: auto;width: 100% !important;} iframe{display: inline;height: auto;max-width: 100%;}</style>" + youtContentStr, "text/html", "UTF-8", null);
+            // description.setText(assignment.getDescription());
+        }
+
         if(assignment.getInstructor()!=null)
             instructor.setText(assignment.getInstructor());
         if(assignment.getCourseName()!=null)

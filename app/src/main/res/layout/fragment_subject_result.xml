@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".fragment.CombinedResultFragment">
+    <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
 
-
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -175,6 +175,6 @@
                     android:textStyle="bold" />
             </LinearLayout>
         </RelativeLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
 </RelativeLayout>

@@ -260,7 +260,7 @@ public class MainActivity extends AppCompatActivity {
                 fragment.setArguments(bundle);
                 gotoFragment(fragment, "resourceViewFragment", bundle);
             }
-            else if (type.equals("5") || type.equals("7")) {
+            else if (type.equals("5") || type.equals("7")||type.equals("12")) {
                 //gotoReadingPackageFragmentNotify(id);
                 Fragment fragment = new AssignmentDetailsFragment();
                 bundle = new Bundle();
