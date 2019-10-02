@@ -3,20 +3,16 @@ package com.classtune.classtuneuni.activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -26,15 +22,12 @@ import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.assignment.AssignmentSection;
 import com.classtune.classtuneuni.assignment.AssignmentSectionResponse;
 import com.classtune.classtuneuni.fragment.AssignmentDetailsFragment;
-import com.classtune.classtuneuni.fragment.AssignmentFragment;
 import com.classtune.classtuneuni.fragment.ChatDetailsFragment;
-import com.classtune.classtuneuni.fragment.CombinedResultFragment;
 import com.classtune.classtuneuni.fragment.EnrollStartFragment;
 import com.classtune.classtuneuni.fragment.ExamDetailsFragment;
 import com.classtune.classtuneuni.fragment.ExamListFragment;
 import com.classtune.classtuneuni.fragment.HomeFragment;
 import com.classtune.classtuneuni.fragment.MorePageFragment;
-import com.classtune.classtuneuni.fragment.NoticeListFragment;
 import com.classtune.classtuneuni.fragment.NotificationListFragment;
 import com.classtune.classtuneuni.fragment.ResourceViewFragment;
 import com.classtune.classtuneuni.fragment.ResourseFragment;
@@ -59,6 +52,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import pl.droidsonroids.gif.GifImageView;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
@@ -70,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
     public RelativeLayout tabRl;
     UIHelper uiHelper;
     private boolean enter = false;
+    public GifImageView gifImageView;
+    private View bg;
 
 
     public static String GlobalCourseId = "";
@@ -81,6 +77,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         AppSharedPreference.setUsingFirstTime(false);
         AppSharedPreference.setFirstTimeLogin(false);
+//        gifImageView = findViewById(R.id.gif);
+//        bg = findViewById(R.id.bg);
+//        bg.setVisibility(View.GONE);
+//        gifImageView.setVisibility(View.GONE);
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -500,6 +500,7 @@ public class MainActivity extends AppCompatActivity {
             //getSupportFragmentManager().popBackStack();
             HomeFragment homeFragment = (HomeFragment) getSupportFragmentManager().findFragmentByTag("homeFragment");
             if(homeFragment!=null && homeFragment.isVisible()) {
+                AppSharedPreference.setHomeData("");
                 finish();
             }
             else {
@@ -616,6 +617,8 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         uiHelper.showLoadingDialog("Please wait...");
+       // gifImageView.setVisibility(View.VISIBLE);
+        //uiHelper.loadGif(true);
 
         // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
         RetrofitApiClient.getApiInterfaceWithId().getOfferedSectionList(AppSharedPreference.getApiKey())
@@ -630,7 +633,8 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(Response<AssignmentSectionResponse> value) {
-                        uiHelper.dismissLoadingDialog();
+                        //uiHelper.dismissLoadingDialog();
+                        //gifImageView.setVisibility(View.GONE);
 
                         AssignmentSectionResponse assignmentSectionResponse = value.body();
                         if (assignmentSectionResponse!= null && assignmentSectionResponse.getStatus().getCode()!=null && assignmentSectionResponse.getStatus().getCode() == 200) {
@@ -645,12 +649,14 @@ public class MainActivity extends AppCompatActivity {
 
                         Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
                         uiHelper.dismissLoadingDialog();
+                        //gifImageView.setVisibility(View.GONE);
                     }
 
                     @Override
                     public void onComplete() {
 //                        progressDialog.dismiss();
                         uiHelper.dismissLoadingDialog();
+                        //gifImageView.setVisibility(View.GONE);
                     }
                 });
 
@@ -665,6 +671,11 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         uiHelper.showLoadingDialog("Please wait...");
+//        bg.setVisibility(View.VISIBLE);
+//        gifImageView.setVisibility(View.VISIBLE);
+
+        //uiHelper.loadGif(true);
+
 
         RetrofitApiClient.getApiInterfaceWithId().getStSectionList(AppSharedPreference.getApiKey())
 
@@ -702,16 +713,21 @@ public class MainActivity extends AppCompatActivity {
                     public void onError(Throwable e) {
 
                         //Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
-                        //uiHelper.dismissLoadingDialog();
+                        uiHelper.dismissLoadingDialog();
+//                        gifImageView.setVisibility(View.GONE);
+//                        bg.setVisibility(View.GONE);
+                        //uiHelper.loadGif(false);
                     }
 
                     @Override
                     public void onComplete() {
 //                        progressDialog.dismiss();
                         uiHelper.dismissLoadingDialog();
+//                        gifImageView.setVisibility(View.GONE);
+//                        bg.setVisibility(View.GONE);
+                        //uiHelper.loadGif(false);
                     }
                 });
-
 
     }
     private String ST_TAB_STRING = "";
@@ -785,7 +801,7 @@ public class MainActivity extends AppCompatActivity {
         fragment.setArguments(bundle);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.mainContainer, fragment, tag);
-        transaction.addToBackStack(null);
+       // transaction.addToBackStack(null);
         transaction.commit();
     }
 }

@@ -57,6 +57,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import pl.droidsonroids.gif.GifImageView;
 import retrofit2.Response;
 
 
@@ -93,6 +94,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener
     View bg;
 
     RelativeLayout latestResource;
+    GifImageView gifImageView;
 
 
     public HomeFragment() {
@@ -118,9 +120,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home_fragment_new, container, false);
-//        bg = v.findViewById(R.id.bg);
+
+       // loaderDisble();
 //        bg.setVisibility(View.VISIBLE);
         setHasOptionsMenu(true);
+
 
         if(((MainActivity)getActivity()).tabRl.getVisibility() == View.VISIBLE)
             ((MainActivity)getActivity()).tabRl.setVisibility(View.GONE);
@@ -129,6 +133,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener
 
 
         uiHelper = new UIHelper(getActivity());
+
         //  uiHelper.showLoadingDialog("Pddddd...");
 
 
@@ -354,6 +359,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener
 
 //        if(!uiHelper.isDialogActive())
         if (!b)
+            //loaderEnable();
         uiHelper.showLoadingDialog("Please wait...");
 
         RetrofitApiClient.getApiInterfaceWithId().getStHome(AppSharedPreference.getApiKey())
@@ -400,8 +406,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener
                     @Override
                     public void onError(Throwable e) {
 
-                        Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
                         uiHelper.dismissLoadingDialog();
+                        //((MainActivity)getActivity()).gifImageView.setVisibility(View.GONE);
+                        //loaderDisble();
                     }
 
                     @Override
@@ -418,6 +426,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener
 //                        }, 5000);
                         mSwipeRefreshLayout.setRefreshing(false);
                         uiHelper.dismissLoadingDialog();
+                        //((MainActivity)getActivity()).gifImageView.setVisibility(View.GONE);
+                        //loaderDisble();
                     }
                 });
 
@@ -661,4 +671,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener
 
 
 
+    private void loaderEnable(){
+        bg.setVisibility(View.VISIBLE);
+        gifImageView.setVisibility(View.VISIBLE);
+    }
+    private void loaderDisble(){
+        bg.setVisibility(View.GONE);
+        gifImageView.setVisibility(View.GONE);
+    }
 }

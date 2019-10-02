@@ -122,6 +122,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             //Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
             return;
         }
+       // ((MainActivity)getActivity()).gifImageView.setVisibility(View.VISIBLE);
         uiHelper.showLoadingDialog("Authenticating...");
 //        HashMap params = new HashMap();
 //        params.put("username", username);
@@ -140,7 +141,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
                     @Override
                     public void onNext(Response<LoginApiModel> value) {
-                        uiHelper.dismissLoadingDialog();
+                        //uiHelper.dismissLoadingDialog();
                         LoginApiModel loginApiModel = value.body();
 
 
@@ -181,13 +182,14 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 //                        startActivity(intent);
 //                        finish();
 //                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-//                        uiHelper.dismissLoadingDialog();
+                        uiHelper.dismissLoadingDialog();
                     }
 
                     @Override
                     public void onComplete() {
 //                        progressDialog.dismiss();
-//                        uiHelper.dismissLoadingDialog();
+                        uiHelper.dismissLoadingDialog();
+
                     }
                 });
 

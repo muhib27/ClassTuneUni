@@ -8,6 +8,8 @@
     tools:context=".activity.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
+
+
     <LinearLayout
         android:id="@+id/containerLl"
         android:layout_width="match_parent"
@@ -66,7 +68,9 @@
             android:layout_height="0dp"
             android:layout_below="@+id/tab"
             android:layout_marginTop="@dimen/size_5dp"
-            android:layout_weight="1" />
+            android:layout_weight="1" >
+
+        </FrameLayout>
 
         <LinearLayout
             android:id="@+id/bottom_ll"
