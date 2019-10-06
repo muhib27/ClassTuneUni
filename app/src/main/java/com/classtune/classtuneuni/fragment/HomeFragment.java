@@ -14,6 +14,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Explode;
+import android.transition.Slide;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -121,10 +124,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home_fragment_new, container, false);
 
+      //  AppSharedPreference.setUsingHomeFirstTime(true);
        // loaderDisble();
 //        bg.setVisibility(View.VISIBLE);
         setHasOptionsMenu(true);
-
 
         if(((MainActivity)getActivity()).tabRl.getVisibility() == View.VISIBLE)
             ((MainActivity)getActivity()).tabRl.setVisibility(View.GONE);
@@ -255,7 +258,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener
 //            //callOfferedSectionListApi();
 //        }
         if(!tabs.isEmpty()) {
-            ((MainActivity)getActivity()).bottomBar.selectTabAtPosition(0);
+//            ((MainActivity)getActivity()).bottomBar.selectTabAtPosition(0);
             //((MainActivity)getActivity()).item.setEnabled(true);
             //  bg.setVisibility(View.VISIBLE);
             if (!AppSharedPreference.getHomeData().isEmpty()) {
@@ -616,9 +619,23 @@ public class HomeFragment extends Fragment implements View.OnClickListener
     }
 
     private void gotoFragment(Fragment fragment, String tag, Bundle bundle) {
+        Slide slideTransition = new Slide(Gravity.BOTTOM);
+        slideTransition.setDuration(getResources().getInteger(R.integer.anim_duration_medium));
+//
+//        Explode changeBoundsTransition = new Explode();
+//        changeBoundsTransition.setDuration(getResources().getInteger(R.integer.anim_duration_long));
+////
+
+//        fragment.setEnterTransition(slideTransition);
+//        fragment.setAllowEnterTransitionOverlap(false);
+//        fragment.setAllowReturnTransitionOverlap(false);
+//        fragment.setExitTransition(null);
+//        fragment.setSharedElementEnterTransition(changeBoundsTransition);
+
         // load fragment
         fragment.setArguments(bundle);
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.slide_to_down, R.anim.slide_in_down);
         transaction.replace(R.id.mainContainer, fragment, tag);
         transaction.addToBackStack(null);
         transaction.commit();

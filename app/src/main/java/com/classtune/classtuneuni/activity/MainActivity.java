@@ -9,6 +9,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.Slide;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -91,6 +93,28 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        View view = toolbar.getChildAt(1);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Perform actions
+                //Toast.makeText(getApplicationContext(), "Home", Toast.LENGTH_LONG).show();
+//                HomeFragment homeFragment = (HomeFragment) getSupportFragmentManager().findFragmentByTag("homeFragment");
+//                if(homeFragment!=null && !homeFragment.isVisible()) {
+
+                    int backStackCount = getSupportFragmentManager().getBackStackEntryCount();
+                    if (backStackCount > 0) {
+                        while (backStackCount > 0) {
+                            getSupportFragmentManager().popBackStack();
+                            backStackCount--;
+                        }
+                    }
+                    fragment = new HomeFragment();
+                    loadFragment(fragment, "homeFragment", true);
+                    bottomBar.selectTabAtPosition(0);
+               // }
+            }
+        });
 //                "notice" => 1,//st
 //                "exam_schedule" => 2,
 //                "exam_report" => 3/st,
@@ -386,6 +410,7 @@ public class MainActivity extends AppCompatActivity {
         bottomBar.setOnTabReselectListener(new OnTabReselectListener() {
             @Override
             public void onTabReSelected(@IdRes int tabId) {
+                boolean home = AppSharedPreference.getUsingHomeFirstTime();
                 String st = TabMessage.get(tabId, true);
                 ChatDetailsFragment chatDetailsFragment = (ChatDetailsFragment) getSupportFragmentManager().findFragmentByTag("chatDetailsFragment");
                 //  Toast.makeText(getApplicationContext(), TabMessage.get(tabId, true), Toast.LENGTH_LONG).show();
@@ -420,6 +445,23 @@ public class MainActivity extends AppCompatActivity {
                         loadFragment(fragment, "morePageFragment", true);
 
                     }
+                }
+                //AppSharedPreference.getUsingHomeFirstTime() &&
+                else if (st.contains("home")) {
+                    HomeFragment homeFragment = (HomeFragment) getSupportFragmentManager().findFragmentByTag("homeFragment");
+                    if(homeFragment!=null && !homeFragment.isVisible()) {
+
+                        int backStackCount = getSupportFragmentManager().getBackStackEntryCount();
+                        if (backStackCount > 0) {
+                            while (backStackCount > 0) {
+                                getSupportFragmentManager().popBackStack();
+                                backStackCount--;
+                            }
+                        }
+                        fragment = new HomeFragment();
+                        loadFragment(fragment, "homeFragment", true);
+                    }
+
                 }
                 else if (st.contains("more")) {
                     int backStackCount = getSupportFragmentManager().getBackStackEntryCount();
@@ -471,14 +513,15 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
       //  super.onBackPressed();
 
+
         int backStackCount = getSupportFragmentManager().getBackStackEntryCount();
 
         MorePageFragment morePageFragment = (MorePageFragment) getSupportFragmentManager().findFragmentByTag("morePageFragment");
-//        if (morePageFragment != null && morePageFragment.isVisible()) {
+        if (morePageFragment != null && morePageFragment.isVisible()) {
 //            fragment = new HomeFragment();
 //            loadFragment(fragment, "homeFragment", true);
-//            bottomBar.selectTabAtPosition(0);
-//        }
+            bottomBar.selectTabAtPosition(0);
+        }
         if(backStackCount>=1)
         {
             getSupportFragmentManager().popBackStack();

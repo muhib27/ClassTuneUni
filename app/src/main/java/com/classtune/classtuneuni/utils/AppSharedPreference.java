@@ -55,6 +55,19 @@ public class AppSharedPreference {
         editor.apply();
     }
 
+    public static boolean getUsingHomeFirstTime() {
+        final SharedPreferences pref = getSharedPreferences();
+        return pref.getBoolean(keyIsFirstTime, false);
+    }
+
+    public static void setUsingHomeFirstTime(boolean isFirstTime) {
+        final SharedPreferences pref = getSharedPreferences();
+        final SharedPreferences.Editor editor = pref.edit();
+
+        editor.putBoolean(keyIsFirstTime, isFirstTime);
+        editor.apply();
+    }
+
     public static boolean getFirstTimeLogin() {
         final SharedPreferences pref = getSharedPreferences();
         return pref.getBoolean(keyIsFirsLogin, true);

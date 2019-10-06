@@ -61,4 +61,9 @@
     <dimen name="size_52dp">52dp</dimen>
     <dimen name="size_120dp">120dp</dimen>
     <dimen name="size_45dp">45dp</dimen>
+
+
+    <integer name="anim_duration_very_long">1500</integer>
+    <integer name="anim_duration_long">1000</integer>
+    <integer name="anim_duration_medium">600</integer>
 </resources>

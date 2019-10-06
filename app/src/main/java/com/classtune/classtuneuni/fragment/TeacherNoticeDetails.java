@@ -71,7 +71,7 @@ public class TeacherNoticeDetails extends Fragment implements View.OnClickListen
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+       // ((MainActivity)getActivity()).bottomBar.selectTabAtPosition(4);
         if(((MainActivity) Objects.requireNonNull(getActivity())).tabRl.getVisibility() == View.VISIBLE)
             ((MainActivity)getActivity()).tabRl.setVisibility(View.GONE);
         ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
