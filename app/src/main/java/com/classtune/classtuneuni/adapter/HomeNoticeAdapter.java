@@ -24,6 +24,7 @@ import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.assignment.AssinmentAttachment;
 import com.classtune.classtuneuni.fragment.TeacherNoticeDetails;
 import com.classtune.classtuneuni.model.CourseModel;
+import com.classtune.classtuneuni.resource.Resource;
 import com.classtune.classtuneuni.response.NoticeInfo;
 import com.classtune.classtuneuni.utils.AppUtility;
 
@@ -183,6 +184,28 @@ public class HomeNoticeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             add(result);
         }
         this.currentTime = currentTime;
+    }
+
+    public void remove(NoticeInfo r) {
+        int position = mValues.indexOf(r);
+        if (position > -1) {
+            mValues.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public void clear() {
+      //  isLoadingAdded = false;
+        while (getItemCount() > 0) {
+            remove(getItem(0));
+        }
+    }
+    public NoticeInfo getItem(int position) {
+        return mValues.get(position);
+    }
+
+    public boolean isEmpty() {
+        return getItemCount() == 0;
     }
 
     private void gotoFragment(Fragment fragment, String tag, String noticeId) {

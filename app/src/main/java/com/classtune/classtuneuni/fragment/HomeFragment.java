@@ -1,17 +1,22 @@
 package com.classtune.classtuneuni.fragment;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Explode;
+import android.transition.Slide;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -46,6 +51,7 @@ import com.classtune.classtuneuni.utils.AppUtility;
 import com.classtune.classtuneuni.utils.NetworkConnection;
 import com.classtune.classtuneuni.utils.UIHelper;
 import com.classtune.classtuneuni.utils.VerticalSpaceItemDecoration;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,17 +60,20 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import pl.droidsonroids.gif.GifImageView;
 import retrofit2.Response;
 
 
 public class HomeFragment extends Fragment implements View.OnClickListener
 {
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     private TextView topDate, topTitle, chapter, subCode, author;
     private TextView notice1Date, notice1Title, notice2Date, notice2Title;
     private TextView nextSubject, nextClassTime, classInstructor, dayText, room;
     private TextView examDay, examDate, examMonthYear, examName, examTime, marks, examSubject;
     private View examDotView;
+
 
     private LinearLayout notice1Ll, notice2Ll;
 
@@ -82,12 +91,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener
     HomeAssignmentAdapter homeAssignmentAdapter;
 
     GridLayoutManager manager;
-    private List<Resource> resourceList;
+    private static List<Resource> resourceList;
     private ImageView classSchedudle, resources, notices;
     CardView nextClass, upcomingExam;
     View bg;
 
     RelativeLayout latestResource;
+    GifImageView gifImageView;
 
 
     public HomeFragment() {
@@ -112,16 +122,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_home_fragment_new, container, false);
-//        bg = v.findViewById(R.id.bg);
+        View view = inflater.inflate(R.layout.fragment_home_fragment_new, container, false);
+
+      //  AppSharedPreference.setUsingHomeFirstTime(true);
+       // loaderDisble();
 //        bg.setVisibility(View.VISIBLE);
-        return v;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
         setHasOptionsMenu(true);
 
         if(((MainActivity)getActivity()).tabRl.getVisibility() == View.VISIBLE)
@@ -129,8 +134,25 @@ public class HomeFragment extends Fragment implements View.OnClickListener
         ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+
         uiHelper = new UIHelper(getActivity());
 
+        //  uiHelper.showLoadingDialog("Pddddd...");
+
+
+        mSwipeRefreshLayout = view.findViewById(R.id.swipeToRefresh);
+
+        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.appColor), getResources().getColor(R.color.black), Color.BLUE);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //Log.e(getClass().getSimpleName(), "refresh");
+                callStudentHome(true);
+
+            }
+        });
+
+        resourceList = new ArrayList<>();
         // bg = view.findViewById(R.id.bg);
         latestResource = view.findViewById(R.id.latestResource);
         latestResource.setOnClickListener(this);
@@ -236,18 +258,41 @@ public class HomeFragment extends Fragment implements View.OnClickListener
 //            //callOfferedSectionListApi();
 //        }
         if(!tabs.isEmpty()) {
-            ((MainActivity)getActivity()).bottomBar.selectTabAtPosition(0);
+//            ((MainActivity)getActivity()).bottomBar.selectTabAtPosition(0);
             //((MainActivity)getActivity()).item.setEnabled(true);
             //  bg.setVisibility(View.VISIBLE);
-            callStudentHome();
+            if (!AppSharedPreference.getHomeData().isEmpty()) {
+                Gson gson = new Gson();
+                StHomeRespons stHomeRespons = gson.fromJson(AppSharedPreference.getHomeData(), StHomeRespons.class);
+                homeResourceAdapter.clear();
+                homeNoticeAdapter.clear();
+                homeAssignmentAdapter.clear();
+                resourceList = stHomeRespons.getResources();
+                homeResourceAdapter.addAllData(stHomeRespons.getResources());
+                homeNoticeAdapter.addAllData(stHomeRespons.getNotices(), stHomeRespons.getCurrentTime());
+                homeAssignmentAdapter.addAllData(stHomeRespons.getAssignments(),  stHomeRespons.getCurrentTime());
+                populateLatest(stHomeRespons.getResourceSingle());
+                populateLatestNotice(stHomeRespons.getNotice());
+                populateNextClass(stHomeRespons.getNextClass(), stHomeRespons.getWeekday());
+                populateNextExam(stHomeRespons.getExam(), stHomeRespons.getWeekday());
+            } else {
+                callStudentHome(false);
+            }
+
         }
         else {
             ((MainActivity)getActivity()).bottomBar.selectTabAtPosition(1);
-           // ((MainActivity)getActivity()).item.setEnabled(false);
+            // ((MainActivity)getActivity()).item.setEnabled(false);
             fragment = new StudentCourseListFragment();
             loadFragment(fragment, "studentCourseListFragment", true);
         }
-        
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
     }
 
@@ -277,7 +322,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener
                         StSectionListResponse stSectionListResponse = value.body();
                         if (stSectionListResponse!= null && stSectionListResponse.getStatus().getCode() == 200) {
                             //stAddSection(stSectionListResponse.getData().getCourseSection());
-                            callStudentHome();
+                            callStudentHome(false);
                         } else if(stSectionListResponse!= null && stSectionListResponse.getStatus().getCode() == 204)
                         {
 
@@ -307,7 +352,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener
     }
 
 
-    private void callStudentHome() {
+    private void callStudentHome(boolean b) {
 
 
         if (!NetworkConnection.getInstance().isNetworkAvailable()) {
@@ -315,7 +360,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener
             return;
         }
 
-        if(!uiHelper.isDialogActive())
+//        if(!uiHelper.isDialogActive())
+        if (!b)
+            //loaderEnable();
         uiHelper.showLoadingDialog("Please wait...");
 
         RetrofitApiClient.getApiInterfaceWithId().getStHome(AppSharedPreference.getApiKey())
@@ -330,13 +377,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener
 
                     @Override
                     public void onNext(Response<StHomeRespons> value) {
-                        uiHelper.dismissLoadingDialog();
+                        //uiHelper.dismissLoadingDialog();
 
                         StHomeRespons stHomeRespons = value.body();
                         if (stHomeRespons.getStatus().getCode() == 200) {
                             //  stAddSection(stSectionListResponse.getData().getCourseSection());
 //                            stCourseAssessmentList = stProfileRsponse.getData().getCourseAssessment();
 //                            stProfileInfoAdapter.addAllData(stCourseAssessmentList);
+                            homeResourceAdapter.clear();
+                            homeNoticeAdapter.clear();
+                            homeAssignmentAdapter.clear();
+                            resourceList = stHomeRespons.getResources();
                             homeResourceAdapter.addAllData(stHomeRespons.getResources());
                             homeNoticeAdapter.addAllData(stHomeRespons.getNotices(), stHomeRespons.getCurrentTime());
                             homeAssignmentAdapter.addAllData(stHomeRespons.getAssignments(),  stHomeRespons.getCurrentTime());
@@ -344,6 +395,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener
                             populateLatestNotice(stHomeRespons.getNotice());
                             populateNextClass(stHomeRespons.getNextClass(), stHomeRespons.getWeekday());
                             populateNextExam(stHomeRespons.getExam(), stHomeRespons.getWeekday());
+
+                            Gson gson = new Gson();
+                            String json = gson.toJson(stHomeRespons);
+                            AppSharedPreference.setHomeData(json);
+
 
                         } else {
                            // Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
@@ -353,14 +409,28 @@ public class HomeFragment extends Fragment implements View.OnClickListener
                     @Override
                     public void onError(Throwable e) {
 
-                        Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
                         uiHelper.dismissLoadingDialog();
+                        //((MainActivity)getActivity()).gifImageView.setVisibility(View.GONE);
+                        //loaderDisble();
                     }
 
                     @Override
                     public void onComplete() {
 //                        progressDialog.dismiss();
+//                        Handler handler = new Handler();
+//                        handler.postDelayed(new Runnable() {
+//
+//                            @Override
+//                            public void run() {
+//
+//                                uiHelper.dismissLoadingDialog();
+//                            }
+//                        }, 5000);
+                        mSwipeRefreshLayout.setRefreshing(false);
                         uiHelper.dismissLoadingDialog();
+                        //((MainActivity)getActivity()).gifImageView.setVisibility(View.GONE);
+                        //loaderDisble();
                     }
                 });
 
@@ -549,9 +619,23 @@ public class HomeFragment extends Fragment implements View.OnClickListener
     }
 
     private void gotoFragment(Fragment fragment, String tag, Bundle bundle) {
+        Slide slideTransition = new Slide(Gravity.BOTTOM);
+        slideTransition.setDuration(getResources().getInteger(R.integer.anim_duration_medium));
+//
+//        Explode changeBoundsTransition = new Explode();
+//        changeBoundsTransition.setDuration(getResources().getInteger(R.integer.anim_duration_long));
+////
+
+//        fragment.setEnterTransition(slideTransition);
+//        fragment.setAllowEnterTransitionOverlap(false);
+//        fragment.setAllowReturnTransitionOverlap(false);
+//        fragment.setExitTransition(null);
+//        fragment.setSharedElementEnterTransition(changeBoundsTransition);
+
         // load fragment
         fragment.setArguments(bundle);
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.slide_to_down, R.anim.slide_in_down);
         transaction.replace(R.id.mainContainer, fragment, tag);
         transaction.addToBackStack(null);
         transaction.commit();
@@ -603,4 +687,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener
     }
 
 
+
+    private void loaderEnable(){
+        bg.setVisibility(View.VISIBLE);
+        gifImageView.setVisibility(View.VISIBLE);
+    }
+    private void loaderDisble(){
+        bg.setVisibility(View.GONE);
+        gifImageView.setVisibility(View.GONE);
+    }
 }

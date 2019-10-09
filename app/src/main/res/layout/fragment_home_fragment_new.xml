@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/home_bg"
-    android:orientation="vertical"
+    android:layout_height="wrap_content"
+    android:id="@+id/swipeToRefresh"
     tools:context=".fragment.HomeFragment">
 
     <!--<FrameLayout-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent">-->
+    <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+    <android.support.v4.widget.NestedScrollView
+        android:background="@drawable/home_bg"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -92,7 +97,7 @@
                             android:textSize="@dimen/size_16sp"
                             android:transitionName="txt" />
 
-                        <RelativeLayout
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"
@@ -146,7 +151,7 @@
                                 android:textSize="@dimen/text_size_9_sp"
                                 android:textStyle="bold" />
 
-                        </RelativeLayout>
+                        </LinearLayout>
                     </RelativeLayout>
                 </RelativeLayout>
 
@@ -799,13 +804,20 @@
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
         </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
 
         <!--<View-->
             <!--android:id="@+id/bg"-->
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="match_parent"-->
             <!--android:background="@color/black_bg" />-->
+        <!--<pl.droidsonroids.gif.GifImageView-->
+            <!--android:id="@+id/gif"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/edoozz_loader" />-->
     <!--</FrameLayout>-->
 
 
-</android.support.v4.widget.NestedScrollView>
+</android.support.v4.widget.SwipeRefreshLayout>

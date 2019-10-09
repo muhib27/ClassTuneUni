@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".fragment.CombinedResultFragment">
+    <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
 
-
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -67,7 +67,7 @@
                     android:padding="@dimen/size_10dp"
                     android:text="Category"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_16_sp"
+                    android:textSize="@dimen/text_size_18_sp"
                     android:textStyle="bold" />
 
                 <View
@@ -81,12 +81,12 @@
                     android:id="@+id/gradePoint"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.2"
+                    android:layout_weight="1"
                     android:fontFamily="@font/my_custom_bold_font"
                     android:gravity="center"
-                    android:text="Grade Point"
+                    android:text="Weight"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_16_sp"
+                    android:textSize="@dimen/text_size_18_sp"
                     android:textStyle="bold" />
 
                 <View
@@ -104,9 +104,9 @@
                     android:fontFamily="@font/my_custom_bold_font"
                     android:gravity="center"
                     android:padding="@dimen/size_10dp"
-                    android:text="Grade"
+                    android:text="Obtained"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_16_sp"
+                    android:textSize="@dimen/text_size_18_sp"
                     android:textStyle="bold" />
 
 
@@ -123,6 +123,7 @@
                 app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior" />
 
             <LinearLayout
+                android:id="@+id/bottom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/recyclerView"
@@ -134,47 +135,62 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:layout_gravity="center"
                     android:id="@+id/total"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:fontFamily="@font/my_custom_bold_font"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/size_10dp"
+                    android:paddingTop="@dimen/size_10dp"
+                    android:text="Total"
+                    android:textColor="@color/appColor"
+                    android:textSize="@dimen/text_size_18_sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:id="@+id/hundred"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/my_custom_bold_font"
                     android:gravity="center"
-                    android:padding="@dimen/size_10dp"
-                    android:text="Total"
-                    android:textColor="@color/appColor"
-                    android:textSize="@dimen/text_size_22_sp"
-                    android:textStyle="bold" />
-
-
-                <TextView
-                    android:id="@+id/hundred"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.2"
-                    android:fontFamily="@font/my_custom_bold_font"
-                    android:gravity="center"
-                    android:padding="@dimen/size_10dp"
+                    android:paddingBottom="@dimen/size_10dp"
+                    android:paddingTop="@dimen/size_10dp"
                     android:text="100%"
                     android:textColor="#717171"
                     android:textSize="@dimen/text_size_18_sp"
                     android:textStyle="bold" />
 
                 <TextView
+                    android:layout_gravity="center"
                     android:id="@+id/totalObtained"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/my_custom_bold_font"
                     android:gravity="center"
-                    android:paddingLeft="15dp"
+                    android:paddingBottom="@dimen/size_10dp"
                     android:paddingTop="@dimen/size_10dp"
                     android:text="86"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_18_sp"
                     android:textStyle="bold" />
             </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/examRv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bottom"
+                android:layout_marginTop="@dimen/size_10dp"
+                android:background="@null"
+                android:scrollbars="vertical"
+                app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior" />
         </RelativeLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
 </RelativeLayout>

@@ -3,8 +3,11 @@
     android:layout_width="match_parent"
     android:orientation="horizontal"
     android:id="@+id/cell"
+    android:layout_marginStart="@dimen/size_10dp"
+    android:layout_marginEnd="@dimen/size_10dp"
     android:layout_height="wrap_content">
     <TextView
+        android:layout_gravity="center"
         android:id="@+id/subject"
         android:gravity="left"
         android:textColor="@color/black"
@@ -17,6 +20,7 @@
         android:layout_height="wrap_content" />
 
     <TextView
+        android:layout_gravity="center"
         android:id="@+id/gradePoint"
         android:gravity="center"
         android:textColor="#717171"
@@ -24,10 +28,11 @@
         android:textSize="@dimen/size_15sp"
         android:padding="@dimen/size_5dp"
         android:text="CSE 101"
-        android:layout_weight="1.2"
+        android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="wrap_content" />
     <TextView
+        android:layout_gravity="center"
         android:id="@+id/grade"
         android:gravity="center"
         android:textColor="@color/black"

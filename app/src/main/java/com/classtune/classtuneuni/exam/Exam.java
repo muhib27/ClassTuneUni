@@ -5,6 +5,18 @@ import com.google.gson.annotations.SerializedName;
 
 public class Exam {
 
+    @SerializedName("name")
+    @Expose
+    private String name;
+    @SerializedName("max_mark")
+    @Expose
+    private String maxMark;
+    @SerializedName("marks")
+    @Expose
+    private String marks;
+    @SerializedName("id")
+    @Expose
+    private String id;
     @SerializedName("exam_id")
     @Expose
     private String examId;
@@ -105,4 +117,35 @@ public class Exam {
         this.courseCode = courseCode;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getMarks() {
+        return marks;
+    }
+
+    public void setMarks(String marks) {
+        this.marks = marks;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getMaxMark() {
+        return maxMark;
+    }
+
+    public void setMaxMark(String maxMark) {
+        this.maxMark = maxMark;
+    }
 }

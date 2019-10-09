@@ -634,6 +634,7 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
                         StEnrollResponse stEnrollResponse = value.body();
                         if (stEnrollResponse.getStatus().getCode() == 200) {
                             enrollNow.setText("Browse");
+                            AppSharedPreference.setUserStatus("1");
 //                            fragment = new EnrollSuccessFragment();
 //                            gotoNextFragment(fragment, "enrollSuccessFragment", stEnrollResponse.getData());
 //                            populateData(noticeDetailsResponse.getData());

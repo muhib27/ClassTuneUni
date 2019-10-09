@@ -159,6 +159,15 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                                         .fitCenter())
                                 .into(itemHolder.img);
                     }
+                    if(result.getTargetType().equalsIgnoreCase("12")) {
+                        itemHolder.subject.setText("Assignment Accepted");
+                        Glide.with(mContext)
+                                .load(R.drawable.assignment_m)
+                                .apply(new RequestOptions()
+                                        .placeholder(R.drawable.notice_m)
+                                        .fitCenter())
+                                .into(itemHolder.img);
+                    }
                     if(result.getTargetType().equalsIgnoreCase("8")) {
                         itemHolder.subject.setText("Resource");
                         Glide.with(mContext)
@@ -223,7 +232,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                             fragment.setArguments(bundle);
                             gotoFragment(fragment, "resourceViewFragment", bundle);
                         }
-                        else if (result.getTargetType().equalsIgnoreCase("5") || result.getTargetType().equalsIgnoreCase("7")) {
+                        else if (result.getTargetType().equalsIgnoreCase("5") || result.getTargetType().equalsIgnoreCase("7")|| result.getTargetType().equalsIgnoreCase("12")) {
                             //gotoReadingPackageFragmentNotify(id);
                             fragment = new AssignmentDetailsFragment();
                             bundle = new Bundle();

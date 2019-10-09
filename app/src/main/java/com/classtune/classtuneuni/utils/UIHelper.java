@@ -17,7 +17,11 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.v4.content.ContextCompat;
+import android.view.View;
 import android.widget.DatePicker;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -33,6 +37,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import pl.droidsonroids.gif.GifImageView;
 import retrofit2.Response;
 
 public class UIHelper {
@@ -40,6 +45,8 @@ public class UIHelper {
 	ProgressDialog loadingDialog;
     Activity activity;
     UIHelper uiHelper;
+
+
 
     public UIHelper(Activity activity) {
         this.activity = activity;
@@ -59,6 +66,7 @@ public class UIHelper {
                 public void run() {
                     try {
                         loadingDialog = ProgressDialog.show(activity, "", message, true, false);
+                       // MyProgressDialog.show(activity, "", message);
                     }
                     catch (Exception e){
 
@@ -66,6 +74,18 @@ public class UIHelper {
                 }
             });
         }
+    }
+
+    public void loadGif(boolean enable){
+        RelativeLayout imageLayout = new RelativeLayout(activity);
+        GifImageView gifImageView = new GifImageView(activity);
+        gifImageView.setImageDrawable(ContextCompat.getDrawable(activity, R.drawable.edoozz_loader));
+        if(enable)
+            gifImageView.setVisibility(View.VISIBLE);
+        else
+            gifImageView.setVisibility(View.INVISIBLE);
+        gifImageView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT));
+        imageLayout.addView(gifImageView);
     }
 
     public void updateLoadingDialog(final String message) {
@@ -89,6 +109,8 @@ public class UIHelper {
     public void dismissLoadingDialog() {
         if (activity != null && loadingDialog != null) {
             loadingDialog.dismiss();
+       // MyProgressDialog.dismis(activity);
+
         }
     }
 
