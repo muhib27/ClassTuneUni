@@ -20,6 +20,8 @@ import android.widget.Toast;
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.adapter.ComResultAdapter;
+import com.classtune.classtuneuni.adapter.ExamListAdapter;
+import com.classtune.classtuneuni.adapter.ExamPublishedListAdapter;
 import com.classtune.classtuneuni.adapter.SubjectResultAdapter;
 import com.classtune.classtuneuni.assignment.AssignmentSection;
 import com.classtune.classtuneuni.assignment.TeacherAssignmentResponse;
@@ -50,15 +52,17 @@ import static com.classtune.classtuneuni.activity.MainActivity.GlobalCourseId;
  * A simple {@link Fragment} subclass.
  */
 public class SubjectResultFragment extends Fragment implements SubjectResultAdapter.ItemListener {
-    RecyclerView recyclerView;
-    private List<SubjectResultModel> resultList;
-    LinearLayoutManager linearLayoutManager;
+    RecyclerView recyclerView, examRv;
+    private List<SubjectResultModel> resultList, subjectResultModelList, list;
+    LinearLayoutManager linearLayoutManager, layoutManager ;
     SubjectResultAdapter subjectResultAdapter;
     UIHelper uiHelper;
     private TextView grade, totalObtained, hundred;
     int totalSt;
     String courseOfferSectionId = "";
     int pos = 0;
+
+    ExamPublishedListAdapter examListAdapter;
 
     public SubjectResultFragment() {
         // Required empty public constructor
@@ -83,11 +87,14 @@ public class SubjectResultFragment extends Fragment implements SubjectResultAdap
             courseOfferSectionId = getArguments().getString("id");
         uiHelper = new UIHelper(getActivity());
         recyclerView = view.findViewById(R.id.recyclerView);
+        examRv = view.findViewById(R.id.examRv);
         grade = view.findViewById(R.id.grade_tv);
         totalObtained = view.findViewById(R.id.totalObtained);
         hundred = view.findViewById(R.id.hundred);
 
         resultList = new ArrayList<>();
+        subjectResultModelList = new ArrayList<>();
+        list = new ArrayList<>();
 
         //courseOfferSectionId = "67";
 
@@ -98,6 +105,13 @@ public class SubjectResultFragment extends Fragment implements SubjectResultAdap
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(subjectResultAdapter);
+
+        examListAdapter = new ExamPublishedListAdapter(getActivity());
+        layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        examRv.addItemDecoration(new VerticalSpaceItemDecoration(getResources()));
+        examRv.setLayoutManager(layoutManager);
+        examRv.setItemAnimator(new DefaultItemAnimator());
+        examRv.setAdapter(examListAdapter);
 
         if(courseOfferSectionId.isEmpty()) {
             callSubjectResultApi(GlobalOfferedCourseSectionId);
@@ -181,6 +195,7 @@ public class SubjectResultFragment extends Fragment implements SubjectResultAdap
                         StCourseResultResponse stCourseResultResponse = value.body();
                         clearfield();
                         subjectResultAdapter.clear();
+                        examListAdapter.clear();
                         if (stCourseResultResponse.getStatus().getCode() == 200) {
                             totalSt = 0;
 //
@@ -191,10 +206,18 @@ public class SubjectResultFragment extends Fragment implements SubjectResultAdap
                             }
                             populateData(stCourseResultResponse.getData(), totalSt);
                             subjectResultAdapter.addAllData(resultList);
+                            subjectResultModelList.clear();
+                            subjectResultModelList = stCourseResultResponse.getData().getAssessments();
+                            for(int j=0; j< subjectResultModelList.size(); j++) {
+                                if(subjectResultModelList.get(j).getExams()!=null)
+                                examListAdapter.addAllData(subjectResultModelList.get(j).getExams(), subjectResultModelList.get(j).getAssessment());
+                                addlist(subjectResultModelList.get(j));
+                            }
 //                            Log.v("tt", noticeList.toString());
                             //  Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
                         } else {
                             subjectResultAdapter.clear();
+                            examListAdapter.clear();
                            // Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -202,6 +225,7 @@ public class SubjectResultFragment extends Fragment implements SubjectResultAdap
                     @Override
                     public void onError(Throwable e) {
                         subjectResultAdapter.clear();
+                        examListAdapter.clear();
                        // Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
                         uiHelper.dismissLoadingDialog();
                     }
@@ -214,6 +238,11 @@ public class SubjectResultFragment extends Fragment implements SubjectResultAdap
                 });
 
 
+    }
+
+    private List<SubjectResultModel> addlist(SubjectResultModel subjectResultModel) {
+        list.add(subjectResultModel);
+        return list;
     }
 
     private void populateData(CourseResultData data, int totalSt) {
