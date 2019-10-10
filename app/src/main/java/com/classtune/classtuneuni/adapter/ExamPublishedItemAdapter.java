@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +18,6 @@ import android.widget.TextView;
 
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
-import com.classtune.classtuneuni.exam.Exam;
 import com.classtune.classtuneuni.model.ExamInfoModel;
 import com.classtune.classtuneuni.model.SubjectResultModel;
 import com.classtune.classtuneuni.utils.PaginationAdapterCallback;
@@ -26,11 +26,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ExamPublishedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ExamPublishedItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    //private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
+    private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
 
-    private List<Exam> mValues;
+    private ArrayList<SubjectResultModel> mValues;
     private Context mContext;
     protected ItemListener mListener;
     private static final int HERO = 2;
@@ -43,17 +43,11 @@ public class ExamPublishedListAdapter extends RecyclerView.Adapter<RecyclerView.
     private String title = "";
     private int count = 0;
 
-    public ExamPublishedListAdapter(Context context) {
+    public ExamPublishedItemAdapter(Context context) {
         mValues = new ArrayList<>();
         mContext = context;
 
     }
-
-    public ExamPublishedListAdapter(List<Exam> exams, Context mContext) {
-        mValues = exams;
-        this.mContext = mContext;
-    }
-
 
 
     @Override
@@ -65,7 +59,7 @@ public class ExamPublishedListAdapter extends RecyclerView.Adapter<RecyclerView.
 
         switch (viewType) {
             case ITEM:
-                View viewItem = inflater.inflate(R.layout.published_exam_item_row, parent, false);
+                View viewItem = inflater.inflate(R.layout.layout_result_item, parent, false);
                 viewHolder = new MovieVH(viewItem);
                 break;
 
@@ -75,14 +69,27 @@ public class ExamPublishedListAdapter extends RecyclerView.Adapter<RecyclerView.
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
-        final Exam exam = mValues.get(position);
+        final SubjectResultModel exam = mValues.get(position);
         switch (getItemViewType(position)) {
             case ITEM:
                 final MovieVH itemHolder = (MovieVH) viewHolder;
 
-                if (exam != null) {
-                    itemHolder.examCell.setVisibility(View.VISIBLE);
+                if (exam.getExams() != null) {
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(
+                            itemHolder.rvSubItem.getContext(),
+                            LinearLayoutManager.VERTICAL,
+                            false
+                    );
+                    layoutManager.setInitialPrefetchItemCount(exam.getExams().size());
 
+                    // Create sub item view adapter
+                    ExamPublishedListAdapter subItemAdapter = new ExamPublishedListAdapter(exam.getExams(), mContext);
+
+                    itemHolder.rvSubItem.setLayoutManager(layoutManager);
+                    itemHolder.rvSubItem.setAdapter(subItemAdapter);
+                    itemHolder.rvSubItem.setRecycledViewPool(viewPool);
+//                    itemHolder.examCell.setVisibility(View.VISIBLE);
+//
 //                    for (int i = 0; i < exam.getExams().size(); i++) {
 //                        if(count == 0) {
 //                            itemHolder.examType.setVisibility(View.VISIBLE);
@@ -91,16 +98,16 @@ public class ExamPublishedListAdapter extends RecyclerView.Adapter<RecyclerView.
 //                        else {
 //                            itemHolder.examType.setVisibility(View.GONE);
 //                        }
-
-                        if (exam.getName() != null)
-                            itemHolder.examName.setText(exam.getName());
-                        if (exam.getMarks() != null)
-                            itemHolder.marks.setText(exam.getMarks());
-                        if (exam.getMaxMark() != null)
-                            itemHolder.total.setText(exam.getMaxMark());
-
-                        count++;
-                  //  }
+//
+//                        if (exam.getExams().get(i).getName() != null)
+//                            itemHolder.examName.setText(exam.getExams().get(i).getName());
+//                        if (exam.getExams().get(i).getMarks() != null)
+//                            itemHolder.marks.setText(exam.getExams().get(i).getMarks());
+//                        if (exam.getExams().get(i).getMaxMark() != null)
+//                            itemHolder.total.setText(exam.getExams().get(i).getMaxMark());
+//
+//                        count++;
+                   // }
                 }
                 else {
                     itemHolder.examCell.setVisibility(View.GONE);
@@ -201,17 +208,24 @@ public class ExamPublishedListAdapter extends RecyclerView.Adapter<RecyclerView.
         private ProgressBar mProgress;
         private TextView examName, praticipantText, examType;
         private RelativeLayout examCell;
+
+        private TextView tvItemTitle;
+        private RecyclerView rvSubItem;
+
+
         CardView cardView;
 
         public MovieVH(View itemView) {
             super(itemView);
-            examType = itemView.findViewById(R.id.examType);
-            examName = itemView.findViewById(R.id.examName);
-//            subject = itemView.findViewById(R.id.subject);
-            name = itemView.findViewById(R.id.name);
-            total = itemView.findViewById(R.id.total);
-            marks = itemView.findViewById(R.id.marks);
-            examCell = itemView.findViewById(R.id.examCell);
+            tvItemTitle = itemView.findViewById(R.id.tv_item_title);
+            rvSubItem = itemView.findViewById(R.id.rv_sub_item);
+//            examType = itemView.findViewById(R.id.examType);
+//            examName = itemView.findViewById(R.id.examName);
+////            subject = itemView.findViewById(R.id.subject);
+//            name = itemView.findViewById(R.id.name);
+//            total = itemView.findViewById(R.id.total);
+//            marks = itemView.findViewById(R.id.marks);
+//            examCell = itemView.findViewById(R.id.examCell);
 //            date = itemView.findViewById(R.id.examDate);
 //            praticipantText = itemView.findViewById(R.id.participantText);
 
@@ -219,20 +233,20 @@ public class ExamPublishedListAdapter extends RecyclerView.Adapter<RecyclerView.
     }
 
 
-    public void add(Exam r) {
+    public void add(SubjectResultModel r) {
         mValues.add(r);
         notifyItemInserted(mValues.size() - 1);
     }
 
-    public void addAllData(List<Exam> moveResults) {
+    public void addAllData(List<SubjectResultModel> moveResults) {
        // count = 0;
        // this.title = title;
-        for (Exam result : moveResults) {
+        for (SubjectResultModel result : moveResults) {
             add(result);
         }
     }
 
-    public void remove(Exam r) {
+    public void remove(SubjectResultModel r) {
         int position = mValues.indexOf(r);
         if (position > -1) {
             mValues.remove(position);
@@ -254,14 +268,14 @@ public class ExamPublishedListAdapter extends RecyclerView.Adapter<RecyclerView.
 
     public void addLoadingFooter() {
         isLoadingAdded = true;
-        add(new Exam());
+        add(new SubjectResultModel());
     }
 
     public void removeLoadingFooter() {
         isLoadingAdded = false;
 
         int position = mValues.size() - 1;
-        Exam result = getItem(position);
+        SubjectResultModel result = getItem(position);
 
         if (result != null) {
             mValues.remove(position);
@@ -269,7 +283,7 @@ public class ExamPublishedListAdapter extends RecyclerView.Adapter<RecyclerView.
         }
     }
 
-    public Exam getItem(int position) {
+    public SubjectResultModel getItem(int position) {
         return mValues.get(position);
     }
 

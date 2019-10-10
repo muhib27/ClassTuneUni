@@ -21,6 +21,7 @@ import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.adapter.ComResultAdapter;
 import com.classtune.classtuneuni.adapter.ExamListAdapter;
+import com.classtune.classtuneuni.adapter.ExamPublishedItemAdapter;
 import com.classtune.classtuneuni.adapter.ExamPublishedListAdapter;
 import com.classtune.classtuneuni.adapter.SubjectResultAdapter;
 import com.classtune.classtuneuni.assignment.AssignmentSection;
@@ -62,7 +63,7 @@ public class SubjectResultFragment extends Fragment implements SubjectResultAdap
     String courseOfferSectionId = "";
     int pos = 0;
 
-    ExamPublishedListAdapter examListAdapter;
+    ExamPublishedItemAdapter examListAdapter;
 
     public SubjectResultFragment() {
         // Required empty public constructor
@@ -106,7 +107,7 @@ public class SubjectResultFragment extends Fragment implements SubjectResultAdap
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(subjectResultAdapter);
 
-        examListAdapter = new ExamPublishedListAdapter(getActivity());
+        examListAdapter = new ExamPublishedItemAdapter(getActivity());
         layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         examRv.addItemDecoration(new VerticalSpaceItemDecoration(getResources()));
         examRv.setLayoutManager(layoutManager);
@@ -208,11 +209,12 @@ public class SubjectResultFragment extends Fragment implements SubjectResultAdap
                             subjectResultAdapter.addAllData(resultList);
                             subjectResultModelList.clear();
                             subjectResultModelList = stCourseResultResponse.getData().getAssessments();
-                            for(int j=0; j< subjectResultModelList.size(); j++) {
-                                if(subjectResultModelList.get(j).getExams()!=null)
-                                examListAdapter.addAllData(subjectResultModelList.get(j).getExams(), subjectResultModelList.get(j).getAssessment());
-                                addlist(subjectResultModelList.get(j));
-                            }
+                            examListAdapter.addAllData(subjectResultModelList);
+//                            for(int j=0; j< subjectResultModelList.size(); j++) {
+//                                if(subjectResultModelList.get(j).getExams()!=null)
+//                                examListAdapter.addAllData(subjectResultModelList.get(j).getExams(), subjectResultModelList.get(j).getAssessment());
+//                                addlist(subjectResultModelList.get(j));
+//                            }
 //                            Log.v("tt", noticeList.toString());
                             //  Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
                         } else {
