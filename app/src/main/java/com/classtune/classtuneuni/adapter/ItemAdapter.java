@@ -28,6 +28,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         this.context = context;
     }
 
+
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -71,6 +72,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             rvSubItem = itemView.findViewById(R.id.rv_sub_item);
         }
     }
+
+
 
 
     public void add(Item r) {
