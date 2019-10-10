@@ -81,7 +81,7 @@ public class ExamPublishedListAdapter extends RecyclerView.Adapter<RecyclerView.
                 final MovieVH itemHolder = (MovieVH) viewHolder;
 
                 if (exam != null) {
-                    itemHolder.examCell.setVisibility(View.VISIBLE);
+//                    itemHolder.examCell.setVisibility(View.VISIBLE);
 
 //                    for (int i = 0; i < exam.getExams().size(); i++) {
 //                        if(count == 0) {
@@ -205,7 +205,7 @@ public class ExamPublishedListAdapter extends RecyclerView.Adapter<RecyclerView.
 
         public MovieVH(View itemView) {
             super(itemView);
-            examType = itemView.findViewById(R.id.examType);
+//            examType = itemView.findViewById(R.id.examType);
             examName = itemView.findViewById(R.id.examName);
 //            subject = itemView.findViewById(R.id.subject);
             name = itemView.findViewById(R.id.name);

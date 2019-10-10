@@ -75,6 +75,8 @@ public class ExamPublishedItemAdapter extends RecyclerView.Adapter<RecyclerView.
                 final MovieVH itemHolder = (MovieVH) viewHolder;
 
                 if (exam.getExams() != null) {
+                    itemHolder.tvItemTitle.setVisibility(View.VISIBLE);
+                    itemHolder.tvItemTitle.setText(exam.getAssessment());
                     LinearLayoutManager layoutManager = new LinearLayoutManager(
                             itemHolder.rvSubItem.getContext(),
                             LinearLayoutManager.VERTICAL,
@@ -110,7 +112,7 @@ public class ExamPublishedItemAdapter extends RecyclerView.Adapter<RecyclerView.
                    // }
                 }
                 else {
-                    itemHolder.examCell.setVisibility(View.GONE);
+                    itemHolder.tvItemTitle.setVisibility(View.GONE);
                 }
 //                if(AppSharedPreference.getUserType().equals("3")) {
 //                    itemHolder.praticipantText.setVisibility(View.INVISIBLE);

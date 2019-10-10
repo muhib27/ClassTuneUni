@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:textSize="12sp"
-                android:text="Item Title"/>
+                android:text=""/>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_sub_item"
                 android:layout_width="match_parent"
