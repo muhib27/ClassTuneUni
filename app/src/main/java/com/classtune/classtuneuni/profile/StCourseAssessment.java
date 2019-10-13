@@ -20,7 +20,7 @@ public class StCourseAssessment {
     private String courseCode;
     @SerializedName("attendance")
     @Expose
-    private Integer attendance;
+    private Double attendance;
     @SerializedName("obtained")
     @Expose
     private StObtained obtained;
@@ -58,11 +58,11 @@ public class StCourseAssessment {
         this.obtained = obtained;
     }
 
-    public Integer getAttendance() {
+    public Double getAttendance() {
         return attendance;
     }
 
-    public void setAttendance(Integer attendance) {
+    public void setAttendance(Double attendance) {
         this.attendance = attendance;
     }
 }

@@ -145,13 +145,13 @@
                         android:textSize="@dimen/size_16sp"  />
 
                     <TextView
+                        android:paddingBottom="@dimen/size_20dp"
+                        android:paddingTop="@dimen/size_20dp"
                         android:id="@+id/parcentage"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:gravity="center"
-                        android:paddingTop="@dimen/size_20dp"
-                        android:paddingBottom="@dimen/size_20dp"
                         android:paddingStart="@dimen/size_5dp"
                         android:text=""
                         android:textColor="#4495FF"

@@ -1,5 +1,6 @@
 package com.classtune.classtuneuni.model;
 
+import com.classtune.classtuneuni.response.UserLoginData;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -10,6 +11,10 @@ public class CommonStatus {
     @SerializedName("msg")
     @Expose
     private String msg;
+
+    @SerializedName("data")
+    @Expose
+    private UserLoginData data;
 
 
     public Integer getCode() {
@@ -26,5 +31,13 @@ public class CommonStatus {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public UserLoginData getData() {
+        return data;
+    }
+
+    public void setData(UserLoginData data) {
+        this.data = data;
     }
 }

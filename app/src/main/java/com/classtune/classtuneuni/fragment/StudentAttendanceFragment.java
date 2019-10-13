@@ -42,6 +42,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import io.reactivex.Observer;
@@ -223,7 +224,7 @@ public class StudentAttendanceFragment extends Fragment {
                     @Override
                     public void onError(Throwable e) {
 
-                        Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
                         uiHelper.dismissLoadingDialog();
                     }
 
@@ -240,8 +241,16 @@ public class StudentAttendanceFragment extends Fragment {
             total.setText("" + data.getTotalClass());
         if(data.getPresent()!=null)
             present.setText("" + data.getPresent());
-        if(data.getPercentage()!=null)
-            parcentage.setText("" + data.getPercentage() + "%" );
+        if(data.getPercentage()!=null) {
+//            DecimalFormat df = new DecimalFormat("####0.00");
+//            double val = data.getPercentage();
+//            val = val*10;
+//            val = Math.round(val);
+//            val = val /100;
+//            val = val*10;
+            int a = (int) Math.round(data.getPercentage());
+            parcentage.setText("" + a + "%");
+        }
 
         //setData(data.getPresent(), data.getAbsent(), data.getTotalClass());
         //chart.setFitBars(true);

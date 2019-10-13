@@ -54,8 +54,9 @@ public class RetrofitApiClient {
     public static synchronized Retrofit getClientWithId() {
         // if (retrofit==null) {
         final OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .readTimeout(300, TimeUnit.SECONDS)
                 .connectTimeout(300, TimeUnit.SECONDS)
+                .readTimeout(300, TimeUnit.SECONDS)
+                .writeTimeout(300, TimeUnit.SECONDS)
                 .build();
         retrofit = new Retrofit.Builder()
                 .baseUrl(URLHelper.BASE_URL + URLHelper.SUB_URL )

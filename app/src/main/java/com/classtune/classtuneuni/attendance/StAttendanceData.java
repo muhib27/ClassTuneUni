@@ -15,7 +15,7 @@ public class StAttendanceData {
     private Integer present;
     @SerializedName("percentage")
     @Expose
-    private Integer percentage;
+    private Double percentage;
 
     @SerializedName("user_id")
     @Expose
@@ -51,11 +51,11 @@ public class StAttendanceData {
         this.present = present;
     }
 
-    public Integer getPercentage() {
+    public Double getPercentage() {
         return percentage;
     }
 
-    public void setPercentage(Integer percentage) {
+    public void setPercentage(Double percentage) {
         this.percentage = percentage;
     }
 

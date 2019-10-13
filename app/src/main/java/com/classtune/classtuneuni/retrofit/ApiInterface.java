@@ -28,6 +28,7 @@ import com.classtune.classtuneuni.model.UniversityModel;
 import com.classtune.classtuneuni.notice.NoticeDetailsResponse;
 import com.classtune.classtuneuni.notice.StNoticeResonse;
 import com.classtune.classtuneuni.notification.NotificationResponse;
+import com.classtune.classtuneuni.profile.EditProfileResponse;
 import com.classtune.classtuneuni.profile.StProfileRsponse;
 import com.classtune.classtuneuni.resource.ResourceResponse;
 import com.classtune.classtuneuni.response.NoticeOfferResponse;
@@ -335,7 +336,7 @@ public interface ApiInterface {
     @Multipart
     @POST(URLHelper.UPDATE_USER)
         //Observable<Response<JsonElement>> getTaskAssign(@Body RequestBody file);
-    Observable<Response<JsonElement>> userEditProfile(@Part MultipartBody.Part attachment_file_name, @Part("api_key") RequestBody api_key, @Part("name") RequestBody name,@Part("student_id") RequestBody student_id,@Part("mobile") RequestBody mobile,@Part("api_key") RequestBody password );
+    Observable<Response<EditProfileResponse>> userEditProfile(@Part MultipartBody.Part attachment_file_name, @Part("api_key") RequestBody api_key, @Part("name") RequestBody name, @Part("student_id") RequestBody student_id, @Part("mobile") RequestBody mobile, @Part("password") RequestBody password );
 
     @FormUrlEncoded
     @POST(URLHelper.EXAM_DETAILS)

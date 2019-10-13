@@ -12,12 +12,15 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -129,6 +132,12 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
 
         recyclerView = view.findViewById(R.id.recyclerView);
         webView = view.findViewById(R.id.webView);
+
+
+        webView.setWebViewClient(new WebViewClient());
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setDomStorageEnabled(true);
+
         allCourseLayout = view.findViewById(R.id.allCourseLayout);
         allCourseLayout.setOnClickListener(this);
 
@@ -497,8 +506,16 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
                             .fitCenter())
                     .into(profile_image);
 
-        if (data.getCourse().getDetails() != null)
-            webView.loadData(data.getCourse().getDetails().toString(), "text/html; charset=utf-8", "UTF-8");
+        if (data.getCourse().getDetails() != null) {
+            String youtContentStr = String.valueOf(Html
+                    .fromHtml("<![CDATA[<body style=\"text-align:justify;color:#222222; \">"
+                            + data.getCourse().getDetails()
+                            + "</body>]]>"));
+            webView.loadDataWithBaseURL(null, "<style>figure{height: auto;width: 100% !important; padding:0px !important;margin:0px !important;} img{height: auto;width: 100% !important;} iframe{display: inline;height: auto;max-width: 100%;}</style>" + youtContentStr, "text/html", "UTF-8", null);
+
+
+           // webView.loadData(data.getCourse().getDetails().toString(), "text/html; charset=utf-8", "UTF-8");
+        }
         if (data.getTotalResources() != null)
         resources.setText(""+data.getTotalResources());
         if(data.getNewCourse()!=null && data.getNewCourse().equals("1"))

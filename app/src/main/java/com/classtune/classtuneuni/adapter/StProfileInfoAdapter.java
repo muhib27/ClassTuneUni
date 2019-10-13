@@ -69,8 +69,10 @@ public class StProfileInfoAdapter extends RecyclerView.Adapter<RecyclerView.View
                 final MovieVH itemHolder = (MovieVH) viewHolder;
                 if(result.getCourseCode()!=null)
                 itemHolder.subject.setText(result.getCourseCode());
-                if(result.getAttendance()!=null)
-                itemHolder.attendance.setText(""+result.getAttendance());
+                if(result.getAttendance()!=null) {
+                    int a = (int) Math.round(result.getAttendance());
+                    itemHolder.attendance.setText("" + a + "%");
+                }
                 if(result.getObtained()!=null && result.getObtained().getGrade()!=null)
                 itemHolder.grade.setText(result.getObtained().getGrade());
 //                itemHolder.cell.setOnClickListener(new View.OnClickListener() {

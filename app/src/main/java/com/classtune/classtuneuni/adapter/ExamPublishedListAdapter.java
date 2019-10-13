@@ -18,8 +18,9 @@ import android.widget.TextView;
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.exam.Exam;
+import com.classtune.classtuneuni.fragment.ExamDetailsFragment;
 import com.classtune.classtuneuni.model.ExamInfoModel;
-import com.classtune.classtuneuni.model.SubjectResultModel;
+import com.classtune.classtuneuni.utils.AppUtility;
 import com.classtune.classtuneuni.utils.PaginationAdapterCallback;
 
 import java.util.ArrayList;
@@ -92,13 +93,30 @@ public class ExamPublishedListAdapter extends RecyclerView.Adapter<RecyclerView.
 //                            itemHolder.examType.setVisibility(View.GONE);
 //                        }
 
+                    itemHolder.exam.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Fragment fragment = new ExamDetailsFragment();
+                            Bundle bundle = new Bundle();
+                            bundle.putString("id", exam.getId());
+                            gotoFragment(fragment, "examDetailsFragment", bundle);
+                        }
+                    });
+
+
                         if (exam.getName() != null)
                             itemHolder.examName.setText(exam.getName());
                         if (exam.getMarks() != null)
                             itemHolder.marks.setText(exam.getMarks());
                         if (exam.getMaxMark() != null)
                             itemHolder.total.setText(exam.getMaxMark());
-
+                    if (exam.getExamDate() != null && exam.getExamDate().contains("-")) {
+                        String[] parts = exam.getExamDate().split("-");
+                        if (parts.length >= 2)
+                            itemHolder.examDate.setText(parts[2]);
+                    }
+                    if (exam.getExamDate() != null && exam.getExamDate().contains("-"))
+                        itemHolder.examMY.setText(AppUtility.getDateString(exam.getExamDate(), AppUtility.DATE_FORMAT_APP_M_Y, AppUtility.DATE_FORMAT_SERVER));
                         count++;
                   //  }
                 }
@@ -195,13 +213,13 @@ public class ExamPublishedListAdapter extends RecyclerView.Adapter<RecyclerView.
 
     protected class MovieVH extends RecyclerView.ViewHolder {
         private TextView subject;
-        private TextView name;
+        private TextView name, examDate, examMY;
         private TextView marks, total, date; // displays "year | language"
         private ImageView mPosterImg;
         private ProgressBar mProgress;
         private TextView examName, praticipantText, examType;
         private RelativeLayout examCell;
-        CardView cardView;
+        CardView exam;
 
         public MovieVH(View itemView) {
             super(itemView);
@@ -212,6 +230,9 @@ public class ExamPublishedListAdapter extends RecyclerView.Adapter<RecyclerView.
             total = itemView.findViewById(R.id.total);
             marks = itemView.findViewById(R.id.marks);
             examCell = itemView.findViewById(R.id.examCell);
+            examDate = itemView.findViewById(R.id.examDate);
+            examMY = itemView.findViewById(R.id.examMY);
+            exam = itemView.findViewById(R.id.exam);
 //            date = itemView.findViewById(R.id.examDate);
 //            praticipantText = itemView.findViewById(R.id.participantText);
 

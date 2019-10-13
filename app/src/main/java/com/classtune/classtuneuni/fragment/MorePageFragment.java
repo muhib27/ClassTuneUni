@@ -125,23 +125,44 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
 
       //  String s = BASE_URL + AppSharedPreference.getUserImage();
 
-        Glide.with(getActivity())
-                .load(BASE_URL + AppSharedPreference.getUserImage())
-                //.load("http://via.placeholder.com/300.png")
-                .listener(new RequestListener<Drawable>() {
-                    @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                        // log exception
-                        Log.e("TAG", "Error loading image", e);
-                        return false; // important to return false so the error placeholder can be placed
-                    }
+        if(!AppSharedPreference.getUserImage().isEmpty()) {
+            Glide.with(getActivity())
+                    .load(BASE_URL + AppSharedPreference.getUserImage())
+                    //.load("http://via.placeholder.com/300.png")
+                    .listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            // log exception
+                            Log.e("TAG", "Error loading image", e);
+                            return false; // important to return false so the error placeholder can be placed
+                        }
 
-                    @Override
-                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        return false;
-                    }
-                })
-                .into(pic);
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            return false;
+                        }
+                    })
+                    .into(pic);
+        }
+        else {
+            Glide.with(getActivity())
+                    .load(R.drawable.avatar)
+                    //.load("http://via.placeholder.com/300.png")
+                    .listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            // log exception
+                            Log.e("TAG", "Error loading image", e);
+                            return false; // important to return false so the error placeholder can be placed
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            return false;
+                        }
+                    })
+                    .into(pic);
+        }
 
         name.setText(AppSharedPreference.getUserName());
         studentId.setText(AppSharedPreference.getUserEmail());

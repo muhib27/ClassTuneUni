@@ -84,6 +84,7 @@ public class StudentCourseListFragment extends Fragment implements View.OnClickL
 
         courseList = new ArrayList<>();
         searchKey = "";
+        currentPage = 0;
 
 //        courseList.add(new Course("Title"));
 //        courseList.add(new Course("Title"));

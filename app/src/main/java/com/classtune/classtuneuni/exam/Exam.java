@@ -5,6 +5,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class Exam {
 
+    @SerializedName("date")
+    @Expose
+    private String date;
     @SerializedName("name")
     @Expose
     private String name;
@@ -147,5 +150,13 @@ public class Exam {
 
     public void setMaxMark(String maxMark) {
         this.maxMark = maxMark;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

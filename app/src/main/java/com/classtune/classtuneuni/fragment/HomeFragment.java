@@ -96,7 +96,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener
     CardView nextClass, upcomingExam;
     View bg;
 
-    RelativeLayout latestResource;
+    RelativeLayout latestResource, resourseLl,assessmentTop;
     GifImageView gifImageView;
 
 
@@ -164,8 +164,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener
         nextClass.setOnClickListener(this);
         upcomingExam = view.findViewById(R.id.upcomingExam);
         upcomingExam.setOnClickListener(this);
+
+        resourseLl = view.findViewById(R.id.resourseLl);
+        resourseLl.setOnClickListener(this);
+
         notices = view.findViewById(R.id.notices);
         notices.setOnClickListener(this);
+
+        assessmentTop = view.findViewById(R.id.assessmentTop);
+        assessmentTop.setOnClickListener(this);
 
         assignments = view.findViewById(R.id.assignments);
         assignments.setOnClickListener(this);
@@ -587,6 +594,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener
                 gotoFragment(fragment, "resourseFragment" , bundle);
                 break;
             case R.id.nextClass:
+                fragment = new ClassScheduleFragment();
+                bundle = new Bundle();
+                gotoFragment(fragment, "classScheduleFragment", bundle);
                 break;
             case R.id.upcomingExam:
                 fragment = new ExamListFragment();
@@ -602,6 +612,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener
                 fragment = new AssignmentFragment();
                 bundle = new Bundle();
                 gotoFragment(fragment, "assignmentFragment", bundle);
+                break;
+            case R.id.assessmentTop:
+                fragment = new AssignmentFragment();
+                bundle = new Bundle();
+                gotoFragment(fragment, "assignmentFragment", bundle);
+                break;
+
+            case R.id.resourseLl:
+                fragment = new ResourseFragment();
+                bundle = new Bundle();
+                gotoFragment(fragment, "resourseFragment" , bundle);
                 break;
             case R.id.notice1Ll:
                 fragment = new TeacherNoticeDetails();

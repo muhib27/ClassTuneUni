@@ -38,7 +38,9 @@ import com.classtune.classtuneuni.activity.MainActivity;
 import com.classtune.classtuneuni.adapter.ListAdapter;
 import com.classtune.classtuneuni.assignment.AssignmentSection;
 import com.classtune.classtuneuni.model.AttachmentModel;
+import com.classtune.classtuneuni.model.LoginApiModel;
 import com.classtune.classtuneuni.model.UniversityModel;
+import com.classtune.classtuneuni.profile.EditProfileResponse;
 import com.classtune.classtuneuni.response.RegisTrationResponse;
 import com.classtune.classtuneuni.response.UniData;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
@@ -410,28 +412,32 @@ public class ProfileEditFragment extends Fragment implements View.OnClickListene
 
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Response<JsonElement>>() {
+                .subscribe(new Observer<Response<EditProfileResponse>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Response<JsonElement> value) {
+                    public void onNext(Response<EditProfileResponse> value) {
                         uiHelper.dismissLoadingDialog();
-
-                        if (value.code() == 200) {
+                        EditProfileResponse loginApiModel = value.body();
+                       // if(value.code()==200){
+                        if (loginApiModel.getStatus().getCode()!= null && loginApiModel.getStatus().getCode() == 200) {
                             // Toast.makeText(getActivity(), "Image Upload Success", Toast.LENGTH_SHORT).show();
 //                            fragment = new SuccessFragment();
 //                            gotoFragment(fragment, "successFragment");
-                        } else
-                            Toast.makeText(getActivity(), "Image Upload failed", Toast.LENGTH_SHORT).show();
+                            AppSharedPreference.setUserNameAndPassword(loginApiModel.getData().getId(),loginApiModel.getData().getEmail(), AppSharedPreference.getUserPassword(), AppSharedPreference.getApiKey(), AppSharedPreference.getRememberMe(), loginApiModel.getData().getUserType(), loginApiModel.getData().getImage(), loginApiModel.getData().getName(), loginApiModel.getData().getStudentId(), loginApiModel.getData().getMobile());
+
+                        } else {
+                          //  Toast.makeText(getActivity(), "Image Upload failed", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
 
-                        Toast.makeText(getActivity(), "Image Upload failed", Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(getActivity(), "Image Upload failed", Toast.LENGTH_SHORT).show();
                         uiHelper.dismissLoadingDialog();
                     }
 
