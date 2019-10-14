@@ -93,15 +93,15 @@ public class ResourseFragment extends Fragment implements MaterialSearchBar.OnSe
 //        tabName[0]= "All";
 //        tabId[0]= "";
 
-        if(!AppSharedPreference.getStTabString().isEmpty())
+        if(!AppSharedPreference.getStAllCourseString().isEmpty())
         {
-            String[] parts = AppSharedPreference.getStTabString().split("\\|");
+            String[] parts = AppSharedPreference.getStAllCourseString().split("\\|");
             for(int i=0; i< parts.length;i++){
                 String[] subParts = parts[i].split("/");
 //                tabName[i+1] = subParts[0];
 //                tabId [i+1] = subParts[2];
-                tabName.add(subParts[3]);
-                tabId.add(subParts[2]);
+                tabName.add(subParts[1]);
+                tabId.add(subParts[0]);
 
             }
         }

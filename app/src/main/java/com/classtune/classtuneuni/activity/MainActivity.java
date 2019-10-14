@@ -778,6 +778,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private String ST_TAB_STRING = "";
+    private String ST_COURSE_STRING = "";
     private void addSection(List<AssignmentSection> sections) {
         for (int i = 0; i < sections.size(); i++) {
             setupTab(new TextView(this), sections.get(i));
@@ -799,13 +800,19 @@ public class MainActivity extends AppCompatActivity {
 
     private void stAddSection(List<StCourseSection> sections) {
         for (int i = 0; i < sections.size(); i++) {
-            setupStTab(new TextView(this), sections.get(i));
-            ST_TAB_STRING = ST_TAB_STRING + sections.get(i).getCourseCode() + "/" + sections.get(i).getInstructor() + "/" + sections.get(i).getCourseOfferSectionId()+ "/" + sections.get(i).getCourseName();
-            if(i < (sections.size() -1))
-                ST_TAB_STRING = ST_TAB_STRING + "|";
-            AppSharedPreference.setStUserTab(sections.get(i), i);
+            if(sections.get(i).getIsFinished().equals("0")) {
+                setupStTab(new TextView(this), sections.get(i));
+                ST_TAB_STRING = ST_TAB_STRING + sections.get(i).getCourseCode() + "/" + sections.get(i).getInstructor() + "/" + sections.get(i).getCourseOfferSectionId() + "/" + sections.get(i).getCourseName();
+                if (i < (sections.size() - 1))
+                    ST_TAB_STRING = ST_TAB_STRING + "|";
+                AppSharedPreference.setStUserTab(sections.get(i), i);
+            }
+            ST_COURSE_STRING = ST_COURSE_STRING + sections.get(i).getCourseOfferSectionId() + "/" + sections.get(i).getCourseName();
+            if (i < (sections.size() - 1))
+                ST_COURSE_STRING = ST_COURSE_STRING + "|";
         }
         AppSharedPreference.setStTabString(ST_TAB_STRING);
+        AppSharedPreference.setStAllCourseString(ST_COURSE_STRING);
         AppSharedPreference.setStUserTab(sections.get(0), 0);
         tabRl.setVisibility(View.GONE);
         if(sections.size()>0)

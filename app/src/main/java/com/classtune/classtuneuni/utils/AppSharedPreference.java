@@ -31,6 +31,7 @@ public class AppSharedPreference {
     private static final String keyFCMId = "fcm_id";
     private static final String keyUserType = "userType";
     private static final String keyTabSt = "tab_st";
+    private static final String keyCourseSt = "course_st";
 
     private static SharedPreferences getSharedPreferences() {
         return MyApplication.getContext().getSharedPreferences(keyModelTestPrefs, 0);
@@ -277,6 +278,19 @@ public class AppSharedPreference {
     public static String getStTabString() {
         final SharedPreferences pref = getSharedPreferences();
         return pref.getString(keyTabSt, "");
+    }
+
+    public static void setStAllCourseString(String st_tab_string) {
+        final SharedPreferences pref = getSharedPreferences();
+        final SharedPreferences.Editor editor = pref.edit();
+
+        editor.putString(keyCourseSt, st_tab_string);
+        editor.apply();
+    }
+
+    public static String getStAllCourseString() {
+        final SharedPreferences pref = getSharedPreferences();
+        return pref.getString(keyCourseSt, "");
     }
 
     public static void setHomeData(String json) {

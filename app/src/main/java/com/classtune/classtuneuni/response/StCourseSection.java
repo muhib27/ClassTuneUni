@@ -7,6 +7,9 @@ public class StCourseSection {
     @SerializedName("course_offer_section_id")
     @Expose
     private String courseOfferSectionId;
+    @SerializedName("is_finished")
+    @Expose
+    private String isFinished;
     @SerializedName("course_name")
     @Expose
     private String courseName;
@@ -47,5 +50,13 @@ public class StCourseSection {
 
     public void setInstructor(String instructor) {
         this.instructor = instructor;
+    }
+
+    public String getIsFinished() {
+        return isFinished;
+    }
+
+    public void setIsFinished(String isFinished) {
+        this.isFinished = isFinished;
     }
 }
