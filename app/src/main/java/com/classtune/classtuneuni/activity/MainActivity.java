@@ -100,17 +100,17 @@ public class MainActivity extends AppCompatActivity {
 //                HomeFragment homeFragment = (HomeFragment) getSupportFragmentManager().findFragmentByTag("homeFragment");
 //                if(homeFragment!=null && !homeFragment.isVisible()) {
 
-                    int backStackCount = getSupportFragmentManager().getBackStackEntryCount();
-                    if (backStackCount > 0) {
-                        while (backStackCount > 0) {
-                            getSupportFragmentManager().popBackStack();
-                            backStackCount--;
-                        }
+                int backStackCount = getSupportFragmentManager().getBackStackEntryCount();
+                if (backStackCount > 0) {
+                    while (backStackCount > 0) {
+                        getSupportFragmentManager().popBackStack();
+                        backStackCount--;
                     }
-                    fragment = new HomeFragment();
-                    loadFragment(fragment, "homeFragment", true);
-                    bottomBar.selectTabAtPosition(0);
-               // }
+                }
+                fragment = new HomeFragment();
+                loadFragment(fragment, "homeFragment", true);
+                bottomBar.selectTabAtPosition(0);
+                // }
             }
         });
 
@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
 //            callOfferedSectionListApi();
 //        }
 
-        mTabHost = (TabHost)findViewById(android.R.id.tabhost);
+        mTabHost = (TabHost) findViewById(android.R.id.tabhost);
 
         mTabHost.setup();
 
@@ -205,21 +205,19 @@ public class MainActivity extends AppCompatActivity {
         mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override
             public void onTabChanged(String tabId) {
-              int pos = mTabHost.getCurrentTab();
-              if(AppSharedPreference.getUserType().equals("3"))
-              {
-                  StCourseSection ss = AppSharedPreference.getStUserTab(tabId, pos);
-                  GlobalCourseId = ss.getCourseCode();
-                  GlobalOfferedCourseSectionId = ss.getCourseOfferSectionId();
+                int pos = mTabHost.getCurrentTab();
+                if (AppSharedPreference.getUserType().equals("3")) {
+                    StCourseSection ss = AppSharedPreference.getStUserTab(tabId, pos);
+                    GlobalCourseId = ss.getCourseCode();
+                    GlobalOfferedCourseSectionId = ss.getCourseOfferSectionId();
 
 
-              }
-              else {
-                  AssignmentSection ss = AppSharedPreference.getUserTab(tabId, pos);
-                  GlobalCourseId = ss.getCourseId();
-                  GlobalOfferedCourseSectionId = ss.getOfferedSectionId();
-              }
- //               Toast.makeText(getApplicationContext(), "" + tabId, Toast.LENGTH_LONG).show();
+                } else {
+                    AssignmentSection ss = AppSharedPreference.getUserTab(tabId, pos);
+                    GlobalCourseId = ss.getCourseId();
+                    GlobalOfferedCourseSectionId = ss.getOfferedSectionId();
+                }
+                //               Toast.makeText(getApplicationContext(), "" + tabId, Toast.LENGTH_LONG).show();
 //                if(TAB_1_TAG.equals(tabId)) {
 //                    //destroy earth
 //                }
@@ -251,58 +249,54 @@ public class MainActivity extends AppCompatActivity {
             if (extras.getString("target_id") != null)
                 id = extras.getString("target_id");
 
-             if (type.equals("1")) {
+            if (type.equals("1")) {
                 fragment = new TeacherNoticeDetails();
                 bundle = new Bundle();
-                bundle.putString("noticeId",id);
+                bundle.putString("noticeId", id);
                 gotoFragment(fragment, "teacherNoticeDetails", bundle);
             } else if (type.equals("2")) {
-               // gotoCMSubmitTaskDetailsFragment(id);
-                 Fragment fragment = new ExamListFragment();
-                 bundle = new Bundle();
-                 bundle.putString("id", id);
-                 fragment.setArguments(bundle);
-                 gotoFragment(fragment, "examListFragment", bundle);
-            }
-            else if (type.equals("3")) {
+                // gotoCMSubmitTaskDetailsFragment(id);
+                Fragment fragment = new ExamListFragment();
+                bundle = new Bundle();
+                bundle.putString("id", id);
+                fragment.setArguments(bundle);
+                gotoFragment(fragment, "examListFragment", bundle);
+            } else if (type.equals("3")) {
                 //gotoReadingPackageFragmentNotify(id);
                 Fragment fragment = new ExamDetailsFragment();
                 bundle = new Bundle();
                 bundle.putString("id", id);
                 fragment.setArguments(bundle);
                 gotoFragment(fragment, "examDetailsFragment", bundle);
-            }else if (type.equals("4")) {
+            } else if (type.equals("4")) {
                 //gotoReadingPackageFragmentNotify(id);
                 Fragment fragment = new SubjectResultFragment();
                 bundle = new Bundle();
                 bundle.putString("id", id);
                 fragment.setArguments(bundle);
                 gotoFragment(fragment, "subjectResultFragment", bundle);
-            }
-            else if (type.equals("8")) {
+            } else if (type.equals("8")) {
                 //gotoReadingPackageFragmentNotify(id);
                 Fragment fragment = new ResourceViewFragment();
                 bundle = new Bundle();
                 bundle.putString("id", id);
                 fragment.setArguments(bundle);
                 gotoFragment(fragment, "resourceViewFragment", bundle);
-            }
-            else if (type.equals("5") || type.equals("7")||type.equals("12")) {
+            } else if (type.equals("5") || type.equals("7") || type.equals("12")) {
                 //gotoReadingPackageFragmentNotify(id);
                 Fragment fragment = new AssignmentDetailsFragment();
                 bundle = new Bundle();
                 bundle.putString("assignmentId", id);
                 fragment.setArguments(bundle);
                 gotoFragment(fragment, "assignmentDetailsFragment", bundle);
+            } else if (type.equals("10")) {
+                //gotoReadingPackageFragmentNotify(id);
+                Fragment fragment = new StudentAttendanceFragment();
+                bundle = new Bundle();
+                bundle.putString("id", id);
+                fragment.setArguments(bundle);
+                gotoFragment(fragment, "studentAttendanceFragment", bundle);
             }
-             else if (type.equals("10")) {
-                 //gotoReadingPackageFragmentNotify(id);
-                 Fragment fragment = new StudentAttendanceFragment();
-                 bundle = new Bundle();
-                 bundle.putString("id", id);
-                 fragment.setArguments(bundle);
-                 gotoFragment(fragment, "studentAttendanceFragment", bundle);
-             }
         }
 
 //        fragment = new HomeFragment();
@@ -341,7 +335,7 @@ public class MainActivity extends AppCompatActivity {
                         loadFragment(fragment, "homeFragment", true);
                     } else {
                         if (AppSharedPreference.getUserType().equals("3")) {
-                            callStudentSectionListApi();
+                            callStudentSectionListApi(true);
                         } else {
 
                             callOfferedSectionListApi();
@@ -401,7 +395,7 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(fragment, "morePageFragment", false);
                     //  }
                 }
-                }
+            }
             //  }
         });
 
@@ -413,32 +407,22 @@ public class MainActivity extends AppCompatActivity {
                 ChatDetailsFragment chatDetailsFragment = (ChatDetailsFragment) getSupportFragmentManager().findFragmentByTag("chatDetailsFragment");
                 //  Toast.makeText(getApplicationContext(), TabMessage.get(tabId, true), Toast.LENGTH_LONG).show();
                 MorePageFragment morePageFragment = (MorePageFragment) getSupportFragmentManager().findFragmentByTag("morePageFragment");
-                if(chatDetailsFragment !=null && chatDetailsFragment.isVisible())
-                {
+                if (chatDetailsFragment != null && chatDetailsFragment.isVisible()) {
                     getSupportFragmentManager().popBackStack();
-                    if(st.contains("home"))
-                    {
+                    if (st.contains("home")) {
                         fragment = new HomeFragment();
                         loadFragment(fragment, "homeFragment", true);
-                    }
-                    else  if(st.contains("course"))
-                    {
+                    } else if (st.contains("course")) {
                         fragment = new StudentCourseListFragment();
                         loadFragment(fragment, "studentCourseListFragment", true);
-                    }
-                    else  if(st.contains("resource"))
-                    {
+                    } else if (st.contains("resource")) {
 
                         fragment = new ResourseFragment();
                         loadFragment(fragment, "resourseFragment", true);
-                    }
-                    else  if(st.contains("result"))
-                    {
+                    } else if (st.contains("result")) {
                         fragment = new SubjectResultFragment();
                         loadFragment(fragment, "subjectResultFragment", true);
-                    }
-                    else  if(st.contains("more"))
-                    {
+                    } else if (st.contains("more")) {
                         fragment = new MorePageFragment();
                         loadFragment(fragment, "morePageFragment", true);
 
@@ -447,7 +431,7 @@ public class MainActivity extends AppCompatActivity {
                 //AppSharedPreference.getUsingHomeFirstTime() &&
                 else if (st.contains("home")) {
                     HomeFragment homeFragment = (HomeFragment) getSupportFragmentManager().findFragmentByTag("homeFragment");
-                    if(homeFragment!=null && !homeFragment.isVisible()) {
+                    if (homeFragment != null && !homeFragment.isVisible()) {
 
                         int backStackCount = getSupportFragmentManager().getBackStackEntryCount();
                         if (backStackCount > 0) {
@@ -460,21 +444,17 @@ public class MainActivity extends AppCompatActivity {
                         loadFragment(fragment, "homeFragment", true);
                     }
 
-                }
-                else if (st.contains("more")) {
+                } else if (st.contains("more")) {
                     int backStackCount = getSupportFragmentManager().getBackStackEntryCount();
-                    if(backStackCount>0)
-                    {
-                        while (backStackCount>0) {
+                    if (backStackCount > 0) {
+                        while (backStackCount > 0) {
                             getSupportFragmentManager().popBackStack();
                             backStackCount--;
                         }
                     }
                     fragment = new MorePageFragment();
                     loadFragment(fragment, "morePageFragment", false);
-                }
-
-                else if(morePageFragment!=null && morePageFragment.isVisible())
+                } else if (morePageFragment != null && morePageFragment.isVisible())
                     return;
 
             }
@@ -509,7 +489,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-      //  super.onBackPressed();
+        //  super.onBackPressed();
 
 
         int backStackCount = getSupportFragmentManager().getBackStackEntryCount();
@@ -520,8 +500,7 @@ public class MainActivity extends AppCompatActivity {
 //            loadFragment(fragment, "homeFragment", true);
             bottomBar.selectTabAtPosition(0);
         }
-        if(backStackCount>=1)
-        {
+        if (backStackCount >= 1) {
             getSupportFragmentManager().popBackStack();
             int backs = getSupportFragmentManager().getBackStackEntryCount();
             if (backStackCount == 1) {
@@ -542,15 +521,13 @@ public class MainActivity extends AppCompatActivity {
 //                    bottomBar.selectTabAtPosition(0);
 //                }
 //            }
-        }
-        else if(backStackCount == 0){
+        } else if (backStackCount == 0) {
             //getSupportFragmentManager().popBackStack();
             HomeFragment homeFragment = (HomeFragment) getSupportFragmentManager().findFragmentByTag("homeFragment");
-            if(homeFragment!=null && homeFragment.isVisible()) {
+            if (homeFragment != null && homeFragment.isVisible()) {
                 AppSharedPreference.setHomeData("");
                 finish();
-            }
-            else {
+            } else {
                 fragment = new HomeFragment();
                 loadFragment(fragment, "homeFragment", true);
                 bottomBar.selectTabAtPosition(0);
@@ -562,6 +539,7 @@ public class MainActivity extends AppCompatActivity {
 //            super.onBackPressed();
 
     }
+
     public MenuItem item, notification;
 
     @Override
@@ -582,7 +560,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -594,9 +571,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.chat:
 
                 EnrollStartFragment enrollStartFragment = (EnrollStartFragment) getSupportFragmentManager().findFragmentByTag("enrollStartFragment");
-                if(enrollStartFragment != null && enrollStartFragment.isVisible())
+                if (enrollStartFragment != null && enrollStartFragment.isVisible())
                     return true;
-              //  Toast.makeText(getApplicationContext(), "chat", Toast.LENGTH_LONG).show();
+                //  Toast.makeText(getApplicationContext(), "chat", Toast.LENGTH_LONG).show();
                 fragment = new ChatDetailsFragment();
                 loadFragment(fragment, "chatDetailsFragment", false);
                 return true;
@@ -616,8 +593,8 @@ public class MainActivity extends AppCompatActivity {
         // load fragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.mainContainer, fragment, tag);
-            if(!backstack)
-        transaction.addToBackStack(null);
+        if (!backstack)
+            transaction.addToBackStack(null);
         transaction.commit();
     }
 
@@ -664,7 +641,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         uiHelper.showLoadingDialog("Please wait...");
-       // gifImageView.setVisibility(View.VISIBLE);
+        // gifImageView.setVisibility(View.VISIBLE);
         //uiHelper.loadGif(true);
 
         // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
@@ -684,7 +661,7 @@ public class MainActivity extends AppCompatActivity {
                         //gifImageView.setVisibility(View.GONE);
 
                         AssignmentSectionResponse assignmentSectionResponse = value.body();
-                        if (assignmentSectionResponse!= null && assignmentSectionResponse.getStatus().getCode()!=null && assignmentSectionResponse.getStatus().getCode() == 200) {
+                        if (assignmentSectionResponse != null && assignmentSectionResponse.getStatus().getCode() != null && assignmentSectionResponse.getStatus().getCode() == 200) {
                             addSection(assignmentSectionResponse.getData().getSections());
 
                         } else
@@ -710,14 +687,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void callStudentSectionListApi() {
+    public void callStudentSectionListApi(final boolean loader) {
 
 
         if (!NetworkConnection.getInstance().isNetworkAvailable()) {
             Toast.makeText(getApplicationContext(), "No Connectivity", Toast.LENGTH_SHORT).show();
             return;
         }
-        uiHelper.showLoadingDialog("Please wait...");
+        if (loader)
+            uiHelper.showLoadingDialog("Please wait...");
 //        bg.setVisibility(View.VISIBLE);
 //        gifImageView.setVisibility(View.VISIBLE);
 
@@ -736,23 +714,21 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(Response<StSectionListResponse> value) {
-                       // uiHelper.dismissLoadingDialog();
+                        // uiHelper.dismissLoadingDialog();
 
                         StSectionListResponse stSectionListResponse = value.body();
-                        if (stSectionListResponse!= null && stSectionListResponse.getStatus().getCode() == 200) {
+                        if (stSectionListResponse != null && stSectionListResponse.getStatus().getCode() == 200) {
                             stAddSection(stSectionListResponse.getData().getCourseSection());
                             enter = true;
                             fragment = new HomeFragment();
                             loadFragment(fragment, "homeFragment", true);
 
-                        } else if(stSectionListResponse!= null && stSectionListResponse.getStatus().getCode() == 204)
-                        {
+                        } else if (stSectionListResponse != null && stSectionListResponse.getStatus().getCode() == 204) {
 
                             fragment = new StudentCourseListFragment();
                             loadFragment(fragment, "studentCourseListFragment", true);
-                        }
-                        else {
-                          //  Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
+                        } else {
+                            //  Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -760,6 +736,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onError(Throwable e) {
 
                         //Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
+                        if(loader)
                         uiHelper.dismissLoadingDialog();
 //                        gifImageView.setVisibility(View.GONE);
 //                        bg.setVisibility(View.GONE);
@@ -769,6 +746,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete() {
 //                        progressDialog.dismiss();
+                        if(loader)
                         uiHelper.dismissLoadingDialog();
 //                        gifImageView.setVisibility(View.GONE);
 //                        bg.setVisibility(View.GONE);
@@ -777,8 +755,10 @@ public class MainActivity extends AppCompatActivity {
                 });
 
     }
+
     private String ST_TAB_STRING = "";
     private String ST_COURSE_STRING = "";
+
     private void addSection(List<AssignmentSection> sections) {
         for (int i = 0; i < sections.size(); i++) {
             setupTab(new TextView(this), sections.get(i));
@@ -789,18 +769,20 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
         AppSharedPreference.setUserTab(sections.get(0), 0);
         tabRl.setVisibility(View.GONE);
-        if(sections.size()>0)
+        if (sections.size() > 0)
             GlobalOfferedCourseSectionId = sections.get(0).getOfferedSectionId();
 
 
     }
 
     private void stAddSection(List<StCourseSection> sections) {
+        mTabHost.getTabWidget().removeAllViews();
+        ST_TAB_STRING = "";
+        ST_COURSE_STRING = "";
         for (int i = 0; i < sections.size(); i++) {
-            if(sections.get(i).getIsFinished().equals("0")) {
+            if (sections.get(i).getIsFinished().equals("0")) {
                 setupStTab(new TextView(this), sections.get(i));
                 ST_TAB_STRING = ST_TAB_STRING + sections.get(i).getCourseCode() + "/" + sections.get(i).getInstructor() + "/" + sections.get(i).getCourseOfferSectionId() + "/" + sections.get(i).getCourseName();
                 if (i < (sections.size() - 1))
@@ -815,8 +797,8 @@ public class MainActivity extends AppCompatActivity {
         AppSharedPreference.setStAllCourseString(ST_COURSE_STRING);
         AppSharedPreference.setStUserTab(sections.get(0), 0);
         tabRl.setVisibility(View.GONE);
-        if(sections.size()>0)
-        GlobalOfferedCourseSectionId = sections.get(0).getCourseOfferSectionId();
+        if (sections.size() > 0)
+            GlobalOfferedCourseSectionId = sections.get(0).getCourseOfferSectionId();
 
 
     }
@@ -855,7 +837,7 @@ public class MainActivity extends AppCompatActivity {
         fragment.setArguments(bundle);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.mainContainer, fragment, tag);
-       // transaction.addToBackStack(null);
+        // transaction.addToBackStack(null);
         transaction.commit();
     }
 }

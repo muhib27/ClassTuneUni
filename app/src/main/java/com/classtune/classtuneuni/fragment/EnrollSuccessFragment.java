@@ -42,7 +42,7 @@ public class EnrollSuccessFragment extends Fragment {
         duration = view.findViewById(R.id.duration);
 
 
-        ((MainActivity)getActivity()).callStudentSectionListApi();
+        ((MainActivity)getActivity()).callStudentSectionListApi(false);
 
 
         if(getArguments().getString("courseName") != null)

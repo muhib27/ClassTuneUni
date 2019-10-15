@@ -650,6 +650,7 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
 
                         StEnrollResponse stEnrollResponse = value.body();
                         if (stEnrollResponse.getStatus().getCode() == 200) {
+                            ((MainActivity)getActivity()).callStudentSectionListApi(false);
                             enrollNow.setText("Browse");
                             AppSharedPreference.setUserStatus("1");
 //                            fragment = new EnrollSuccessFragment();

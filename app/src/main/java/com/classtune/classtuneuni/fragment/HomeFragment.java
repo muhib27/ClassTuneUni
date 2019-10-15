@@ -75,7 +75,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener
     private View examDotView;
 
 
-    private LinearLayout notice1Ll, notice2Ll;
+    private LinearLayout notice1Ll, notice2Ll, latestNotice;
 
     private ImageView imageView, courseImg, assignments;
 
@@ -93,7 +93,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener
     GridLayoutManager manager;
     private static List<Resource> resourceList;
     private ImageView classSchedudle, resources, notices;
-    CardView nextClass, upcomingExam;
+    CardView nextClassCv, upcomingExam, assessmentCard, resourcesCard, noticeCard;
     View bg;
 
     RelativeLayout latestResource, resourseLl,assessmentTop;
@@ -154,14 +154,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener
 
         resourceList = new ArrayList<>();
         // bg = view.findViewById(R.id.bg);
+        assessmentCard = view.findViewById(R.id.assessmentCard);
+        resourcesCard = view.findViewById(R.id.resourcesCard);
+        noticeCard = view.findViewById(R.id.noticeCard);
+
+        latestNotice = view.findViewById(R.id.latestNotice);
         latestResource = view.findViewById(R.id.latestResource);
         latestResource.setOnClickListener(this);
         classSchedudle = view.findViewById(R.id.classSchedudle);
         classSchedudle.setOnClickListener(this);
         resources = view.findViewById(R.id.resourceList);
         resources.setOnClickListener(this);
-        nextClass = view.findViewById(R.id.nextClass);
-        nextClass.setOnClickListener(this);
+        nextClassCv = view.findViewById(R.id.nextClass);
+        nextClassCv.setOnClickListener(this);
         upcomingExam = view.findViewById(R.id.upcomingExam);
         upcomingExam.setOnClickListener(this);
 
@@ -275,9 +280,32 @@ public class HomeFragment extends Fragment implements View.OnClickListener
                 homeNoticeAdapter.clear();
                 homeAssignmentAdapter.clear();
                 resourceList = stHomeRespons.getResources();
-                homeResourceAdapter.addAllData(stHomeRespons.getResources());
-                homeNoticeAdapter.addAllData(stHomeRespons.getNotices(), stHomeRespons.getCurrentTime());
-                homeAssignmentAdapter.addAllData(stHomeRespons.getAssignments(),  stHomeRespons.getCurrentTime());
+                if(stHomeRespons.getResources()!=null && stHomeRespons.getResources().size()>0) {
+                    resourcesCard.setVisibility(View.VISIBLE);
+                    homeResourceAdapter.addAllData(stHomeRespons.getResources());
+                }
+                else
+                {
+                    resourcesCard.setVisibility(View.GONE);
+                }
+                if(stHomeRespons.getNotices()!=null && stHomeRespons.getNotices().size()>0) {
+                    noticeCard.setVisibility(View.VISIBLE);
+                    homeNoticeAdapter.addAllData(stHomeRespons.getNotices(), stHomeRespons.getCurrentTime());
+                }
+                else
+                {
+                    noticeCard.setVisibility(View.GONE);
+                }
+                if(stHomeRespons.getAssignments()!=null && stHomeRespons.getAssignments().size()>0) {
+                    assessmentCard.setVisibility(View.VISIBLE);
+                    homeAssignmentAdapter.addAllData(stHomeRespons.getAssignments(),  stHomeRespons.getCurrentTime());
+                }
+                else
+                {
+                    assessmentCard.setVisibility(View.GONE);
+                }
+
+
                 populateLatest(stHomeRespons.getResourceSingle());
                 populateLatestNotice(stHomeRespons.getNotice());
                 populateNextClass(stHomeRespons.getNextClass(), stHomeRespons.getWeekday());
@@ -395,9 +423,30 @@ public class HomeFragment extends Fragment implements View.OnClickListener
                             homeNoticeAdapter.clear();
                             homeAssignmentAdapter.clear();
                             resourceList = stHomeRespons.getResources();
-                            homeResourceAdapter.addAllData(stHomeRespons.getResources());
-                            homeNoticeAdapter.addAllData(stHomeRespons.getNotices(), stHomeRespons.getCurrentTime());
-                            homeAssignmentAdapter.addAllData(stHomeRespons.getAssignments(),  stHomeRespons.getCurrentTime());
+                            if(stHomeRespons.getResources()!=null && stHomeRespons.getResources().size()>0) {
+                                resourcesCard.setVisibility(View.VISIBLE);
+                                homeResourceAdapter.addAllData(stHomeRespons.getResources());
+                            }
+                            else
+                            {
+                                resourcesCard.setVisibility(View.GONE);
+                            }
+                            if(stHomeRespons.getNotices()!=null && stHomeRespons.getNotices().size()>0) {
+                                noticeCard.setVisibility(View.VISIBLE);
+                                homeNoticeAdapter.addAllData(stHomeRespons.getNotices(), stHomeRespons.getCurrentTime());
+                            }
+                            else
+                            {
+                                noticeCard.setVisibility(View.GONE);
+                            }
+                            if(stHomeRespons.getAssignments()!=null && stHomeRespons.getAssignments().size()>0) {
+                                assessmentCard.setVisibility(View.VISIBLE);
+                                homeAssignmentAdapter.addAllData(stHomeRespons.getAssignments(),  stHomeRespons.getCurrentTime());
+                            }
+                            else
+                            {
+                                assessmentCard.setVisibility(View.GONE);
+                            }
                             populateLatest(stHomeRespons.getResourceSingle());
                             populateLatestNotice(stHomeRespons.getNotice());
                             populateNextClass(stHomeRespons.getNextClass(), stHomeRespons.getWeekday());
@@ -446,123 +495,147 @@ public class HomeFragment extends Fragment implements View.OnClickListener
 
     private void populateNextExam(ExamInfoModel exam, String weekday) {
         //  bg.setVisibility(View.GONE);
-        if(exam.getExamName()!=null)
-        examName.setText(exam.getExamName());
-        if(exam.getCourseName()!=null)
-            examSubject.setText(exam.getCourseName());
-        if(exam.getExamMark()!=null) {
-            String mark = "";
-            if(exam.getExamMark().contains("."))
-            {
-                String[] marks = exam.getExamMark().split("\\.");
-                if(marks.length>0)
-                mark = marks[0];
+        if(exam!=null) {
+            if(upcomingExam.getVisibility() != View.VISIBLE)
+                upcomingExam.setVisibility(View.VISIBLE);
+            if (exam.getExamName() != null)
+                examName.setText(exam.getExamName());
+            if (exam.getCourseName() != null)
+                examSubject.setText(exam.getCourseName());
+            if (exam.getExamMark() != null) {
+                String mark = "";
+                if (exam.getExamMark().contains(".")) {
+                    String[] marks = exam.getExamMark().split("\\.");
+                    if (marks.length > 0)
+                        mark = marks[0];
+                } else
+                    mark = exam.getExamMark();
+                marks.setText("" + mark);
             }
-            else
-                mark = exam.getExamMark();
-            marks.setText("" + mark);
-        }
 
-        if(exam.getDayName()!=null)
-            examDay.setText(exam.getDayName());
+            if (exam.getDayName() != null)
+                examDay.setText(exam.getDayName());
 
-        if(exam.getExamDate() !=null && exam.getExamDate().contains("-"))
-        {
-            String[] parts = exam.getExamDate().split("-");
-            if(parts.length>=2)
-                examDate.setText(parts[2]);
-        }
-        if(exam.getExamDate() !=null && exam.getExamDate().contains("-"))
-            examMonthYear.setText(AppUtility.getDateString(exam.getExamDate(), AppUtility.DATE_FORMAT_APP_M_Y, AppUtility.DATE_FORMAT_SERVER));
+            if (exam.getExamDate() != null && exam.getExamDate().contains("-")) {
+                String[] parts = exam.getExamDate().split("-");
+                if (parts.length >= 2)
+                    examDate.setText(parts[2]);
+            }
+            if (exam.getExamDate() != null && exam.getExamDate().contains("-"))
+                examMonthYear.setText(AppUtility.getDateString(exam.getExamDate(), AppUtility.DATE_FORMAT_APP_M_Y, AppUtility.DATE_FORMAT_SERVER));
 
-        if(exam.getStartTime()!=null && !exam.getStartTime().isEmpty()) {
-            examTime.setVisibility(View.VISIBLE);
-            examDotView.setVisibility(View.VISIBLE);
-            examTime.setText(exam.getStartTime());
+            if (exam.getStartTime() != null && !exam.getStartTime().isEmpty()) {
+                examTime.setVisibility(View.VISIBLE);
+                examDotView.setVisibility(View.VISIBLE);
+                examTime.setText(exam.getStartTime());
+            } else {
+                examTime.setVisibility(View.GONE);
+                examDotView.setVisibility(View.GONE);
+            }
         }
         else {
-            examTime.setVisibility(View.GONE);
-            examDotView.setVisibility(View.GONE);
+            upcomingExam.setVisibility(View.GONE);
         }
 
     }
 
     private void populateNextClass(Routine nextClass, String weekday) {
-        if(getActivity()!=null) {
-            if (nextClass.getThumbnail() != null && !nextClass.getThumbnail().isEmpty())
-                // if(resourceSi)
-                Glide.with(getActivity())
-                        .load(nextClass.getThumbnail())
-                        .apply(new RequestOptions()
-                                .placeholder(R.drawable.demo_img)
-                                .fitCenter())
-                        .into(courseImg);
-        }
+        if(nextClass!=null) {
+            if(nextClassCv.getVisibility() != View.VISIBLE)
+                nextClassCv.setVisibility(View.VISIBLE);
+            if (getActivity() != null) {
+                if (nextClass.getThumbnail() != null && !nextClass.getThumbnail().isEmpty())
+                    // if(resourceSi)
+                    Glide.with(getActivity())
+                            .load(nextClass.getThumbnail())
+                            .apply(new RequestOptions()
+                                    .placeholder(R.drawable.demo_img)
+                                    .fitCenter())
+                            .into(courseImg);
+            }
 
-        if(nextClass.getName() !=null)
-            nextSubject.setText(nextClass.getName());
+            if (nextClass.getName() != null)
+                nextSubject.setText(nextClass.getName());
 
-        if(nextClass.getRoom() !=null)
-            room.setText("" + nextClass.getRoom());
+            if (nextClass.getRoom() != null)
+                room.setText("" + nextClass.getRoom());
 //
-        if(nextClass.getDay() !=null) {
-            if(nextClass.getDay().equals(weekday))
-            dayText.setText("Today");
-            else
-                dayText.setText(nextClass.getDay());
+            if (nextClass.getDay() != null) {
+                if (nextClass.getDay().equals(weekday))
+                    dayText.setText("Today");
+                else
+                    dayText.setText(nextClass.getDay());
+            }
+            nextClassTime.setText(AppUtility.getDuration(nextClass.getEndTime().substring(0, 5), nextClass.getStartTime().substring(0, 5)));
+//
+            if (nextClass.getInstructor() != null)
+                classInstructor.setText(nextClass.getInstructor());
         }
-        nextClassTime.setText(AppUtility.getDuration(nextClass.getEndTime().substring(0, 5), nextClass.getStartTime().substring(0, 5)));
-//
-        if(nextClass.getInstructor() !=null)
-            classInstructor.setText(nextClass.getInstructor());
+        else {
+            nextClassCv.setVisibility(View.GONE);
+        }
     }
 
     private String n1 = "", n2="";
 
     private void populateLatestNotice(List<Notices> notice) {
-        if(notice.get(0).getCreatedAt()!= null && notice.get(0).getCreatedAt().contains(" ")) {
-            n1 = notice.get(0).getId();
-            String[] parts = notice.get(0).getCreatedAt().split(" ");
-            notice1Date.setText(AppUtility.getDateString(parts[0], AppUtility.DATE_FORMAT_APP_, AppUtility.DATE_FORMAT_SERVER));
+        if(notice!=null && notice.size()>0) {
+            if(latestNotice.getVisibility() != View.VISIBLE)
+                latestNotice.setVisibility(View.VISIBLE);
+            if (notice.get(0).getCreatedAt() != null && notice.get(0).getCreatedAt().contains(" ")) {
+                n1 = notice.get(0).getId();
+                String[] parts = notice.get(0).getCreatedAt().split(" ");
+                notice1Date.setText(AppUtility.getDateString(parts[0], AppUtility.DATE_FORMAT_APP_, AppUtility.DATE_FORMAT_SERVER));
+            }
+            if (notice.get(1).getCreatedAt() != null && notice.get(1).getCreatedAt().contains(" ")) {
+                n2 = notice.get(1).getId();
+                String[] parts = notice.get(1).getCreatedAt().split(" ");
+                notice2Date.setText(AppUtility.getDateString(parts[0], AppUtility.DATE_FORMAT_APP_, AppUtility.DATE_FORMAT_SERVER));
+            }
+            if (notice.get(0).getTitle() != null)
+                notice1Title.setText(notice.get(0).getTitle());
+            if (notice.get(1).getTitle() != null)
+                notice2Title.setText(notice.get(1).getTitle());
         }
-        if(notice.get(1).getCreatedAt()!= null && notice.get(1).getCreatedAt().contains(" ")) {
-            n2 = notice.get(1).getId();
-            String[] parts = notice.get(1).getCreatedAt().split(" ");
-            notice2Date.setText(AppUtility.getDateString(parts[0], AppUtility.DATE_FORMAT_APP_, AppUtility.DATE_FORMAT_SERVER));
+        else {
+            latestNotice.setVisibility(View.GONE);
         }
-        if(notice.get(0).getTitle() !=null)
-            notice1Title.setText(notice.get(0).getTitle());
-        if(notice.get(1).getTitle() !=null)
-            notice2Title.setText(notice.get(1).getTitle());
     }
 
     private Resource Topresource;
     private void populateLatest(Resource resourceSingle) {
-        Topresource = resourceSingle;
-        if(getActivity()!=null && resourceSingle.getThumbnail() !=null && !resourceSingle.getThumbnail().isEmpty())
-       // if(resourceSi)
-        Glide.with(getActivity())
-                .load(resourceSingle.getThumbnail())
-                .apply(new RequestOptions()
-                        .placeholder(R.drawable.news_poster)
-                        .fitCenter())
-                .into(imageView);
+        if(resourceSingle!=null) {
+            if(latestResource.getVisibility() != View.VISIBLE)
+                latestResource.setVisibility(View.VISIBLE);
+            Topresource = resourceSingle;
+            if (getActivity() != null && resourceSingle.getThumbnail() != null && !resourceSingle.getThumbnail().isEmpty())
+                // if(resourceSi)
+                Glide.with(getActivity())
+                        .load(resourceSingle.getThumbnail())
+                        .apply(new RequestOptions()
+                                .placeholder(R.drawable.news_poster)
+                                .fitCenter())
+                        .into(imageView);
 
-        if(resourceSingle.getTitle() !=null)
-        topTitle.setText(resourceSingle.getTitle());
+            if (resourceSingle.getTitle() != null)
+                topTitle.setText(resourceSingle.getTitle());
 
 //        if(resourceSingle.getChapterTitle() !=null)
 //        chapter.setText(resourceSingle.getChapterTitle());
 
-        if(resourceSingle.getCourseName() !=null)
-        subCode.setText(resourceSingle.getCourseName());
+            if (resourceSingle.getCourseName() != null)
+                subCode.setText(resourceSingle.getCourseName());
 
-        if(resourceSingle.getInstructor() !=null)
-        author.setText(resourceSingle.getInstructor());
+            if (resourceSingle.getInstructor() != null)
+                author.setText(resourceSingle.getInstructor());
 
-        if(resourceSingle.getCreatedAt()!= null && resourceSingle.getCreatedAt().contains(" ")) {
-            String[] parts = resourceSingle.getCreatedAt().split(" ");
-            topDate.setText(AppUtility.getDateString(parts[0], AppUtility.DATE_FORMAT_APP_, AppUtility.DATE_FORMAT_SERVER));
+            if (resourceSingle.getCreatedAt() != null && resourceSingle.getCreatedAt().contains(" ")) {
+                String[] parts = resourceSingle.getCreatedAt().split(" ");
+                topDate.setText(AppUtility.getDateString(parts[0], AppUtility.DATE_FORMAT_APP_, AppUtility.DATE_FORMAT_SERVER));
+            }
+        }
+        else {
+            latestResource.setVisibility(View.GONE);
         }
 
     }

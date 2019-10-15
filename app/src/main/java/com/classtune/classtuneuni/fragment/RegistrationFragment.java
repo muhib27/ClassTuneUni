@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -293,6 +294,27 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
                 uniName.setError(null);
             }
         }
+
+        if(userType.equals("3"))
+        {
+            uniname = uniName.getText().toString().trim();
+            if (TextUtils.isEmpty(uniname)) {
+                this.uniName.setError(getString(R.string.required));
+                valid = false;
+            } else {
+                this.uniName.setError(null);
+            }
+//            if (uniCode.isEmpty())
+//                callStRegistrationApiName(username, email, password, repassword, studentid, totalPhone, uniname);
+                // else
+//                callStRegistrationApi(username, email, password, repassword, studentid, totalPhone, uniCode);
+        }
+        else {
+//            if (!uniCode.isEmpty())
+//                callRegistrationWithNameApi(username, email, password, repassword, uniname);
+//            else
+              //  callRegistrationApi(username, email, password, repassword, uniCode);
+        }
 //
 //        if (TextUtils.isEmpty(userType)) {
 ////        if (password.length() < 6) {
@@ -310,20 +332,9 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
             return;
         }
         //Toast.makeText(getActivity(), "goto server", Toast.LENGTH_SHORT).show();
+        callStRegistrationApi(username, email, password, repassword, studentid, totalPhone, uniCode);
 
-        if(userType.equals("3"))
-        {
-            if (uniCode.isEmpty())
-                callStRegistrationApiName(username, email, password, repassword, studentid, totalPhone, uniname);
-            else
-                callStRegistrationApi(username, email, password, repassword, studentid, totalPhone, uniCode);
-        }
-        else {
-            if (uniCode.isEmpty())
-                callRegistrationWithNameApi(username, email, password, repassword, uniname);
-            else
-                callRegistrationApi(username, email, password, repassword, uniCode);
-        }
+
     }
 
 
@@ -724,6 +735,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 //        uniData = new UniData("sss", "2");
 //        universityModelList.add(uniData);
 
+        uniCode = "";
         ArrayAdapter<UniversityModel> adapter;
         final Dialog dialog = new Dialog(getActivity(), R.style.Theme_Dialog);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -736,6 +748,10 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
         lv.setAdapter(listAdapter);
 
         final SearchView searchView = dialog.findViewById(R.id.searchView);
+
+        // show soft keyboard
+        searchView.requestFocus();
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         searchView.setOnQueryTextListener(this);
 
 //        editText.addTextChangedListener(new TextWatcher() {
@@ -771,17 +787,17 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
         });
 
 
-        Button ok = dialog.findViewById(R.id.ok);
-        ok.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (searchView.getQuery() != null && searchView.getQuery().toString().trim().length() > 0) {
-                    uniname = searchView.getQuery().toString();
-                    uniName.setText(uniname);
-                }
-                dialog.dismiss();
-            }
-        });
+//        Button ok = dialog.findViewById(R.id.ok);
+//        ok.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (searchView.getQuery() != null && searchView.getQuery().toString().trim().length() > 0) {
+//                    uniname = searchView.getQuery().toString();
+//                    uniName.setText("");
+//                }
+//                dialog.dismiss();
+//            }
+//        });
         Button cancel = dialog.findViewById(R.id.cancel);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
