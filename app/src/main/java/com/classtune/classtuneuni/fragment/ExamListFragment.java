@@ -95,6 +95,8 @@ public class ExamListFragment extends Fragment implements ExamListAdapter.ItemLi
         ((MainActivity) Objects.requireNonNull(getActivity())).tabRl.setVisibility(View.VISIBLE);
         uiHelper = new UIHelper(getActivity());
 
+//        ((MainActivity)getActivity()).mTabHost.getTabWidget().removeAllViews();
+
         fabMenu = (FloatingActionMenu) view.findViewById(R.id.fabMenu);
         fab1 = (FloatingActionButton) view.findViewById(R.id.fab12);
         fab2 = (FloatingActionButton) view.findViewById(R.id.fab22);

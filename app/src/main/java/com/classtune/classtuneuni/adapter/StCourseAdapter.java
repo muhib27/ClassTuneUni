@@ -323,6 +323,7 @@ public class StCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public void addAllData(List<Course> moveResults) {
+        if(moveResults!=null && moveResults.size()>0)
         for (Course result : moveResults) {
             add(result);
         }

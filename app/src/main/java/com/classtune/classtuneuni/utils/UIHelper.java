@@ -5,6 +5,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentUris;
@@ -19,14 +20,21 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.model.UniversityModel;
 import com.classtune.classtuneuni.notification.NotificationResponse;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 
@@ -241,6 +249,31 @@ public class UIHelper {
         return time;
     }
 
+
+    public void showMessageDialog(String msg) {
+
+        ArrayAdapter<UniversityModel> adapter;
+        final Dialog dialog = new Dialog(activity, R.style.Theme_Dialog);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_show_message);
+
+
+        final TextView msgText = dialog.findViewById(R.id.text);
+        msgText.setText(msg);
+
+        Button cancel = dialog.findViewById(R.id.cancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
+    }
 
 
     public String dateTimeParse(String dateTime) {

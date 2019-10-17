@@ -379,6 +379,8 @@ public class StudentCourseListFragment extends Fragment implements View.OnClickL
         String s = enabled ? "enabled" : "disabled";
         if (s.equals("disabled")) {
             searchKey = "";
+            currentPage = 0;
+            isLastPage = false;
             callAllCourseListApi();
         }
     }

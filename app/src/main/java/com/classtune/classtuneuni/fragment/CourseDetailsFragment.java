@@ -18,13 +18,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +36,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
+import com.classtune.classtuneuni.adapter.ListAdapter;
 import com.classtune.classtuneuni.adapter.RelatedCourseAdapter;
 import com.classtune.classtuneuni.assignment.Status;
 import com.classtune.classtuneuni.course_resonse.CourseDate;
@@ -39,6 +44,7 @@ import com.classtune.classtuneuni.course_resonse.CourseDetailsResponse;
 import com.classtune.classtuneuni.course_resonse.RelatedCourse;
 import com.classtune.classtuneuni.enroll.StEnrollResponse;
 import com.classtune.classtuneuni.model.CommonStatus;
+import com.classtune.classtuneuni.model.UniversityModel;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
 import com.classtune.classtuneuni.utils.AppUtility;
@@ -214,6 +220,8 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
         et4 = dialog.findViewById(R.id.editText4);
         et5 = dialog.findViewById(R.id.editText5);
         et6 = dialog.findViewById(R.id.editText6);
+        et1.requestFocus();
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
         et1.addTextChangedListener(new TextWatcher() {
             @Override
@@ -382,6 +390,9 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
         getActivity().startActivity(Intent.createChooser(shareIntent, "Share link using"));
 
     }
+
+
+
 
     @Override
     public void retryPageLoad() {
@@ -649,6 +660,7 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
                         uiHelper.dismissLoadingDialog();
 
                         StEnrollResponse stEnrollResponse = value.body();
+
                         if (stEnrollResponse.getStatus().getCode() == 200) {
                             ((MainActivity)getActivity()).callStudentSectionListApi(false);
                             enrollNow.setText("Browse");
@@ -658,15 +670,17 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
 //                            populateData(noticeDetailsResponse.getData());
 
                             //  Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                            uiHelper.showMessageDialog("You Successfully Enorlled");
                         } else {
                            // Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                            uiHelper.showMessageDialog("Something went worng. Please try again later");
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
 
-                        Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        uiHelper.showMessageDialog("Error occured. Please try again later");
                         uiHelper.dismissLoadingDialog();
                     }
 

@@ -46,6 +46,7 @@ import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observer;
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean enter = false;
     public GifImageView gifImageView;
     private View bg;
+    private List<StCourseSection> currentCourse;
 
 
     public static String GlobalCourseId = "";
@@ -197,6 +199,7 @@ public class MainActivity extends AppCompatActivity {
 //            callOfferedSectionListApi();
 //        }
 
+        currentCourse = new ArrayList<>();
         mTabHost = (TabHost) findViewById(android.R.id.tabhost);
 
         mTabHost.setup();
@@ -720,11 +723,12 @@ public class MainActivity extends AppCompatActivity {
                         if (stSectionListResponse != null && stSectionListResponse.getStatus().getCode() == 200) {
                             stAddSection(stSectionListResponse.getData().getCourseSection());
                             enter = true;
-                            fragment = new HomeFragment();
-                            loadFragment(fragment, "homeFragment", true);
+                            if (loader) {
+                                fragment = new HomeFragment();
+                                loadFragment(fragment, "homeFragment", true);
+                            }
 
                         } else if (stSectionListResponse != null && stSectionListResponse.getStatus().getCode() == 204) {
-
                             fragment = new StudentCourseListFragment();
                             loadFragment(fragment, "studentCourseListFragment", true);
                         } else {
@@ -736,8 +740,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onError(Throwable e) {
 
                         //Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
-                        if(loader)
-                        uiHelper.dismissLoadingDialog();
+                        if (loader)
+                            uiHelper.dismissLoadingDialog();
 //                        gifImageView.setVisibility(View.GONE);
 //                        bg.setVisibility(View.GONE);
                         //uiHelper.loadGif(false);
@@ -746,8 +750,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete() {
 //                        progressDialog.dismiss();
-                        if(loader)
-                        uiHelper.dismissLoadingDialog();
+                        if (loader)
+                            uiHelper.dismissLoadingDialog();
 //                        gifImageView.setVisibility(View.GONE);
 //                        bg.setVisibility(View.GONE);
                         //uiHelper.loadGif(false);
@@ -778,11 +782,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void stAddSection(List<StCourseSection> sections) {
+        currentCourse = new ArrayList<>();
         mTabHost.getTabWidget().removeAllViews();
         ST_TAB_STRING = "";
         ST_COURSE_STRING = "";
         for (int i = 0; i < sections.size(); i++) {
             if (sections.get(i).getIsFinished().equals("0")) {
+                currentCourse.add(sections.get(i));
                 setupStTab(new TextView(this), sections.get(i));
                 ST_TAB_STRING = ST_TAB_STRING + sections.get(i).getCourseCode() + "/" + sections.get(i).getInstructor() + "/" + sections.get(i).getCourseOfferSectionId() + "/" + sections.get(i).getCourseName();
                 if (i < (sections.size() - 1))
@@ -795,10 +801,13 @@ public class MainActivity extends AppCompatActivity {
         }
         AppSharedPreference.setStTabString(ST_TAB_STRING);
         AppSharedPreference.setStAllCourseString(ST_COURSE_STRING);
-        AppSharedPreference.setStUserTab(sections.get(0), 0);
+
         tabRl.setVisibility(View.GONE);
-        if (sections.size() > 0)
-            GlobalOfferedCourseSectionId = sections.get(0).getCourseOfferSectionId();
+        if (currentCourse.size() > 0) {
+            GlobalOfferedCourseSectionId = currentCourse.get(0).getCourseOfferSectionId();
+            AppSharedPreference.setStUserTab(currentCourse.get(0), 0);
+            mTabHost.getTabWidget().setCurrentTab(0);
+        }
 
 
     }

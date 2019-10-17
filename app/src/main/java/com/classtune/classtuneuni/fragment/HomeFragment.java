@@ -587,14 +587,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener
                 String[] parts = notice.get(0).getCreatedAt().split(" ");
                 notice1Date.setText(AppUtility.getDateString(parts[0], AppUtility.DATE_FORMAT_APP_, AppUtility.DATE_FORMAT_SERVER));
             }
-            if (notice.get(1).getCreatedAt() != null && notice.get(1).getCreatedAt().contains(" ")) {
+            if (notice.size()>=2 && notice.get(1).getCreatedAt() != null && notice.get(1).getCreatedAt().contains(" ")) {
                 n2 = notice.get(1).getId();
                 String[] parts = notice.get(1).getCreatedAt().split(" ");
                 notice2Date.setText(AppUtility.getDateString(parts[0], AppUtility.DATE_FORMAT_APP_, AppUtility.DATE_FORMAT_SERVER));
             }
             if (notice.get(0).getTitle() != null)
                 notice1Title.setText(notice.get(0).getTitle());
-            if (notice.get(1).getTitle() != null)
+            if (notice.size()>=2 && notice.get(1).getTitle() != null)
                 notice2Title.setText(notice.get(1).getTitle());
         }
         else {
