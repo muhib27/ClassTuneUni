@@ -179,8 +179,10 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        if(AppSharedPreference.getUserStatus().equals("0") && view.getId() != R.id.rl_8)
+        if(AppSharedPreference.getUserStatus().equals("0") && view.getId() != R.id.rl_8) {
+            uiHelper.showMessageDialog("Please enroll at least one subject to access other features");
             return;
+        }
         switch (view.getId()){
 
             case R.id.rl_1:

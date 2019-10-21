@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.classtune.classtuneuni.R;
@@ -67,6 +68,7 @@ public class NotificationListFragment extends Fragment implements View.OnClickLi
     private boolean isLastPage = false;
     private int TOTAL_PAGES;
     private int currentPage = PAGE_START;
+    private TextView noData;
 
 
     List<Item> itemList;
@@ -94,7 +96,7 @@ public class NotificationListFragment extends Fragment implements View.OnClickLi
         noticeInfoList = new ArrayList<>();
         itemList = new ArrayList<>();
 
-
+        noData = view.findViewById(R.id.noData);
 
         RecyclerView rvItem = view.findViewById(R.id.rv_item);
        // LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -199,7 +201,12 @@ public class NotificationListFragment extends Fragment implements View.OnClickLi
 //                            Log.v("noticeResponseModel", value.message());
 //                            List<Notice> noticeList = noticeResonse.getData().getNotice();
 //                            Collections.reverse(noticeList);
-                            notificationAdapter.addAllData(notificationResponse.getData().getNotifications());
+                            if(notificationResponse.getData().getNotifications().size()>0) {
+                                notificationAdapter.addAllData(notificationResponse.getData().getNotifications());
+                            }
+                            else {
+                                noData.setVisibility(View.VISIBLE);
+                            }
 //                            TOTAL_PAGES = noticeResonse.getData().getTotalPages();
 //
 //                            if (currentPage <  (TOTAL_PAGES - 1)) notificationAdapter.addLoadingFooter();
@@ -208,6 +215,7 @@ public class NotificationListFragment extends Fragment implements View.OnClickLi
                             // Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
                         } else {
                             notificationAdapter.clear();
+                            noData.setVisibility(View.VISIBLE);
                             //Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
                         }
                     }

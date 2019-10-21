@@ -1,6 +1,7 @@
 package com.classtune.classtuneuni.fragment;
 
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,18 +10,25 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.LoginActivity;
 import com.classtune.classtuneuni.activity.MainActivity;
+import com.classtune.classtuneuni.assignment.Status;
 import com.classtune.classtuneuni.model.LoginApiModel;
+import com.classtune.classtuneuni.model.UniversityModel;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
 import com.classtune.classtuneuni.utils.NetworkConnection;
@@ -41,7 +49,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     EditText etPassword;
     CheckBox rememberMe;
     Button btnLogin;
-    TextView register;
+    TextView register, tv_forget_password;
 
     UIHelper uiHelper;
 
@@ -85,11 +93,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         btnLogin = view.findViewById(R.id.login);
         btnLogin.setOnClickListener(this);
 
-        if(AppSharedPreference.getRememberMe())
-        {
-            if(!AppSharedPreference.getUserEmail().isEmpty())
+        if (AppSharedPreference.getRememberMe()) {
+            if (!AppSharedPreference.getUserEmail().isEmpty())
                 etUserName.setText(AppSharedPreference.getUserEmail());
-            if(!AppSharedPreference.getUserPassword().isEmpty())
+            if (!AppSharedPreference.getUserPassword().isEmpty())
                 etPassword.setText(AppSharedPreference.getUserPassword());
             rememberMe.setChecked(true);
         }
@@ -108,8 +115,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             etPassword.setFocusable(true);
             etPassword.setError(getString(R.string.java_login_enter_password));
             etPassword.requestFocus();
-        }
-        else {
+        } else {
 
             callLoginApi(username, password);
         }
@@ -122,7 +128,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             //Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
             return;
         }
-       // ((MainActivity)getActivity()).gifImageView.setVisibility(View.VISIBLE);
+        // ((MainActivity)getActivity()).gifImageView.setVisibility(View.VISIBLE);
         uiHelper.showLoadingDialog("Authenticating...");
 //        HashMap params = new HashMap();
 //        params.put("username", username);
@@ -149,19 +155,19 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 //                        Wrapper wrapper = GsonParser.getInstance().parseServerResponse2(
 //                                value.body());
 
-                        if (loginApiModel.getStatus().getCode()!= null && loginApiModel.getStatus().getCode() == 200) {
+                        if (loginApiModel.getStatus().getCode() != null && loginApiModel.getStatus().getCode() == 200) {
                             //    passwordChangeDialog();
 
-                            AppSharedPreference.setUserNameAndPassword(loginApiModel.getData().getUserData().getId(),loginApiModel.getData().getUserData().getEmail(), password, loginApiModel.getData().getApiKey(), rememberMe.isChecked(), loginApiModel.getData().getUserData().getUserType(), loginApiModel.getData().getUserData().getImage(), loginApiModel.getData().getUserData().getName(), loginApiModel.getData().getUserData().getStudentId(), loginApiModel.getData().getUserData().getMobile());
+                            AppSharedPreference.setUserNameAndPassword(loginApiModel.getData().getUserData().getId(), loginApiModel.getData().getUserData().getEmail(), password, loginApiModel.getData().getApiKey(), rememberMe.isChecked(), loginApiModel.getData().getUserData().getUserType(), loginApiModel.getData().getUserData().getImage(), loginApiModel.getData().getUserData().getName(), loginApiModel.getData().getUserData().getStudentId(), loginApiModel.getData().getUserData().getMobile());
                             //callMenuApi();
                             AppSharedPreference.setUserStatus(loginApiModel.getCourseCount());
 
                             Intent intent = new Intent(getActivity(), MainActivity.class);
                             startActivity(intent);
                             getActivity().finish();
-                        }
-                        else
+                        } else
                             uiHelper.dismissLoadingDialog();
+                        uiHelper.showMessageDialog("Login credential not matched");
 //                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 //                            startActivity(intent);
 //                            finish();
@@ -208,10 +214,11 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 loadFragment(fragment, "userSelectionFragment");
 
                 break;
-//            case R.id.tv_forget_password:
+            case R.id.tv_forget_password:
 //                Intent intent = new Intent(LoginActivity.this, ForgetPasswordActivity.class);
 //                startActivity(intent);
-//                break;
+                showDialog();
+                break;
 
             default:
                 break;
@@ -224,6 +231,113 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         transaction.replace(R.id.loginContainer, fragment, tag);
 
         transaction.commit();
+    }
+
+    String email = "";
+    boolean valid = true;
+
+    public void showDialog() {
+
+        ArrayAdapter<UniversityModel> adapter;
+        final Dialog dialog = new Dialog(getActivity(), R.style.Theme_Dialog);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_forget_password);
+
+        final EditText editText = dialog.findViewById(R.id.et_email);
+
+        editText.requestFocus();
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        Button submit = dialog.findViewById(R.id.ok);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                valid = true;
+                email = editText.getText().toString().trim();
+                if (TextUtils.isEmpty(email)) {
+                    editText.setError(getString(R.string.required));
+                    valid = false;
+                } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    editText.setError(getString(R.string.invalid_email));
+                    valid = false;
+                } else {
+                    editText.setError(null);
+                }
+                if (valid) {
+                    dialog.dismiss();
+                    callForgetPassword(email);
+                }
+            }
+        });
+        Button cancel = dialog.findViewById(R.id.cancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
+    }
+
+    private void callForgetPassword(final String email) {
+
+        if (!NetworkConnection.getInstance().isNetworkAvailable()) {
+            //Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        // ((MainActivity)getActivity()).gifImageView.setVisibility(View.VISIBLE);
+        uiHelper.showLoadingDialog("Please wait...");
+//        HashMap params = new HashMap();
+//        params.put("username", username);
+//        params.put("password", password);
+
+
+        RetrofitApiClient.getApiInterface().forgetPassword(email)
+
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<Status>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Response<Status> value) {
+                        uiHelper.dismissLoadingDialog();
+                        Status status = value.body();
+
+
+//                        Log.e("login", "onResponse: "+value.body());
+//                        Wrapper wrapper = GsonParser.getInstance().parseServerResponse2(
+//                                value.body());
+
+                        if (status.getStatus().getCode() != null && status.getStatus().getCode() == 200) {
+                            //    passwordChangeDialog();
+                            uiHelper.showMessageDialog("Please check your email to reset password");
+
+                        } else {
+                            uiHelper.showMessageDialog("Login credential not matched");
+                        }
+
+                    }
+
+
+                    @Override
+                    public void onError(Throwable e) {
+                        uiHelper.dismissLoadingDialog();
+                    }
+
+                    @Override
+                    public void onComplete() {
+//                        progressDialog.dismiss();
+                        uiHelper.dismissLoadingDialog();
+
+                    }
+                });
     }
 
 }

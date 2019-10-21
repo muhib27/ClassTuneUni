@@ -108,6 +108,8 @@ public static final String OFFERED_COURSE_LIST = "course_api/course_offers";
 
 	public static final String STUDENT_ATTENDANCE_REPORT = "attendance_api/students_report";
 
+	public final static String URL_FORGET_PASSWORD = "users/reset_password_api";
+
 
 
 
@@ -240,7 +242,7 @@ public static final String OFFERED_COURSE_LIST = "course_api/course_offers";
 	
 	public final static String FREE_USER_CREATE = "freeuser/create";
 
-	public final static String URL_FORGET_PASSWORD = "user/forgotpassword";
+
 
 	public final static String URL_FREE_VERSION_HOME = "freeuser";
 

@@ -72,6 +72,9 @@ public class ResourseFragment extends Fragment implements MaterialSearchBar.OnSe
     List<String> tabName;
     List<String> tabId;
 
+    private static String ResourceOfferedCourseSectionId = "";
+
+
 
 
     @Override
@@ -114,6 +117,7 @@ public class ResourseFragment extends Fragment implements MaterialSearchBar.OnSe
 
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 //Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
+                ResourceOfferedCourseSectionId = tabId.get(position);
                 callResourceListApi(tabId.get(position), "");
 
             }
@@ -140,8 +144,9 @@ public class ResourseFragment extends Fragment implements MaterialSearchBar.OnSe
                 currentPage += 1;
                 if (searchKey.length() > 0)
                     callResourceListNextApi("",searchKey);
-                else
-                    callResourceListNextApi(GlobalOfferedCourseSectionId,"");
+                else {
+                    callResourceListNextApi(ResourceOfferedCourseSectionId, "");
+                }
                 //callStAssignmentListNextApi(GlobalOfferedCourseSectionId);
             }
 
@@ -281,7 +286,7 @@ public class ResourseFragment extends Fragment implements MaterialSearchBar.OnSe
                         uiHelper.dismissLoadingDialog();
 
                         ResourceResponse resourceResponse = value.body();
-                        resourceAdapter.clear();
+                       // resourceAdapter.clear();
                         if (resourceResponse.getStatus().getCode() == 200) {
 //
                             resourceAdapter.removeLoadingFooter();

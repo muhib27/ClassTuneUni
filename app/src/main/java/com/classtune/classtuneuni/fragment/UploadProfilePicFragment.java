@@ -94,6 +94,7 @@ public class UploadProfilePicFragment extends Fragment implements View.OnClickLi
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        attachmentModelList = new ArrayList<>();
 
         uiHelper = new UIHelper(getActivity());
         fab = view.findViewById(R.id.fab);
@@ -109,7 +110,10 @@ public class UploadProfilePicFragment extends Fragment implements View.OnClickLi
             public void onClick(View view) {
 //                fragment = new SuccessFragment();
 //                gotoFragment(fragment, "successFragment");
+                if(attachmentModelList!=null && attachmentModelList.size()>0)
                 callImageUploadApi();
+                else
+                    uiHelper.showMessageDialog("Please select a profile picture and press Continue again or press skip");
             }
         });
     }

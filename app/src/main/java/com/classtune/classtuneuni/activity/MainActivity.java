@@ -582,8 +582,16 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.notification:
                 //Toast.makeText(getApplicationContext(), "notification", Toast.LENGTH_LONG).show();
-                fragment = new NotificationListFragment();
-                loadFragment(fragment, "notificationListFragment", true);
+                NotificationListFragment notificationListFragment = (NotificationListFragment) getSupportFragmentManager().findFragmentByTag("notificationListFragment");
+
+                if(notificationListFragment!=null && notificationListFragment.isVisible())
+                {
+                    getSupportFragmentManager().popBackStack();
+                }
+                else {
+                    fragment = new NotificationListFragment();
+                    loadFragment(fragment, "notificationListFragment", false);
+                }
             default:
                 return super.onOptionsItemSelected(item);
         }

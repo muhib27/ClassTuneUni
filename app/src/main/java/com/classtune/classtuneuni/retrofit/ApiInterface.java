@@ -349,6 +349,11 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST(URLHelper.STUDENT_NOTIFICATION_COUNT)
     Observable<Response<NotificationResponse>> getNotificationCount(@Field("api_key") String api_key);
+
+    @FormUrlEncoded
+    @POST(URLHelper.URL_FORGET_PASSWORD)
+    Observable<Response<Status>> forgetPassword(@Field("email") String email);
+
 }
 
 

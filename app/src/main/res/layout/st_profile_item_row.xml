@@ -3,10 +3,11 @@
     android:layout_width="match_parent"
     android:orientation="horizontal"
     android:id="@+id/cell"
+    android:paddingStart="@dimen/size_10dp"
     android:layout_height="wrap_content">
     <TextView
         android:id="@+id/subject"
-        android:gravity="center"
+        android:gravity="left"
         android:textColor="@color/appColor"
         android:fontFamily="@font/my_custom_medium_font"
         android:textSize="@dimen/size_15sp"
