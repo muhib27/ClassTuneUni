@@ -157,6 +157,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener
         assessmentCard = view.findViewById(R.id.assessmentCard);
         resourcesCard = view.findViewById(R.id.resourcesCard);
         noticeCard = view.findViewById(R.id.noticeCard);
+        noticeCard.setOnClickListener(this);
 
         latestNotice = view.findViewById(R.id.latestNotice);
         latestResource = view.findViewById(R.id.latestResource);
@@ -675,6 +676,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener
                 fragment = new ExamListFragment();
                 bundle = new Bundle();
                 gotoFragment(fragment, "examListFragment", bundle);
+                break;
+            case R.id.noticeCard:
+                fragment = new NoticeListFragment();
+                bundle = new Bundle();
+                gotoFragment(fragment, "noticeListFragment" , bundle);
                 break;
             case R.id.notices:
                 fragment = new NoticeListFragment();

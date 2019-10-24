@@ -165,9 +165,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                             Intent intent = new Intent(getActivity(), MainActivity.class);
                             startActivity(intent);
                             getActivity().finish();
-                        } else
+                        } else {
                             uiHelper.dismissLoadingDialog();
-                        uiHelper.showMessageDialog("Login credential not matched");
+                            uiHelper.showMessageDialog("Login credential not matched");
+                        }
 //                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 //                            startActivity(intent);
 //                            finish();

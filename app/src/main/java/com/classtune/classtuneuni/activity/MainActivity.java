@@ -235,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
 
         bottomBar = (BottomBar) findViewById(R.id.bottomBar);
 
-        if (AppSharedPreference.getUserStatus().equals("0"))
+        if (AppSharedPreference.getUserType().equals("3") && AppSharedPreference.getUserStatus().equals("0"))
             bottomBar.setDefaultTabPosition(1);
 
         final Bundle extras = getIntent().getExtras();
@@ -314,7 +314,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // messageView.setText(TabMessage.get(tabId, false));
                 if (tabId == R.id.home) {
-                    if (AppSharedPreference.getUserStatus().equals("0"))
+                    if (AppSharedPreference.getUserType().equals("3") && AppSharedPreference.getUserStatus().equals("0"))
                         return;
 //                    HomeFragment homeFragment = (HomeFragment) getSupportFragmentManager().findFragmentByTag("homeFragment");
 //                    if(homeFragment != null && homeFragment.isVisible())
@@ -857,4 +857,6 @@ public class MainActivity extends AppCompatActivity {
         // transaction.addToBackStack(null);
         transaction.commit();
     }
+
+
 }
