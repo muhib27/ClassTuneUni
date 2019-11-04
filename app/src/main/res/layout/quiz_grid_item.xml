@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardView"
+    android:background="@color/ans_select"
+    android:paddingStart="@dimen/size_5dp"
+    android:paddingEnd="@dimen/size_5dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/size_5dp"
+    card_view:cardCornerRadius="0dp">
+
+
+    <TextView
+        android:id="@+id/questionNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:padding="@dimen/size_10dp"
+        android:text="1"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_14_sp"
+        android:textStyle="bold" />
+
+</android.support.v7.widget.CardView>

@@ -98,7 +98,7 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST(URLHelper.URL_REGISTER)
 //    Observable<Response<List<LoginResponseModel>>> userLogin(@Field("username") String userId, @Field("password") String password);
-    Observable<Response<RegisTrationResponse>> studentRegistration(@Field("email") String userId, @Field("password") String password, @Field("confirm_password") String confirm_password, @Field("name") String name, @Field("user_type") String user_type, @Field("student_id") String student_id, @Field("fcm_id") String fcm_id, @Field("mobile") String mobile,  @Field("university_id") String university_id);
+    Observable<Response<RegisTrationResponse>> studentRegistration(@Field("email") String userId, @Field("password") String password, @Field("confirm_password") String confirm_password, @Field("name") String name, @Field("user_type") String user_type, @Field("student_roll") String student_id, @Field("fcm_id") String fcm_id, @Field("mobile") String mobile);
 
 
     @FormUrlEncoded
@@ -353,6 +353,14 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST(URLHelper.URL_FORGET_PASSWORD)
     Observable<Response<Status>> forgetPassword(@Field("email") String email);
+
+    @FormUrlEncoded
+    @POST(URLHelper.REGISTRATION_VERIFICATION)
+    Observable<Response<RegisTrationResponse>> studentVerification(@Field("api_key") String api_key, @Field("code") String code);
+
+    @FormUrlEncoded
+    @POST(URLHelper.RESEND_CODE)
+    Observable<Response<Status>> resendCode(@Field("api_key") String api_key);
 
 }
 

@@ -129,4 +129,11 @@
     <string name="lowest">Lowest</string>
     <string name="average">Average</string>
     <string name="highest">Highest</string>
+    <string name="enter_code">Enter Code</string>
+    <string name="message_to_verify_reg"><![CDATA[We have sent you an email with a verification link & a security code. Please verify yourself by clicking the link or copy the security code, paste it below and press OK.]]></string>
+
+    <string name="message_to_verify"><![CDATA[We have sent you an email with a verification link & a security code. Please verify yourself by clicking the link or copy the security code, paste it below and press OK. If you already verified yourself then login]]></string>
+    <string name="security_code_wrong">Verification code not matched</string>
+    <string name="eight_character">Enter correct code</string>
+    <string name="contentDescription" />
 </resources>

@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.QuizOverviewFragment">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/exam"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/resources"
+            android:layout_marginStart="@dimen/size_10dp"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:layout_marginEnd="@dimen/size_10dp"
+            android:elevation="@dimen/size_5dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/size_10dp">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/exam_title">
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/dateCard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/size_10dp"
+                        android:layout_marginTop="@dimen/size_10dp"
+                        android:layout_marginEnd="@dimen/size_10dp"
+                        android:elevation="@dimen/size_5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="#F2F2F2"
+                            android:orientation="vertical"
+                            android:paddingStart="@dimen/size_20dp"
+                            android:paddingTop="@dimen/size_10dp"
+                            android:paddingEnd="@dimen/size_20dp"
+                            android:paddingBottom="@dimen/size_10dp">
+
+
+                            <TextView
+                                android:id="@+id/examDate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:text="16"
+                                android:textColor="@color/appColor"
+                                android:textSize="@dimen/text_size_38_sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/examMY"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:text="June, 2019"
+                                android:textColor="@color/ashTextColor"
+                                android:textSize="@dimen/text_size_10_sp" />
+
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/size_15dp"
+                        android:layout_toEndOf="@+id/dateCard"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/examName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/size_10dp"
+                            android:padding="@dimen/size_3dp"
+                            android:text="Quiz 1"
+                            android:textColor="@color/ashTextColor"
+                            android:textSize="@dimen/text_size_14_sp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="@dimen/size_3dp">
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true">
+
+                                <!--<TextView-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:text="Obtained: "-->
+                                    <!--android:textColor="@color/ashTextColor"-->
+                                    <!--android:textSize="@dimen/size_15sp"-->
+                                    <!--android:textStyle="normal" />-->
+                                <TextView
+                                    android:id="@+id/title"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="20  Marks obtained"
+                                    android:textStyle="normal"
+                                    android:textColor="@color/ashTextColor"
+                                    android:textSize="@dimen/size_15sp" />
+                                <TextView
+                                    android:id="@+id/marks"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Subject Name"
+                                    android:textStyle="normal"
+                                    android:textColor="@color/ashTextColor"
+                                    android:textSize="@dimen/size_15sp" />
+                            </LinearLayout>
+
+
+                            <!--<LinearLayout-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_alignParentEnd="true">-->
+
+                                <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                                    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                                    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                                    <!--&lt;!&ndash;android:text="Full Marks: "&ndash;&gt;-->
+                                    <!--&lt;!&ndash;android:textColor="@color/ashTextColor"&ndash;&gt;-->
+                                    <!--&lt;!&ndash;android:textSize="@dimen/size_15sp"&ndash;&gt;-->
+                                    <!--&lt;!&ndash;android:textStyle="normal" />&ndash;&gt;-->
+
+                                <!--<TextView-->
+                                    <!--android:textStyle="normal"-->
+                                    <!--android:id="@+id/total"-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:text="Subject Name"-->
+                                    <!--android:textColor="@color/appColor"-->
+                                    <!--android:textSize="@dimen/size_15sp" />-->
+                            <!--</LinearLayout>-->
+
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/size_15dp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Timer"
+                android:textColor="@color/ash_b5"
+                android:textSize="@dimen/text_size_12_sp" />
+
+            <TextView
+                android:id="@+id/timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="12 : 30"
+                android:textColor="#FF4848"
+                android:textSize="@dimen/text_size_23_sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:paddingEnd="@dimen/size_10dp"
+                    android:text="min"
+                    android:textSize="@dimen/text_size_12_sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:paddingStart="@dimen/size_10dp"
+                    android:text="sec"
+                    android:textSize="@dimen/text_size_12_sp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/size_20dp"
+            android:id="@+id/recyclerView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    </LinearLayout>
+
+</ScrollView>

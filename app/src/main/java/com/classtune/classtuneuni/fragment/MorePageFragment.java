@@ -55,7 +55,7 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
     LinearLayout rl_1;
 
     ImageView iv1, iv2, iv3, iv4, iv5, iv6, iv7, iv8;
-    TextView tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8, name, studentId;
+    TextView tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8, name, studentId, privacyPolicy;
 
     public MorePageFragment() {
         // Required empty public constructor
@@ -93,6 +93,8 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
         tv5 = view.findViewById(R.id.tv5);
         tv6 = view.findViewById(R.id.tv6);
         tv7 = view.findViewById(R.id.tv7);
+        privacyPolicy= view.findViewById(R.id.priPo);
+        privacyPolicy.setOnClickListener(this);
 
         name = view.findViewById(R.id.name);
         studentId = view.findViewById(R.id.studentId);
@@ -237,6 +239,10 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
                 case R.id.rl_7:
                     Fragment fragment = new ProfileEditFragment();
                     gotoFragment(fragment, "profileEditFragment");
+                break;
+            case R.id.priPo:
+                fragment = new QuizFragment();
+                gotoFragment(fragment, "quizFragment");
                 break;
 
         }

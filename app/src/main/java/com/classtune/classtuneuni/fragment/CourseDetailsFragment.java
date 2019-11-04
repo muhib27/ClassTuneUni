@@ -661,7 +661,7 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
 
                         StEnrollResponse stEnrollResponse = value.body();
 
-                        if (stEnrollResponse.getStatus().getCode() == 200) {
+                        if (stEnrollResponse!= null && stEnrollResponse.getStatus().getCode() == 200) {
                             ((MainActivity)getActivity()).callStudentSectionListApi(false);
                             enrollNow.setText("Browse");
                             AppSharedPreference.setUserStatus("1");
@@ -673,7 +673,7 @@ public class CourseDetailsFragment extends Fragment implements View.OnClickListe
                             uiHelper.showMessageDialog("You Successfully Enorlled");
                         } else {
                            // Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
-                            uiHelper.showMessageDialog("Something went worng. Please try again later");
+                            uiHelper.showMessageDialog("Enroll code doesn't match");
                         }
                     }
 

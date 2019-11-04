@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Drop Shadow -->
+    <!--<item>-->
+        <!--<shape android:shape="oval">-->
+            <!--<padding-->
+                <!--android:bottom="5dp"-->
+                <!--android:left="5dp"-->
+                <!--android:right="5dp"-->
+                <!--android:top="5dp" />-->
+
+            <!--<solid android:color="#00ffffff" />-->
+
+            <!--<corners android:radius="10dp" />-->
+        <!--</shape>-->
+    <!--</item>-->
+    <!--<item>-->
+        <!--<shape android:shape="oval">-->
+            <!--<padding-->
+                <!--android:bottom="5dp"-->
+                <!--android:left="5dp"-->
+                <!--android:right="5dp"-->
+                <!--android:top="5dp" />-->
+
+            <!--<solid android:color="#10ffffff" />-->
+
+            <!--<corners android:radius="10dp" />-->
+        <!--</shape>-->
+    <!--</item>-->
+    <item>
+        <shape android:shape="oval">
+            <padding
+                android:bottom="3dp"
+                android:left="3dp"
+                android:right="3dp"
+                android:top="3dp" />
+
+            <solid android:color="#20ffffff" />
+
+            <corners android:radius="10dp" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="oval">
+            <padding
+                android:bottom="3dp"
+                android:left="3dp"
+                android:right="3dp"
+                android:top="3dp" />
+
+            <solid android:color="#30ffffff" />
+
+            <corners android:radius="10dp" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="oval">
+            <padding
+                android:bottom="3dp"
+                android:left="3dp"
+                android:right="3dp"
+                android:top="3dp" />
+
+            <solid android:color="#50ffffff" />
+
+            <corners android:radius="10dp" />
+        </shape>
+    </item>
+
+    <!-- Background Color (white) -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@android:color/white" />
+
+            <corners android:radius="3dp" />
+        </shape>
+    </item>
+</layer-list>

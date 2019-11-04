@@ -4,6 +4,7 @@ package com.classtune.classtuneuni.fragment;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -32,6 +33,7 @@ import android.widget.Toast;
 
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.adapter.ListAdapter;
+import com.classtune.classtuneuni.assignment.Status;
 import com.classtune.classtuneuni.model.UniversityModel;
 import com.classtune.classtuneuni.response.RegisTrationResponse;
 import com.classtune.classtuneuni.response.UniData;
@@ -61,7 +63,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     private CheckBox agreeCb;
     TextView termCondition, uniName;
     UIHelper uiHelper;
-    LinearLayout uniNameLl , stIdLl;
+    LinearLayout uniNameLl, stIdLl;
     CountryCodePicker ccp;
     private ImageView uniImg;
 
@@ -92,9 +94,8 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
         userEmail = view.findViewById(R.id.et_email);
         userPassword = view.findViewById(R.id.et_password);
         userRePassword = view.findViewById(R.id.et_con_password);
-        uniImg = view.findViewById(R.id.uniImg);
-
-        uniImg.setOnClickListener(this);
+//        uniImg = view.findViewById(R.id.uniImg);
+//        uniImg.setOnClickListener(this);
         ccp = view.findViewById(R.id.ccp);
         //ccp.setCountryForPhoneCode(376);
 
@@ -103,10 +104,10 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 
         stIdLl = view.findViewById(R.id.stIdLl);
 
-        uniName = view.findViewById(R.id.et_uni_name);
-        uniName.setOnClickListener(this);
-        uniNameLl = view.findViewById(R.id.uniName);
-        uniNameLl.setOnClickListener(this);
+//        uniName = view.findViewById(R.id.et_uni_name);
+//        uniName.setOnClickListener(this);
+//        uniNameLl = view.findViewById(R.id.uniName);
+//        uniNameLl.setOnClickListener(this);
 //        uniNameLl.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -142,12 +143,10 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
         continueBtn = view.findViewById(R.id.continueBtn);
         continueBtn.setOnClickListener(this);
 
-        if(userType.equals("3"))
-        {
+        if (userType.equals("3")) {
             stIdLl.setVisibility(View.VISIBLE);
             // uniNameLl.setVisibility(View.GONE);
-        }
-        else {
+        } else {
             // uniNameLl.setVisibility(View.VISIBLE);
             stIdLl.setVisibility(View.GONE);
         }
@@ -156,11 +155,11 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.et_uni_name:
-            case R.id.uniName:
-            case R.id.uniImg:
-                showDialog();
-                break;
+//            case R.id.et_uni_name:
+//            case R.id.uniName:
+//            case R.id.uniImg:
+//                showDialog();
+//                break;
 
             case R.id.continueBtn:
                 validateFieldAndCallLogIn();
@@ -174,8 +173,6 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
                 break;
         }
     }
-
-
 
 
     public class CustomOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
@@ -221,7 +218,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
             if (countryCode.equals("880")) {
                 String s = phone.substring(0, 1);
                 if (s.equals("0"))
-                    totalPhone = countryCode + "-" +phone.substring(1, phone.length());
+                    totalPhone = countryCode + "-" + phone.substring(1, phone.length());
                 else
                     totalPhone = countryCode + "-" + phone;
             } else
@@ -235,8 +232,6 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
         } else {
             this.userName.setError(null);
         }
-
-
 
 
         if (TextUtils.isEmpty(email)) {
@@ -272,48 +267,46 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
             return;
         }
 
-        if(userType.equals("3")){
-            studentid = studentId.getText().toString().trim();
-            if (TextUtils.isEmpty(studentid)) {
-                this.studentId.setError(getString(R.string.required));
-                valid = false;
-            } else {
-                this.studentId.setError(null);
-            }
-        }
-        else {
-            if (TextUtils.isEmpty(uniname) || TextUtils.isEmpty(uniCode)) {
-                if (uniCode.isEmpty()) {
-                    if (uniname.isEmpty()) {
-                        uniName.setError(getString(R.string.required));
-                        valid = false;
-                    }
-                }
+//        if(userType.equals("3")){
+//            studentid = studentId.getText().toString().trim();
+//            if (TextUtils.isEmpty(studentid)) {
+//                this.studentId.setError(getString(R.string.required));
+//                valid = false;
+//            } else {
+//                this.studentId.setError(null);
+//            }
+//        }
+//        else {
+//            if (TextUtils.isEmpty(uniname) || TextUtils.isEmpty(uniCode)) {
+//                if (uniCode.isEmpty()) {
+//                    if (uniname.isEmpty()) {
+//                        uniName.setError(getString(R.string.required));
+//                        valid = false;
+//                    }
+//                }
+//
+//            } else {
+//                uniName.setError(null);
+//            }
+//        }
 
-            } else {
-                uniName.setError(null);
-            }
-        }
-
-        if(userType.equals("3"))
-        {
-            uniname = uniName.getText().toString().trim();
-            if (TextUtils.isEmpty(uniname)) {
-                this.uniName.setError(getString(R.string.required));
-                valid = false;
-            } else {
-                this.uniName.setError(null);
-            }
+        if (userType.equals("3")) {
+//            uniname = uniName.getText().toString().trim();
+//            if (TextUtils.isEmpty(uniname)) {
+//                this.uniName.setError(getString(R.string.required));
+//                valid = false;
+//            } else {
+//                this.uniName.setError(null);
+//            }
 //            if (uniCode.isEmpty())
 //                callStRegistrationApiName(username, email, password, repassword, studentid, totalPhone, uniname);
-                // else
+            // else
 //                callStRegistrationApi(username, email, password, repassword, studentid, totalPhone, uniCode);
-        }
-        else {
+        } else {
 //            if (!uniCode.isEmpty())
 //                callRegistrationWithNameApi(username, email, password, repassword, uniname);
 //            else
-              //  callRegistrationApi(username, email, password, repassword, uniCode);
+            //  callRegistrationApi(username, email, password, repassword, uniCode);
         }
 //
 //        if (TextUtils.isEmpty(userType)) {
@@ -332,7 +325,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
             return;
         }
         //Toast.makeText(getActivity(), "goto server", Toast.LENGTH_SHORT).show();
-        callStRegistrationApi(username, email, password, repassword, studentid, totalPhone, uniCode);
+        callStRegistrationApi(username, email, password, repassword, studentid, totalPhone);
 
 
     }
@@ -413,7 +406,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 
     }
 
-    private void callStRegistrationApi(final String name, final String email, final String password, final String repassword, final String studentId, String phone, String uniCode) {
+    private void callStRegistrationApi(final String name, final String email, final String password, final String repassword, final String studentId, String phone) {
 
         if (!NetworkConnection.getInstance().isNetworkAvailable()) {
             //Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
@@ -426,7 +419,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 
 
         String st = userType;
-        RetrofitApiClient.getApiInterface().studentRegistration(email, password, repassword, name, userType, studentId, AppSharedPreference.getFcm(), phone, uniCode)
+        RetrofitApiClient.getApiInterface().studentRegistration(email, password, repassword, name, userType, studentId, AppSharedPreference.getFcm(), phone)
 
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -451,8 +444,10 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 
                             AppSharedPreference.setUserNameAndPassword(regisTrationResponse.getData().getUserData().getId(), email, password, regisTrationResponse.getData().getApiKey(), false, regisTrationResponse.getData().getUserData().getUserType(), regisTrationResponse.getData().getUserData().getImage(), regisTrationResponse.getData().getUserData().getName(), regisTrationResponse.getData().getUserData().getStudentId(), regisTrationResponse.getData().getUserData().getMobile());
                             AppSharedPreference.setUserStatus(regisTrationResponse.getCourseCount());
-                            fragment = new UploadProfilePicFragment();
-                            gotoFragment(fragment, "uploadProfilePicFragment");
+//                            fragment = new UploadProfilePicFragment();
+//                            gotoFragment(fragment, "uploadProfilePicFragment");
+
+                            showRegistrationDialog(getResources().getString(R.string.message_to_verify_reg), regisTrationResponse.getData().getApiKey());
                         } else
                             uiHelper.dismissLoadingDialog();
 //                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -487,6 +482,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 
 
     }
+
     private void callStRegistrationApiName(final String name, final String email, final String password, final String repassword, final String studentId, String phone, String uniname) {
 
         if (!NetworkConnection.getInstance().isNetworkAvailable()) {
@@ -595,7 +591,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 
                         if (regisTrationResponse.getStatus().getCode() != null && regisTrationResponse.getStatus().getCode() == 200) {
                             //    passwordChangeDialog();
-                            AppSharedPreference.setUserNameAndPassword(regisTrationResponse.getData().getUserData().getId(), email, password, regisTrationResponse.getData().getApiKey(), false, regisTrationResponse.getData().getUserData().getUserType(), regisTrationResponse.getData().getUserData().getImage(), regisTrationResponse.getData().getUserData().getName(),  regisTrationResponse.getData().getUserData().getStudentId(), regisTrationResponse.getData().getUserData().getMobile());
+                            AppSharedPreference.setUserNameAndPassword(regisTrationResponse.getData().getUserData().getId(), email, password, regisTrationResponse.getData().getApiKey(), false, regisTrationResponse.getData().getUserData().getUserType(), regisTrationResponse.getData().getUserData().getImage(), regisTrationResponse.getData().getUserData().getName(), regisTrationResponse.getData().getUserData().getStudentId(), regisTrationResponse.getData().getUserData().getMobile());
                             AppSharedPreference.setUserStatus(regisTrationResponse.getCourseCount());
                             fragment = new UploadProfilePicFragment();
                             gotoFragment(fragment, "uploadProfilePicFragment");
@@ -645,7 +641,6 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     }
 
 
-
     Handler handler = new Handler();
 
 
@@ -671,7 +666,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 
                     @Override
                     public void onNext(Response<UniversityModel> value) {
-                      //  uiHelper.dismissLoadingDialog();
+                        //  uiHelper.dismissLoadingDialog();
                         UniversityModel universityModel = value.body();
 
 
@@ -711,13 +706,13 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
                     public void onError(Throwable e) {
 
 //                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                      //  uiHelper.dismissLoadingDialog();
+                        //  uiHelper.dismissLoadingDialog();
                     }
 
                     @Override
                     public void onComplete() {
 //                        progressDialog.dismiss();
-                     //   uiHelper.dismissLoadingDialog();
+                        //   uiHelper.dismissLoadingDialog();
                     }
                 });
 
@@ -818,16 +813,218 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 
     @Override
     public boolean onQueryTextChange(String s) {
-                if (s != null && s.toString().trim().length() >= 3)
-                    // field2.setText("");
-                    searchApiCall(s.toString().trim());
+        if (s != null && s.toString().trim().length() >= 3)
+            // field2.setText("");
+            searchApiCall(s.toString().trim());
         return false;
     }
+
     private void gotoFragment(Fragment fragment, String tag) {
         // load fragment
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.loginContainer, fragment, tag);
         //transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    Dialog dialog;
+    TextView msgText;
+    long mLastClickTime = 0;
+
+    private void showRegistrationDialog(String msg, final String key) {
+        mLastClickTime = 0;
+        ArrayAdapter<UniversityModel> adapter;
+        dialog = new Dialog(getActivity(), R.style.Theme_Dialog);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        dialog.setCancelable(false);
+
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_verification_code);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+
+        final EditText code = dialog.findViewById(R.id.et_name);
+        msgText = dialog.findViewById(R.id.text);
+        msgText.setText(msg);
+
+        final TextView login = dialog.findViewById(R.id.login);
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                fragment = new LoginFragment();
+                gotoFragment(fragment, "loginFragment");
+            }
+        });
+
+        Button resend = dialog.findViewById(R.id.resend);
+        resend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //dialog.dismiss();
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 30000){
+                    long s = 30 - ((SystemClock.elapsedRealtime() - mLastClickTime)/1000);
+                    Toast.makeText(getActivity(), "Please press again after " + s + " seconds", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                else {
+                    mLastClickTime = SystemClock.elapsedRealtime();
+                    callResendApi();
+                }
+
+            }
+        });
+
+        ImageView close = dialog.findViewById(R.id.close);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        Button ok = dialog.findViewById(R.id.ok);
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(code.getText().toString().trim().length()>4) {
+                    callStVerificationApi(key, code.getText().toString().trim());
+                    dialog.dismiss();
+                }
+                else {
+                    code.setError(getString(R.string.eight_character));
+                }
+            }
+        });
+
+        dialog.show();
+
+    }
+
+    private void callStVerificationApi(final String apikey, final String code) {
+
+        if (!NetworkConnection.getInstance().isNetworkAvailable()) {
+            //Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        uiHelper.showLoadingDialog("Authenticating...");
+//        HashMap params = new HashMap();
+//        params.put("username", username);
+//        params.put("password", password);
+
+
+        String st = userType;
+        RetrofitApiClient.getApiInterface().studentVerification(apikey, code)
+
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<RegisTrationResponse>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Response<RegisTrationResponse> value) {
+                        uiHelper.dismissLoadingDialog();
+                        RegisTrationResponse regisTrationResponse = value.body();
+
+
+//                        Log.e("login", "onResponse: "+value.body());
+//                        Wrapper wrapper = GsonParser.getInstance().parseServerResponse2(
+//                                value.body());
+
+                        if (regisTrationResponse.getStatus().getCode() != null && regisTrationResponse.getStatus().getCode() == 200) {
+                            //    passwordChangeDialog();
+
+//                            AppSharedPreference.setUserNameAndPassword(regisTrationResponse.getData().getUserData().getId(), email, password, regisTrationResponse.getData().getApiKey(), false, regisTrationResponse.getData().getUserData().getUserType(), regisTrationResponse.getData().getUserData().getImage(), regisTrationResponse.getData().getUserData().getName(), regisTrationResponse.getData().getUserData().getStudentId(), regisTrationResponse.getData().getUserData().getMobile());
+//                            AppSharedPreference.setUserStatus(regisTrationResponse.getCourseCount());
+                            fragment = new UploadProfilePicFragment();
+                            gotoFragment(fragment, "uploadProfilePicFragment");
+
+
+                        } else {
+                            uiHelper.dismissLoadingDialog();
+                            showRegistrationDialog(getResources().getString(R.string.security_code_wrong), apikey);
+                        }
+//                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                            startActivity(intent);
+//                            finish();
+
+//                        } else {
+//
+//                            Toast.makeText(getApplicationContext(), wrapper.getStatus().getMsg(), Toast.LENGTH_SHORT).show();
+//                        }
+                    }
+
+
+                    @Override
+                    public void onError(Throwable e) {
+//                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                        startActivity(intent);
+//                        finish();
+//                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                        startActivity(intent);
+//                        finish();
+//                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+//                        uiHelper.dismissLoadingDialog();
+                    }
+
+                    @Override
+                    public void onComplete() {
+//                        progressDialog.dismiss();
+//                        uiHelper.dismissLoadingDialog();
+                    }
+                });
+
+
+    }
+
+    private void callResendApi() {
+
+
+        if (!NetworkConnection.getInstance().isNetworkAvailable()) {
+            Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        //  uiHelper.showLoadingDialog("Please wait...");
+
+        // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
+        RetrofitApiClient.getApiInterfaceWithId().resendCode(AppSharedPreference.getApiKey())
+
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<Status>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Response<Status> value) {
+                        uiHelper.dismissLoadingDialog();
+
+                        Status status = value.body();
+                        // examPolicyAdapter.clear();
+                        if (status.getStatus().getCode()!=null && status.getStatus().getCode() == 200) {
+                            msgText.setText(getResources().getString(R.string.message_to_verify));
+                        } else {
+                            // Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        //uiHelper.dismissLoadingDialog();
+                    }
+
+                    @Override
+                    public void onComplete() {
+//                        progressDialog.dismiss();
+                        //uiHelper.dismissLoadingDialog();
+                    }
+                });
     }
 }
