@@ -1,100 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/congrats_bg"
+    android:background="@color/ans_select"
+    android:layout_marginTop="-5dp"
     tools:context=".fragment.QuizScoreFragment">
-
-    <RelativeLayout
+    <!--android:background="@drawable/congrats_bg"-->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="165dp">
-
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/profile_image"
-            android:background="@drawable/white_shadow"
-            android:layout_width="180dp"
-            android:layout_height="180dp"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
             android:layout_centerInParent="true"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/size_50dp"
+            android:background="@drawable/white_shadow"
             android:src="@drawable/avatar"
             app:civ_border_color="@color/ashColor"
             app:civ_border_width="2dp"
             app:civ_circle_background_color="@color/black" />
 
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/size_20dp"
+            android:text="Congrats! Your Mark is"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_24_sp"
+            android:textStyle="bold" />
 
-    </RelativeLayout>
-    <TextView
-        android:id="@+id/message"
-        android:layout_above="@+id/marks"
-        android:layout_centerHorizontal="true"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_24_sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/size_20dp"
-        android:text="Congrats! Your Mark is" />
-    <TextView
-        android:id="@+id/marks"
-        android:layout_above="@+id/quizNo"
-        android:layout_marginBottom="@dimen/size_20dp"
-        android:layout_centerHorizontal="true"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_48_sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/size_5dp"
-        android:text="19" />
+        <TextView
+            android:id="@+id/marks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/size_5dp"
+            android:layout_marginBottom="@dimen/size_10dp"
+            android:text="19"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_48_sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/quizNo"
-        android:layout_above="@+id/subject"
-        android:layout_marginBottom="@dimen/size_5dp"
-        android:layout_centerHorizontal="true"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:textSize="@dimen/size_15sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/size_20dp"
-        android:text="Quiz 1" />
-    <TextView
-        android:id="@+id/subject"
-        android:layout_marginBottom="@dimen/size_50dp"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@+id/view"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:textSize="@dimen/size_15sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/size_5dp"
-        android:text="Advanced Software Engineering" />
+        <TextView
+            android:id="@+id/quizNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:layout_marginBottom="@dimen/size_5dp"
+            android:text="Quiz 1"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_15sp"
+            android:textStyle="bold" />
 
-    <Button
-        android:layout_marginBottom="@dimen/size_100dp"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/size_10dp"
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/size_50dp"
-        android:layout_marginRight="@dimen/size_50dp"
-        android:background="@drawable/rounded_white"
-        android:padding="@dimen/size_10dp"
-        android:text="View"
-        android:textAllCaps="false"
-        android:textColor="@color/ans_select"
-        android:textSize="@dimen/size_17sp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/subject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/size_5dp"
+            android:layout_marginBottom="@dimen/size_30dp"
+            android:text="Advanced Software Engineering"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_15sp"
+            android:textStyle="bold" />
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/retake"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="@dimen/size_50dp"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:layout_marginRight="@dimen/size_50dp"
+            android:layout_marginBottom="@dimen/size_10dp"
+            android:background="@drawable/rounded_white"
+            android:padding="@dimen/size_10dp"
+            android:text="Retake"
+            android:textAllCaps="false"
+            android:textColor="#FF4848"
+            android:textSize="@dimen/size_17sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="@dimen/size_50dp"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:layout_marginRight="@dimen/size_50dp"
+            android:layout_marginBottom="@dimen/size_10dp"
+            android:background="@drawable/rounded_white"
+            android:padding="@dimen/size_10dp"
+            android:text="View"
+            android:textAllCaps="false"
+            android:textColor="@color/ans_select"
+            android:textSize="@dimen/size_17sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</ScrollView>

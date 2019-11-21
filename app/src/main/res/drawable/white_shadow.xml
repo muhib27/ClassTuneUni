@@ -31,40 +31,40 @@
     <item>
         <shape android:shape="oval">
             <padding
-                android:bottom="3dp"
-                android:left="3dp"
-                android:right="3dp"
-                android:top="3dp" />
+                android:bottom="2dp"
+                android:left="2dp"
+                android:right="2dp"
+                android:top="2dp" />
+
+            <solid android:color="#00ffffff" />
+
+            <corners android:radius="@dimen/size_10dp" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="oval">
+            <padding
+                android:bottom="2dp"
+                android:left="2dp"
+                android:right="2dp"
+                android:top="2dp" />
+
+            <solid android:color="#10ffffff" />
+
+            <corners android:radius="@dimen/size_10dp" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="oval">
+            <padding
+                android:bottom="2dp"
+                android:left="2dp"
+                android:right="2dp"
+                android:top="2dp" />
 
             <solid android:color="#20ffffff" />
 
-            <corners android:radius="10dp" />
-        </shape>
-    </item>
-    <item>
-        <shape android:shape="oval">
-            <padding
-                android:bottom="3dp"
-                android:left="3dp"
-                android:right="3dp"
-                android:top="3dp" />
-
-            <solid android:color="#30ffffff" />
-
-            <corners android:radius="10dp" />
-        </shape>
-    </item>
-    <item>
-        <shape android:shape="oval">
-            <padding
-                android:bottom="3dp"
-                android:left="3dp"
-                android:right="3dp"
-                android:top="3dp" />
-
-            <solid android:color="#50ffffff" />
-
-            <corners android:radius="10dp" />
+            <corners android:radius="@dimen/size_10dp" />
         </shape>
     </item>
 

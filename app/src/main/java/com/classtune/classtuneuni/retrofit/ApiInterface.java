@@ -30,6 +30,8 @@ import com.classtune.classtuneuni.notice.StNoticeResonse;
 import com.classtune.classtuneuni.notification.NotificationResponse;
 import com.classtune.classtuneuni.profile.EditProfileResponse;
 import com.classtune.classtuneuni.profile.StProfileRsponse;
+import com.classtune.classtuneuni.quiz.QuizStartResponse;
+import com.classtune.classtuneuni.quiz.QuizSubmitResponse;
 import com.classtune.classtuneuni.resource.ResourceResponse;
 import com.classtune.classtuneuni.response.NoticeOfferResponse;
 import com.classtune.classtuneuni.response.NoticeResonse;
@@ -39,6 +41,7 @@ import com.classtune.classtuneuni.result.StCourseResultResponse;
 import com.classtune.classtuneuni.utils.URLHelper;
 import com.google.gson.JsonElement;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -361,6 +364,26 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST(URLHelper.RESEND_CODE)
     Observable<Response<Status>> resendCode(@Field("api_key") String api_key);
+
+    @FormUrlEncoded
+    @POST(URLHelper.STUDENT_QUIZ_LIST)
+    Observable<Response<ExamResponse>> getStQuizList(@Field("api_key") String api_key, @Field("course_offer_sections_id") String course_offer_section_id);
+
+    @FormUrlEncoded
+    @POST(URLHelper.STUDENT_QUIZ_QUESTION_LIST)
+    Observable<Response<ExamResponse>> getQuizQuestionList(@Field("api_key") String api_key, @Field("quiz_id") String quiz_id);
+
+    @FormUrlEncoded
+    @POST(URLHelper.STUDENT_QUIZ_SUBMIT)
+    Observable<Response<QuizSubmitResponse>> getQuizSubmit(@Field("api_key") String api_key, @Field("quiz_id") String quiz_id, @Field("result") String result, @Field("start_time") String start_time);
+
+    @FormUrlEncoded
+    @POST(URLHelper.STUDENT_QUIZ_START)
+    Observable<Response<QuizStartResponse>> getQuizStart(@Field("api_key") String api_key, @Field("quiz_id") String quiz_id);
+
+    @FormUrlEncoded
+    @POST(URLHelper.STUDENT_QUIZ_RESULT)
+    Observable<Response<ExamResponse>> getQuizResults(@Field("api_key") String api_key, @Field("quiz_id") String quiz_id);
 
 }
 

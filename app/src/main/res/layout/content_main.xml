@@ -20,7 +20,7 @@
             android:id="@+id/tab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_10dp"
+            android:paddingTop="@dimen/size_10dp"
             android:layout_marginBottom="-10dp"
             android:orientation="horizontal"
             android:paddingStart="@dimen/size_5dp"

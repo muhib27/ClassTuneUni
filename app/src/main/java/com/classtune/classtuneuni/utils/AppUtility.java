@@ -106,7 +106,7 @@ public class AppUtility {
 
 	public static String getMonth(String m){
 		if (m!=null)
-		return month[Integer.parseInt(m)];
+		return month[Integer.parseInt(m)-1];
 		else
 			return "";
 	}
@@ -552,5 +552,24 @@ public class AppUtility {
 
 		}
 		return time;
+	}
+
+	public static String convertSecondsToHMS(long second){
+		String result = "";
+
+//		int second = Integer.parseInt(seconds);
+
+		int hr = (int)(second/3600);
+		int rem = (int)(second%3600);
+		int mn = rem/60;
+		int sec = rem%60;
+		//String hrStr = (hr<10 ? "0" : "")+hr;
+		String mnStr = (mn<10 ? "0" : "")+mn;
+		String secStr = (sec<10 ? "0" : "")+sec;
+
+		//result = hrStr+":"+mnStr+":"+secStr;
+		result = mnStr+":"+secStr;
+
+		return result;
 	}
 }

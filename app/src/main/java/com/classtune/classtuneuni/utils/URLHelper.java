@@ -6,11 +6,11 @@ package com.classtune.classtuneuni.utils;
 public class URLHelper {
 
 
-	public URLHelper() {
+    public URLHelper() {
 	}
 	//public static final String BASE_URL= "http://192.168.3.43/";
 	public static final String BASE_URL= "http://uni.edoozz.com/";
-	//public static final String BASE_URL = "http://192.168.3.48/";
+	//public static final String BASE_URL = "http://192.168.0.68/edoozz/";
 	//public static final String BASE_URL = "http://192.168.2.38/";
 	public static final String SUB_URL = "masterapi/";
 //	public final static String URL_BASE = "http://apimaster.classtune.com/api/";
@@ -96,6 +96,12 @@ public class URLHelper {
 
 	public static final String REGISTRATION_VERIFICATION = "users/verify_email_code";
 	public static final String RESEND_CODE = "users/again_verification_email";
+	public static final String STUDENT_QUIZ_LIST = "quiz_api/quiz_list";
+	public static final String STUDENT_QUIZ_QUESTION_LIST = "quiz_api/get_quiz_questions";
+	public static final String STUDENT_QUIZ_SUBMIT = "quiz_api/save_quiz_answers";
+	public static final String STUDENT_QUIZ_START = "quiz_api/start_quiz";
+	public static final String STUDENT_QUIZ_RESULT = "quiz_api/get_quiz_results";
+
 
 
 

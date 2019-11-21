@@ -36,10 +36,10 @@ public class UserSelectionFragment extends Fragment implements View.OnClickListe
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         student = view.findViewById(R.id.student);
-        teacher = view.findViewById(R.id.teacher);
+//        teacher = view.findViewById(R.id.teacher);
 
         student.setOnClickListener(this);
-        teacher.setOnClickListener(this);
+//        teacher.setOnClickListener(this);
 
     }
 
@@ -51,10 +51,10 @@ public class UserSelectionFragment extends Fragment implements View.OnClickListe
                 fragment = new RegistrationFragment();
                 gotoFragment(fragment, "registrationFragment", "3");
             break;
-            case R.id.teacher:
-                fragment = new RegistrationFragment();
-                gotoFragment(fragment, "registrationFragment", "2");
-                break;
+//            case R.id.teacher:
+//                fragment = new RegistrationFragment();
+//                gotoFragment(fragment, "registrationFragment", "2");
+//                break;
         }
     }
 

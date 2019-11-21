@@ -51,11 +51,11 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
     //private TextView name, studentId;
     Fragment fragment;
     UIHelper uiHelper;
-    RelativeLayout rl_8,  rl_2, rl_3, rl_4, notice, rl_6, rl_7;
+    RelativeLayout rl_8,  rl_2, rl_3, rl_4, notice, rl_6, rl_7, quizRl;
     LinearLayout rl_1;
 
-    ImageView iv1, iv2, iv3, iv4, iv5, iv6, iv7, iv8;
-    TextView tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8, name, studentId, privacyPolicy;
+    ImageView iv1, iv2, iv3, iv4, iv5, iv6, iv7, iv8, iv9;
+    TextView tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8, name, studentId, privacyPolicy, quizTv;
 
     public MorePageFragment() {
         // Required empty public constructor
@@ -86,7 +86,9 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
         iv5 = view.findViewById(R.id.iv5);
         iv6 = view.findViewById(R.id.iv6);
         iv7 = view.findViewById(R.id.iv7);
+        iv9 = view.findViewById(R.id.iv9);
 
+        quizTv = view.findViewById(R.id.quizTv);
         tv2 = view.findViewById(R.id.tv2);
         tv3 = view.findViewById(R.id.tv3);
         tv4 = view.findViewById(R.id.tv4);
@@ -124,6 +126,9 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
 
         rl_8 = view.findViewById(R.id.rl_8);
         rl_8.setOnClickListener(this);
+
+        quizRl = view.findViewById(R.id.quizRl);
+        quizRl.setOnClickListener(this);
 
       //  String s = BASE_URL + AppSharedPreference.getUserImage();
 
@@ -241,8 +246,12 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
                     gotoFragment(fragment, "profileEditFragment");
                 break;
             case R.id.priPo:
-                fragment = new QuizFragment();
-                gotoFragment(fragment, "quizFragment");
+                break;
+            case R.id.quizRl:
+                if(AppSharedPreference.getUserType().equals("3")) {
+                    fragment = new QuizListFragment();
+                    gotoFragment(fragment, "quizListFragment");
+                }
                 break;
 
         }

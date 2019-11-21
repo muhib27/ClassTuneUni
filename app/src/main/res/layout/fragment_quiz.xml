@@ -115,7 +115,7 @@
                         android:layout_gravity="bottom"
                         android:layout_toEndOf="@+id/questionNo"
                         android:text="/12"
-                        android:textColor="#FF4848"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/text_size_12_sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -147,6 +147,7 @@
                     android:textSize="@dimen/text_size_12_sp" />
 
                 <TextView
+                    android:id="@+id/marks"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -160,7 +161,7 @@
         </LinearLayout>
 
         <ProgressBar
-            android:id="@+id/ProgressBar"
+            android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_15dp"
@@ -168,7 +169,7 @@
             android:indeterminate="false"
             android:maxHeight="10dp"
             android:minHeight="10dp"
-            android:progress="40"
+            android:progress="0"
             android:progressDrawable="@drawable/greenprogress" />
 
         <RelativeLayout
@@ -180,18 +181,21 @@
                 android:id="@+id/si"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1." />
+                android:text="" />
 
             <TextView
+                android:textSize="@dimen/size_16sp"
                 android:id="@+id/question"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/si"
-                android:text="The length of the bridge, which a train 130 metres long and travelling at45 km/hrcan cross in 30 seconds, is:" />
+                android:text="" />
 
         </RelativeLayout>
 
         <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="@dimen/size_10dp"
+            android:layout_marginStart="@dimen/size_10dp"
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -210,7 +214,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/pic_up"
-                android:layout_marginLeft="@dimen/size_30dp"
+                android:layout_marginLeft="@dimen/size_10dp"
                 android:layout_marginRight="@dimen/size_30dp"
                 android:background="@drawable/next_fill"
                 android:padding="@dimen/size_10dp"
@@ -227,7 +231,7 @@
                 android:layout_below="@+id/pic_up"
                 android:layout_alignParentEnd="true"
                 android:layout_marginLeft="@dimen/size_30dp"
-                android:layout_marginRight="@dimen/size_30dp"
+                android:layout_marginRight="@dimen/size_10dp"
                 android:background="@drawable/next_fill"
                 android:padding="@dimen/size_10dp"
                 android:text="Next"

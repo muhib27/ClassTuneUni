@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.QuizDetailsFragment">
+
+    <LinearLayout
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/size_5dp">
+        <TextView
+            android:textAlignment="center"
+            android:paddingEnd="@dimen/size_20dp"
+            android:paddingStart="@dimen/size_20dp"
+            android:id="@+id/subject"
+            android:layout_marginTop="@dimen/size_30dp"
+            android:textStyle="bold"
+            android:textColor="@color/ash_b5"
+            android:textSize="@dimen/text_size_18_sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Advanced Software Engineering" />
+        <TextView
+            android:textAlignment="center"
+            android:paddingEnd="@dimen/size_20dp"
+            android:paddingStart="@dimen/size_20dp"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:id="@+id/quizName"
+            android:layout_marginBottom="@dimen/size_5dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_25_sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Quiz 1" />
+
+        <TextView
+            android:layout_marginTop="@dimen/size_30dp"
+            android:textColor="@color/ash_b5"
+            android:textSize="@dimen/size_15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Total Question:" />
+        <TextView
+            android:id="@+id/totalQuestion"
+            android:textStyle="bold"
+            android:textColor="@color/ans_select"
+            android:textSize="@dimen/text_size_27sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="0" />
+        <TextView
+            android:layout_marginTop="@dimen/size_10dp"
+            android:textColor="@color/ash_b5"
+            android:textSize="@dimen/size_15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Total Mark:" />
+        <TextView
+            android:id="@+id/totalMarks"
+            android:layout_marginBottom="@dimen/size_5dp"
+            android:textStyle="bold"
+            android:textColor="#FBB103"
+            android:textSize="@dimen/text_size_27sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="20" />
+        <LinearLayout
+            android:layout_marginTop="@dimen/size_10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Timer"
+                android:textColor="@color/ash_b5"
+                android:textSize="@dimen/size_15sp" />
+
+            <TextView
+                android:id="@+id/timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="12 : 30"
+                android:textColor="#FF4848"
+                android:textSize="@dimen/text_size_27sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:paddingEnd="@dimen/size_10dp"
+                    android:text="min"
+                    android:textSize="@dimen/text_size_12_sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:paddingStart="@dimen/size_10dp"
+                    android:text="sec"
+                    android:textSize="@dimen/text_size_12_sp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <Button
+            android:layout_marginTop="@dimen/size_30dp"
+            android:id="@+id/viewDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="@dimen/size_50dp"
+            android:layout_marginRight="@dimen/size_50dp"
+            android:layout_marginBottom="@dimen/size_10dp"
+            android:background="@drawable/rounded_paste"
+            android:padding="@dimen/size_10dp"
+            android:text="View Details"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_17sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:elevation="@dimen/size_3dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/size_20dp"
+            android:id="@+id/start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/size_50dp"
+            android:layout_marginRight="@dimen/size_50dp"
+            android:background="@drawable/rounded_paste"
+            android:padding="@dimen/size_10dp"
+            android:text="Start"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_17sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</ScrollView>

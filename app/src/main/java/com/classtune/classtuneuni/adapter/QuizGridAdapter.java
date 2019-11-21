@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -26,9 +27,12 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.activity.MainActivity;
+import com.classtune.classtuneuni.activity.QuizActivity;
+import com.classtune.classtuneuni.fragment.QuizExplainationFragment;
 import com.classtune.classtuneuni.fragment.ResourceViewFragment;
 import com.classtune.classtuneuni.model.ComResult;
 import com.classtune.classtuneuni.model.QuizGridModel;
+import com.classtune.classtuneuni.quiz.Question;
 import com.classtune.classtuneuni.resource.Resource;
 import com.classtune.classtuneuni.utils.AppUtility;
 import com.classtune.classtuneuni.utils.PaginationAdapterCallback;
@@ -39,7 +43,7 @@ import java.util.List;
 
 public class QuizGridAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<QuizGridModel> mValues;
+    private List<Question> mValues;
     private Context mContext;
     protected ItemListener mListener;
     private static final int LOADING = 2;
@@ -78,41 +82,34 @@ public class QuizGridAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
-        final QuizGridModel result = mValues.get(position);
+        final Question result = mValues.get(position);
         switch (getItemViewType(position)) {
             case ITEM:
                 final MovieVH itemHolder = (MovieVH) viewHolder;
-                itemHolder.question.setText(result.getQuestion());
+                itemHolder.question.setText(String.valueOf(position + 1));
 
-//                itemHolder.cardView.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//
-//                        Fragment fragment =new ResourceViewFragment();
-//                        Bundle bundle = new Bundle();
-//                        bundle.putString("title", result.getTitle());
-//                        bundle.putString("course_name", result.getCourseName());
-//                        bundle.putString("chapter", result.getChapterTitle());
-//                        bundle.putString("content", result.getContent());
-//                        bundle.putString("thumbnail", result.getThumbnail());
-//                        gotoFragment(fragment, "resourceViewFragment", bundle);
-//                    }
-//                });
+                if (result.getCorrect() != null && result.getCorrect() == 1) {
 
+                        itemHolder.cell.setBackground(ContextCompat.getDrawable(mContext, R.drawable.correct_answer_bg));
+//                        itemHolder.option.setTextColor(ContextCompat.getColor(mContext, R.color.white));
+//                        itemHolder.si.setTextColor(ContextCompat.getColor(mContext, R.color.white));
 
+                } else {
 
-//                Glide.with(mContext)
-//                        .load(result.getThumbnail())
-//                        .centerCrop()
-//                        .placeholder(R.drawable.avatar)
-//                        .into(itemHolder.imageView);
-//
-//                Glide.with(mContext)
-//                        .load(result.getThumbnail())
-//                        .apply(new RequestOptions()
-//                                .placeholder(R.mipmap.ic_launcher)
-//                                .fitCenter())
-//                        .into(itemHolder.imageView);
+                        itemHolder.cell.setBackground(ContextCompat.getDrawable(mContext, R.drawable.wrong_answer_bg));
+//                        itemHolder.option.setTextColor(ContextCompat.getColor(mContext, R.color.black));
+//                        itemHolder.si.setTextColor(ContextCompat.getColor(mContext, R.color.ans_select));
+
+                }
+                itemHolder.cell.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Fragment fragment = new QuizExplainationFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("pos", position);
+                        gotoFragment(fragment, "quizExplainationFragment", bundle);
+                    }
+                });
 
 
 
@@ -156,6 +153,7 @@ public class QuizGridAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             super(itemView);
 
             question = itemView.findViewById(R.id.questionNo);
+            cell = itemView.findViewById(R.id.cell);
 
 
         }
@@ -201,19 +199,19 @@ public class QuizGridAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
 
-    public void add(QuizGridModel r) {
+    public void add(Question r) {
         mValues.add(r);
         notifyItemInserted(mValues.size() - 1);
     }
 
 
-    public void addAllData(List<QuizGridModel> moveResults) {
-        for (QuizGridModel result : moveResults) {
+    public void addAllData(List<Question> moveResults) {
+        for (Question result : moveResults) {
             add(result);
         }
     }
 
-    public void remove(QuizGridModel r) {
+    public void remove(Question r) {
         int position = mValues.indexOf(r);
         if (position > -1) {
             mValues.remove(position);
@@ -235,14 +233,14 @@ public class QuizGridAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public void addLoadingFooter() {
         isLoadingAdded = true;
-        add(new QuizGridModel());
+        add(new Question());
     }
 
     public void removeLoadingFooter() {
         isLoadingAdded = false;
 
         int position = mValues.size() - 1;
-        QuizGridModel result = getItem(position);
+        Question result = getItem(position);
 
         if (result != null) {
             mValues.remove(position);
@@ -250,7 +248,7 @@ public class QuizGridAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
-    public QuizGridModel getItem(int position) {
+    public Question getItem(int position) {
         return mValues.get(position);
     }
 
@@ -266,8 +264,8 @@ public class QuizGridAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private void gotoFragment(Fragment fragment, String tag, Bundle bundle) {
         // load fragment
         fragment.setArguments(bundle);
-        FragmentTransaction transaction = ((MainActivity)mContext).getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.mainContainer, fragment, tag);
+        FragmentTransaction transaction = ((QuizActivity)mContext).getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.quizContainer, fragment, tag);
         transaction.addToBackStack(null);
         transaction.commit();
     }

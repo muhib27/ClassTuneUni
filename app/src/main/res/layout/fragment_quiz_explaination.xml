@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.QuizFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/size_10dp">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_20dp">
+
+            <TextView
+                android:id="@+id/si"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1." />
+
+            <TextView
+                android:textSize="@dimen/size_17sp"
+                android:id="@+id/question"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/si"
+                android:text="The length of the bridge, which a train 130 metres long and travelling at45 km/hrcan cross in 30 seconds, is:" />
+
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="@dimen/size_10dp"
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll"
+            android:background="@null"
+            android:scrollbars="vertical"
+            app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior" />
+        <LinearLayout
+            android:id="@+id/answer"
+            android:layout_marginTop="@dimen/size_20dp"
+            android:padding="@dimen/size_8_dp"
+            android:background="@drawable/square_border_ash"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/status"
+                android:textAlignment="textStart"
+                android:textColor="@color/ash_b5"
+                android:textSize="@dimen/size_15sp"
+                android:layout_gravity="left"
+                android:text=""
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/exp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/size_20dp"
+            android:text="Explaination"
+            android:textColor="@color/ash_b5"
+            android:textSize="@dimen/text_size_18_sp" />
+
+
+        <LinearLayout
+            android:id="@+id/explain"
+            android:layout_marginTop="@dimen/size_20dp"
+            android:padding="@dimen/size_8_dp"
+            android:background="@drawable/square_border_ash"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/explaination"
+                android:textAlignment="textStart"
+                android:textColor="@color/ash_b5"
+                android:textSize="@dimen/size_15sp"
+                android:layout_gravity="left"
+                android:text="Explaination"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!--<RelativeLayout-->
+        <!--android:layout_marginTop="@dimen/size_20dp"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+
+        <!--<Button-->
+        <!--android:id="@+id/previous"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/pic_up"-->
+        <!--android:layout_marginLeft="@dimen/size_30dp"-->
+        <!--android:layout_marginRight="@dimen/size_30dp"-->
+        <!--android:background="@drawable/next_fill"-->
+        <!--android:padding="@dimen/size_10dp"-->
+        <!--android:text="Previous"-->
+        <!--android:textAllCaps="false"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textSize="@dimen/size_17sp"-->
+        <!--android:textStyle="bold" />-->
+
+        <!--<Button-->
+        <!--android:id="@+id/next"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/pic_up"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_marginLeft="@dimen/size_30dp"-->
+        <!--android:layout_marginRight="@dimen/size_30dp"-->
+        <!--android:background="@drawable/next_fill"-->
+        <!--android:padding="@dimen/size_10dp"-->
+        <!--android:text="Next"-->
+        <!--android:textAllCaps="false"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textSize="@dimen/size_17sp"-->
+        <!--android:textStyle="bold" />-->
+        <!--</RelativeLayout>-->
+
+    </LinearLayout>
+
+</ScrollView>

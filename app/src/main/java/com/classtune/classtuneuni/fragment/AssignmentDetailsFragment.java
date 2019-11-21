@@ -179,8 +179,8 @@ public class AssignmentDetailsFragment extends Fragment implements View.OnClickL
             instructor.setText(assignment.getInstructor());
         if(assignment.getCourseName()!=null)
             course.setText(assignment.getCourseName());
-        if(assignment.getAssignDate()!=null) {
-            String str = assignment.getAssignDate();
+        if(assignment.getCreatedAt()!=null) {
+            String str = assignment.getCreatedAt();
             String parts[] = str.split(" ");
             if(parts[0].contains("-"))
             assignDate.setText(AppUtility.getDateString(parts[0], AppUtility.DATE_FORMAT_APP, AppUtility.DATE_FORMAT_SERVER));

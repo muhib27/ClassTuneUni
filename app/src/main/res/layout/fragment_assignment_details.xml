@@ -139,7 +139,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/size_10dp"
-                        android:text="22 Julu, 2019"
+                        android:text=""
                         android:textColor="@color/appColor"
                         android:textSize="@dimen/text_size_12_sp"
                         android:textStyle="bold" />

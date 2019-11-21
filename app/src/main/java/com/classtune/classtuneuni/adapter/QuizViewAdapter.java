@@ -10,23 +10,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.fragment.QuizFragment;
-import com.classtune.classtuneuni.model.OptionModel;
-import com.classtune.classtuneuni.model.STAttendanceModel;
-import com.classtune.classtuneuni.model.Student;
 import com.classtune.classtuneuni.quiz.Option;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class AnsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class QuizViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public List<Option> mValues;
     private Context mContext;
@@ -41,12 +37,12 @@ public class AnsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private boolean isLoadingAdded = false;
 
-    public AnsAdapter(Context context) {
+    public QuizViewAdapter(Context context) {
         mValues = new ArrayList<>();
         mContext = context;
     }
 
-    public AnsAdapter(Context context, QuizFragment quizFragment) {
+    public QuizViewAdapter(Context context, QuizFragment quizFragment) {
         mValues = new ArrayList<>();
         mContext = context;
         this.quizFragment = quizFragment;
@@ -78,27 +74,25 @@ public class AnsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 itemHolder.si.setText(si[position] + ". ");
                 itemHolder.option.setText(optionModel.getOptions());
                 final int sdk = android.os.Build.VERSION.SDK_INT;
-                if (optionModel.getStatus() != null && optionModel.getStatus().equals("1")) {
-                    if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                        itemHolder.statusLl.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.answer_selected));
-                        itemHolder.option.setTextColor(mContext.getResources().getColor(R.color.white));
-                        itemHolder.si.setTextColor(mContext.getResources().getColor(R.color.white));
-                    } else {
+                if (optionModel.getStudentClick() != null && optionModel.getStudentClick()== 1 && optionModel.getIsCorrect().equals("1")) {
+
                         itemHolder.statusLl.setBackground(ContextCompat.getDrawable(mContext, R.drawable.answer_selected));
                         itemHolder.option.setTextColor(ContextCompat.getColor(mContext, R.color.white));
                         itemHolder.si.setTextColor(ContextCompat.getColor(mContext, R.color.white));
-                    }
 
-                } else {
-                    if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                        itemHolder.statusLl.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.square_border_ash));
-                        itemHolder.option.setTextColor(mContext.getResources().getColor(R.color.black));
-                        itemHolder.si.setTextColor(mContext.getResources().getColor(R.color.ans_select));
-                    } else {
-                        itemHolder.statusLl.setBackground(ContextCompat.getDrawable(mContext, R.drawable.square_border_ash));
-                        itemHolder.option.setTextColor(ContextCompat.getColor(mContext, R.color.black));
-                        itemHolder.si.setTextColor(ContextCompat.getColor(mContext, R.color.ans_select));
-                    }
+                } else if(optionModel.getStudentClick() != null && optionModel.getStudentClick()== 1 && optionModel.getIsCorrect().equals("0")) {
+                        itemHolder.statusLl.setBackground(ContextCompat.getDrawable(mContext, R.drawable.wrong_answer_bg));
+                        itemHolder.option.setTextColor(ContextCompat.getColor(mContext, R.color.white));
+                        itemHolder.si.setTextColor(ContextCompat.getColor(mContext, R.color.white));
+                }
+                else if(optionModel.getStudentClick() != null && optionModel.getStudentClick()== 0 && optionModel.getIsCorrect().equals("1")) {
+                    itemHolder.statusLl.setBackground(ContextCompat.getDrawable(mContext, R.drawable.answer_selected));
+                    itemHolder.option.setTextColor(ContextCompat.getColor(mContext, R.color.white));
+                    itemHolder.si.setTextColor(ContextCompat.getColor(mContext, R.color.white));
+                }
+                else {
+                    itemHolder.option.setTextColor(ContextCompat.getColor(mContext, R.color.black));
+                    itemHolder.si.setTextColor(ContextCompat.getColor(mContext, R.color.ans_select));
                 }
 //                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
 //
@@ -110,51 +104,53 @@ public class AnsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 //                    itemHolder.option.setTextColor(ContextCompat.getColor(mContext, R.color.black));
 //                    itemHolder.si.setTextColor(ContextCompat.getColor(mContext, R.color.ans_select));
 //                }
-                itemHolder.statusLl.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (questionType.equals("2")) {
-                            if(optionModel.getStatus()== null || optionModel.getStatus().equals("0")) {
-                                optionModel.setStatus("1");
-                                quizFragment.quizListUpdate("1", question, position, questionType);
-                            }
-                            else {
-                                optionModel.setStatus("0");
-                                quizFragment.quizListUpdate("0", question, position, questionType);
-                            }
 
-                        } else if (questionType.equals("1")) {
 
-                            if (optionModel.getStatus() == null || optionModel.getStatus().equals("0")) {
-                                if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                                    itemHolder.statusLl.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.answer_selected));
-                                    itemHolder.option.setTextColor(mContext.getResources().getColor(R.color.white));
-                                    itemHolder.si.setTextColor(mContext.getResources().getColor(R.color.white));
-                                } else {
-                                    itemHolder.statusLl.setBackground(ContextCompat.getDrawable(mContext, R.drawable.answer_selected));
-                                    itemHolder.option.setTextColor(ContextCompat.getColor(mContext, R.color.white));
-                                    itemHolder.si.setTextColor(ContextCompat.getColor(mContext, R.color.white));
-                                }
-                                optionModel.setStatus("1");
-                                quizFragment.quizListUpdate("1", question, position, questionType);
-
-                            } else {
-                                if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                                    itemHolder.statusLl.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.square_border_ash));
-                                    itemHolder.option.setTextColor(mContext.getResources().getColor(R.color.black));
-                                    itemHolder.si.setTextColor(mContext.getResources().getColor(R.color.ans_select));
-                                } else {
-                                    itemHolder.statusLl.setBackground(ContextCompat.getDrawable(mContext, R.drawable.square_border_ash));
-                                    itemHolder.option.setTextColor(ContextCompat.getColor(mContext, R.color.black));
-                                    itemHolder.si.setTextColor(ContextCompat.getColor(mContext, R.color.ans_select));
-                                }
-
-                                optionModel.setStatus("0");
-                                quizFragment.quizListUpdate("0", question, position, questionType);
-                            }
-                        }
-                    }
-                });
+//                itemHolder.statusLl.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        if (questionType.equals("2")) {
+//                            if(optionModel.getStatus()== null || optionModel.getStatus().equals("0")) {
+//                                optionModel.setStatus("1");
+//                                quizFragment.quizListUpdate("1", question, position, questionType);
+//                            }
+//                            else {
+//                                optionModel.setStatus("0");
+//                                quizFragment.quizListUpdate("0", question, position, questionType);
+//                            }
+//
+//                        } else if (questionType.equals("1")) {
+//
+//                            if (optionModel.getStatus() == null || optionModel.getStatus().equals("0")) {
+//                                if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+//                                    itemHolder.statusLl.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.answer_selected));
+//                                    itemHolder.option.setTextColor(mContext.getResources().getColor(R.color.white));
+//                                    itemHolder.si.setTextColor(mContext.getResources().getColor(R.color.white));
+//                                } else {
+//                                    itemHolder.statusLl.setBackground(ContextCompat.getDrawable(mContext, R.drawable.answer_selected));
+//                                    itemHolder.option.setTextColor(ContextCompat.getColor(mContext, R.color.white));
+//                                    itemHolder.si.setTextColor(ContextCompat.getColor(mContext, R.color.white));
+//                                }
+//                                optionModel.setStatus("1");
+//                                quizFragment.quizListUpdate("1", question, position, questionType);
+//
+//                            } else {
+//                                if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+//                                    itemHolder.statusLl.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.square_border_ash));
+//                                    itemHolder.option.setTextColor(mContext.getResources().getColor(R.color.black));
+//                                    itemHolder.si.setTextColor(mContext.getResources().getColor(R.color.ans_select));
+//                                } else {
+//                                    itemHolder.statusLl.setBackground(ContextCompat.getDrawable(mContext, R.drawable.square_border_ash));
+//                                    itemHolder.option.setTextColor(ContextCompat.getColor(mContext, R.color.black));
+//                                    itemHolder.si.setTextColor(ContextCompat.getColor(mContext, R.color.ans_select));
+//                                }
+//
+//                                optionModel.setStatus("0");
+//                                quizFragment.quizListUpdate("0", question, position, questionType);
+//                            }
+//                        }
+//                    }
+//                });
 
 
                 break;
@@ -215,12 +211,12 @@ public class AnsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         notifyItemInserted(mValues.size() - 1);
     }
 
-    public void addAllData(List<Option> moveResults, int questionCount, String type) {
+    public void addAllData(List<Option> moveResults) {
         for (Option result : moveResults) {
             add(result);
         }
-        question = questionCount;
-        questionType = type;
+//        question = questionCount;
+//        questionType = type;
     }
 
     public void remove(Option r) {
