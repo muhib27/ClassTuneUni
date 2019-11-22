@@ -30,6 +30,7 @@ import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
 import com.classtune.classtuneuni.utils.NetworkConnection;
 import com.classtune.classtuneuni.utils.UIHelper;
+import com.classtune.classtuneuni.utils.URLHelper;
 import com.google.gson.JsonElement;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -134,7 +135,7 @@ public class MorePageFragment extends Fragment implements View.OnClickListener {
 
         if(!AppSharedPreference.getUserImage().isEmpty()) {
             Glide.with(getActivity())
-                    .load(BASE_URL + AppSharedPreference.getUserImage())
+                    .load(URLHelper.BASE_URL + AppSharedPreference.getUserImage())
                     //.load("http://via.placeholder.com/300.png")
                     .listener(new RequestListener<Drawable>() {
                         @Override

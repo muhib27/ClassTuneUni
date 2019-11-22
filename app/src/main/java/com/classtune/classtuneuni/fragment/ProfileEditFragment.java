@@ -47,6 +47,7 @@ import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
 import com.classtune.classtuneuni.utils.NetworkConnection;
 import com.classtune.classtuneuni.utils.UIHelper;
+import com.classtune.classtuneuni.utils.URLHelper;
 import com.google.gson.JsonElement;
 import com.hbb20.CountryCodePicker;
 import com.vincent.filepicker.Constant;
@@ -147,7 +148,7 @@ public class ProfileEditFragment extends Fragment implements View.OnClickListene
 
         if(getActivity()!=null)
         Glide.with(getActivity())
-                .load(BASE_URL + AppSharedPreference.getUserImage())
+                .load(URLHelper.BASE_URL + AppSharedPreference.getUserImage())
                 .apply(new RequestOptions()
                         .placeholder(R.drawable.news_poster)
                         .fitCenter())

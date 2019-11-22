@@ -268,7 +268,7 @@ public class ResourseFragment extends Fragment implements MaterialSearchBar.OnSe
             Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
             return;
         }
-        uiHelper.showLoadingDialog("Please wait...");
+       // uiHelper.showLoadingDialog("Please wait...");
 
         // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
         RetrofitApiClient.getApiInterfaceWithId().getSubjectResource(AppSharedPreference.getApiKey(), globalOfferedCourseSectionId, currentPage, search)
@@ -283,7 +283,7 @@ public class ResourseFragment extends Fragment implements MaterialSearchBar.OnSe
 
                     @Override
                     public void onNext(Response<ResourceResponse> value) {
-                        uiHelper.dismissLoadingDialog();
+                       // uiHelper.dismissLoadingDialog();
 
                         ResourceResponse resourceResponse = value.body();
                        // resourceAdapter.clear();
@@ -308,13 +308,13 @@ public class ResourseFragment extends Fragment implements MaterialSearchBar.OnSe
                     public void onError(Throwable e) {
 
                         Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
-                        uiHelper.dismissLoadingDialog();
+                        //uiHelper.dismissLoadingDialog();
                     }
 
                     @Override
                     public void onComplete() {
 //                        progressDialog.dismiss();
-                        uiHelper.dismissLoadingDialog();
+                       // uiHelper.dismissLoadingDialog();
                     }
                 });
 

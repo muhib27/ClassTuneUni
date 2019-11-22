@@ -1,18 +1,27 @@
 package com.classtune.classtuneuni.fragment;
 
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.classtune.classtuneuni.R;
+import com.classtune.classtuneuni.utils.AppSharedPreference;
+import com.classtune.classtuneuni.utils.URLHelper;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -71,6 +80,45 @@ public class QuizScoreFragment extends Fragment implements View.OnClickListener 
         marks.setText(String.valueOf(obtained));
         quizNo.setText(quizName);
         subject.setText(subjectName);
+
+        if(!AppSharedPreference.getUserImage().isEmpty()) {
+            Glide.with(getActivity())
+                    .load(URLHelper.BASE_URL + AppSharedPreference.getUserImage())
+                    //.load("http://via.placeholder.com/300.png")
+                    .listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            // log exception
+                            Log.e("TAG", "Error loading image", e);
+                            return false; // important to return false so the error placeholder can be placed
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            return false;
+                        }
+                    })
+                    .into(profile_image);
+        }
+        else {
+            Glide.with(getActivity())
+                    .load(R.drawable.avatar)
+                    //.load("http://via.placeholder.com/300.png")
+                    .listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            // log exception
+                            Log.e("TAG", "Error loading image", e);
+                            return false; // important to return false so the error placeholder can be placed
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            return false;
+                        }
+                    })
+                    .into(profile_image);
+        }
 
     }
 

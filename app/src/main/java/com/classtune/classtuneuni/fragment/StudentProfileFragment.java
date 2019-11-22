@@ -39,6 +39,7 @@ import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
 import com.classtune.classtuneuni.utils.NetworkConnection;
 import com.classtune.classtuneuni.utils.UIHelper;
+import com.classtune.classtuneuni.utils.URLHelper;
 import com.classtune.classtuneuni.utils.VerticalSpaceItemDecoration;
 import com.google.gson.JsonElement;
 
@@ -109,7 +110,7 @@ public class StudentProfileFragment extends Fragment implements StProfileInfoAda
 
         if(!AppSharedPreference.getUserImage().isEmpty()) {
             Glide.with(getActivity())
-                    .load(BASE_URL + AppSharedPreference.getUserImage())
+                    .load(URLHelper.BASE_URL + AppSharedPreference.getUserImage())
                     //.load("http://via.placeholder.com/300.png")
                     .listener(new RequestListener<Drawable>() {
                         @Override

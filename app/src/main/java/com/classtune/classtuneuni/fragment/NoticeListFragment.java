@@ -315,7 +315,7 @@ public class NoticeListFragment extends Fragment implements View.OnClickListener
             Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
             return;
         }
-        uiHelper.showLoadingDialog("Please wait...");
+       // uiHelper.showLoadingDialog("Please wait...");
 
         // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
         RetrofitApiClient.getApiInterfaceWithId().getStudentNitceList(AppSharedPreference.getApiKey(), currentPage)
@@ -330,10 +330,10 @@ public class NoticeListFragment extends Fragment implements View.OnClickListener
 
                     @Override
                     public void onNext(Response<NoticeResonse> value) {
-                        uiHelper.dismissLoadingDialog();
+                        //uiHelper.dismissLoadingDialog();
 
                         NoticeResonse noticeResonse = value.body();
-                        noticeAdapterNew.clear();
+
                         if (noticeResonse.getStatus().getCode() == 200) {
 
                             noticeAdapterNew.removeLoadingFooter();
@@ -359,22 +359,22 @@ public class NoticeListFragment extends Fragment implements View.OnClickListener
 //                            Log.v("tt", noticeList.toString());
                             // Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
                         } else {
-                            noticeAdapterNew.clear();
+
                             //Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        noticeAdapterNew.clear();
+
                         //Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
-                        uiHelper.dismissLoadingDialog();
+                        //uiHelper.dismissLoadingDialog();
                     }
 
                     @Override
                     public void onComplete() {
 //                        progressDialog.dismiss();
-                        uiHelper.dismissLoadingDialog();
+                        //uiHelper.dismissLoadingDialog();
                     }
                 });
 
