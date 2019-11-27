@@ -160,7 +160,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 //                        Wrapper wrapper = GsonParser.getInstance().parseServerResponse2(
 //                                value.body());
 
-                        if (loginApiModel.getStatus().getCode() != null && loginApiModel.getStatus().getCode() == 200) {
+                        if (loginApiModel!=null && loginApiModel.getStatus().getCode() != null && loginApiModel.getStatus().getCode() == 200) {
                             //    passwordChangeDialog();
 
                             AppSharedPreference.setUserNameAndPassword(loginApiModel.getData().getUserData().getId(), loginApiModel.getData().getUserData().getEmail(), password, loginApiModel.getData().getApiKey(), rememberMe.isChecked(), loginApiModel.getData().getUserData().getUserType(), loginApiModel.getData().getUserData().getImage(), loginApiModel.getData().getUserData().getName(), loginApiModel.getData().getUserData().getStudentId(), loginApiModel.getData().getUserData().getMobile());

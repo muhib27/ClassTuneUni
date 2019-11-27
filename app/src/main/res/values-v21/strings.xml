@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="login">Login</string>
-    <string name="register">Register</string>
+    <string name="login">Sign In</string>
+    <string name="register">Sign Up</string>
     <string name="hint_email">Enter Your Email</string>
     <string name="remember_me">Remember Me</string>
     <string name="register_here">Register Here</string>
@@ -10,7 +10,7 @@
     <string name="hint_name">Enter Your Name</string>
     <string name="hint_con_password">Confirm Password</string>
     <string name="terms_con"><![CDATA[Terms & Conditions]]></string>
-    <string name="agree_with_the">Agree with the</string>
+    <string name="agree_with_the">I Agree with the</string>
     <string name="continue_text">Continue</string>
     <string name="hint_uni_name">Enter University Name</string>
 </resources>

@@ -11,6 +11,10 @@ public class RegisTrationResponse {
     @Expose
     private CommonStatus status;
 
+    @SerializedName("error_message")
+    @Expose
+    private String errorMessage;
+
     @SerializedName("data")
     @Expose
     private RegData data;
@@ -40,5 +44,13 @@ public class RegisTrationResponse {
 
     public void setCourseCount(String courseCount) {
         this.courseCount = courseCount;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 }

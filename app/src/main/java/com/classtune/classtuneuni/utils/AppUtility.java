@@ -572,4 +572,17 @@ public class AppUtility {
 
 		return result;
 	}
+
+	public static String timeTaken(String myTime) {
+
+		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+		Date date = null;
+		try {
+			date = sdf.parse(myTime);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		String formattedTime = sdf.format(date);
+		return formattedTime;
+	}
 }

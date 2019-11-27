@@ -60,6 +60,9 @@ public class QuizQuestions extends ViewModel {
     @SerializedName("questions")
     @Expose
     private List<Question> questions = null;
+    @SerializedName("taken_time")
+    @Expose
+    private String takenTime;
 
     public MutableLiveData<QuizQuestions> getQuestionMutableLiveData() {
         return questionMutableLiveData;
@@ -199,5 +202,13 @@ public class QuizQuestions extends ViewModel {
 
     public void setParticipatedBefore(String participatedBefore) {
         this.participatedBefore = participatedBefore;
+    }
+
+    public String getTakenTime() {
+        return takenTime;
+    }
+
+    public void setTakenTime(String takenTime) {
+        this.takenTime = takenTime;
     }
 }

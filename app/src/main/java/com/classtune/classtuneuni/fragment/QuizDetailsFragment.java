@@ -29,7 +29,10 @@ import com.classtune.classtuneuni.utils.NetworkConnection;
 import com.classtune.classtuneuni.utils.UIHelper;
 import com.google.gson.Gson;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Observer;
@@ -45,7 +48,7 @@ public class QuizDetailsFragment extends Fragment implements View.OnClickListene
 
     private String id = "";
     UIHelper uiHelper;
-    private TextView subject, quizName, totalQuestion, totalMarks, timer;
+    private TextView subject, quizName, totalQuestion, totalMarks, timer, timeTv;
     private Button start, viewDetails;
     private List<Question> quizQuestionsList;
     QuizQuestions model;
@@ -94,6 +97,7 @@ public class QuizDetailsFragment extends Fragment implements View.OnClickListene
         totalQuestion = view.findViewById(R.id.totalQuestion);
         totalMarks = view.findViewById(R.id.totalMarks);
         timer = view.findViewById(R.id.timer);
+        timeTv= view.findViewById(R.id.timeTv);
 
         start = view.findViewById(R.id.start);
         start.setOnClickListener(this);
@@ -274,11 +278,17 @@ public class QuizDetailsFragment extends Fragment implements View.OnClickListene
                 String text = "You obtained " + quizQuestions.getObtainedMarks() + " out of " + quizQuestions.getTotalMarks();
                 totalMarks.setText(text);
             }
+            if(quizQuestions.getTakenTime()!=null ){
+                timeTv.setText("Time Taken");
+               timer.setText(quizQuestions.getTakenTime());
+            }
         }
         else
             viewDetails.setVisibility(View.GONE);
 
     }
+
+
 
     private void gotoFragment(Fragment fragment, String tag) {
         // load fragment

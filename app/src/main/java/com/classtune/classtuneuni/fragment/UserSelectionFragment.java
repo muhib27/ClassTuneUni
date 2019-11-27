@@ -65,7 +65,7 @@ public class UserSelectionFragment extends Fragment implements View.OnClickListe
         fragment.setArguments(bundle);
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.loginContainer, fragment, tag);
-        //transaction.addToBackStack(null);
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 }

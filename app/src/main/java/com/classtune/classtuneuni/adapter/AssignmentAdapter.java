@@ -134,9 +134,10 @@ public class AssignmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         else
                             itemHolder.img.setImageDrawable(mContext.getResources().getDrawable(R.drawable.not_submited));
                     } else {
-                        itemHolder.present.setText("" + result.getSubmission());
-                        if (result.getMark() != null)
-                            itemHolder.total.setText("" + result.getMark());
+                        if(result.getMark()!=null)
+                        itemHolder.present.setText("" + result.getMark());
+                        if (result.getAssignment() != null &&  result.getAssignment().getMaxMarks()!=null)
+                            itemHolder.total.setText("" + result.getAssignment().getMaxMarks());
                     }
 
                     itemHolder.cardView.setOnClickListener(new View.OnClickListener() {

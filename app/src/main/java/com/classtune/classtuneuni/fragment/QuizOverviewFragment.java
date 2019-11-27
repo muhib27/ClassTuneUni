@@ -180,7 +180,11 @@ public class QuizOverviewFragment extends Fragment {
 
             marks.setText(WordtoSpan);
         }
-        if(quizQuestions.getDuration()!=null)
-            timer.setText(AppUtility.convertSecondsToHMS(Integer.parseInt(quizQuestions.getDuration()) * 60));
+//        if(quizQuestions.getDuration()!=null)
+//            timer.setText(AppUtility.convertSecondsToHMS(Integer.parseInt(quizQuestions.getDuration()) * 60));
+
+        if(quizQuestions.getTakenTime()!=null ){
+            timer.setText(quizQuestions.getTakenTime());
+        }
     }
 }

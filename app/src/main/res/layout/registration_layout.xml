@@ -360,6 +360,7 @@
                     android:text="@string/agree_with_the" />
 
                 <TextView
+
                     android:id="@+id/term"
                     android:textColor="@color/appColor"
                     android:layout_marginLeft="@dimen/size_5dp"

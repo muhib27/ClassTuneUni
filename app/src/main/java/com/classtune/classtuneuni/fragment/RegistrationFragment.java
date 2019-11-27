@@ -2,6 +2,7 @@ package com.classtune.classtuneuni.fragment;
 
 
 import android.app.Dialog;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -12,6 +13,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +36,7 @@ import android.widget.Toast;
 import com.classtune.classtuneuni.R;
 import com.classtune.classtuneuni.adapter.ListAdapter;
 import com.classtune.classtuneuni.assignment.Status;
+import com.classtune.classtuneuni.model.TermsConditionModel;
 import com.classtune.classtuneuni.model.UniversityModel;
 import com.classtune.classtuneuni.response.RegisTrationResponse;
 import com.classtune.classtuneuni.response.UniData;
@@ -66,6 +69,10 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     LinearLayout uniNameLl, stIdLl;
     CountryCodePicker ccp;
     private ImageView uniImg;
+    private String check = "";
+
+
+    TermsConditionModel termsConditionModel;
 
     private String username = "", password = "", email = "", repassword = "", userType = "", uniCode = "", uniname = "", studentid = "", phone = "", countryCode = "", totalPhone = "";
 
@@ -84,6 +91,11 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+        termsConditionModel = ViewModelProviders.of(getActivity()).get(TermsConditionModel.class);
+
+
         userType = getArguments().getString("userType");
         uiHelper = new UIHelper(getActivity());
 //        spinner = view.findViewById(R.id.spinner);
@@ -150,6 +162,21 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
             // uniNameLl.setVisibility(View.VISIBLE);
             stIdLl.setVisibility(View.GONE);
         }
+
+        termsConditionModel.getStringMutableLiveData().observe(getActivity(), new android.arch.lifecycle.Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                //Log.v("agree", s);
+              check = s;
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(check.equals("1"))
+            agreeCb.setChecked(true);
     }
 
     @Override
@@ -168,10 +195,21 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 //                gotoFragment(fragment, "uploadProfilePicFragment");
                 break;
             case R.id.term:
-//                fragment = new UploadProfilePicFragment();
-//                gotoFragment(fragment, "uploadProfilePicFragment");
+                fragment = new TermsAndConditionFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("key", "reg");
+                loadTermsCondition(fragment, "termsAndConditionFragment", bundle);
                 break;
         }
+    }
+
+    private void loadTermsCondition(Fragment fragment, String tag, Bundle bundle) {
+        // load fragment
+        fragment.setArguments(bundle);
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.loginContainer, fragment, tag);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
 
@@ -222,7 +260,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
                 else
                     totalPhone = countryCode + "-" + phone;
             } else
-                totalPhone = countryCode + "-" + phone;
+                totalPhone = "+" + countryCode + "-" + phone;
         }
 
 
@@ -317,7 +355,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 //        }
 
         if (!agreeCb.isChecked()) {
-            agreeCb.setError(getString(R.string.chckbox_needed));
+            termCondition.setError(getString(R.string.chckbox_needed));
             valid = false;
         }
         if (!valid) {
@@ -450,6 +488,8 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
                             showRegistrationDialog(getResources().getString(R.string.message_to_verify_reg), regisTrationResponse.getData().getApiKey());
                         } else
                             uiHelper.dismissLoadingDialog();
+                        if(regisTrationResponse.getErrorMessage()!=null )
+                        uiHelper.showMessageDialog(regisTrationResponse.getErrorMessage());
 //                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 //                            startActivity(intent);
 //                            finish();
@@ -463,6 +503,9 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 
                     @Override
                     public void onError(Throwable e) {
+
+                            uiHelper.showMessageDialog(e.getMessage());
+                        Log.v("reg", "failed");
 //                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 //                        startActivity(intent);
 //                        finish();

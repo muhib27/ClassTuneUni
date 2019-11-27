@@ -429,7 +429,8 @@ public class ProfileEditFragment extends Fragment implements View.OnClickListene
 //                            fragment = new SuccessFragment();
 //                            gotoFragment(fragment, "successFragment");
                             AppSharedPreference.setUserNameAndPassword(loginApiModel.getData().getId(),loginApiModel.getData().getEmail(), AppSharedPreference.getUserPassword(), AppSharedPreference.getApiKey(), AppSharedPreference.getRememberMe(), loginApiModel.getData().getUserType(), loginApiModel.getData().getImage(), loginApiModel.getData().getName(), loginApiModel.getData().getStudentId(), loginApiModel.getData().getMobile());
-
+                            if(getActivity()!=null)
+                                getActivity().getSupportFragmentManager().popBackStack();
                         } else {
                           //  Toast.makeText(getActivity(), "Image Upload failed", Toast.LENGTH_SHORT).show();
                         }

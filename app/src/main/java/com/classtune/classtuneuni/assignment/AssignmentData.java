@@ -1,11 +1,15 @@
 package com.classtune.classtuneuni.assignment;
 
+import com.classtune.classtuneuni.model.Submission;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 public class AssignmentData {
+    @SerializedName("submission")
+    @Expose
+    private Submission submission;
     @SerializedName("assignments")
     @Expose
     private List<Assignment> assignments = null;
@@ -49,5 +53,13 @@ public class AssignmentData {
 
     public void setTotalPage(Integer totalPage) {
         this.totalPage = totalPage;
+    }
+
+    public Submission getSubmission() {
+        return submission;
+    }
+
+    public void setSubmission(Submission submission) {
+        this.submission = submission;
     }
 }

@@ -66,7 +66,8 @@ public class PreLoginFragment extends Fragment implements View.OnClickListener {
             // load fragment
             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.loginContainer, fragment, tag);
-            //transaction.addToBackStack(null);
+            if(tag.equals("userSelectionFragment"))
+            transaction.addToBackStack(null);
             transaction.commit();
         }
 

@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rl_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/ans_select"
+    android:background="@drawable/quiz_result"
     android:layout_marginTop="-5dp"
     tools:context=".fragment.QuizScoreFragment">
     <!--android:background="@drawable/congrats_bg"-->
+    <ScrollView
+        android:scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,7 +25,7 @@
             android:layout_height="160dp"
             android:layout_centerInParent="true"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/size_50dp"
+            android:layout_marginTop="@dimen/margin_profile"
             android:background="@drawable/white_shadow"
             android:src="@drawable/avatar"
             app:civ_border_color="@color/ashColor"
@@ -34,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/size_20dp"
-            android:text="Congrats! Your Mark is"
+            android:text="Your Score is"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_24_sp"
             android:textStyle="bold" />
@@ -110,4 +114,5 @@
             android:textSize="@dimen/size_17sp"
             android:textStyle="bold" />
     </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</FrameLayout>

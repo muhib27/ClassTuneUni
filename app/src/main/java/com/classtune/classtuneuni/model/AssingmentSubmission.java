@@ -1,19 +1,15 @@
-package com.classtune.classtuneuni.assignment;
+package com.classtune.classtuneuni.model;
 
-import com.classtune.classtuneuni.model.CommonStatus;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class TeacherAssignmentResponse {
-
+public class AssingmentSubmission {
     @SerializedName("status")
     @Expose
     private CommonStatus status;
     @SerializedName("data")
     @Expose
-    private AssignmentData data;
-
-
+    private SubmissionData submissionData;
 
     public CommonStatus getStatus() {
         return status;
@@ -23,11 +19,11 @@ public class TeacherAssignmentResponse {
         this.status = status;
     }
 
-    public AssignmentData getData() {
-        return data;
+    public SubmissionData getSubmissionData() {
+        return submissionData;
     }
 
-    public void setData(AssignmentData data) {
-        this.data = data;
+    public void setSubmissionData(SubmissionData submissionData) {
+        this.submissionData = submissionData;
     }
 }

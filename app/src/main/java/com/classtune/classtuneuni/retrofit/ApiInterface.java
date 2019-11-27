@@ -22,6 +22,7 @@ import com.classtune.classtuneuni.home.StHomeHeaderRespons;
 import com.classtune.classtuneuni.home.StHomeRespons;
 import com.classtune.classtuneuni.message.StCourseMsgResponse;
 import com.classtune.classtuneuni.message.StSendMsgResponse;
+import com.classtune.classtuneuni.model.AssingmentSubmission;
 import com.classtune.classtuneuni.model.CommonStatus;
 import com.classtune.classtuneuni.model.LoginApiModel;
 import com.classtune.classtuneuni.model.UniversityModel;
@@ -239,6 +240,10 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST(URLHelper.STUDENT_ASSIGNMENT_DETAILS)
     Observable<Response<TeacherAssignmentResponse>> getStAssignmentDetails(@Field("api_key") String api_key, @Field("assignment_id") String assignment_id);
+
+    @FormUrlEncoded
+    @POST(URLHelper.STUDENT_ASSIGNMENT_SUBMISSION_VIEW)
+    Observable<Response<AssingmentSubmission>> getStAssignmentDetailsNew(@Field("api_key") String api_key, @Field("assignment_id") String assignment_id);
 
     @FormUrlEncoded
     @POST(URLHelper.STUDENT_SUBJECT_RESULT)

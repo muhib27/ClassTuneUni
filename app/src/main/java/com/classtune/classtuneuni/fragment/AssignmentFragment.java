@@ -256,13 +256,15 @@ public class AssignmentFragment extends Fragment implements AssignmentAdapter.It
                             assignmentAdapter.addAllData(assignmentList);
 //                            Log.v("tt", noticeList.toString());
                           //  Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
-                        } else
+                        } else {
+                            assignmentAdapter.clear();
                             Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        assignmentAdapter.clear();
                         Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
                         uiHelper.dismissLoadingDialog();
                     }

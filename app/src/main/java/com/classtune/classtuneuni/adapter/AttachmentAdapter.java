@@ -76,7 +76,13 @@ public class AttachmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         switch (getItemViewType(position)) {
             case ITEM:
                 final MovieVH itemHolder = (MovieVH) viewHolder;
-                itemHolder.name.setText(result.getName());
+                if(result.getUrl()!=null && result.getUrl().contains("/")){
+                    String token[] =result.getUrl().split("/");
+                    if(token.length>0){
+                        itemHolder.name.setText(token[token.length -1]);
+                    }
+                }
+
                 //itemHolder.download.setText(result.getUrl());
                 itemHolder.viewLl.setOnClickListener(new View.OnClickListener() {
                     @Override

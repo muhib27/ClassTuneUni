@@ -23,6 +23,7 @@ import com.classtune.classtuneuni.adapter.AttachmentAdapter;
 import com.classtune.classtuneuni.adapter.CourseListAdapter;
 import com.classtune.classtuneuni.assignment.AssinmentAttachment;
 import com.classtune.classtuneuni.assignment.TeacherAssignmentResponse;
+import com.classtune.classtuneuni.model.AssingmentSubmission;
 import com.classtune.classtuneuni.model.AttachmentModel;
 import com.classtune.classtuneuni.retrofit.RetrofitApiClient;
 import com.classtune.classtuneuni.utils.AppSharedPreference;
@@ -188,25 +189,25 @@ public class AssiDetailsViewFragment extends Fragment  implements View.OnClickLi
         uiHelper.showLoadingDialog("Please wait...");
 
         // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
-        RetrofitApiClient.getApiInterfaceWithId().getStAssignmentDetails(AppSharedPreference.getApiKey(), assignmentId)
+        RetrofitApiClient.getApiInterfaceWithId().getStAssignmentDetailsNew(AppSharedPreference.getApiKey(), assignmentId)
 
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Response<TeacherAssignmentResponse>>() {
+                .subscribe(new Observer<Response<AssingmentSubmission>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Response<TeacherAssignmentResponse> value) {
+                    public void onNext(Response<AssingmentSubmission> value) {
                         uiHelper.dismissLoadingDialog();
 
-                        TeacherAssignmentResponse teacherAssignmentResponse = value.body();
+                        AssingmentSubmission teacherAssignmentResponse = value.body();
                         if (teacherAssignmentResponse.getStatus().getCode() == 200) {
-                            populateData(teacherAssignmentResponse.getData().getAssignment().getAssignment().getDescription());
+                            populateData(teacherAssignmentResponse.getSubmissionData().getSubmission().getContent());
                             attachmentModelList = new ArrayList<>();
-                            attachmentModelList = teacherAssignmentResponse.getData().getAssignment().getAttachments();
+                            attachmentModelList = teacherAssignmentResponse.getSubmissionData().getAttachments();
 
                             attachmentAdapter.addAllData(attachmentModelList);
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="@dimen/size_10dp"
     tools:context=".fragment.MorePageFragment">
     <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
@@ -28,21 +28,21 @@
                 app:civ_border_width="2dp" />
 
             <LinearLayout
-                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:orientation="vertical"
                 android:padding="@dimen/size_10dp">
 
                 <TextView
                     android:id="@+id/name"
-                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/size_20dp"
                     android:text=""
                     android:textColor="@color/appColor"
-                    android:textSize="@dimen/size_20sp" />
+                    android:textSize="@dimen/size_20sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/studentId"
@@ -55,11 +55,11 @@
             </LinearLayout>
 
             <ImageView
-                android:layout_gravity="center"
                 android:id="@+id/edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-              android:padding="@dimen/size_10dp"
+                android:layout_gravity="center"
+                android:padding="@dimen/size_10dp"
                 android:src="@drawable/ic_edit_24dp" />
 
         </LinearLayout>
@@ -110,13 +110,14 @@
                 android:src="@drawable/next_icon" />
 
         </RelativeLayout>
+
         <View
-            android:layout_marginStart="@dimen/size_20dp"
-            android:layout_below="@+id/rl_2"
-            android:background="@color/menu_divider"
             android:id="@+id/v1"
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp"
+            android:layout_below="@+id/rl_2"
+            android:layout_marginStart="@dimen/size_20dp"
+            android:background="@color/menu_divider" />
 
         <RelativeLayout
             android:id="@+id/rl_3"
@@ -163,13 +164,14 @@
                 android:src="@drawable/next_icon" />
 
         </RelativeLayout>
+
         <View
-            android:layout_marginStart="@dimen/size_20dp"
-            android:layout_below="@+id/rl_3"
-            android:background="@color/menu_divider"
             android:id="@+id/v2"
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp"
+            android:layout_below="@+id/rl_3"
+            android:layout_marginStart="@dimen/size_20dp"
+            android:background="@color/menu_divider" />
 
         <RelativeLayout
             android:id="@+id/rl_4"
@@ -216,13 +218,14 @@
                 android:src="@drawable/next_icon" />
 
         </RelativeLayout>
+
         <View
-            android:layout_marginStart="@dimen/size_20dp"
-            android:layout_below="@+id/rl_4"
-            android:background="@color/menu_divider"
             android:id="@+id/v9"
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp"
+            android:layout_below="@+id/rl_4"
+            android:layout_marginStart="@dimen/size_20dp"
+            android:background="@color/menu_divider" />
 
         <RelativeLayout
             android:id="@+id/quizRl"
@@ -269,13 +272,14 @@
                 android:src="@drawable/next_icon" />
 
         </RelativeLayout>
+
         <View
-            android:layout_marginStart="@dimen/size_20dp"
-            android:layout_below="@+id/quizRl"
-            android:background="@color/menu_divider"
             android:id="@+id/v3"
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp"
+            android:layout_below="@+id/quizRl"
+            android:layout_marginStart="@dimen/size_20dp"
+            android:background="@color/menu_divider" />
 
         <RelativeLayout
             android:id="@+id/notice"
@@ -322,13 +326,14 @@
                 android:src="@drawable/next_icon" />
 
         </RelativeLayout>
+
         <View
-            android:layout_marginStart="@dimen/size_20dp"
-            android:layout_below="@+id/notice"
-            android:background="@color/menu_divider"
             android:id="@+id/v4"
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp"
+            android:layout_below="@+id/notice"
+            android:layout_marginStart="@dimen/size_20dp"
+            android:background="@color/menu_divider" />
 
         <RelativeLayout
             android:id="@+id/rl_6"
@@ -375,13 +380,14 @@
                 android:src="@drawable/next_icon" />
 
         </RelativeLayout>
+
         <View
-            android:layout_marginStart="@dimen/size_20dp"
-            android:layout_below="@+id/rl_6"
-            android:background="@color/menu_divider"
             android:id="@+id/v5"
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp"
+            android:layout_below="@+id/rl_6"
+            android:layout_marginStart="@dimen/size_20dp"
+            android:background="@color/menu_divider" />
 
         <RelativeLayout
             android:id="@+id/rl_7"
@@ -427,13 +433,15 @@
                 android:src="@drawable/next_icon" />
 
         </RelativeLayout>
+
         <View
-            android:layout_marginStart="@dimen/size_20dp"
-            android:layout_below="@+id/rl_7"
-            android:background="@color/menu_divider"
             android:id="@+id/v6"
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp"
+            android:layout_below="@+id/rl_7"
+            android:layout_marginStart="@dimen/size_20dp"
+            android:background="@color/menu_divider" />
+
         <RelativeLayout
             android:id="@+id/rl_8"
             android:layout_width="match_parent"
@@ -471,21 +479,23 @@
             </LinearLayout>
 
             <!--<ImageView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_alignParentEnd="true"-->
-                <!--android:layout_centerInParent="true"-->
-                <!--android:paddingEnd="@dimen/size_20dp"-->
-                <!--android:src="@drawable/next_icon" />-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:paddingEnd="@dimen/size_20dp"-->
+            <!--android:src="@drawable/next_icon" />-->
 
         </RelativeLayout>
+
         <View
-            android:layout_marginStart="@dimen/size_20dp"
-            android:layout_below="@+id/rl_8"
-            android:background="@color/menu_divider"
             android:id="@+id/v7"
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp"
+            android:layout_below="@+id/rl_8"
+            android:layout_marginStart="@dimen/size_20dp"
+            android:background="@color/menu_divider" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -503,14 +513,22 @@
                 android:textSize="@dimen/text_size_13_sp"
                 android:textStyle="normal" />
 
-            <TextView
+            <LinearLayout
+                android:id="@+id/termsCondition"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/size_20dp"
-                android:text="@string/erms_and_Conditions"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_size_13_sp"
-                android:textStyle="normal" />
+                android:layout_centerInParent="true"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/size_20dp"
+                    android:text="@string/erms_and_Conditions"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_13_sp"
+                    android:textStyle="normal" />
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"

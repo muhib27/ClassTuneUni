@@ -47,7 +47,7 @@
             android:id="@+id/answer"
             android:layout_marginTop="@dimen/size_20dp"
             android:padding="@dimen/size_8_dp"
-            android:background="@drawable/square_border_ash"
+            android:background="@drawable/square_border_b5_2px"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

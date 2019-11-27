@@ -20,6 +20,11 @@ android {
 //        sourceCompatibility JavaVersion.VERSION_1_8
 //        targetCompatibility JavaVersion.VERSION_1_8
 //    }
+    lintOptions {
+
+        checkReleaseBuilds false
+
+    }
 }
 
 dependencies {
@@ -63,13 +68,12 @@ dependencies {
     implementation 'com.vincent.filepicker:MultiTypeFilePicker:1.0.8'
     implementation 'com.github.clans:fab:1.6.4'
     implementation 'com.hbb20:ccp:2.2.3'
-    //https://stackoverflow.com/questions/53451036/how-to-create-a-dropdown-list-of-country-codes-for-phone-authentication
-//    implementation 'com.github.MdFarhanRaja:SearchableSpinner:2.0'
+
     implementation 'com.github.mancj:MaterialSearchBar:0.8.1'
-//    https://github.com/mancj/MaterialSearchBar
+
 
     implementation 'com.jaredrummler:material-spinner:1.3.1'
-    //https://github.com/jaredrummler/MaterialSpinner
+
 
     //lifecycle
     def lifecycle_version = "1.1.1"
@@ -78,5 +82,5 @@ dependencies {
 
 }
 apply plugin: 'com.google.gms.google-services'
-//googleServices.disableVersionCheck = true
+
 

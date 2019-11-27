@@ -8,7 +8,7 @@ public class URLHelper {
 
     public URLHelper() {
 	}
-	public static final String BASE_URL= "http://edoozz.com/";
+	public static final String BASE_URL= "https://www.edoozz.com/";
 	//public static final String BASE_URL= "http://192.168.3.43/";
 	//public static final String BASE_URL= "http://uni.edoozz.com/";
 	//public static final String BASE_URL = "http://192.168.0.68/edoozz/";
@@ -74,6 +74,7 @@ public class URLHelper {
 	public static final String STUDENT_EXAM_LIST = "exam_api/student_course_exams";
 
 	public static final String STUDENT_ASSIGNMENT_DETAILS = "assignment_api/student_view_assignment";
+	public static final String STUDENT_ASSIGNMENT_SUBMISSION_VIEW = "assignment_api/student_view_submission";
 
 	public static final String STUDENT_SUBJECT_RESULT = "exam_api/student_course_result";
 
