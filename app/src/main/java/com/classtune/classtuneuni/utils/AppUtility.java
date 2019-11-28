@@ -413,9 +413,13 @@ public class AppUtility {
 		else if(diffInDays == 1){
 			finalDay = "1 Day left";
 		}
-		else if(diffInDays<=0)
+		else if(diffInDays==0)
 		{
 			finalDay = "Today";
+		}
+		else if(diffInDays<0)
+		{
+			finalDay = "Expired";
 		}
 
 
